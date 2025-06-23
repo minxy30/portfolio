@@ -1,0 +1,290 @@
+body {
+  background-color: #fce6ca;
+  font-family: "Space Grotesk";
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0 2%;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  background-color: #ffc0cb;
+  border-top: 3px solid #ff1493;
+  border-bottom: 3px solid #ff1414;
+  flex-wrap: wrap;
+  z-index: 999;
+  transition: top 0.3s;
+}
+
+.fixed-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.cv {
+  display: flex;
+  text-align: center;
+  width: 60px;
+  background-color: #ffffff59;
+  border: 3px solid #000000;
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 7px;
+  box-shadow: 6px 2px 15px #ff000072;
+}
+
+.cv:hover {
+  background-color: #000000;
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  box-shadow: 0px 6px 9px #fb0000;
+}
+
+#MenuPrincipal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 99%;
+  padding: 1% 0;
+  font-family: "Quantico";
+}
+
+.opcMenu {
+  border: 3px solid #ffffff;
+  background-color: #ff899d;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 1% 5%;
+  margin: 0 3%;
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.opcMenu:hover {
+  background-color: #ff1493;
+}
+
+#portafolio-link {
+  position: relative;
+}
+
+#submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 45%;
+  flex-direction: column;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  z-index: 1000;
+  padding: 10px;
+  list-style: none;
+}
+
+.opcSubMenu {
+  background-color: #ffc0cb;
+  border: 2.5px solid #ff1493;
+  border-radius: 10px;
+  margin: 3px 0;
+  text-align: center;
+  padding: 5px;
+  width: 190px;
+}
+
+.opcSubMenu a {
+  display: block;
+  color: #000000;
+  font-weight: bold;
+}
+
+.opcSubMenu:hover {
+  background-color: #ffffff;
+  width: 215px;
+}
+
+#avatar {
+  display: flex; 
+  margin: 2% auto 1%;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.inner-container {
+  text-align: center;
+  height: 60px;
+}
+
+/* Máquina de escribir */
+.typing-container {
+    background-color: #ff899d;
+  display: inline-block;
+  font-family: 'Courier New';
+  font-size: 45px;
+  font-weight: bold;
+  border-right: 3px solid black;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #000;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #ff0000;
+  }
+}
+
+/* Ajuste para que el scroll no tape los títulos */
+#acerca-de-mi,
+#portafolio,
+#contacto {
+  scroll-margin-top: 150px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.highlight {
+  animation: flashHighlight 1.5s ease forwards;
+}
+
+@keyframes flashHighlight {
+  0%, 5% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.tituloSeccion {
+  font-family: fantasy;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+#presentacion {
+  width: 60%;
+  font-size: 19px;
+  text-align: justify;
+}
+
+.subtituloSeccion {
+  font-family: "Quantico";
+  font-size: 23px;
+  font-weight: bolder;
+  color: #ff0000;
+}
+
+#educacion {
+  list-style: none;
+}
+
+.contenedor-doble-columna {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.columna {
+  flex: 1 1 45%;
+  min-width: 300px;
+}
+
+#educacion, #experiencia {
+  padding-left: 0;
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .contenedor-doble-columna {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .columna {
+    width: 90%;
+  }
+}
+
+
+.viñeta {
+  font-weight: bold;
+  margin-left: 2%;
+}
+
+.subviñeta {
+  list-style: none;
+  margin-bottom: 1%;
+}
+
+.fecha {
+  font-size: 15px;
+  color: #813400;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#btn-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  background-color: #ff899d;
+  color: white;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  font-size: 25px;
+  padding: 10px 15px;
+  cursor: pointer;
+  box-shadow: 0 5px 19px rgba(0, 0, 0, 0.579);
+  display: none; /* Oculto al principio */
+  transition: all 0.5s ease;
+}
+
+#btn-top:hover {
+  background-color: #fb0000;
+  border-color: #000000;
+}
