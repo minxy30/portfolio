@@ -255,18 +255,6 @@ html {
   margin-left: 10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 #btn-top {
   position: fixed;
   bottom: 30px;
@@ -287,4 +275,44 @@ html {
 #btn-top:hover {
   background-color: #fb0000;
   border-color: #000000;
+}
+
+.subtituloSeccionherramientas {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Quantico";
+  font-size: 23px;
+  font-weight: bolder;
+  color: #ff0000;
+}
+
+#contenedorHerramientas {
+  padding: 20px;
+}
+
+.filaHerramientas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px; /* Espacio entre herramientas */
+}
+
+.herramienta {
+  text-align: center;
+  width: 120px;
+}
+
+.iconoHerramienta {
+  width: 60px;
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.listaSoftSkills {
+  list-style-type: disc;
+  padding-left: 30px;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
 }
