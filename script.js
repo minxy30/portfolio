@@ -4,6 +4,35 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo(0, 0);
   }
 
+   const items = document.querySelectorAll('.item');
+  let index = 0;
+
+  function showItem(i) {
+    items.forEach((item, idx) => {
+      item.style.display = idx === i ? 'block' : 'none';
+    });
+  }
+
+  // Mostrar el primero
+  showItem(index);
+
+  // Botones manuales
+  document.getElementById('prev').onclick = () => {
+    index = (index - 1 + items.length) % items.length;
+    showItem(index);
+  };
+
+  document.getElementById('next').onclick = () => {
+    index = (index + 1) % items.length;
+    showItem(index);
+  };
+
+  // Auto-slide cada 5s
+  setInterval(() => {
+    index = (index + 1) % items.length;
+    showItem(index);
+  }, 5000);
+
   // Referencias a elementos importantes
   const portafolioDiv = document.getElementById("portafolio-link");
   const submenu = document.getElementById("submenu");
@@ -122,3 +151,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
