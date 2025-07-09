@@ -4,35 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo(0, 0);
   }
 
-   const items = document.querySelectorAll('.item');
-  let index = 0;
-
-  function showItem(i) {
-    items.forEach((item, idx) => {
-      item.style.display = idx === i ? 'block' : 'none';
-    });
-  }
-
-  // Mostrar el primero
-  showItem(index);
-
-  // Botones manuales
-  document.getElementById('prev').onclick = () => {
-    index = (index - 1 + items.length) % items.length;
-    showItem(index);
-  };
-
-  document.getElementById('next').onclick = () => {
-    index = (index + 1) % items.length;
-    showItem(index);
-  };
-
-  // Auto-slide cada 5s
-  setInterval(() => {
-    index = (index + 1) % items.length;
-    showItem(index);
-  }, 5000);
-
   // Referencias a elementos importantes
   const portafolioDiv = document.getElementById("portafolio-link");
   const submenu = document.getElementById("submenu");
@@ -41,9 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ✅ Mostrar/ocultar el submenú al hacer clic en "Portafolio"
   portafolioDiv.addEventListener("click", function (e) {
-    // Si no diste clic en un <a>, se despliega el menú
     if (!e.target.closest("a")) {
-      e.preventDefault(); // evita que haga scroll por error
+      e.preventDefault();
       submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
     }
   });
@@ -65,13 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // ✅ Fija la barra de navegación al hacer scroll
   function manejarScroll() {
     if (window.scrollY >= 0) {
-      // Añade clase para fijar nav y ajusta el padding superior del body
       if (!nav.classList.contains("fixed-nav")) {
         nav.classList.add("fixed-nav");
         document.body.style.paddingTop = nav.offsetHeight + "px";
       }
     } else {
-      // Si estás arriba de todo, quita el nav fijo
       if (nav.classList.contains("fixed-nav")) {
         nav.classList.remove("fixed-nav");
         document.body.style.paddingTop = "0";
@@ -87,10 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Ejecutar función al hacer scroll
   window.addEventListener("scroll", manejarScroll);
 
-  // ✅ Botón para volver arriba con scroll suave
+  // ✅ Botón para volver arriba
   btnTop.addEventListener("click", () => {
     window.scrollTo({
       top: 0,
@@ -99,56 +66,101 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ✅ Animación tipo máquina de escribir
-  const texts = ["Yazmin Moreno", "minxy"]; // Textos a mostrar
-  let currentTextIndex = 0; // Índice del texto actual
-  let currentCharIndex = 0; // Cuántas letras han aparecido
-  let isDeleting = false;   // ¿Está borrando?
+  const texts = ["Yazmin Moreno", "minxy"];
+  let currentTextIndex = 0;
+  let currentCharIndex = 0;
+  let isDeleting = false;
   const element = document.getElementById("typewriter");
-  const typingSpeed = 100;  // Velocidad al escribir
-  const deletingSpeed = 50; // Velocidad al borrar
-  const pauseBetween = 1500; // Pausa entre un texto y otro
+  const typingSpeed = 100;
+  const deletingSpeed = 50;
+  const pauseBetween = 1500;
 
   function type() {
-    const text = texts[currentTextIndex]; // Texto actual
+    const text = texts[currentTextIndex];
 
     if (isDeleting) {
-      currentCharIndex--; // Borrando letras
+      currentCharIndex--;
       element.textContent = text.substring(0, currentCharIndex);
       if (currentCharIndex === 0) {
         isDeleting = false;
-        currentTextIndex = (currentTextIndex + 1) % texts.length; // Cambia al siguiente texto
+        currentTextIndex = (currentTextIndex + 1) % texts.length;
         setTimeout(type, typingSpeed);
         return;
       }
     } else {
-      currentCharIndex++; // Escribiendo letras
+      currentCharIndex++;
       element.textContent = text.substring(0, currentCharIndex);
       if (currentCharIndex === text.length) {
-        isDeleting = true; // Comienza a borrar después de completar
+        isDeleting = true;
         setTimeout(type, pauseBetween);
         return;
       }
     }
 
-    // Llama a la función de nuevo con velocidad variable
     setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
   }
 
-  type(); // Inicia la animación de escritura
+  type();
 
   // ✅ Efecto de resaltado al hacer clic en una sección del menú
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function () {
-      const targetId = this.getAttribute('href').substring(1); // Quita el "#"
-      const targetElement = document.getElementById(targetId); // Busca el elemento
-
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        // Reinicia la animación si ya tenía la clase
         targetElement.classList.remove('highlight');
-        void targetElement.offsetWidth; // Forzar reflujo
+        void targetElement.offsetWidth;
         targetElement.classList.add('highlight');
       }
     });
   });
-});
 
+  // ✅ Carrusel de fotos (Fotografía y edición)
+  const items = document.querySelectorAll('.item');
+  let index = 0;
+
+  function showItem(i) {
+    items.forEach((item, idx) => {
+      item.style.display = idx === i ? 'block' : 'none';
+    });
+  }
+
+  showItem(index);
+
+  document.getElementById('prev').onclick = () => {
+    index = (index - 1 + items.length) % items.length;
+    showItem(index);
+  };
+
+  document.getElementById('next').onclick = () => {
+    index = (index + 1) % items.length;
+    showItem(index);
+  };
+
+  setInterval(() => {
+    index = (index + 1) % items.length;
+    showItem(index);
+  }, 4000);
+
+  // ✅ Carrusel de modelado 3D (Modelado en Maya)
+  const items3d = document.querySelectorAll('.item3d');
+  let index3d = 0;
+
+  function showItem3d(i) {
+    items3d.forEach((item, idx) => {
+      item.style.display = idx === i ? 'block' : 'none';
+    });
+  }
+
+  showItem3d(index3d);
+
+  document.getElementById('prev3d').onclick = () => {
+    index3d = (index3d - 1 + items3d.length) % items3d.length;
+    showItem3d(index3d);
+  };
+
+  document.getElementById('next3d').onclick = () => {
+    index3d = (index3d + 1) % items3d.length;
+    showItem3d(index3d);
+  };
+});

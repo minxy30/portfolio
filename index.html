@@ -96,7 +96,7 @@
 <div id="contenedorHerramientas">
   <h3 class="subtituloSeccionherramientas">Herramientas digitales</h3>
 
-  <div class="filaHerramientas">
+    <div class="filaHerramientas">
     <div class="herramienta">
       <img src="herramientas/illustrator.png" alt="Adobe Illustrator" class="iconoHerramienta">
       <p>Adobe Illustrator ★★★☆☆</p>
@@ -185,12 +185,10 @@
     <img src="herramientas/processing.png" alt="Processing" class="iconoHerramienta">
     <p>Processing ★★★☆☆</p>
   </div>
-
+    </div>
 </div>
 
-
 <div class="subtituloSeccion">Soft skills</div>
-
 <ul class="listaSoftSkills">
   <li>Resolución de problemas</li>
   <li>Trabajo en equipo</li>
@@ -203,7 +201,7 @@
 </ul>
 
 
-            <div  id="portafolio">
+<div  id="portafolio">
 
                 <div class="tituloSeccion">Portafolio</div>
 
@@ -211,9 +209,44 @@
                     <div class="subtituloSeccion">Diseño gráfico</div>
                 </div>
 
-                <div id="modelado-3d">
-                    <div class="subtituloSeccion">Modelado 3D</div>
-                </div>
+                <div id="modelado-3d" style="height: 400px;">
+                        <div class="subtituloSeccion">Modelado 3D en Maya</div>
+                        <div class="carrusel-wrapper">
+                            
+                            <!-- Botón anterior -->
+                            <button class="carrusel-btn" id="prev3d">&#10094;</button>
+
+                            <!-- Contenedor del carrusel -->
+                            <div class="carrusel-iframe" id="carrusel3d">
+                            <div class="item3d" style="display:block;">
+                                <img class="fotos3d" src="imgs_projects/Render1HD.jpg" alt="Render 1 modelado 3D" width="80%">
+                                <div class="titulo-foto">Render 3D - Personaje Lumi</div>
+                            </div>
+                            <div class="item3d" style="display:none;">
+                                <img class="fotos3d" src="imgs_projects/Render2HD.jpg" alt="Render 2 modelado 3D" width="80%">
+                                <div class="titulo-foto">Render 3D - Personaje Lumi</div>
+                            </div>
+                            <div class="item3d" style="display:none;">
+                                <img class="fotos3d" src="imgs_projects/frente.png" alt="Render frente" height="300px">
+                                <div class="titulo-foto">Render 3D - Frente</div>
+                            </div>
+                            <div class="item3d" style="display:none;">
+                                <img class="fotos3d" src="imgs_projects/atrasLado.png" alt="Render atrás y lado" height="270px">
+                                <div class="titulo-foto">Render 3D - Atrás y lado</div>
+                            </div>
+                            <div class="item3d" style="display:none;">
+                                <img class="fotos3d" src="imgs_projects/abajo.png" alt="Render abajo" height="270px">
+                                <div class="titulo-foto">Render 3D - Abajo</div>
+                            </div>
+                     </div>
+
+    <!-- Botón siguiente -->
+    <button class="carrusel-btn" id="next3d">&#10095;</button>
+
+  </div>
+</div>
+
+
 
                 <div id="foto">
                 <div class="subtituloSeccion">Fotografía y edición</div>
@@ -274,9 +307,10 @@
                 <div id="ux-ui">
                     <div class="subtituloSeccion">UX/UI y Desarrollo web</div>
                 </div>
-            </div>
-        </div> 
-        <button id="btn-top" title="Volver arriba">⬆</button>
+                </div>
+
+
+<button id="btn-top" title="Volver arriba">⬆</button>
     </section>
     <footer>
         <div id="contacto">
