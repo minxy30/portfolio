@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazmin Moreno - Portafolio Profesional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="logo">YM<span class="dot">.</span></div>
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <a href="#contacto">
+                        <button class="contact-btn">Contactar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="floating-cara-gif is-visible" id="floatingCaraGif" role="img" aria-label="Sticker flotante de Yazmin">
+        <img src="images/CaraYaz.gif" alt="CaraYaz">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container"> 
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">INGENIERA EN COMUNICACIÓN MULTIMEDIA</div>
+                    <h1 class="hero-title">
+                        <span class="typewriter" id="typewriter">Yazmin</span>
+                    </h1>
+                    <h2 class="hero-subtitle">Moreno</h2>
+                    <p class="hero-description">
+                        Creadora de contenido multimedia apasionada por la narrativa visual y la tecnología. Mi enfoque combina la ejecución creativa, desde la conceptualización hasta la post-producción e inclusión de IA.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary">Ver Proyectos</button>
+                        <a href="CV/CV Yazmin.pdf" target="_blank" alt="CV Yazmin Moreno">
+                            <button class="btn btn-secondary">Ver CV</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="image-frame">
+                        <img src="images/profiles 1.png" alt="Foto Yazmin Moreno" loading="lazy">
+                        <img src="images/profiles 2.png" alt="Foto Yazmin Moreno" loading="lazy">
+                        <img src="images/profiles 3.png" alt="Foto Yazmin Moreno" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee 1 -->
+    <div class="marquee-section">
+        <div class="marquee">
+            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
+            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
+            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>Proyectos</h2>
+                <div class="header-line"></div>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <a class="project-card" href="video.html" target="_self" rel="noopener">
+                    <div class="project-image">
+                        <video
+                            class="project-cover-video"
+                            autoplay
+                            loop
+                            muted
+                            playsinline
+                            webkit-playsinline
+                            preload="metadata"
+                            tabindex="-1"
+                            aria-hidden="true"
+                            disablepictureinpicture
+                            disableremoteplayback
+                        >
+                            <source src="videos/PortadaVideo.mp4" type="video/mp4">
+                        </video>
+                        <div class="project-overlay">
+                            <span class="project-category">Producción Audiovisual</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Producción y Edición de Video</h3>
+                        <p>Edición de video vertical y de larga duración e integración de IA.</p>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a class="project-card" href="social-media.html" target="_self" rel="noopener">
+                    <div class="project-image">
+                        <img src="images/project-advertising.jpg" alt="Proyectos de Social Media Design" loading="lazy">
+                        <div class="project-overlay">
+                            <span class="project-category">Diseño Visual</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Social Media Design</h3>
+                        <p>Materiales gráficos, campañas y parrillas de contenido para redes sociales.</p>
+                    </div>
+                </a>
+
+                <!-- Project 3 -->
+                <a class="project-card" href="copywriting.html" target="_self" rel="noopener">
+                    <div class="project-image">
+                        <img src="images/project-webdev.jpg" alt="Proyectos de redacción de artículos" loading="lazy">
+                        <div class="project-overlay">
+                            <span class="project-category">Redacción de artículos</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Copywriting & Blogs</h3>
+                        <p>Redacción con optimización SEO y administración de contenidos</p>
+                    </div>
+                </a>
+
+                <!-- Project 4 -->
+                <a class="project-card" href="fotografia.html" target="_self" rel="noopener">
+                    <div class="project-image">
+                        <img src="images/project-audiovisual.jpg" alt="Proyectos Fotográficos" loading="lazy">
+                        <div class="project-overlay">
+                            <span class="project-category">Fotografías y Retoques</span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Fotografía y Edición de imagen</h3>
+                        <p>Captura y post-producción digital.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee 2 -->
+    <div class="marquee-section">
+        <div class="marquee">
+            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
+            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
+            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <section class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>Software & Herramientas</h2>
+                <div class="header-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/500px-Adobe_Illustrator_CC_icon.svg.png" alt="Adobe Illustrator" class="icon-svg">
+                    </div>
+                    <h3>Adobe Illustrator</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/1280px-Adobe_Photoshop_CC_icon.svg.png" alt="Adobe Photoshop" class="icon-svg">
+                    </div>
+                    <h3>Adobe Photoshop</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://www.edigitalagency.com.au/wp-content/uploads/Canva-logo-PNG-large-size.png" alt="Canva" class="icon-svg">
+                    </div>
+                    <h3>Canva</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/960px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="Adobe Premiere Pro" class="icon-svg">
+                    </div>
+                    <h3>Adobe Premiere Pro</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/3840px-Adobe_After_Effects_CC_icon.svg.png" alt="Adobe After Effects" class="icon-svg">
+                    </div>
+                    <h3>Adobe After Effects</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNq_5QZa8DMQ6JEtuMlOFw3c85Ib_9nXCtZw&s" alt="AI" class="icon-svg">
+                    </div>
+                    <h3>Flow</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D0BAQF8r_dZaRLVIA/company-logo_200_200/company-logo_200_200/0/1712047253151/veedhq_logo?e=2147483647&v=beta&t=0TDBCi7-xGrPxYUGn4gpSCp0mq0ZP6dBmo5Aa9SQXIU" alt="Veed.io" class="icon-svg">
+                    </div>
+                    <h3>Veed.io</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://miro.medium.com/v2/0*H5WYKvCoJdNF5lRG.png" alt="Kling AI" class="icon-svg">
+                    </div>
+                    <h3>Kling AI</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://api.iconify.design/logos:visual-studio-code.svg" alt="VS Code" class="icon-svg">
+                    </div>
+                    <h3>VS Code</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <img src="https://api.iconify.design/logos:wordpress-icon.svg" alt="WordPress" class="icon-svg">
+                    </div>
+                    <h3>WordPress</h3>
+                    <div class="skill-dots">
+                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee 3 -->
+    <div class="marquee-section">
+        <div class="marquee">
+            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
+            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
+            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="container">
+            <h2>¿Creamos algo increíble?</h2>
+            <p>Estoy disponible para proyectos freelance y colaboraciones.</p>
+            <div class="contact-buttons">
+                <button class="btn btn-contact whatsapp" type="button" id="btnWhatsApp">WhatsApp</button>
+                    <script>
+                    document.getElementById("btnWhatsApp").addEventListener("click", () => {
+                        window.open("https://wa.me/5657513910", "_self", "noopener");
+                    });
+                    </script>
+
+                <button class="btn btn-contact email" type="button" id="btnEmail">Enviar Email</button>
+                    <script>
+                    document.getElementById("btnEmail").addEventListener("click", () => {
+                        const to = encodeURIComponent("yazmin.moreno374@gmail.com");
+                        const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}`;
+                        window.open(url, "_self", "noopener");
+                    });
+                    </script>
+
+                <a href="CV/CV Yazmin.pdf" target="_blank" alt="CV Yazmin Moreno">
+                    <button class="btn btn-contact">Ver CV</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Yazmin Moreno. Todos los derechos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Behance</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImage" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <span class="modal-category" id="modalCategory"></span>
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalDescription"></p>
+                    <div class="modal-section">
+                        <h4>Mi Rol</h4>
+                        <p id="modalRole"></p>
+                    </div>
+                    <div class="modal-section">
+                        <h4>Herramientas</h4>
+                        <div class="modal-tools" id="modalTools"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">⇡</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
