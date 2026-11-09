@@ -1,369 +1,132 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazmin Moreno - Portafolio Profesional</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="theme-color" content="#f5f2eb"/>
+  <meta name="description" content="Yazmin Moreno — edición de video, postproducción y producción audiovisual para entretenimiento y marcas. Portafolio seleccionado 2026."/>
+  <title>Yazmin Moreno — Edición & Producción Audiovisual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <div class="logo">YM<span class="dot">.</span></div>
-                <div class="nav-controls">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                    </button>
-                    <a href="#contacto">
-                        <button class="contact-btn">Contactar</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+  <a href="#proyectos" class="skip-link">Ir a proyectos</a>
+  <div class="site-shell" id="top">
+    <header class="site-header" id="header">
+      <a class="brand" href="#top" aria-label="Inicio, Yazmin Moreno">YM<span>✳</span></a>
+      <nav class="nav" aria-label="Menú principal">
+        <a href="#proyectos">Proyectos <span class="nav-num">05</span></a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <button class="theme-switch" id="theme-switch" type="button" aria-label="Alternar modo oscuro" title="Cambiar tema"><span aria-hidden="true">◐</span></button>
+    </header>
 
-    <div class="floating-cara-gif is-visible" id="floatingCaraGif" role="img" aria-label="Sticker flotante de Yazmin">
-        <img src="images/CaraYaz.gif" alt="CaraYaz">
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-topline"><span>PORTAFOLIO AUDIOVISUAL / 2026</span><span class="hero-location"><span class="live-dot"></span> CDMX · MÉXICO</span></div>
+        <div class="hero-content">
+          <div class="hero-copy">
+            <div class="hero-eyebrow"><span class="line-red"></span> EDITORA DE VIDEO & CREADORA AUDIOVISUAL</div>
+            <h1 id="hero-title">YAZMIN<span class="hero-last">MORENO<span class="hero-punct">.</span></span></h1>
+            <p class="hero-lede">Hago que las ideas <em>se sientan.</em><br/>Edición, ritmo y narrativa para creadores, proyectos culturales y marcas.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#proyectos">VER TRABAJOS <span aria-hidden="true">↗</span></a>
+              <a class="btn text-btn" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">VER CV <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="hero-photo-wrap">
+            <div class="hero-photo-frame"><img src="assets/images/yazmin-retrato.jpg" alt="Retrato de Yazmin en una locación con iluminación cálida"/></div>
+            <div class="photo-sticker">IDEAS<br/>EN <strong>MOVIMIENTO</strong><span>★</span></div>
+            <div class="vertical-mark">YAZMIN MORENO — SELECTED WORK</div>
+          </div>
+        </div>
+        <div class="hero-bottomline"><span>01 — 05 / CASOS SELECCIONADOS</span><a href="#proyectos">DESLIZA PARA EXPLORAR ↓</a></div>
+      </section>
+
+      <div class="marquee" aria-hidden="true"><div class="marquee-track">EDICIÓN <b>✳</b> POSTPRODUCCIÓN <b>✳</b> NARRATIVA VISUAL <b>✳</b> ENTRETENIMIENTO <b>✳</b> EDICIÓN <b>✳</b> POSTPRODUCCIÓN <b>✳</b> NARRATIVA VISUAL <b>✳</b> ENTRETENIMIENTO <b>✳</b></div></div>
+
+      <section class="work-section" id="proyectos" aria-labelledby="work-title">
+        <div class="section-kicker"><span class="section-index">01 / TRABAJO SELECCIONADO</span><span>Una selección. No un inventario.</span></div>
+        <div class="section-title-line"><h2 id="work-title">TRABAJOS QUE<br/><em>HABLAN</em> POR MÍ<span class="star">✳</span></h2><p>Proyectos reales con diferentes retos de edición, creación audiovisual y diseño. Cada caso incluye mi participación y el resultado.</p></div>
+        <div class="filter-row" role="group" aria-label="Filtrar proyectos">
+          <button class="filter active" data-filter="all" type="button" aria-pressed="true">TODOS <span>05</span></button>
+          <button class="filter" data-filter="video" type="button" aria-pressed="false">VIDEO <span>04</span></button>
+          <button class="filter" data-filter="design" type="button" aria-pressed="false">DISEÑO <span>01</span></button>
+        </div>
+        <div class="projects-grid" id="projects-grid">
+          <article class="project-card project-featured" data-kind="video" data-project="benito">
+            <button class="card-hit" type="button" aria-label="Ver proyecto Benito Camelo">
+              <div class="card-visual benito-art">
+                <div class="benito-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                <span class="benito-top">YT / EDITORIAL / 2026</span>
+                <span class="benito-type">EL RITMO<br/>CUENTA<br/><i>HISTORIAS.</i></span>
+                <span class="benito-bottom">BENITO CAMELO <b>★</b> EDICIÓN PARA ENTRETENIMIENTO</span>
+                <span class="visual-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="card-caption"><div><span class="card-micro">01 / ENTRETENIMIENTO · YOUTUBE</span><h3>Benito Camelo</h3><p>Edición audiovisual para creadores</p></div><span class="card-action" aria-hidden="true">↗</span></div>
+            </button>
+          </article>
+          <article class="project-card" data-kind="video" data-project="zaru">
+            <button class="card-hit" type="button" aria-label="Ver video The Homes — Campaña Zarú">
+              <div class="card-visual"><img src="assets/images/poster-thehomes.webp" loading="lazy" alt="Fotograma de campaña inmobiliaria The Homes"/><span class="card-corner">FILM / 02</span><span class="visual-arrow" aria-hidden="true">↗</span></div>
+              <div class="card-caption"><div><span class="card-micro">02 / CAMPAÑA · VIDEO</span><h3>The Homes — Campaña Zarú</h3><p>Concepto, escenas generadas y montaje</p></div><span class="card-action" aria-hidden="true">↗</span></div>
+            </button>
+          </article>
+          <article class="project-card" data-kind="video" data-project="smarketing">
+            <button class="card-hit" type="button" aria-label="Ver video Smarketing 360">
+              <div class="card-visual"><img src="assets/images/poster-smarketing.webp" loading="lazy" alt="Fotograma de video Smarketing 360 con presentadora y gráficos"/><span class="card-corner">FILM / 03</span><span class="visual-arrow" aria-hidden="true">↗</span></div>
+              <div class="card-caption"><div><span class="card-micro">03 / CONTENIDO DIGITAL · MOTION</span><h3>Smarketing 360</h3><p>Storytelling explicativo y producción digital</p></div><span class="card-action" aria-hidden="true">↗</span></div>
+            </button>
+          </article>
+          <article class="project-card" data-kind="video" data-project="casita">
+            <button class="card-hit" type="button" aria-label="Ver video Casita de Sol">
+              <div class="card-visual"><img src="assets/images/poster-casita.webp" loading="lazy" alt="Fotograma de anuncio Casita de Sol"/><span class="card-corner">FILM / 04</span><span class="visual-arrow" aria-hidden="true">↗</span></div>
+              <div class="card-caption"><div><span class="card-micro">04 / EDICIÓN · VIDEO REAL</span><h3>Casita de Sol</h3><p>Edición de material grabado y seguimiento</p></div><span class="card-action" aria-hidden="true">↗</span></div>
+            </button>
+          </article>
+          <article class="project-card project-wide" data-kind="design" data-project="potencial">
+            <button class="card-hit" type="button" aria-label="Ver serie gráfica The Homes — Potencial de zona">
+              <div class="card-visual collage"><img src="assets/images/thehomes-1.webp" loading="lazy" alt="Primera lámina de la serie Potencial de zona"/><img src="assets/images/thehomes-2.webp" loading="lazy" alt="Segunda lámina de la serie Potencial de zona"/><img src="assets/images/thehomes-3.webp" loading="lazy" alt="Tercera lámina de la serie Potencial de zona"/><img src="assets/images/thehomes-4.webp" loading="lazy" alt="Cuarta lámina de la serie Potencial de zona"/><span class="visual-arrow" aria-hidden="true">↗</span></div>
+              <div class="card-caption"><div><span class="card-micro">05 / DISEÑO · SERIE DE 4 PIEZAS</span><h3>The Homes — Potencial de zona</h3><p>Comunicación gráfica y continuidad visual</p></div><span class="card-action" aria-hidden="true">↗</span></div>
+            </button>
+          </article>
+        </div>
+        <div class="work-outro"><span>05 CASOS / 04 VIDEO / 01 SERIE GRÁFICA</span><span>SELECCIÓN 2026 — YAZMIN MORENO</span></div>
+      </section>
+
+      <section class="about-section" id="sobre-mi" aria-labelledby="about-title">
+        <div class="section-kicker"><span class="section-index">02 / PERFIL</span><span>La persona detrás de la edición</span></div>
+        <div class="about-grid">
+          <div><h2 id="about-title">DE LA IDEA<br/>AL <span>ÚLTIMO<br/>CORTE.</span></h2><span class="about-symbol" aria-hidden="true">✳</span></div>
+          <div class="about-copy"><p class="about-statement">Soy Yazmin, editora y productora de contenido digital enfocada en convertir materiales e ideas en piezas audiovisuales con ritmo, intención y personalidad.</p><p>Trabajo con edición para creadores y marcas, contenido vertical, diseño visual y soluciones de producción apoyadas por tecnología cuando es útil. Estoy cursando Ingeniería en Comunicación Multimedia y quiero seguir desarrollándome en entretenimiento, música y proyectos culturales.</p><div class="expertise"><span>PREMIERE PRO</span><span>CAPCUT</span><span>AFTER EFFECTS</span><span>CANVA</span><span>REMOTION</span><span>FLUJOS CREATIVOS CON IA</span></div></div>
+        </div>
+      </section>
+
+      <section class="contact-section" id="contacto" aria-labelledby="contact-title">
+        <div class="contact-top"><span>03 / CONTACTO</span><span>CDMX · DISPONIBLE PARA CONVERSAR</span></div>
+        <h2 id="contact-title">¿HACEMOS<br/><em>ALGO BUENO?</em></h2>
+        <p>¿Tienes un proyecto audiovisual, un canal o una idea? Me interesa conocerlo.</p>
+        <div class="contact-actions"><a href="mailto:yazmin.moreno374@gmail.com?subject=Proyecto%20audiovisual%20-%20Portafolio" class="btn contact-primary">ESCRÍBEME <span>↗</span></a><a class="contact-alt" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">MI CV ↗</a></div>
+        <a class="contact-email" href="mailto:yazmin.moreno374@gmail.com">yazmin.moreno374@gmail.com</a>
+      </section>
+    </main>
+    <footer class="footer"><a class="brand" href="#top" aria-label="Volver al inicio">YM<span>✳</span></a><span>YAZMIN MORENO © 2026</span><a href="#top">VOLVER ARRIBA ↑</a></footer>
+  </div>
+
+  <div class="modal" id="project-modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-bar"><div class="mac-controls" aria-hidden="true"><i></i><i></i><i></i></div><span id="modal-count" class="modal-window-title">PROYECTO / 01</span><button type="button" class="modal-close" id="modal-close" aria-label="Cerrar proyecto">CERRAR <span>×</span></button></div>
+      <div class="modal-inner">
+        <div class="modal-copy"><span class="modal-cat" id="modal-cat"></span><h2 id="modal-title"></h2><p class="modal-subtitle" id="modal-subtitle"></p><p id="modal-summary"></p><div class="modal-detail"><h3>MI PARTICIPACIÓN</h3><p id="modal-role"></p></div><div class="modal-detail"><h3>HERRAMIENTAS / PROCESO</h3><div class="modal-tags" id="modal-tools"></div></div></div>
+        <div class="modal-media" id="modal-media"></div>
+      </div>
     </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container"> 
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="badge">INGENIERA EN COMUNICACIÓN MULTIMEDIA</div>
-                    <h1 class="hero-title">
-                        <span class="typewriter" id="typewriter">Yazmin</span>
-                    </h1>
-                    <h2 class="hero-subtitle">Moreno</h2>
-                    <p class="hero-description">
-                        Creadora de contenido multimedia apasionada por la narrativa visual y la tecnología. Mi enfoque combina la ejecución creativa, desde la conceptualización hasta la post-producción e inclusión de IA.
-                    </p>
-                    <div class="hero-buttons">
-                        <button class="btn btn-primary">Ver Proyectos</button>
-                        <a href="CV/CV Yazmin.pdf" target="_blank" alt="CV Yazmin Moreno">
-                            <button class="btn btn-secondary">Ver CV</button>
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="image-frame">
-                        <img src="images/profiles 1.png" alt="Foto Yazmin Moreno" loading="lazy">
-                        <img src="images/profiles 2.png" alt="Foto Yazmin Moreno" loading="lazy">
-                        <img src="images/profiles 3.png" alt="Foto Yazmin Moreno" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee 1 -->
-    <div class="marquee-section">
-        <div class="marquee">
-            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
-            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
-            <span class="marquee-text">DISEÑO • EDICIÓN • MOTION GRAPHICS • FOTOGRAFÍA</span>
-        </div>
-    </div>
-
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2>Proyectos</h2>
-                <div class="header-line"></div>
-            </div>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <a class="project-card" href="video.html" target="_self" rel="noopener">
-                    <div class="project-image">
-                        <video
-                            class="project-cover-video"
-                            autoplay
-                            loop
-                            muted
-                            playsinline
-                            webkit-playsinline
-                            preload="metadata"
-                            tabindex="-1"
-                            aria-hidden="true"
-                            disablepictureinpicture
-                            disableremoteplayback
-                        >
-                            <source src="videos/PortadaVideo.mp4" type="video/mp4">
-                        </video>
-                        <div class="project-overlay">
-                            <span class="project-category">Producción Audiovisual</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Producción y Edición de Video</h3>
-                        <p>Edición de video vertical y de larga duración e integración de IA.</p>
-                    </div>
-                </a>
-
-                <!-- Project 2 -->
-                <a class="project-card" href="social-media.html" target="_self" rel="noopener">
-                    <div class="project-image">
-                        <img src="images/project-advertising.jpg" alt="Proyectos de Social Media Design" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-category">Diseño Visual</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Social Media Design</h3>
-                        <p>Materiales gráficos, campañas y parrillas de contenido para redes sociales.</p>
-                    </div>
-                </a>
-
-                <!-- Project 3 -->
-                <a class="project-card" href="copywriting.html" target="_self" rel="noopener">
-                    <div class="project-image">
-                        <img src="images/project-webdev.jpg" alt="Proyectos de redacción de artículos" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-category">Redacción de artículos</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Copywriting & Blogs</h3>
-                        <p>Redacción con optimización SEO y administración de contenidos</p>
-                    </div>
-                </a>
-
-                <!-- Project 4 -->
-                <a class="project-card" href="fotografia.html" target="_self" rel="noopener">
-                    <div class="project-image">
-                        <img src="images/project-audiovisual.jpg" alt="Proyectos Fotográficos" loading="lazy">
-                        <div class="project-overlay">
-                            <span class="project-category">Fotografías y Retoques</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Fotografía y Edición de imagen</h3>
-                        <p>Captura y post-producción digital.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee 2 -->
-    <div class="marquee-section">
-        <div class="marquee">
-            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
-            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
-            <span class="marquee-text">CREATIVIDAD • INNOVACIÓN • EXCELENCIA • IMPACTO</span>
-        </div>
-    </div>
-
-    <!-- Skills Section -->
-    <section class="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2>Software & Herramientas</h2>
-                <div class="header-line"></div>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Adobe_Illustrator_CC_icon.svg/500px-Adobe_Illustrator_CC_icon.svg.png" alt="Adobe Illustrator" class="icon-svg">
-                    </div>
-                    <h3>Adobe Illustrator</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Adobe_Photoshop_CC_icon.svg/1280px-Adobe_Photoshop_CC_icon.svg.png" alt="Adobe Photoshop" class="icon-svg">
-                    </div>
-                    <h3>Adobe Photoshop</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://www.edigitalagency.com.au/wp-content/uploads/Canva-logo-PNG-large-size.png" alt="Canva" class="icon-svg">
-                    </div>
-                    <h3>Canva</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Adobe_Premiere_Pro_CC_icon.svg/960px-Adobe_Premiere_Pro_CC_icon.svg.png" alt="Adobe Premiere Pro" class="icon-svg">
-                    </div>
-                    <h3>Adobe Premiere Pro</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Adobe_After_Effects_CC_icon.svg/3840px-Adobe_After_Effects_CC_icon.svg.png" alt="Adobe After Effects" class="icon-svg">
-                    </div>
-                    <h3>Adobe After Effects</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNq_5QZa8DMQ6JEtuMlOFw3c85Ib_9nXCtZw&s" alt="AI" class="icon-svg">
-                    </div>
-                    <h3>Flow</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://media.licdn.com/dms/image/v2/D4D0BAQF8r_dZaRLVIA/company-logo_200_200/company-logo_200_200/0/1712047253151/veedhq_logo?e=2147483647&v=beta&t=0TDBCi7-xGrPxYUGn4gpSCp0mq0ZP6dBmo5Aa9SQXIU" alt="Veed.io" class="icon-svg">
-                    </div>
-                    <h3>Veed.io</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://miro.medium.com/v2/0*H5WYKvCoJdNF5lRG.png" alt="Kling AI" class="icon-svg">
-                    </div>
-                    <h3>Kling AI</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://api.iconify.design/logos:visual-studio-code.svg" alt="VS Code" class="icon-svg">
-                    </div>
-                    <h3>VS Code</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <img src="https://api.iconify.design/logos:wordpress-icon.svg" alt="WordPress" class="icon-svg">
-                    </div>
-                    <h3>WordPress</h3>
-                    <div class="skill-dots">
-                        <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">☆</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marquee 3 -->
-    <div class="marquee-section">
-        <div class="marquee">
-            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
-            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
-            <span class="marquee-text">CONTENIDO • ESTRATEGIA • BRANDING • DIGITAL</span>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contacto">
-        <div class="container">
-            <h2>¿Creamos algo increíble?</h2>
-            <p>Estoy disponible para proyectos freelance y colaboraciones.</p>
-            <div class="contact-buttons">
-                <button class="btn btn-contact whatsapp" type="button" id="btnWhatsApp">WhatsApp</button>
-                    <script>
-                    document.getElementById("btnWhatsApp").addEventListener("click", () => {
-                        window.open("https://wa.me/5657513910", "_self", "noopener");
-                    });
-                    </script>
-
-                <button class="btn btn-contact email" type="button" id="btnEmail">Enviar Email</button>
-                    <script>
-                    document.getElementById("btnEmail").addEventListener("click", () => {
-                        const to = encodeURIComponent("yazmin.moreno374@gmail.com");
-                        const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}`;
-                        window.open(url, "_self", "noopener");
-                    });
-                    </script>
-
-                <a href="CV/CV Yazmin.pdf" target="_blank" alt="CV Yazmin Moreno">
-                    <button class="btn btn-contact">Ver CV</button>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2026 Yazmin Moreno. Todos los derechos reservados.</p>
-                <div class="footer-links">
-                    <a href="#">LinkedIn</a>
-                    <a href="#">Behance</a>
-                    <a href="#">Instagram</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modalImage" src="" alt="">
-                </div>
-                <div class="modal-info">
-                    <span class="modal-category" id="modalCategory"></span>
-                    <h3 id="modalTitle"></h3>
-                    <p id="modalDescription"></p>
-                    <div class="modal-section">
-                        <h4>Mi Rol</h4>
-                        <p id="modalRole"></p>
-                    </div>
-                    <div class="modal-section">
-                        <h4>Herramientas</h4>
-                        <div class="modal-tools" id="modalTools"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">⇡</button>
-
-    <script src="script.js"></script>
+  </div>
+  <script src="js/projects-data.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

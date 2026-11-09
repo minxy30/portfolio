@@ -1,0 +1,132 @@
+[
+  {
+    "id": "benito",
+    "number": "01",
+    "title": "Benito Camelo",
+    "subtitle": "Historias para una audiencia que no deja de mirar",
+    "category": "ENTRETENIMIENTO · YOUTUBE",
+    "kind": "video",
+    "summary": "Edición y participación creativa en contenido de entretenimiento publicado en YouTube. Selección de material, construcción del ritmo, música, efectos y postproducción.",
+    "role": "Edición audiovisual y participación en el proceso de contenidos. La selección definitiva de fragmentos del canal requiere comprobar la correspondencia de las notas de evaluación con cada enlace.",
+    "tools": [
+      "Premiere Pro",
+      "CapCut",
+      "Diseño sonoro",
+      "Edición narrativa"
+    ],
+    "note": "Enlaces publicados compartidos por la autora. Se muestran como muestras de trabajo, sin atribuirles las calificaciones ☆☆☆ que todavía no se han conciliado.",
+    "links": [
+      {
+        "label": "Edición publicada A · YouTube",
+        "url": "https://www.youtube.com/watch?v=6-oAd_46hvQ"
+      },
+      {
+        "label": "Edición publicada B · YouTube",
+        "url": "https://www.youtube.com/watch?v=SeXLp7olM2g"
+      },
+      {
+        "label": "Edición publicada C · YouTube",
+        "url": "https://www.youtube.com/watch?v=IPPXTg9O-Bs"
+      }
+    ],
+    "embed": {
+      "provider": "youtube",
+      "id": "6-oAd_46hvQ"
+    },
+    "aspect": "landscape"
+  },
+  {
+    "id": "zaru",
+    "number": "02",
+    "title": "The Homes — Campaña Zarú",
+    "subtitle": "De fotografías estáticas a una campaña audiovisual",
+    "category": "CAMPAÑA · VIDEO VERTICAL",
+    "kind": "video",
+    "summary": "Spot inmobiliario desarrollado a partir de fotografías e información de una propiedad. Guion, propuesta de secuencias, escenas generadas, voz, musicalización y montaje.",
+    "role": "Guion y propuesta visual; generación de escenas con Google Flow y Kling AI; selección de música y locución sintética; edición y ensamblaje final. No se presenta como rodaje propio.",
+    "tools": [
+      "Google Flow",
+      "Kling AI",
+      "VEED",
+      "Montaje"
+    ],
+    "poster": "assets/images/poster-thehomes.webp",
+    "note": "El archivo de origen se llama «Casa Amalfi», pero el video dice «Casa en Zarú, Qro». Para evitar confusiones, la página utiliza el nombre visible en la pieza.",
+    "embed": {
+      "provider": "drive",
+      "id": "1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ",
+      "url": "https://drive.google.com/file/d/1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ/view"
+    },
+    "aspect": "portrait"
+  },
+  {
+    "id": "smarketing",
+    "number": "03",
+    "title": "Smarketing 360",
+    "subtitle": "Explicar conceptos complejos con imagen y movimiento",
+    "category": "CONTENIDO DIGITAL · MOTION",
+    "kind": "video",
+    "summary": "Video vertical de contenido informativo: investigación, guion asistido, creación de avatar, composiciones gráficas animadas y edición final.",
+    "role": "Investigación y guion asistidos con ChatGPT; generación de avatar y escenas de diálogo; dirección del trabajo gráfico en Remotion mediante instrucciones; armado y efectos de sonido en CapCut.",
+    "tools": [
+      "ChatGPT",
+      "Google Flow",
+      "Remotion",
+      "CapCut"
+    ],
+    "poster": "assets/images/poster-smarketing.webp",
+    "note": "Los gráficos animados realizados mediante Remotion bajo instrucciones no se presentan como animación manual íntegra de After Effects.",
+    "embed": {
+      "provider": "drive",
+      "id": "1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg",
+      "url": "https://drive.google.com/file/d/1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg/view"
+    },
+    "aspect": "portrait"
+  },
+  {
+    "id": "casita",
+    "number": "04",
+    "title": "Casita de Sol",
+    "subtitle": "Edición con imágenes reales y atención a los detalles",
+    "category": "EDICIÓN · VIDEO PUBLICITARIO",
+    "kind": "video",
+    "summary": "Pieza publicitaria vertical compuesta a partir de grabaciones entregadas, mensajes breves y un llamado a la acción.",
+    "role": "Edición y organización de material audiovisual en Premiere Pro, incluyendo seguimiento para evitar mostrar rostros de menores en la publicación.",
+    "tools": [
+      "Premiere Pro",
+      "Montaje",
+      "Seguimiento"
+    ],
+    "poster": "assets/images/poster-casita.webp",
+    "note": "El material fue recibido para edición. No se atribuye dirección de rodaje ni captura de las tomas.",
+    "embed": {
+      "provider": "drive",
+      "id": "1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-",
+      "url": "https://drive.google.com/file/d/1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-/view"
+    },
+    "aspect": "portrait"
+  },
+  {
+    "id": "potencial",
+    "number": "05",
+    "title": "The Homes — Potencial de zona",
+    "subtitle": "Información que se entiende de una página a la siguiente",
+    "category": "DISEÑO · SERIE EDITORIAL",
+    "kind": "design",
+    "summary": "Serie visual de cuatro publicaciones sobre señales de crecimiento urbano e inmobiliario, con una composición y un lenguaje gráfico coherentes.",
+    "role": "Piezas provenientes del archivo profesional de diseño. La atribución específica de ilustraciones y recursos deberá comprobarse antes de publicarlas como diseño íntegramente original.",
+    "tools": [
+      "Canva",
+      "Diseño editorial",
+      "Contenido para redes"
+    ],
+    "gallery": [
+      "assets/images/thehomes-1.webp",
+      "assets/images/thehomes-2.webp",
+      "assets/images/thehomes-3.webp",
+      "assets/images/thehomes-4.webp"
+    ],
+    "poster": "assets/images/thehomes-1.webp",
+    "note": "Serie real de cuatro imágenes de la carpeta de diseños. Su uso público depende de los permisos y créditos de la marca."
+  }
+]
