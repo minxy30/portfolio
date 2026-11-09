@@ -21,7 +21,9 @@
         "label": "Muestra 03",
         "id": "IPPXTg9O-Bs"
       }
-    ]
+    ],
+    "tools": "Premiere Pro · Edición",
+    "results": "Pieza final preparada para comunicación digital."
   },
   "zaru": {
     "title": "The Homes",
@@ -32,7 +34,9 @@
     "type": "video",
     "platform": "drive",
     "aspect": "portrait",
-    "id": "1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ"
+    "id": "1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ",
+    "tools": "Premiere Pro · Edición",
+    "results": "Pieza final preparada para comunicación digital."
   },
   "smarketing": {
     "title": "Smarketing 360",
@@ -43,7 +47,9 @@
     "type": "video",
     "platform": "drive",
     "aspect": "portrait",
-    "id": "1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg"
+    "id": "1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg",
+    "tools": "Premiere Pro · Edición",
+    "results": "Pieza final preparada para comunicación digital."
   },
   "casita": {
     "title": "Casita de Sol",
@@ -54,7 +60,9 @@
     "type": "video",
     "platform": "drive",
     "aspect": "portrait",
-    "id": "1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-"
+    "id": "1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-",
+    "tools": "Premiere Pro · Edición",
+    "results": "Pieza final preparada para comunicación digital."
   },
   "minsis": {
     "title": "Minsis Kids",
@@ -65,7 +73,9 @@
     "type": "video",
     "platform": "drive",
     "aspect": "landscape",
-    "id": "1vwZ5cudU7rPRX1LXBPdVo1LZsgN_RMix"
+    "id": "1vwZ5cudU7rPRX1LXBPdVo1LZsgN_RMix",
+    "tools": "Premiere Pro · Edición",
+    "results": "Pieza final preparada para comunicación digital."
   },
   "potencial": {
     "title": "Potencial de zona",
@@ -79,7 +89,9 @@
       "assets/images/thehomes-2.webp",
       "assets/images/thehomes-3.webp",
       "assets/images/thehomes-4.webp"
-    ]
+    ],
+    "tools": "Canva · Diseño gráfico",
+    "results": "Serie visual preparada para publicación."
   },
   "omar": {
     "title": "Broker hipotecario",
@@ -92,7 +104,9 @@
       "assets/images/omar-1.webp",
       "assets/images/omar-2.webp",
       "assets/images/omar-3.webp"
-    ]
+    ],
+    "tools": "Canva · Diseño gráfico",
+    "results": "Serie visual preparada para publicación."
   },
   "editorial": {
     "title": "Selección editorial",
@@ -106,7 +120,9 @@
       "assets/images/smarketing-historia-1.webp",
       "assets/images/smarketing-historia-2.webp",
       "assets/images/smarketing-historia-3.webp"
-    ]
+    ],
+    "tools": "Canva · Diseño gráfico",
+    "results": "Serie visual preparada para publicación."
   },
   "wbmf": {
     "title": "Marcas y cultura pop",
@@ -118,6 +134,64 @@
     "images": [
       "assets/images/wbmf-fanta.webp",
       "assets/images/wbmf-london.webp"
-    ]
+    ],
+    "tools": "Canva · Diseño gráfico",
+    "results": "Serie visual preparada para publicación."
+  },
+  "sabias": {
+    "title": "¿Sabías que…?",
+    "kind": "Carrusel editorial · Smarketing 360",
+    "deck": "Tres aproximaciones visuales a ideas de marketing",
+    "description": "Piezas digitales que combinan fotografía intervenida, color, titulares y recursos gráficos para sintetizar conceptos de comunicación.",
+    "role": "Diseño de publicaciones y adaptación visual dentro de una marca existente. Se mantienen los créditos de imágenes y recursos ajenos.",
+    "type": "gallery",
+    "images": [
+      "assets/images/sabias-1.webp",
+      "assets/images/sabias-2.webp",
+      "assets/images/sabias-3.webp"
+    ],
+    "tools": "Canva · Composición editorial",
+    "results": "Serie de tres diseños preparados para comunicación digital."
+  },
+  "foto-terror": {
+    "title": "Retrato conceptual",
+    "kind": "Fotografía · Exploración creativa",
+    "deck": "Caracterización y atmósfera",
+    "description": "Imagen conceptual que explora el contraste de iluminación, la expresividad del personaje y una atmósfera de terror.",
+    "role": "Trabajo visual aportado para el portafolio. La participación exacta en toma, iluminación y caracterización está pendiente de precisar.",
+    "type": "gallery",
+    "images": [
+      "assets/images/foto-terror.webp"
+    ],
+    "tools": "Fotografía digital · Tratamiento visual",
+    "results": "Fotografía conceptual documentada."
+  },
+  "copy-sm": {
+    "title": "Parrillas y copies de marca",
+    "kind": "Copywriter · Smarketing 360",
+    "deck": "Mensajes pensados para distintas publicaciones",
+    "description": "Muestras del trabajo con parrillas de contenido y comunicaciones digitales, vinculando titulares, temas y piezas visuales.",
+    "role": "Planificación y desarrollo de copies para redes. Cuando un texto se produjo con IA, la contribución personal corresponde a dirección, revisión y adaptación; la atribución por pieza está en revisión.",
+    "type": "gallery",
+    "images": [
+      "assets/images/smarketing-mexico.webp",
+      "assets/images/sabias-1.webp"
+    ],
+    "tools": "Parrillas editoriales · Redacción y revisión · IA asistida",
+    "results": "Materiales editoriales preparados para publicaciones de marca."
+  },
+  "copy-wbmf": {
+    "title": "Enfoque editorial y titulares",
+    "kind": "Copywriter · WBMF",
+    "deck": "Noticias de marca convertidas en mensajes breves",
+    "description": "Ejemplos de publicaciones que requieren sintetizar información y priorizar un mensaje para redes.",
+    "role": "Trabajo de contenido y preparación de publicaciones; la redacción original de cada texto y la edición asistida están pendientes de atribución individual.",
+    "type": "gallery",
+    "images": [
+      "assets/images/wbmf-fanta.webp",
+      "assets/images/wbmf-london.webp"
+    ],
+    "tools": "Redacción editorial · Adaptación de mensajes",
+    "results": "Publicaciones editoriales adaptadas a formatos de redes."
   }
 }
