@@ -1,12 +1,12 @@
-/*
- * Personalización rápida del inicio:
- * 1. Produce un video SILENCIOSO MP4/WebM de 5–12 s, comprimido (ideal < 8 MB).
- * 2. Súbelo en GitHub a assets/hero/intro.mp4 (o a tu propia URL).
- * 3. Cambia heroVideoSrc por 'assets/hero/intro.mp4' y guarda.
- *    Mientras heroVideoSrc esté vacío, la portada muestra tu retrato con efectos CSS.
+/* PORTADA REEMPLAZABLE
+ * Ahora el fondo permanente son partículas interactivas (Canvas).
+ * Cuando termines tu video, súbelo a assets/hero/intro.mp4 y cambia
+ * backgroundVideoSrc de '' a 'assets/hero/intro.mp4'.
+ * El video debe ser silencioso, optimizado y se mostrará DETRÁS de las partículas.
+ * La música original es independiente y nunca empieza automáticamente.
  */
-window.YAZMIN_SITE_CONFIG = {
-  heroVideoSrc: '',
-  heroVideoPoster: 'assets/images/yazmin-retrato.jpg',
-  allowHeroMotion: true
+window.YAZMIN_SITE_CONFIG={
+  backgroundVideoSrc:'',
+  ambientAudioSrc:'assets/audio/ambient-original.ogg',
+  enableClickSounds:true
 };

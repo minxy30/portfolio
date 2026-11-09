@@ -1,32 +1,44 @@
-# Portafolio de Yazmin Moreno — versión 4 (biblioteca visual)
+# Portafolio interactivo de Yazmin Moreno — Versión 5
 
-Web estática en `minxy30/portfolio`, compatible con GitHub Pages. No requiere backend ni procesos de compilación.
+Sitio web estático para GitHub Pages, sin backend. Esta versión sigue el wireframe original de cinco hojas y su flujo: **Inicio → Herramientas → Contacto**, con escenas que se sustituyen mediante scrollytelling en lugar de una página inicial larga. Las disciplinas son entradas directas a bibliotecas tipo Pinterest, con barra lateral en escritorio, filtros, revelación por scroll y visor dentro de la web.
 
-## Cómo usarla
+## Diseño
 
-La portada artística tiene un retrato de fondo de manera provisional. Debajo se encuentra una biblioteca accesible con cinco destinos: Video, Diseño, Fotografía, Copywriter y Sobre mí. En móvil, una cuadrícula tipo Pinterest muestra proporciones diversas y permite explorar mediante el desplazamiento. Los proyectos se abren dentro del sitio; en escritorio el medio aparece a la izquierda y los detalles a la derecha, y en celular el medio está arriba, la descripción se despliega bajo él y hay trabajos relacionados debajo.
+- El fondo de **partículas** es permanente y reacciona al puntero y a toques. Color automático según modo claro/oscuro. Fuente: `js/particles.js` (Canvas 2D sin librerías externas).
+- En Inicio están las cinco hojas `Sobre mí`, `Video`, `Diseño`, `Fotografía`, `Copywriter` con hover de escala, sombra e iluminación.
+- Hacer clic sobre una hoja abre su página mediante una **revelación de luz radial** desde el punto del clic; el header siempre mantiene CV, nombre, modo claro/oscuro, sonido, Contacto.
+- Desplazamiento vertical desde Inicio pasa a **Herramientas** y luego a **Contacto**, con reemplazo de escena y efectos de revelación, no scroll largo.
+- Secciones de trabajo: estructura del wireframe, con rail lateral, filtros horizontales y masonry con formatos diversos; scroll revelando piezas. Cada disciplina termina con footer de CV y contacto.
+- Visor: fondo desenfocado, trabajo a la izquierda (~62 %), texto a la derecha (~38 %). En móvil imagen/reproductor arriba y texto debajo. Los videos usan iframe de Drive/YouTube. Ningún MP4 de proyectos se distribuye en esta web.
+- Diseño responsivo, navegación por teclado, Escape para cerrar, soporte `prefers-reduced-motion`, controles accesibles.
 
-## Reemplazar manualmente el fondo por tu video (sin tocar el reproductor de proyectos)
+## Música original y SFX
 
-1. Renderiza una secuencia original **silenciosa** de 5 a 12 s en MP4 H.264, en formato horizontal o adaptable, idealmente menos de 8 MB. Revisa cómo encuadra en celular.
-2. En GitHub `minxy30/portfolio`, sube el archivo a `assets/hero/intro.mp4` usando `Add file` (crea la carpeta si no existe).
-3. Abre `js/site-config.js`, cambia `heroVideoSrc: ''` por `heroVideoSrc: 'assets/hero/intro.mp4'` y confirma el cambio.
-4. Si el archivo falla, el sistema conserva el retrato como fallback. La reproducción es **silenciosa**, automática y en bucle, solo como fondo decorativo. No se almacena un MP4 de ninguno de los proyectos: los visores siguen en Drive/YouTube.
+`assets/audio/ambient-original.ogg` es una composición instrumental **original de 2:08**, creada para este sitio sin muestras ajenas. No se reproduce automáticamente, no entra en loop; el visitante la activa al pulsar el botón de volumen **justo al lado del tema claro/oscuro**. El mismo botón silencia música y efectos. Se pausa al abrir un proyecto de video y se reanuda al cerrarlo si el visitante la tenía activada. Los efectos breves de clic/revelación se sintetizan con Web Audio, sin archivos adicionales.
 
-## Contacto
+## En dos semanas: reemplazar el fondo provisional
 
-El número de WhatsApp/llamada y correo provienen del CV facilitado por la autora. Si cambia el número o no desea hacerlo público, edita los enlaces del footer (`wa.me/`, `tel:`). 
+1. Renderiza tu video de fondo en **MP4 silencioso** (H.264, compatible con GitHub Pages), comprimido y corto, por ejemplo 10–20 segundos. 
+2. En el repositorio `minxy30/portfolio`, súbelo como `assets/hero/intro.mp4`.
+3. Abre `js/site-config.js` y cambia `backgroundVideoSrc:''` por `backgroundVideoSrc:'assets/hero/intro.mp4'`.
+4. El video quedará **detrás del sistema de partículas permanente**, manteniendo el modo claro/oscuro. No afectará la música ni los reproductores de tus proyectos.
 
-## Verificaciones editoriales importantes
+## Contenidos y advertencias
 
-- Los favoritos de Benito Camelo identificados por la autora (Bolivia, México, Ormuz) **no han podido asociarse de forma inequívoca** a los enlaces enviados. Por tanto, el visor conserva tres enlaces publicados etiquetados solo como «Muestra 01/02/03», sin atribuirles esos títulos.
-- Los archivos de Google Drive requieren que el titular autorice «Cualquier persona con el enlace → Lector»; la web no cambia permisos.
-- Algunas piezas de Copywriter y Fotografía son muestras que necesitan precisar autoría textual y fotográfica antes de presentarlas como trabajo integral individual.
-- Faltan resultados medibles documentados, por lo cual los textos hablan de entregas y procesos, no inventan indicadores.
-- La música de fondo no está incluida por no contar aún con una composición original/licenciada. Prioridad: navegación rápida y silenciosa para reclutadores.
+- Los favoritos de Benito Camelo (Bolivia, México y Ormuz) todavía no están vinculados con seguridad a los 48 enlaces históricos: **no se han inventado títulos o identificaciones**. El portfolio mantiene muestras etiquetadas de forma genérica que deben revisarse antes de enviar postulaciones.
+- Los videos de Google Drive necesitan permiso de lector para cualquier persona con el enlace (y autorización de exhibición). Esta web no altera sus permisos.
+- La autoría individual de algunas fotos, copies y piezas corporativas necesita confirmación; se indica en los textos sin atribuciones indebidas. Los resultados no incluyen métricas inventadas.
+- Puedes editar las obras y textos en `js/projects-data.js`. Si mantienes `projects.json` como respaldo, sincronízalo.
 
-## Edición de obras
+## Estructura
 
-`projects.json` y `js/projects-data.js` contienen la misma selección; modifica **ambos** si actualizas textos o enlaces. En `js/app.js`, `GROUPS` controla qué piezas aparecen en cada disciplina y en qué orden.
+- `index.html`: páginas, header, escenas, biblioteca y visor.
+- `css/styles.css`: diseño, responsive, transiciones.
+- `js/particles.js`: partículas fluidas interactivas.
+- `js/app.js`: navegación/escenas, filtros, visor, audio, SFX y tema.
+- `js/site-config.js`: video futuro, música y preferencias.
+- `assets/audio/ambient-original.ogg`: composición original (128 segundos).
 
-El CSS admite `prefers-reduced-motion`. El visor de video no usa MP4 locales, solo iframes `youtube-nocookie.com` y `drive.google.com/.../preview`, que se eliminan al cerrar para detener reproducción. El video ambiental del inicio es opcional y se controla en `js/site-config.js`.
+## Rendimiento y compatibilidad
+
+El Canvas limita la resolución a 1.6 DPR y reduce el número de partículas en móvil; se detiene al ocultar la pestaña y respeta movimiento reducido. Los iframes solo se instancian al abrir un proyecto. La portada funciona sin música, sin video nuevo y sin bibliotecas de terceros.

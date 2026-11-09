@@ -1,101 +1,111 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f5f5f1">
-  <meta name="description" content="Yazmin Moreno · Edición audiovisual, diseño visual y narrativa para creadores y marcas. Descubre mi selección de proyectos.">
-  <title>Yazmin Moreno — Portafolio audiovisual y creativo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <script defer src="js/projects-data.js"></script>
-  <script defer src="js/site-config.js"></script>
-  <script defer src="js/app.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f3f2ef">
+<meta name="description" content="Yazmin Moreno. Portafolio de edición audiovisual, diseño, fotografía y copywriting. Selección de proyectos y trabajos creativos.">
+<title>Yazmin Moreno — Portafolio creativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script defer src="js/projects-data.js"></script>
+<script defer src="js/site-config.js"></script>
+<script defer src="js/particles.js"></script>
+<script defer src="js/app.js"></script>
 </head>
-<body>
-  <a class="skip" href="#biblioteca">Ir directamente a los trabajos</a>
-  <header class="site-header">
-    <a class="header-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span></a>
-    <a class="wordmark" href="#inicio" aria-label="Inicio · Yazmin Moreno">YAZMIN <span>MORENO</span><i>.</i></a>
-    <div class="header-right">
-      <button class="theme-toggle" id="theme-toggle" type="button" title="Cambiar entre modo claro y oscuro" aria-label="Cambiar entre modo claro y oscuro"><span aria-hidden="true">◐</span></button>
-      <a class="contact-link" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+<body data-theme="light" data-screen="home">
+<a class="skip" href="#video">Ir directamente a los trabajos</a>
+<div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
+<audio id="ambient-audio" preload="none" src="assets/audio/ambient-original.ogg"></audio>
+<div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
+<header class="site-header">
+  <a class="cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a>
+  <button class="brand" id="brand-home" type="button" aria-label="Volver al inicio">Yazmin <span>Moreno</span><b>.</b></button>
+  <div class="header-right">
+    <button class="icon-button" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    <button class="icon-button" id="sound-toggle" type="button" aria-label="Activar música y efectos de sonido" aria-pressed="false" title="Activar música y sonidos"><svg id="volume-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="sound-wave" d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/><path class="sound-slash" d="m17 9 4 6m0-6-4 6"/></svg><span class="sound-led"></span></button>
+    <button class="contact-link" id="header-contact" type="button">Hablemos <span aria-hidden="true">↗</span></button>
+  </div>
+</header>
+<main id="site-main">
+  <!-- Pantallas de inicio: se reemplazan en el mismo plano, no forman una página larga. -->
+  <div class="home-deck" id="home-deck">
+    <section class="home-scene scene-entrance is-active" id="scene-entrance" aria-label="Inicio — selección de disciplina">
+      <div class="home-annotation">PORTAFOLIO <span>CREATIVO</span> / 2026</div>
+      <div class="paper-menu" aria-label="Explora mi trabajo">
+        <button type="button" class="paper paper-about" data-destination="about">Sobre mí <span aria-hidden="true">↗</span></button>
+        <button type="button" class="paper paper-video" data-destination="video">Video <span aria-hidden="true">↗</span></button>
+        <button type="button" class="paper paper-design" data-destination="diseno">Diseño <span aria-hidden="true">↗</span></button>
+        <button type="button" class="paper paper-photo" data-destination="fotografia">Fotografía <span aria-hidden="true">↗</span></button>
+        <button type="button" class="paper paper-copy" data-destination="copywriter">Copywriter <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="home-bottom"><span>EDICIÓN · DISEÑO · HISTORIAS VISUALES</span><button type="button" class="next-screen" data-next="1">DESLIZA PARA VER HERRAMIENTAS <span aria-hidden="true">↓</span></button></div>
+    </section>
+    <section class="home-scene scene-tools" id="scene-tools" aria-label="Herramientas que utilizo" inert>
+      <div class="scene-inner">
+        <p class="eyebrow">01 / MIS HERRAMIENTAS</p>
+        <h1>De la idea<br><em>a la pantalla.</em></h1>
+        <p class="scene-subtitle">Programas que utilizo para editar, construir y comunicar ideas.</p>
+        <div class="tool-wall" aria-label="Herramientas de trabajo">
+          <div class="tool-chip" style="--tool:#6e57cb"><strong>Pr</strong><span>Premiere Pro</span></div>
+          <div class="tool-chip" style="--tool:#7e60d7"><strong>Ae</strong><span>After Effects</span></div>
+          <div class="tool-chip" style="--tool:#00a6aa"><strong>C</strong><span>CapCut</span></div>
+          <div class="tool-chip" style="--tool:#44a8ca"><strong>Ca</strong><span>Canva</span></div>
+          <div class="tool-chip" style="--tool:#ed9958"><strong>Rm</strong><span>Remotion</span></div>
+          <div class="tool-chip" style="--tool:#c58092"><strong>AI</strong><span>Herramientas generativas</span></div>
+        </div>
+        <div class="scene-continue"><button type="button" class="text-link" data-next="2">CONTINUAR A CONTACTO <span>↓</span></button></div>
+      </div>
+    </section>
+    <section class="home-scene scene-contact" id="scene-contact" aria-label="Contacto" inert>
+      <div class="scene-inner contact-inner">
+        <p class="eyebrow">02 / CONTACTO</p>
+        <h1>Hagamos<br><em>algo grande.</em></h1>
+        <p class="scene-subtitle">Disponible para conversar sobre proyectos audiovisuales, diseño y oportunidades creativas.</p>
+        <div class="contact-options">
+          <a href="mailto:yazmin.moreno374@gmail.com?subject=Proyecto%20creativo%20-%20Portafolio">Correo <span aria-hidden="true">↗</span><small>Gmail</small></a>
+          <a href="https://wa.me/525657513910" target="_blank" rel="noopener noreferrer">WhatsApp <span aria-hidden="true">↗</span><small>Mensaje</small></a>
+          <a href="tel:+525657513910">Llamar <span aria-hidden="true">↗</span><small>Teléfono</small></a>
+          <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span><small>Currículum</small></a>
+        </div>
+        <p class="contact-credit">YAZMIN MORENO © 2026 · CIUDAD DE MÉXICO</p>
+      </div>
+    </section>
+    <nav class="stage-indicator" aria-label="Pantallas de inicio">
+      <button class="stage-dot is-active" data-stage="0" aria-label="Ir a Inicio" aria-current="step"></button>
+      <button class="stage-dot" data-stage="1" aria-label="Ir a Herramientas"></button>
+      <button class="stage-dot" data-stage="2" aria-label="Ir a Contacto"></button>
+    </nav>
+  </div>
+  <!-- Una sola biblioteca, con el aspecto y la jerarquía del wireframe. -->
+  <section class="work-space" id="work-space" aria-label="Biblioteca de proyectos" hidden>
+    <aside class="work-rail" id="work-rail" aria-label="Secciones del portafolio"></aside>
+    <div class="work-main" id="work-main">
+      <div class="work-topline"><button type="button" id="back-home" class="back-home">← <span>Inicio</span></button><h1 id="work-heading">Edición de video <span>| Yazmin Moreno</span></h1><span class="work-heading-right">PORTAFOLIO / 2026</span></div>
+      <nav class="work-tabs" id="work-tabs" aria-label="Filtrar trabajos"></nav>
+      <div class="work-intro" id="work-intro"><p class="eyebrow" id="work-caption">TRABAJOS SELECCIONADOS</p><h2 id="work-intro-title">Edición de video</h2><p id="work-intro-detail">Una selección de proyectos con distintas competencias.</p></div>
+      <div class="masonry" id="work-grid" aria-live="polite"></div>
+      <div class="work-end"><span>FIN DE LA SELECCIÓN</span><button type="button" id="work-return-top">VOLVER ARRIBA ↑</button></div>
+      <footer class="work-footer" id="work-footer">
+        <p>¿Colaboramos?</p><h2>Hablemos<span>.</span></h2>
+        <div class="work-footer-actions"><a href="mailto:yazmin.moreno374@gmail.com">Gmail ↗</a><a target="_blank" rel="noopener" href="https://wa.me/525657513910">WhatsApp ↗</a><a href="tel:+525657513910">Llamar ↗</a><a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">CV ↗</a></div>
+        <small>YAZMIN MORENO © 2026</small>
+      </footer>
     </div>
-  </header>
-
-  <main id="inicio">
-    <section class="hero" aria-labelledby="hero-title" id="portada">
-      <div class="hero-media" aria-hidden="true">
-        <img class="hero-picture" src="assets/images/yazmin-retrato.jpg" alt="" fetchpriority="high">
-        <video class="hero-video" id="hero-video" muted autoplay playsinline loop aria-hidden="true"></video>
-        <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
-      </div>
-      <div class="hero-inner">
-        <p class="hero-kicker">PORTAFOLIO CREATIVO / 2026</p>
-        <h1 id="hero-title"><span>Ideas que</span><br><em>se sienten.</em></h1>
-        <p class="hero-subtitle">Edición de video, diseño y narrativas visuales con intención.</p>
-        <div class="hero-actions">
-          <button type="button" class="primary-cta" data-category="video">Explorar trabajos <span aria-hidden="true">↗</span></button>
-          <a href="#perfil" class="quiet-cta">Conóceme <span aria-hidden="true">↓</span></a>
-        </div>
-        <div class="hero-foot"><span>YAZMIN MORENO · CDMX</span><span>DESLIZA PARA DESCUBRIR ↓</span></div>
-      </div>
-      <div class="ripple-layer" id="ripple-layer" aria-hidden="true"></div>
-    </section>
-
-    <section class="library" id="biblioteca" aria-labelledby="library-title">
-      <div class="library-heading layout-width">
-        <p class="eyebrow">TRABAJO SELECCIONADO <span aria-hidden="true">/</span> ACCESO DIRECTO</p>
-        <div class="library-head-row"><h2 id="library-title">Explora mi trabajo<span class="accent-dot">.</span></h2><p>No es un archivo de todo lo que he hecho. Es una selección de proyectos que cuentan qué sé crear.</p></div>
-      </div>
-      <nav class="category-nav" aria-label="Disciplinas del portafolio">
-        <div class="category-track layout-width" role="tablist" aria-label="Selecciona una disciplina">
-          <button class="category-tab active" type="button" id="tab-video" role="tab" aria-selected="true" aria-controls="category-panel" data-category="video">Video</button>
-          <button class="category-tab" type="button" id="tab-diseno" role="tab" aria-selected="false" aria-controls="category-panel" data-category="diseno">Diseño</button>
-          <button class="category-tab" type="button" id="tab-fotografia" role="tab" aria-selected="false" aria-controls="category-panel" data-category="fotografia">Fotografía</button>
-          <button class="category-tab" type="button" id="tab-copywriter" role="tab" aria-selected="false" aria-controls="category-panel" data-category="copywriter">Copywriter</button>
-          <a class="category-about" href="#perfil">Sobre mí ↗</a>
-        </div>
-      </nav>
-      <div class="layout-width section-intro"><div><p class="eyebrow" id="category-eyebrow">01 / VIDEO</p><h3 id="category-title">Historias en movimiento.</h3></div><p id="category-description">Edición narrativa, campañas y piezas digitales.</p></div>
-      <div id="category-panel" role="tabpanel" aria-labelledby="tab-video" class="layout-width">
-        <div class="masonry" id="project-grid" aria-live="polite"></div>
-      </div>
-      <div class="library-bottom layout-width"><p>Lo que ves es una selección curada, no un inventario completo.</p><a href="#contacto">¿Trabajamos juntos? ↗</a></div>
-    </section>
-
-    <section class="profile layout-width" id="perfil" aria-labelledby="profile-title">
-      <p class="eyebrow">SOBRE MÍ / LA PERSONA DETRÁS DEL CORTE</p>
-      <div class="profile-grid"><h2 id="profile-title">Lo importante<br>es <em>la historia.</em></h2><div><p class="profile-lead">Soy Yazmin Moreno. Trabajo entre la edición audiovisual, el contenido visual y el diseño, buscando que cada pieza tenga ritmo, intención y personalidad.</p><p>Estudio Ingeniería en Comunicación Multimedia. Quiero crecer en equipos creativos que trabajen en entretenimiento, música, cultura y producciones audiovisuales. Me interesa la tecnología como herramienta para contar mejor las historias.</p><div class="skill-tags"><span>Premiere Pro</span><span>CapCut</span><span>After Effects</span><span>Canva</span><span>Remotion</span></div><a class="profile-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Revisar mi CV <span>↗</span></a></div></div>
-    </section>
-  </main>
-
-  <footer id="contacto" class="footer" aria-labelledby="contact-title">
-    <div class="layout-width footer-content"><div><p class="eyebrow">CONTACTO / SIGUIENTE PROYECTO</p><h2 id="contact-title">Hablemos de<br><em>ideas grandes.</em></h2><p>Disponible para conversar sobre edición, contenido audiovisual y proyectos creativos.</p></div><div class="contact-choices">
-      <a href="mailto:yazmin.moreno374@gmail.com?subject=Proyecto%20audiovisual%20-%20Portafolio" aria-label="Escribir por correo electrónico">Enviar correo <span>↗</span><small>Gmail</small></a>
-      <a href="https://wa.me/525657513910" target="_blank" rel="noopener noreferrer" aria-label="Abrir chat de WhatsApp">WhatsApp <span>↗</span><small>Escríbeme</small></a>
-      <a href="tel:+525657513910" aria-label="Llamar por teléfono">Llamar <span>↗</span><small>Por teléfono</small></a>
-    </div></div>
-    <div class="footer-bottom layout-width"><span>© 2026 YAZMIN MORENO</span><a href="#inicio">Volver arriba ↑</a></div>
-  </footer>
-
-  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
-    <div class="viewer-window">
-      <div class="viewer-topbar"><button type="button" class="viewer-back" id="viewer-back" aria-label="Volver a los trabajos"><span aria-hidden="true">←</span> <span>Volver</span></button><div class="viewer-dots" aria-hidden="true"><i></i><i></i><i></i></div><button type="button" class="viewer-close" id="viewer-close" aria-label="Cerrar proyecto">Cerrar <span aria-hidden="true">×</span></button></div>
-      <div class="viewer-scroll" id="viewer-scroll">
-        <div class="viewer-main">
-          <div class="viewer-media" id="viewer-media"></div>
-          <section class="viewer-details" aria-label="Información del proyecto">
-            <p class="eyebrow" id="viewer-kind"></p><h2 id="viewer-title"></h2><p class="viewer-deck" id="viewer-deck"></p>
-            <details class="viewer-description-toggle" id="viewer-description-toggle" open><summary>Sobre este trabajo <span aria-hidden="true">⌄</span></summary><div><p id="viewer-description"></p><h3>Mi participación</h3><p id="viewer-role"></p><h3 id="viewer-results-title">Resultado</h3><p id="viewer-results"></p><h3>Herramientas</h3><p id="viewer-tools"></p></div></details>
-            <p class="viewer-notice" id="viewer-notice"></p>
-          </section>
-        </div>
-        <div class="viewer-related"><div class="related-head"><h3>Sigue explorando</h3><p>Otras piezas de la selección</p></div><div class="related-grid" id="related-grid"></div></div>
-      </div>
+  </section>
+</main>
+<dialog id="project-viewer" class="project-viewer" aria-labelledby="viewer-title">
+  <div class="viewer-panel">
+    <div class="viewer-toolbar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>YAZMIN MORENO / PROYECTOS</span><button type="button" class="viewer-close" id="viewer-close" aria-label="Cerrar proyecto">Cerrar <span>×</span></button></div>
+    <div class="viewer-body" id="viewer-body">
+      <div class="viewer-media" id="viewer-media"></div>
+      <div class="viewer-text" id="viewer-text"><p class="eyebrow" id="viewer-area"></p><h2 id="viewer-title"></h2><p class="viewer-deck" id="viewer-deck"></p><div class="viewer-info"><h3>EL PROYECTO</h3><p id="viewer-description"></p><h3>MI PARTICIPACIÓN</h3><p id="viewer-role"></p><h3>RESULTADO</h3><p id="viewer-results"></p><h3>HERRAMIENTAS</h3><p id="viewer-tools"></p></div><p class="viewer-note" id="viewer-note"></p></div>
     </div>
-  </dialog>
+    <div class="viewer-bottom"><button type="button" id="viewer-prev">← Anterior</button><span id="viewer-count">1 / 1</span><button type="button" id="viewer-next">Siguiente →</button></div>
+  </div>
+</dialog>
+<div class="status-toast" id="status-toast" role="status" aria-live="polite"></div>
 </body>
 </html>
