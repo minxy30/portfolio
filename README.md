@@ -1,50 +1,24 @@
-# YAZMIN MORENO — Portafolio 2026
+# Yazmin Moreno · Portafolio 2026 (rediseño 3)
 
-Sitio estático responsivo HTML + CSS + JavaScript; retoma el enfoque editorial de `yazmin-portfolio-vanilla.zip` (la versión previa guardada en Drive). Selección curada: Benito Camelo, The Homes/Campaña Zarú, Smarketing 360, Casita de Sol y serie gráfica The Homes/Potencial de zona.
+Sitio estático responsivo para presentar trabajos audiovisuales y diseño visual. Prioriza el acceso inmediato a los proyectos y reduce elementos decorativos o navegación redundante.
 
-## Cómo abrirlo
+## Experiencia
 
-Puedes abrir `index.html` o ejecutar `python -m http.server 8000` desde esta carpeta y visitar `http://localhost:8000`.
+- Inicio con descripción y un clic para ver proyectos, CV o contactar.
+- 3 casos principales de video: Benito Camelo, The Homes y Smarketing 360.
+- 2 microtrabajos opcionales en una sección plegada: Casita de Sol y Minsis Kids.
+- 4 casos de diseño: The Homes, Omar China, Smarketing 360 y WBMF. Sus galerías utilizan flechas, teclado y gestos táctiles.
+- Modal tipo ventana macOS para reproducir YouTube o Drive sin salir del sitio. No se alojan videos MP4 en GitHub.
+- Diseño para escritorio, tableta y móvil; accesible por teclado.
 
-No hay archivos MP4 dentro de este paquete. Los videos se **reproducen mediante visores integrados**:
+## Pendientes editoriales
 
-- YouTube: `https://www.youtube-nocookie.com/embed/VIDEO_ID` para las tres muestras de Benito Camelo.
-- Google Drive: `https://drive.google.com/file/d/FILE_ID/preview` para los tres videos verticales.
+1. Los videos de Google Drive requieren permiso de lectura pública autorizado por su titular; no se cambian automáticamente.
+2. Benito Camelo conserva muestras publicadas provisionales. La correspondencia exacta con los videos que la autora recuerda como favoritos aún debe confirmarse.
+3. Se debe confirmar el permiso de exhibición comercial y autoría específica de materiales para clientes y recursos de terceros.
+4. Los diseños de Smarketing y WBMF son una muestra inicial de las colecciones recuperadas, no una revisión exhaustiva de 309 archivos.
 
-Al hacer clic en una tarjeta se abre una ventana central inspirada en macOS con fondo desenfocado (`backdrop-filter: blur`), reproductor integrado y detalles del proyecto. Se cierra con el botón, clic en el fondo o tecla `Escape`. Al cerrarse se elimina el iframe para detener la reproducción. La galería de diseño también se abre en la ventana.
+## Despliegue
 
-## IMPORTANTE — Permisos de Google Drive
-
-Los tres archivos que se usan como reproductor de Drive estaban **privados** al momento de producir esta versión. La conexión a Drive disponible en el chat no expone la acción de `Cualquier persona con el enlace → Lector` (solo lectores concretos o del dominio). **No se ha aplicado ningún cambio a los permisos**.
-
-Antes de enviar el portafolio a reclutadores, ajusta estos tres archivos desde su enlace, uno por uno:
-
-1. [The Homes — Campaña Zarú](https://drive.google.com/file/d/1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ/view)
-2. [Smarketing 360 — Video de valor](https://drive.google.com/file/d/1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg/view)
-3. [Casita de Sol](https://drive.google.com/file/d/1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-/view)
-
-Google Drive → botón **Compartir** → **Acceso general** → **Cualquier persona con el enlace** → **Lector** → **Listo**.
-
-Verifica que cuentas con autorización para mostrar material comercial públicamente. Prueba cada reproductor en una ventana de incógnito *sin iniciar sesión*. Si un video no carga, comprueba que sigue disponible y que Drive permite la vista previa insertada.
-
-## Restricciones y autoría
-
-- Las tres muestras de Benito Camelo son enlaces reales compartidos por la autora, pero no representan una verificación técnica de que sean los cinco videos calificados con `☆☆☆`: su correspondencia numérica continúa incierta. Sustituye el ID en `projects.json` y `js/projects-data.js` cuando se reconcilie.
-- Las contribuciones se describen a partir de lo declarado por la autora. No se ha verificado toda la autoría ni la autorización de marca.
-- The Homes — Zarú: el video muestra «Casa en Zarú, Qro» aunque el archivo se llama «Casa Amalfi».
-- La serie gráfica The Homes contiene imágenes de las fuentes entregadas. Debe confirmarse permiso de exhibición y crédito de recursos de terceros.
-- El retrato, los posters y la serie gráfica están guardados como imágenes locales para que la portada cargue rápidamente; **solo los videos** quedan alojados externamente.
-
-## Estructura
-
-- `index.html` página web
-- `css/styles.css` diseño responsivo y modal
-- `js/script.js` filtros, modo oscuro, reproducción integrada y accesibilidad
-- `js/projects-data.js` metadatos usados por la web
-- `projects.json` copia legible de datos de proyectos
-- `assets/images/*` fotografías, portadas y gráficas optimizadas
-- `assets/docs/CV-Yazmin-Moreno.pdf` CV
-
-## Publicación
-
-Sube la carpeta descomprimida a GitHub Pages, Netlify o Vercel como web estática (no necesita build). No se ha publicado por tu cuenta desde este chat.
+Publicación estática en GitHub Pages, desde la rama `main` de `minxy30/portfolio`.
+La carpeta `assets/images` debe conservar las imágenes que ya estaban publicadas y las 6 nuevas imágenes WebP de esta edición.

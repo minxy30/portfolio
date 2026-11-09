@@ -1,102 +1,110 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="theme-color" content="#f5f2eb"/>
-  <meta name="color-scheme" content="light dark"/>
-  <meta name="description" content="Yazmin Moreno — edición de video, postproducción y producción audiovisual para entretenimiento y marcas. Portafolio seleccionado 2026."/>
-  <title>Yazmin Moreno — Edición & Producción Audiovisual</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/styles.css"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f6f2" />
+  <meta name="description" content="Portafolio seleccionado de Yazmin Moreno. Edición audiovisual, contenido y diseño editorial para creadores y marcas." />
+  <title>Yazmin Moreno — Edición audiovisual y diseño</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/projects-data.js"></script>
+  <script defer src="js/app.js"></script>
 </head>
 <body>
-  <a href="#proyectos" class="skip-link">Ir a proyectos</a>
-  <div class="site-shell" id="top">
-    <header class="site-header" id="header">
-      <a class="brand" href="#top" aria-label="Inicio, Yazmin Moreno">YM<span>✳</span></a>
-      <nav class="nav" aria-label="Menú principal">
-        <a href="#proyectos">Proyectos <span class="nav-num">05</span></a>
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#contacto">Contacto</a>
+  <a class="skip" href="#trabajos">Ir a proyectos</a>
+  <header class="header" id="inicio">
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">YAZMIN<span class="dot">.</span><small>MORENO</small></a>
+      <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+        <a href="#trabajos">Video</a>
+        <a href="#diseno">Diseño</a>
+        <a href="#perfil">Sobre mí</a>
       </nav>
-      <button class="theme-switch" id="theme-switch" type="button" aria-label="Alternar modo oscuro" title="Cambiar tema"><span aria-hidden="true">◐</span></button>
-    </header>
-
-    <main>
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-topline"><span>PORTAFOLIO AUDIOVISUAL / 2026</span><span class="hero-location"><span class="live-dot"></span> CDMX · MÉXICO</span></div>
-        <div class="hero-content">
-          <div class="hero-copy">
-            <div class="hero-eyebrow"><span class="line-red"></span> EDITORA DE VIDEO & CREADORA AUDIOVISUAL</div>
-            <h1 id="hero-title">YAZMIN<span class="hero-last">MORENO<span class="hero-punct">.</span></span></h1>
-            <p class="hero-lede">Hago que las ideas <em>se sientan.</em><br/>Edición, ritmo y narrativa para creadores, proyectos culturales y marcas.</p>
-            <div class="hero-actions">
-              <a class="btn primary" href="#proyectos">VER TRABAJOS <span aria-hidden="true">↗</span></a>
-              <a class="btn text-btn" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">VER CV <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-          <div class="hero-photo-wrap">
-            <div class="hero-photo-frame"><img src="assets/images/yazmin-retrato.jpg" alt="Retrato de Yazmin en una locación con iluminación cálida"/></div>
-            <div class="photo-sticker">IDEAS<br/>EN <strong>MOVIMIENTO</strong><span>★</span></div>
-            <div class="vertical-mark">YAZMIN MORENO — SELECTED WORK</div>
-          </div>
-        </div>
-        <div class="hero-bottomline"><span>05 CASOS / EDICIÓN & DISEÑO</span><a href="#proyectos">DESLIZA PARA EXPLORAR ↓</a></div>
-      </section>
-
-      <div class="marquee" aria-hidden="true"><div class="marquee-track">EDICIÓN <b>✳</b> POSTPRODUCCIÓN <b>✳</b> NARRATIVA VISUAL <b>✳</b> ENTRETENIMIENTO <b>✳</b> EDICIÓN <b>✳</b> POSTPRODUCCIÓN <b>✳</b> NARRATIVA VISUAL <b>✳</b> ENTRETENIMIENTO <b>✳</b></div></div>
-
-      <section class="work-section" id="proyectos" aria-labelledby="work-title">
-        <div class="section-kicker"><span class="section-index">01 / SELECCIÓN EDITORIAL</span><span>Desliza y descubre — sin salir de la página</span></div>
-        <div class="section-title-line"><h2 id="work-title">MENOS PIEZAS.<br><em>MÁS IMPACTO.</em><span class="star">✳</span></h2><p>Cinco casos elegidos por su variedad, intención visual y habilidades demostrables. Abre una pieza para verla en un visor integrado; desliza las galerías como un carrusel.</p></div>
-        <div class="filter-row" role="group" aria-label="Filtrar proyectos">
-          <button class="filter active" data-filter="all" type="button" aria-pressed="true">TODOS <span>05</span></button>
-          <button class="filter" data-filter="video" type="button" aria-pressed="false">VIDEO <span>03</span></button>
-          <button class="filter" data-filter="design" type="button" aria-pressed="false">DISEÑO <span>02</span></button>
-          <span class="scroll-tip">↕ SCROLL VERTICAL <span class="desktop-tip">·</span> <span class="mobile-tip">TOCA PARA ABRIR</span></span>
-        </div>
-        <div class="projects-grid" id="projects-grid"><article class="project-card project-featured" data-kind="video" data-project="benito"><button class="card-hit" type="button" aria-label="Explorar Benito Camelo"><div class="card-visual benito-art"><div class="benito-lines" aria-hidden="true"><i></i><i></i></div><span class="benito-top">YOUTUBE / EDICIÓN NARRATIVA</span><span class="benito-type">EL RITMO<br>CUENTA<br><i>HISTORIAS.</i></span><span class="benito-bottom">BENITO CAMELO <b>✳</b> ENTRETENIMIENTO</span><span class="visual-play" aria-hidden="true">▶</span></div><div class="card-caption"><div><span class="card-micro">01 / ENTRETENIMIENTO · YOUTUBE</span><h3>Benito Camelo</h3><p>Historias para una audiencia que no deja de mirar</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article><article class="project-card" data-kind="video" data-project="zaru"><button class="card-hit" type="button" aria-label="Explorar The Homes — Campaña Zarú"><div class="card-visual"><img src="assets/images/poster-thehomes.webp" alt="Fotograma de The Homes — Campaña Zarú" loading="lazy"><span class="card-corner">FILM / 02</span><span class="visual-play" aria-hidden="true">▶</span></div><div class="card-caption"><div><span class="card-micro">02 / CAMPAÑA · VIDEO VERTICAL</span><h3>The Homes — Campaña Zarú</h3><p>De fotografías estáticas a una campaña audiovisual</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article><article class="project-card" data-kind="video" data-project="smarketing"><button class="card-hit" type="button" aria-label="Explorar Smarketing 360"><div class="card-visual"><img src="assets/images/poster-smarketing.webp" alt="Fotograma de Smarketing 360" loading="lazy"><span class="card-corner">FILM / 03</span><span class="visual-play" aria-hidden="true">▶</span></div><div class="card-caption"><div><span class="card-micro">03 / CONTENIDO DIGITAL · MOTION</span><h3>Smarketing 360</h3><p>Explicar conceptos complejos con imagen y movimiento</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article><article class="project-card project-design" data-kind="design" data-project="potencial"><button class="card-hit" type="button" aria-label="Explorar The Homes — Potencial de zona"><div class="card-visual collage collage-4"><img src="assets/images/thehomes-1.webp" alt="Vista de The Homes — Potencial de zona" loading="lazy"><img src="assets/images/thehomes-2.webp" alt="Vista de The Homes — Potencial de zona" loading="lazy"><img src="assets/images/thehomes-3.webp" alt="Vista de The Homes — Potencial de zona" loading="lazy"><img src="assets/images/thehomes-4.webp" alt="Vista de The Homes — Potencial de zona" loading="lazy"><span class="visual-play" aria-hidden="true">↗</span></div><div class="card-caption"><div><span class="card-micro">04 / DISEÑO · SERIE EDITORIAL</span><h3>The Homes — Potencial de zona</h3><p>Información que se entiende de una página a la siguiente</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article><article class="project-card project-design" data-kind="design" data-project="omar"><button class="card-hit" type="button" aria-label="Explorar Omar China — Broker hipotecario"><div class="card-visual collage collage-3"><img src="assets/images/omar-1.webp" alt="Vista de Omar China — Broker hipotecario" loading="lazy"><img src="assets/images/omar-2.webp" alt="Vista de Omar China — Broker hipotecario" loading="lazy"><img src="assets/images/omar-3.webp" alt="Vista de Omar China — Broker hipotecario" loading="lazy"><span class="visual-play" aria-hidden="true">↗</span></div><div class="card-caption"><div><span class="card-micro">05 / DISEÑO · CARRUSEL</span><h3>Omar China — Broker hipotecario</h3><p>Una idea, tres piezas, un lenguaje visual</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article></div>
-        <div class="work-outro"><span>05 CASOS / 03 VIDEO / 02 SERIES GRÁFICAS</span><span>SELECCIÓN 2026 — YAZMIN MORENO</span></div>
-      </section>
-      <section class="extras-section" id="extras" aria-labelledby="extras-title">
-        <div class="section-kicker"><span class="section-index">02 / MÁS FORMAS DE EDITAR</span><span>Dos microejemplos de proceso — no proyectos protagonistas</span></div>
-        <div class="extras-intro"><div><p class="overline">DETALLES DE OFICIO</p><h2 id="extras-title">OTROS <em>CORTES.</em></h2></div><p>Una edición de material real y un ejercicio inicial de motion. Se muestran de forma breve para aportar contexto, sin inflar el portafolio.</p></div>
-        <div class="extras-grid"><article class="project-card" data-kind="video" data-project="casita"><button class="card-hit" type="button" aria-label="Explorar Casita de Sol"><div class="card-visual"><img src="assets/images/poster-casita.webp" alt="Fotograma de Casita de Sol" loading="lazy"><span class="card-corner">FILM / EXTRA 01</span><span class="visual-play" aria-hidden="true">▶</span></div><div class="card-caption"><div><span class="card-micro">EXTRA 01 / EDICIÓN · VIDEO PUBLICITARIO</span><h3>Casita de Sol</h3><p>Edición con imágenes reales y atención a los detalles</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article><article class="project-card" data-kind="video" data-project="minsis"><button class="card-hit" type="button" aria-label="Explorar Minsis Kids"><div class="card-visual"><img src="assets/images/poster-minsis.webp" alt="Fotograma de Minsis Kids" loading="lazy"><span class="card-corner">FILM / EXTRA 02</span><span class="visual-play" aria-hidden="true">▶</span></div><div class="card-caption"><div><span class="card-micro">EXTRA 02 / MOTION · AFTER EFFECTS</span><h3>Minsis Kids</h3><p>Microanimación de logotipo para contenido infantil</p></div><span class="card-action" aria-hidden="true">↗</span></div></button></article></div>
-      </section>
-      <section class="about-section" id="sobre-mi" aria-labelledby="about-title">
-        <div class="section-kicker"><span class="section-index">03 / PERFIL</span><span>La persona detrás de la edición</span></div>
-        <div class="about-grid">
-          <div><h2 id="about-title">DE LA IDEA<br/>AL <span>ÚLTIMO<br/>CORTE.</span></h2><span class="about-symbol" aria-hidden="true">✳</span></div>
-          <div class="about-copy"><p class="about-statement">Soy Yazmin, editora y productora de contenido digital enfocada en convertir materiales e ideas en piezas audiovisuales con ritmo, intención y personalidad.</p><p>Trabajo con edición para creadores y marcas, contenido vertical, diseño visual y soluciones de producción apoyadas por tecnología cuando es útil. Estoy cursando Ingeniería en Comunicación Multimedia y quiero seguir desarrollándome en entretenimiento, música y proyectos culturales.</p><div class="expertise"><span>PREMIERE PRO</span><span>CAPCUT</span><span>AFTER EFFECTS</span><span>CANVA</span><span>REMOTION</span><span>FLUJOS CREATIVOS CON IA</span></div></div>
-        </div>
-      </section>
-
-      <section class="contact-section" id="contacto" aria-labelledby="contact-title">
-        <div class="contact-top"><span>04 / CONTACTO</span><span>CDMX · DISPONIBLE PARA CONVERSAR</span></div>
-        <h2 id="contact-title">¿HACEMOS<br/><em>ALGO BUENO?</em></h2>
-        <p>¿Tienes un proyecto audiovisual, un canal o una idea? Me interesa conocerlo.</p>
-        <div class="contact-actions"><a href="mailto:yazmin.moreno374@gmail.com?subject=Proyecto%20audiovisual%20-%20Portafolio" class="btn contact-primary">ESCRÍBEME <span>↗</span></a><a class="contact-alt" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">MI CV ↗</a></div>
-        <a class="contact-email" href="mailto:yazmin.moreno374@gmail.com">yazmin.moreno374@gmail.com</a>
-      </section>
-    </main>
-    <footer class="footer"><a class="brand" href="#top" aria-label="Volver al inicio">YM<span>✳</span></a><span>YAZMIN MORENO © 2026</span><a href="#top">VOLVER ARRIBA ↑</a></footer>
-  </div>
-
-  <nav class="mobile-dock" aria-label="Navegación rápida"><a href="#top"><span aria-hidden="true">⌂</span>INICIO</a><a href="#proyectos"><span aria-hidden="true">◈</span>TRABAJOS</a><a href="#extras"><span aria-hidden="true">↗</span>EXTRAS</a><a href="#contacto"><span aria-hidden="true">✉</span>CONTACTO</a></nav>
-  <div class="modal" id="project-modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close="true"></div>
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
-      <div class="modal-bar"><div class="mac-controls" aria-hidden="true"><i></i><i></i><i></i></div><span id="modal-count" class="modal-window-title">PROYECTO / 01</span><div class="modal-nav" aria-label="Explorar otros proyectos"><button type="button" id="modal-prev" aria-label="Proyecto anterior">←</button><button type="button" id="modal-next" aria-label="Proyecto siguiente">→</button></div><button type="button" class="modal-close" id="modal-close" aria-label="Cerrar proyecto">CERRAR <span>×</span></button></div>
-      <div class="modal-inner">
-        <div class="modal-copy"><span class="modal-cat" id="modal-cat"></span><h2 id="modal-title"></h2><p class="modal-subtitle" id="modal-subtitle"></p><p id="modal-summary"></p><div class="modal-detail"><h3>MI PARTICIPACIÓN</h3><p id="modal-role"></p></div><div class="modal-detail"><h3>HERRAMIENTAS / PROCESO</h3><div class="modal-tags" id="modal-tools"></div></div></div>
-        <div class="modal-media" id="modal-media"></div>
-      </div>
+      <a class="header-contact" href="mailto:yazmin.moreno374@gmail.com?subject=Contacto%20desde%20portafolio">Hablemos <span aria-hidden="true">↗</span></a>
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span></button>
     </div>
-  </div>
-  <script src="js/projects-data.js"></script>
-  <script src="js/script.js"></script>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="headline">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-rule"></span> EDICIÓN AUDIOVISUAL · DISEÑO VISUAL</p>
+        <h1 id="headline">Edición con intención.<br><em>Ideas que se sienten.</em></h1>
+        <p class="hero-description">Soy Yazmin Moreno. Creo contenido visual para historias, creadores y marcas. Aquí está una selección de mi trabajo.</p>
+        <div class="hero-buttons">
+          <a class="button button-dark" href="#trabajos">Ver proyectos <span aria-hidden="true">↘</span></a>
+          <a class="text-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero-footnote">Ciudad de México <span aria-hidden="true">·</span> Portafolio 2026</p>
+      </div>
+      <button class="hero-feature" type="button" data-open="zaru" aria-label="Ver video destacado de The Homes">
+        <img src="assets/images/poster-thehomes.webp" alt="Fotograma del video inmobiliario de The Homes" fetchpriority="high" />
+        <span class="hero-feature-top">01 / PIEZA DESTACADA</span>
+        <span class="hero-feature-bottom"><span><strong>The Homes</strong><small>Edición · video vertical</small></span><span class="round-play" aria-hidden="true">▶</span></span>
+      </button>
+    </section>
+
+    <div class="divider wrap"><span>UNA SELECCIÓN, NO UN INVENTARIO.</span><span>DESLIZA PARA EXPLORAR ↓</span></div>
+
+    <section class="section wrap" id="trabajos" aria-labelledby="video-title">
+      <div class="section-head">
+        <div><p class="eyebrow">01 / TRABAJO SELECCIONADO</p><h2 id="video-title">Video<span class="section-dot">.</span></h2></div>
+        <p>Tres proyectos para conocer mi edición, ritmo y forma de contar historias.</p>
+      </div>
+      <div class="video-grid">
+        <button type="button" class="work-card work-feature" data-open="benito">
+          <span class="work-cover benito-cover"><span class="cover-stamp">EDICIÓN / YOUTUBE</span><span class="benito-text">Historias<br><em>con ritmo.</em></span><span class="cover-play" aria-hidden="true">▶</span></span>
+          <span class="card-info"><span><small>01 / CREADORES Y ENTRETENIMIENTO</small><strong>Benito Camelo</strong><span>Edición narrativa · música · sonido</span></span><span class="card-arrow" aria-hidden="true">↗</span></span>
+        </button>
+        <button type="button" class="work-card" data-open="zaru">
+          <span class="work-cover video-cover"><img src="assets/images/poster-thehomes.webp" alt="" loading="lazy" /><span class="cover-play" aria-hidden="true">▶</span></span>
+          <span class="card-info"><span><small>02 / VIDEO PUBLICITARIO</small><strong>The Homes</strong><span>Campaña audiovisual a partir de fotografía</span></span><span class="card-arrow" aria-hidden="true">↗</span></span>
+        </button>
+        <button type="button" class="work-card" data-open="smarketing">
+          <span class="work-cover video-cover"><img src="assets/images/poster-smarketing.webp" alt="" loading="lazy" /><span class="cover-play" aria-hidden="true">▶</span></span>
+          <span class="card-info"><span><small>03 / CONTENIDO DIGITAL</small><strong>Smarketing 360</strong><span>Narrativa visual · edición · gráfica animada</span></span><span class="card-arrow" aria-hidden="true">↗</span></span>
+        </button>
+      </div>
+      <details class="supporting-work">
+        <summary><span><strong>Otras exploraciones en video</strong><small>Casita de Sol · Minsis Kids (motion básico)</small></span><span class="details-plus" aria-hidden="true">＋</span></summary>
+        <div class="supporting-links">
+          <button type="button" data-open="casita"><span>Casita de Sol</span><small>Edición de material real</small><span aria-hidden="true">↗</span></button>
+          <button type="button" data-open="minsis"><span>Minsis Kids</span><small>Microanimación de logotipo · After Effects</small><span aria-hidden="true">↗</span></button>
+        </div>
+      </details>
+    </section>
+
+    <section class="design-band" id="diseno" aria-labelledby="design-title">
+      <div class="wrap section">
+        <div class="section-head">
+          <div><p class="eyebrow">02 / SELECCIÓN GRÁFICA</p><h2 id="design-title">Diseño<span class="section-dot">.</span></h2></div>
+          <p>Cuatro aproximaciones distintas. Cada pieza se puede abrir y recorrer sin salir del sitio.</p>
+        </div>
+        <div class="design-grid">
+          <button class="work-card design-card" type="button" data-open="potencial"><span class="design-cover design-beige"><img src="assets/images/thehomes-1.webp" alt="" loading="lazy" /></span><span class="card-info"><span><small>DISEÑO EDITORIAL · INMOBILIARIO</small><strong>Potencial de zona</strong><span>The Homes · Serie de 4 piezas</span></span><span class="card-arrow" aria-hidden="true">↗</span></span></button>
+          <button class="work-card design-card" type="button" data-open="omar"><span class="design-cover design-blue"><img src="assets/images/omar-1.webp" alt="" loading="lazy" /></span><span class="card-info"><span><small>DISEÑO INFORMATIVO · FINANZAS</small><strong>Broker hipotecario</strong><span>Omar China · Carrusel de 3 piezas</span></span><span class="card-arrow" aria-hidden="true">↗</span></span></button>
+          <button class="work-card design-card" type="button" data-open="editorial"><span class="design-cover design-white"><img src="assets/images/smarketing-mexico.webp" alt="" loading="lazy" /></span><span class="card-info"><span><small>TIPOGRAFÍA · CONTENIDO VISUAL</small><strong>Selección editorial</strong><span>Smarketing 360 · 4 composiciones</span></span><span class="card-arrow" aria-hidden="true">↗</span></span></button>
+          <button class="work-card design-card" type="button" data-open="wbmf"><span class="design-cover design-orange"><img src="assets/images/wbmf-fanta.webp" alt="" loading="lazy" /></span><span class="card-info"><span><small>CONTENIDO EDITORIAL · CULTURA</small><strong>Marcas y cultura pop</strong><span>WBMF · Selección de 2 publicaciones</span></span><span class="card-arrow" aria-hidden="true">↗</span></span></button>
+        </div>
+        <p class="curation-note">Esta sección reúne una muestra gráfica curada, no la totalidad de los diseños que he realizado.</p>
+      </div>
+    </section>
+
+    <section class="about wrap" id="perfil" aria-labelledby="about-title">
+      <p class="eyebrow">03 / SOBRE MÍ</p>
+      <div class="about-grid"><div><h2 id="about-title">Detrás de<br><em>cada corte.</em></h2></div><div class="about-content"><p>Me interesa la edición que tiene intención: encontrar el ritmo correcto, elegir qué mostrar y convertir una idea en una pieza clara y atractiva.</p><p>Trabajo en edición audiovisual, contenido digital y diseño. Estudio Ingeniería en Comunicación Multimedia y quiero crecer en equipos creativos de entretenimiento, música y cultura.</p><div class="skill-list"><span>Premiere Pro</span><span>CapCut</span><span>After Effects</span><span>Canva</span><span>Remotion</span></div><div class="about-actions"><a class="button button-dark" href="mailto:yazmin.moreno374@gmail.com?subject=Contacto%20desde%20portafolio">Contactar <span aria-hidden="true">↗</span></a><a class="text-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV ↗</a></div></div></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap"><span>© 2026 · YAZMIN MORENO</span><a href="mailto:yazmin.moreno374@gmail.com">CONTACTO ↗</a><a href="#inicio">VOLVER ARRIBA ↑</a></div></footer>
+
+  <dialog class="viewer" id="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-frame">
+      <div class="viewer-bar"><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div><span class="viewer-bar-title">PROYECTO SELECCIONADO</span><button type="button" class="viewer-close" id="viewer-close" aria-label="Cerrar ventana">Cerrar <span aria-hidden="true">×</span></button></div>
+      <div class="viewer-main"><div class="viewer-stage" id="viewer-stage"></div><div class="viewer-sidebar"><p class="viewer-eyebrow" id="viewer-kind"></p><h2 id="viewer-title"></h2><p class="viewer-deck" id="viewer-deck"></p><p class="viewer-description" id="viewer-description"></p><div class="viewer-role"><span>MI PARTICIPACIÓN</span><p id="viewer-role"></p></div><p class="viewer-notice" id="viewer-notice"></p></div></div>
+    </div>
+  </dialog>
 </body>
 </html>
