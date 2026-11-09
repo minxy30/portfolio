@@ -7,14 +7,14 @@ window.PORTFOLIO_PROJECTS = [
     "category": "ENTRETENIMIENTO · YOUTUBE",
     "kind": "video",
     "summary": "Edición y participación creativa en contenido de entretenimiento publicado en YouTube. Selección de material, construcción del ritmo, música, efectos y postproducción.",
-    "role": "Edición audiovisual y participación en el proceso de contenidos. La selección definitiva de fragmentos del canal requiere comprobar la correspondencia de las notas de evaluación con cada enlace.",
+    "role": "Edición audiovisual de contenido para creadores: estructura, ritmo, música y efectos. Los créditos y la correspondencia exacta entre evaluación y enlaces están en validación.",
     "tools": [
       "Premiere Pro",
       "CapCut",
       "Diseño sonoro",
       "Edición narrativa"
     ],
-    "note": "Enlaces publicados compartidos por la autora. Se muestran como muestras de trabajo, sin atribuirles las calificaciones ☆☆☆ que todavía no se han conciliado.",
+    "note": "Los enlaces son trabajos publicados aportados por la autora. Los videos concretos que identifica como favoritos (Ormuz y Bolivia) siguen sin correspondencia inequívoca: no se afirma que estas muestras sean esos títulos.",
     "links": [
       {
         "label": "Edición publicada A · YouTube",
@@ -84,8 +84,53 @@ window.PORTFOLIO_PROJECTS = [
     "aspect": "portrait"
   },
   {
-    "id": "casita",
+    "id": "potencial",
     "number": "04",
+    "title": "The Homes — Potencial de zona",
+    "subtitle": "Información que se entiende de una página a la siguiente",
+    "category": "DISEÑO · SERIE EDITORIAL",
+    "kind": "design",
+    "summary": "Serie visual de cuatro publicaciones sobre señales de crecimiento urbano e inmobiliario, con una composición y un lenguaje gráfico coherentes.",
+    "role": "Diseño de publicaciones para The Homes dentro de un sistema de marca existente; la autoría de ilustraciones y otros recursos debe precisarse antes de atribuirla como creación íntegra.",
+    "tools": [
+      "Canva",
+      "Diseño editorial",
+      "Contenido para redes"
+    ],
+    "gallery": [
+      "assets/images/thehomes-1.webp",
+      "assets/images/thehomes-2.webp",
+      "assets/images/thehomes-3.webp",
+      "assets/images/thehomes-4.webp"
+    ],
+    "poster": "assets/images/thehomes-1.webp",
+    "note": "Serie real de cuatro imágenes de la carpeta de diseños. Su uso público depende de los permisos y créditos de la marca."
+  },
+  {
+    "id": "omar",
+    "number": "05",
+    "title": "Omar China — Broker hipotecario",
+    "subtitle": "Una idea, tres piezas, un lenguaje visual",
+    "category": "DISEÑO · CARRUSEL",
+    "kind": "design",
+    "summary": "Serie de tres publicaciones sobre cómo comparar, filtrar y tomar decisiones sobre crédito hipotecario. Tipografía contundente, contraste y jerarquía informativa para formato móvil.",
+    "role": "Piezas de diseño de un archivo profesional de contenidos para Omar China. Quedan por confirmar las aportaciones originales frente a plantillas, recursos e imágenes de terceros.",
+    "tools": [
+      "Canva",
+      "Composición editorial",
+      "Diseño para redes"
+    ],
+    "gallery": [
+      "assets/images/omar-1.webp",
+      "assets/images/omar-2.webp",
+      "assets/images/omar-3.webp"
+    ],
+    "poster": "assets/images/omar-1.webp",
+    "note": "Serie observada visualmente; su presencia no equivale a atribución de todos los recursos fotográficos o 3D."
+  },
+  {
+    "id": "casita",
+    "number": "EXTRA 01",
     "title": "Casita de Sol",
     "subtitle": "Edición con imágenes reales y atención a los detalles",
     "category": "EDICIÓN · VIDEO PUBLICITARIO",
@@ -107,26 +152,26 @@ window.PORTFOLIO_PROJECTS = [
     "aspect": "portrait"
   },
   {
-    "id": "potencial",
-    "number": "05",
-    "title": "The Homes — Potencial de zona",
-    "subtitle": "Información que se entiende de una página a la siguiente",
-    "category": "DISEÑO · SERIE EDITORIAL",
-    "kind": "design",
-    "summary": "Serie visual de cuatro publicaciones sobre señales de crecimiento urbano e inmobiliario, con una composición y un lenguaje gráfico coherentes.",
-    "role": "Piezas provenientes del archivo profesional de diseño. La atribución específica de ilustraciones y recursos deberá comprobarse antes de publicarlas como diseño íntegramente original.",
+    "id": "minsis",
+    "number": "EXTRA 02",
+    "title": "Minsis Kids",
+    "subtitle": "Microanimación de logotipo para contenido infantil",
+    "category": "MOTION · AFTER EFFECTS",
+    "kind": "video",
+    "summary": "Ejercicio de motion de 3.9 segundos: entrada y escala de un logotipo infantil con cierre estático.",
+    "role": "Animación básica de entrada y escala del logotipo en After Effects. No se atribuye la creación original del logotipo.",
     "tools": [
-      "Canva",
-      "Diseño editorial",
-      "Contenido para redes"
+      "After Effects",
+      "Animación de escala",
+      "Motion básico"
     ],
-    "gallery": [
-      "assets/images/thehomes-1.webp",
-      "assets/images/thehomes-2.webp",
-      "assets/images/thehomes-3.webp",
-      "assets/images/thehomes-4.webp"
-    ],
-    "poster": "assets/images/thehomes-1.webp",
-    "note": "Serie real de cuatro imágenes de la carpeta de diseños. Su uso público depende de los permisos y créditos de la marca."
+    "poster": "assets/images/poster-minsis.webp",
+    "note": "Microejercicio para mostrar el proceso de aprendizaje en motion. No representa una campaña ni un proyecto completo de dirección creativa.",
+    "embed": {
+      "provider": "drive",
+      "id": "1vwZ5cudU7rPRX1LXBPdVo1LZsgN_RMix",
+      "url": "https://drive.google.com/file/d/1vwZ5cudU7rPRX1LXBPdVo1LZsgN_RMix/view"
+    },
+    "aspect": "landscape"
   }
 ];

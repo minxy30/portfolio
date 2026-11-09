@@ -8,6 +8,9 @@
   const closeButton = document.getElementById('modal-close');
   const theme = document.getElementById('theme-switch');
   let lastFocused = null;
+  let currentProjectIndex = 0;
+  const modalPrev = document.getElementById('modal-prev');
+  const modalNext = document.getElementById('modal-next');
 
   function displayText(id, value) {
     const elem = document.getElementById(id);
@@ -74,21 +77,88 @@
     const wrap = document.createElement('div');
     wrap.className = 'gallery-wrap';
     const gallery = document.createElement('div');
-    gallery.className = 'gallery';
-    (project.gallery || []).forEach((src, i) => {
+    gallery.className = 'gallery swipe-gallery';
+    gallery.tabIndex = 0;
+    gallery.setAttribute('aria-label', `Carrusel deslizable de ${project.title}. Usa las flechas o desliza horizontalmente.`);
+    let current = 0;
+    const slides = (project.gallery || []).map((src, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'gallery-slide';
       const img = document.createElement('img');
       img.src = src;
       img.loading = 'lazy';
-      img.alt = `Diseño ${i + 1} de la serie ${project.title}`;
-      gallery.appendChild(img);
+      img.alt = `Lámina ${i + 1} de ${project.gallery.length} — ${project.title}`;
+      slide.appendChild(img);
+      gallery.appendChild(slide);
+      return slide;
     });
     wrap.appendChild(gallery);
+    const controls = document.createElement('div');
+    controls.className = 'gallery-controls';
+    const previous = document.createElement('button');
+    previous.type = 'button';
+    previous.className = 'gallery-arrow';
+    previous.textContent = '←';
+    previous.setAttribute('aria-label', 'Lámina anterior');
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'gallery-arrow';
+    next.textContent = '→';
+    next.setAttribute('aria-label', 'Lámina siguiente');
+    const status = document.createElement('span');
+    status.className = 'gallery-status';
+    status.setAttribute('aria-live', 'polite');
+    const dots = document.createElement('div');
+    dots.className = 'gallery-dots';
+    const pointButtons = slides.map((_, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', `Ver lámina ${i + 1}`);
+      btn.addEventListener('click', () => goTo(i));
+      dots.appendChild(btn);
+      return btn;
+    });
+    function update() {
+      status.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      previous.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      pointButtons.forEach((b, i) => b.setAttribute('aria-current', i === current ? 'true' : 'false'));
+    }
+    function goTo(index) {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      gallery.scrollTo({ left: slides[current].offsetLeft - gallery.offsetLeft, behavior: 'smooth' });
+      update();
+    }
+    previous.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+    let scrollFrame;
+    gallery.addEventListener('scroll', () => {
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
+      scrollFrame = requestAnimationFrame(() => {
+        const width = gallery.clientWidth || 1;
+        current = Math.max(0, Math.min(slides.length - 1, Math.round(gallery.scrollLeft / width)));
+        update();
+      });
+    }, {passive:true});
+    gallery.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault(); goTo(current + (e.key === 'ArrowRight' ? 1 : -1));
+      }
+    });
+    controls.append(previous, dots, status, next);
+    wrap.appendChild(controls);
+    const hint = document.createElement('p');
+    hint.className = 'gallery-hint';
+    hint.textContent = 'DESLIZA HACIA LOS LADOS ↔';
+    wrap.appendChild(hint);
+    update();
     return wrap;
   }
 
   function openModal(project) {
     if (!project) return;
     lastFocused = document.activeElement;
+    currentProjectIndex = Math.max(0, projects.findIndex(p => p.id === project.id));
     displayText('modal-count', `YAZMIN MORENO / PROYECTO ${project.number}`);
     displayText('modal-cat', project.category);
     displayText('modal-title', project.title);
@@ -106,6 +176,8 @@
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
+    modalPrev.disabled = currentProjectIndex === 0;
+    modalNext.disabled = currentProjectIndex === projects.length - 1;
     closeButton.focus();
   }
 
@@ -123,11 +195,23 @@
     const button = card.querySelector('.card-hit');
     if (button) button.addEventListener('click', () => openModal(byId[card.dataset.project]));
   });
+  function navigateProject(direction) {
+    const nextIndex = Math.max(0, Math.min(projects.length - 1, currentProjectIndex + direction));
+    if (nextIndex === currentProjectIndex) return;
+    // Do not return focus to the card while changing the project inside the dialog.
+    openModal(projects[nextIndex]);
+    panel.querySelector('.modal-inner').scrollTop = 0;
+  }
+  modalPrev.addEventListener('click', () => navigateProject(-1));
+  modalNext.addEventListener('click', () => navigateProject(1));
   closeButton.addEventListener('click', closeModal);
   modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
   document.addEventListener('keydown', e => {
     if (!modal.classList.contains('open')) return;
     if (e.key === 'Escape') closeModal();
+    if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && !e.target.closest('.swipe-gallery')) {
+      e.preventDefault(); navigateProject(e.key === 'ArrowDown' ? 1 : -1);
+    }
     if (e.key === 'Tab') {
       const focusable = Array.from(panel.querySelectorAll('a[href], button:not([disabled])')).filter(el => el.offsetParent !== null);
       if (!focusable.length) return;
@@ -137,6 +221,22 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
+
+  // Optional TikTok-like vertical swipe between projects, only on non-interactive copy area.
+  let gestureStart = null;
+  const copyPane = panel.querySelector('.modal-copy');
+  copyPane.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1 || e.target.closest('button, a, iframe')) return;
+    gestureStart = {y: e.touches[0].clientY, x: e.touches[0].clientX, time: Date.now()};
+  }, {passive:true});
+  copyPane.addEventListener('touchend', e => {
+    if (!gestureStart || !e.changedTouches.length) return;
+    const dy = e.changedTouches[0].clientY - gestureStart.y;
+    const dx = e.changedTouches[0].clientX - gestureStart.x;
+    const quick = Date.now() - gestureStart.time < 650;
+    gestureStart = null;
+    if (quick && Math.abs(dy) > 95 && Math.abs(dy) > 1.5 * Math.abs(dx)) navigateProject(dy < 0 ? 1 : -1);
+  }, {passive:true});
 
   document.querySelectorAll('.filter').forEach(button => {
     button.addEventListener('click', () => {
@@ -151,6 +251,16 @@
       });
     });
   });
+
+  const navTargets = document.querySelectorAll('.mobile-dock a[href^="#"]');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.filter(e=>e.isIntersecting).forEach(e => {
+        navTargets.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + e.target.id));
+      });
+    }, {rootMargin:'-25% 0px -55% 0px'});
+    document.querySelectorAll('#top, #proyectos, #extras, #contacto').forEach(el=>observer.observe(el));
+  }
 
   const savedTheme = (() => { try { return localStorage.getItem('ym-theme'); } catch { return null; } })();
   if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
