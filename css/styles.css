@@ -62,3 +62,11 @@ body[data-theme="dark"]{--bg:#080e14;--ink:#f3f3ef;--muted:#b5bec6;--line:rgba(2
 .sound-needs-gesture .sound-led{background:#f2a14d!important;box-shadow:0 0 0 3px rgba(242,161,77,.2)}
 @media(max-width:740px){.audio-group{gap:2px}.volume-trigger{width:28px;height:28px}.volume-trigger svg{width:15px;height:15px}.volume-panel{right:-44px;top:calc(100% + 13px)}}
 @media(max-width:390px){.volume-trigger{width:26px;height:26px}.volume-panel{right:-28px}}
+
+/* The speaker is a volume-only control; there is no pause/mute toggle. */
+#sound-toggle .sound-wave{display:block}
+#sound-toggle .sound-slash{display:none}
+#sound-toggle[data-muted="true"] .sound-wave{display:none}
+#sound-toggle[data-muted="true"] .sound-slash{display:block}
+#sound-toggle[data-muted="true"] .sound-led{background:var(--muted)}
+#sound-toggle:not([data-muted="true"]):not(.sound-needs-gesture) .sound-led{background:#38be8e}

@@ -38,3 +38,8 @@ Los pictogramas externos representan marcas de terceros; se utilizan para identi
 - Los efectos de tap, hover y swoosh se sintetizan por separado con Web Audio y permanecen activos cuando se silencia la música. Los navegadores también pueden exigir una primera interacción para permitir estos efectos.
 - Abrir un video pausa la música, cerrarlo la reanuda si el usuario no la ha silenciado.
 
+
+
+### Música continua, control solo de volumen
+
+El icono del altavoz abre un deslizador de 0 % a 100 %. No existe botón de pausa: al seleccionar 0 % la pista continúa en silencio, sin reiniciar el loop. La música se pausa únicamente al abrir un proyecto de video, para evitar superposición de audio, y se reanuda al cerrarlo. Se solicita reproducción inicial en todos los navegadores, pero sus políticas de autoplay pueden bloquear el sonido hasta una interacción del visitante. Los sonidos de navegación permanecen independientes.

@@ -57,49 +57,74 @@ document.addEventListener('pointerover',e=>{
  lastHoverAt=now;soundEffect('hover');
 },{passive:true});
 
-const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('volume-trigger'),volumePanel=$('volume-panel');
-const storedVolume=Number(localPref('ym-volume'));
-let musicLevel=Number.isFinite(storedVolume)&&localPref('ym-volume')!==null?Math.max(0,Math.min(1,storedVolume/100)):.20;
+const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel');
+const savedVolume=localPref('ym-volume');
+let musicLevel=savedVolume!==null&&Number.isFinite(Number(savedVolume))?Math.max(0,Math.min(1,Number(savedVolume)/100)):.20;
 let audioNeedsGesture=false,unlockRunning=false;
 music.src=CFG.ambientAudioSrc||'';
 music.loop=true;
-music.preload='metadata';
+music.preload='auto';
 music.volume=musicLevel;
 volumeInput.value=String(Math.round(musicLevel*100));
 volumeValue.textContent=String(Math.round(musicLevel*100))+'%';
+
 function syncMusicButton(){
- sound.setAttribute('aria-pressed',String(visitorSound));
- sound.classList.toggle('sound-needs-gesture',visitorSound&&audioNeedsGesture);
- sound.title=!visitorSound?'Activar música ambiental':audioNeedsGesture?'Toca para iniciar la música':'Silenciar música ambiental';
+ sound.classList.toggle('sound-needs-gesture',audioNeedsGesture);
+ sound.dataset.muted=String(musicLevel===0);
+ sound.title=audioNeedsGesture?'Ajustar volumen · tocar para iniciar la música':'Ajustar volumen de música';
  sound.setAttribute('aria-label',sound.title);
 }
 function requestMusic(){
- if(!visitorSound||(viewer.open&&activeProject&&DATA[activeProject]?.type==='video'))return Promise.resolve();
- // Audio must be explicitly activated by a user gesture on many browsers.
- const play=music.play();if(!play||!play.then)return Promise.resolve();
+ // The soundtrack pauses only while a project video is open.
+ if(viewer.open&&activeProject&&DATA[activeProject]?.type==='video')return Promise.resolve();
+ if(!music.paused)return Promise.resolve();
+ const play=music.play();
+ if(!play||!play.then)return Promise.resolve();
  return play.then(()=>{audioNeedsGesture=false;syncMusicButton()}).catch(err=>{
   audioNeedsGesture=true;syncMusicButton();
   if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('No se pudo iniciar la música ambiental.',err);
  });
 }
-function setSound(on){
- visitorSound=on;
- if(on){music.volume=musicLevel;requestMusic();toast('Música activada · Ajusta el volumen junto al altavoz');}
- else{music.pause();audioNeedsGesture=false;toast('Música silenciada · Los efectos siguen activos');}
- syncMusicButton();soundEffect('toggle');
-}
-sound.addEventListener('click',()=>{if(visitorSound&&audioNeedsGesture){requestMusic();soundEffect('toggle')}else setSound(!visitorSound)});
-volumeTrigger.addEventListener('click',()=>{const show=volumePanel.hidden;volumePanel.hidden=!show;volumeTrigger.setAttribute('aria-expanded',String(show));if(show)volumeInput.focus()});
+// This control only opens the volume slider: it never pauses the soundtrack.
+// 0% makes the music inaudible without interrupting its position or loop.
+volumeTrigger.addEventListener('click',()=>{
+ const show=volumePanel.hidden;
+ volumePanel.hidden=!show;
+ volumeTrigger.setAttribute('aria-expanded',String(show));
+ if(show)volumeInput.focus();
+ requestMusic();
+ soundEffect('toggle');
+});
 volumeInput.addEventListener('input',()=>{
  musicLevel=Math.max(0,Math.min(1,Number(volumeInput.value)/100));
- music.volume=musicLevel;volumeValue.textContent=String(volumeInput.value)+'%';setPref('ym-volume',String(volumeInput.value));
+ music.volume=musicLevel;
+ volumeValue.textContent=String(volumeInput.value)+'%';
+ setPref('ym-volume',String(volumeInput.value));
+ syncMusicButton();
 });
-document.addEventListener('pointerdown',e=>{if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')};if(!e.target.closest?.('#sound-toggle')&&visitorSound&&music.paused&&!unlockRunning){unlockRunning=true;requestMusic().finally(()=>unlockRunning=false)}},{capture:true,passive:true});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!volumePanel.hidden){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')}if((e.key==='Enter'||e.key===' ')&&visitorSound&&music.paused)requestMusic()});
-music.addEventListener('error',()=>{if(visitorSound){audioNeedsGesture=true;syncMusicButton();toast('No se pudo cargar la pista ambiental. Comprueba tu conexión.')}});
+document.addEventListener('pointerdown',e=>{
+ if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){
+  volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
+ }
+ if(music.paused&&!unlockRunning){
+  unlockRunning=true;
+  requestMusic().finally(()=>unlockRunning=false);
+ }
+},{capture:true,passive:true});
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!volumePanel.hidden){
+  volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
+ }
+ if((e.key==='Enter'||e.key===' ')&&music.paused)requestMusic();
+});
+music.addEventListener('error',()=>{
+ audioNeedsGesture=true;syncMusicButton();
+ toast('No se pudo cargar la pista ambiental. Comprueba tu conexión.');
+});
 music.addEventListener('playing',()=>{audioNeedsGesture=false;syncMusicButton()});
-// Try autoplay on load; browser policies usually require the first tap/click.
-syncMusicButton();setTimeout(()=>{requestMusic()},0);
+// Autoplay with sound can be blocked: retry at the first visitor gesture.
+syncMusicButton();
+requestMusic();
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
@@ -173,9 +198,15 @@ function decorateToolDust(){
 }
 decorateToolDust();
 function openProject(id,focusEl){const item=DATA[id];if(!item||!viewer)return;returnFocus=focusEl||returnFocus;activeProject=id;$('viewer-area').textContent=item.kind;$('viewer-title').textContent=item.title;$('viewer-deck').textContent=item.deck||'';$('viewer-description').textContent=item.description||'';$('viewer-role').textContent=item.role||'';$('viewer-results').textContent=item.results||'Pieza final entregada.';$('viewer-tools').textContent=item.tools||'Herramientas documentadas en el proyecto';$('viewer-note').textContent=item.note||'';makeMedia(item);let index=activeItems.indexOf(id);$('viewer-count').textContent=`${index+1} / ${activeItems.length}`;$('viewer-prev').disabled=index<=0;$('viewer-next').disabled=index>=activeItems.length-1;
-if(item.type==='video'&&!music.paused){wasPlaying=true;music.pause()}else if(item.type!=='video'&&viewer.open&&wasPlaying&&visitorSound){music.play().catch(()=>{});wasPlaying=false}else if(!viewer.open){wasPlaying=false}
+if(item.type==='video'){
+ if(!music.paused){wasPlaying=true;music.pause()}
+ // Keep wasPlaying across consecutive video projects.
+}else if(viewer.open&&wasPlaying){
+ wasPlaying=false;
+ requestMusic();
+}
 if(!viewer.open)viewer.showModal();$('viewer-close').focus();soundEffect('click')}
-function closeProject(){if(!viewer.open)return;$('viewer-media').replaceChildren();viewer.close();activeProject=null;if(wasPlaying&&visitorSound&&!music.ended){music.play().catch(()=>{});}wasPlaying=false;if(returnFocus?.isConnected)returnFocus.focus()}
+function closeProject(){if(!viewer.open)return;$('viewer-media').replaceChildren();viewer.close();activeProject=null;if(wasPlaying){requestMusic();}wasPlaying=false;if(returnFocus?.isConnected)returnFocus.focus()}
 $('viewer-close').addEventListener('click',closeProject);viewer.addEventListener('cancel',e=>{e.preventDefault();closeProject()});viewer.addEventListener('click',e=>{if(e.target===viewer)closeProject()});
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));
