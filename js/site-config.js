@@ -3,10 +3,12 @@
  * Cuando termines tu video, súbelo a assets/hero/intro.mp4 y cambia
  * backgroundVideoSrc de '' a 'assets/hero/intro.mp4'.
  * El video debe ser silencioso, optimizado y se mostrará DETRÁS de las partículas.
- * La música se solicita al iniciar; los navegadores requieren a menudo una interacción antes de permitir audio.
+ * La música usa una copia optimizada (1.44 MB) del archivo guardado en Google Drive.
+ * Google Drive no permite la reproducción pública directa de este archivo privado.
+ * La web intenta empezar la música al abrir; la mayoría de navegadores requiere una interacción para autorizar el sonido.
  */
 window.YAZMIN_SITE_CONFIG={
   backgroundVideoSrc:'',
-  ambientAudioSrc:'https://drive.google.com/uc?export=download&id=1_NWK3zKvX8BklDdnq-FLfotC-7wYCPrB',
+  ambientAudioSrc:'assets/audio/Abyssal-Light-Loop-web.m4a',
   enableClickSounds:true
 };

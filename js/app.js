@@ -79,7 +79,7 @@ function requestMusic(){
  const play=music.play();if(!play||!play.then)return Promise.resolve();
  return play.then(()=>{audioNeedsGesture=false;syncMusicButton()}).catch(err=>{
   audioNeedsGesture=true;syncMusicButton();
-  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('La música no se pudo cargar desde Google Drive.',err);
+  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('No se pudo iniciar la música ambiental.',err);
  });
 }
 function setSound(on){
@@ -96,7 +96,7 @@ volumeInput.addEventListener('input',()=>{
 });
 document.addEventListener('pointerdown',e=>{if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')};if(!e.target.closest?.('#sound-toggle')&&visitorSound&&music.paused&&!unlockRunning){unlockRunning=true;requestMusic().finally(()=>unlockRunning=false)}},{capture:true,passive:true});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!volumePanel.hidden){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')}if((e.key==='Enter'||e.key===' ')&&visitorSound&&music.paused)requestMusic()});
-music.addEventListener('error',()=>{if(visitorSound){audioNeedsGesture=true;syncMusicButton();toast('Audio de Drive no disponible. Comprueba el acceso de lector al archivo.')}});
+music.addEventListener('error',()=>{if(visitorSound){audioNeedsGesture=true;syncMusicButton();toast('No se pudo cargar la pista ambiental. Comprueba tu conexión.')}});
 music.addEventListener('playing',()=>{audioNeedsGesture=false;syncMusicButton()});
 // Try autoplay on load; browser policies usually require the first tap/click.
 syncMusicButton();setTimeout(()=>{requestMusic()},0);
