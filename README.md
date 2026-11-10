@@ -52,3 +52,10 @@ Para suavizar el loop, dos elementos de audio comparten la pista alojada en `ass
 
 ## Acceso inicial tipo juego
 La página muestra una entrada cinematográfica con botón **«Entrar al portafolio»**. El clic genera un sonido de portal fantástico sintetizado en Web Audio, llama a la reproducción de `Abyssal Light Loop` mediante un gesto real del usuario y desencadena un destello que revela la portada y sus cinco hojas en secuencia. El fondo de partículas y la navegación original no se modifican. Hay una variante sin animación prolongada para `prefers-reduced-motion`. No se descargan efectos de sonido externos.
+
+
+### Collage audiovisual y ambientación de entrada
+
+Cada recarga vuelve a mostrar el portal inicial. Detrás se encuentra un collage de 18 tarjetas de proyectos locales (fotografía, diseño, campañas), con posiciones y material visual alternantes; los cambios ocurren por grupos de cuatro cada ~2.65 s. El área central queda atenuada para mantener legible el botón «Entrar al portafolio». No usa archivos externos ni añade video pesado. La animación se reduce con `prefers-reduced-motion`.
+
+El portal tiene una composición sintetizada original de **fantasía/organic house ambiental a 103 BPM**, generada en tiempo real con Web Audio y sin voces. Su reproducción previa al clic depende de la política de autoplay del navegador. Si el navegador la bloquea, el clic de entrada activa una breve transición sonora y la música del portafolio. Al entrar se inicia la pista **Abyssal Light Loop** al **10 % de volumen en cada visita**, sin recuperar preferencias anteriores; el visitante puede ajustar el volumen durante la sesión. Se mantiene el crossfade de 5 segundos y los efectos de navegación independientes.

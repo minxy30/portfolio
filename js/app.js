@@ -59,8 +59,8 @@ document.addEventListener('pointerover',e=>{
 },{passive:true});
 
 const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel');
-const savedVolume=localPref('ym-volume');
-let musicLevel=savedVolume!==null&&Number.isFinite(Number(savedVolume))?Math.max(0,Math.min(1,Number(savedVolume)/100)):.20;
+// The soundtrack ALWAYS starts at 10% on each new page visit.
+let musicLevel=.10,entryMix=0;
 const crossfadeSeconds=5;
 const musicA=music,musicB=new Audio();
 const musicUrl=CFG.ambientAudioSrc||'';
@@ -77,10 +77,10 @@ function currentFadeProgress(){
  return Math.max(0,Math.min(1,(from.currentTime-start)/duration));
 }
 function updateMusicVolumes(){
- if(!transition){activeTrack.volume=musicLevel;standbyTrack.volume=0;return}
+ if(!transition){activeTrack.volume=musicLevel*entryMix;standbyTrack.volume=0;return}
  const progress=currentFadeProgress();
- transition.from.volume=musicLevel*Math.cos(progress*Math.PI/2);
- transition.to.volume=musicLevel*Math.sin(progress*Math.PI/2);
+ transition.from.volume=musicLevel*entryMix*Math.cos(progress*Math.PI/2);
+ transition.to.volume=musicLevel*entryMix*Math.sin(progress*Math.PI/2);
 }
 function finishCrossfade(){
  if(!transition)return;
@@ -185,7 +185,7 @@ volumeInput.addEventListener('input',()=>{
  musicLevel=Math.max(0,Math.min(1,Number(volumeInput.value)/100));
  updateMusicVolumes();
  volumeValue.textContent=String(volumeInput.value)+'%';
- setPref('ym-volume',String(volumeInput.value));syncMusicButton();
+ syncMusicButton();
 });
 document.addEventListener('pointerdown',e=>{
  if(document.body.classList.contains('pre-entry'))return;
@@ -205,6 +205,187 @@ document.addEventListener('keydown',e=>{
 });
 syncMusicButton();
 // The visitor activates audio with the Enter button, avoiding blocked autoplay.
+
+
+// Always-visible re-entry collage, built entirely from real portfolio materials.
+// The gentle, randomized card changes are capped at <3 Hz and respect reduced motion.
+const collageRoot=$('entry-collage');
+const collageAssets=[
+ ['assets/images/poster-thehomes.webp','THE HOMES'],
+ ['assets/images/smarketing-historia-1.webp','SMARKETING'],
+ ['assets/images/omar-1.webp','DISEÑO'],
+ ['assets/images/foto-terror.webp','FOTOGRAFÍA'],
+ ['assets/images/poster-casita.webp','VIDEO'],
+ ['assets/images/sabias-1.webp','CARRUSEL'],
+ ['assets/images/fotografia-halloween-02.webp','RETRATO'],
+ ['assets/images/thehomes-3.webp','CAMPAÑA'],
+ ['assets/images/poster-minsis.webp','MOTION'],
+ ['assets/images/wbmf-fanta.webp','EDITORIAL'],
+ ['assets/images/omar-3.webp','DISEÑO'],
+ ['assets/images/smarketing-mexico.webp','CONTENIDO'],
+ ['assets/images/fotografia-halloween-05.webp','FOTOGRAFÍA'],
+ ['assets/images/thehomes-1.webp','CAMPAÑA'],
+ ['assets/images/sabias-3.webp','CARRUSEL'],
+ ['assets/images/wbmf-london.webp','EDITORIAL'],
+ ['assets/images/poster-smarketing.webp','VIDEO'],
+ ['assets/images/fotografia-halloween-04.webp','RETRATO']
+];
+const collageSpots=[
+ [4,6],[21,12],[40,4],[64,8],[82,5],[93,22],
+ [7,34],[25,38],[46,29],[70,32],[89,45],
+ [4,64],[20,76],[44,68],[62,79],[83,72],[95,88],[34,91]
+];
+let collageTimer=0,collagePhase=0;
+function collagePosition(card,i,first=false){
+ const base=collageSpots[i%collageSpots.length];
+ const phase=collagePhase;
+ const wave=(i*1.618+phase*.69);
+ const dx=first?0:(Math.random()*12-6);
+ const dy=first?0:(Math.random()*16-8);
+ const rotation=((i*29)%17-8)+(first?0:(Math.random()*12-6));
+ const width=112+(i*31)%83;
+ card.style.setProperty('--x',(base[0]+dx)+'%');
+ card.style.setProperty('--y',(base[1]+dy)+'%');
+ card.style.setProperty('--w',width+'px');
+ card.style.setProperty('--angle',rotation+'deg');
+ card.style.setProperty('--brightness',String(1+(i%4)*.06));
+ card.style.setProperty('--tile-alpha',String(.38+((i*17)%6)*.08));
+}
+function initCollage(){
+ if(!collageRoot)return;
+ const fragment=document.createDocumentFragment();
+ collageAssets.forEach(([src,label],i)=>{
+  const tile=document.createElement('figure');
+  tile.className='entry-collage-tile';
+  const pic=document.createElement('img');
+  pic.src=src;pic.alt='';pic.decoding='async';pic.loading=i<8?'eager':'lazy';
+  const cap=document.createElement('figcaption');cap.textContent=label;
+  tile.append(pic,cap);collagePosition(tile,i,true);
+  tile.style.setProperty('--delay',(i%7)*.085+'s');
+  fragment.appendChild(tile);
+ });
+ collageRoot.appendChild(fragment);
+ if(reduce.matches)return;
+ collageTimer=window.setInterval(()=>{
+  if(!document.body.classList.contains('pre-entry')||document.hidden)return;
+  collagePhase++;
+  const tiles=collageRoot.children;
+  // Rotate a handful of small tiles at a time, never the whole screen.
+  const changed=new Set();
+  while(changed.size<4)changed.add(Math.floor(Math.random()*tiles.length));
+  let j=0;
+  for(const i of changed){
+   const tile=tiles[i];
+   collagePosition(tile,i);
+   if(j<2){
+    const next=Math.floor(Math.random()*collageAssets.length);
+    const img=tile.querySelector('img');
+    if(img&&img.complete)img.src=collageAssets[next][0];
+    tile.querySelector('figcaption').textContent=collageAssets[next][1];
+   }
+   tile.classList.remove('is-glint');void tile.offsetWidth;tile.classList.add('is-glint');j++;
+  }
+ },2650);
+}
+initCollage();
+
+// Original, procedural fantasy / organic-house intro bed:
+// 103 BPM, soft kick, moving warm pads, gentle bass and air textures, no vocals.
+// Attempts autoplay only when the browser permits it; otherwise the entry click
+// unlocks the audio and plays a short fantasy-house transition.
+const introBeat=60/103,introBar=introBeat*4;
+let introAudio=null,introMaster=null,introNextTime=0,introBarCount=0,introTicker=0,introRunning=true,introNoise=null;
+const introChords=[
+ [174.61,207.65,261.63,311.13],
+ [155.56,196,233.08,311.13],
+ [138.59,174.61,207.65,261.63],
+ [155.56,196,261.63,293.66],
+ [174.61,207.65,261.63,349.23],
+ [146.83,174.61,233.08,311.13],
+ [138.59,174.61,220,261.63],
+ [155.56,196,233.08,293.66]
+];
+function introTone(ac,hz,when,duration,gain,type='sine',dest=introMaster){
+ const osc=ac.createOscillator(),amp=ac.createGain();
+ osc.type=type;osc.frequency.setValueAtTime(hz,when);
+ amp.gain.setValueAtTime(.0001,when);
+ amp.gain.exponentialRampToValueAtTime(Math.max(.00011,gain),when+.06);
+ amp.gain.exponentialRampToValueAtTime(.0001,when+duration);
+ osc.connect(amp);amp.connect(dest);osc.start(when);osc.stop(when+duration+.025);
+}
+function introKick(ac,when){
+ const osc=ac.createOscillator(),amp=ac.createGain();
+ osc.type='sine';osc.frequency.setValueAtTime(120,when);
+ osc.frequency.exponentialRampToValueAtTime(47,when+.17);
+ amp.gain.setValueAtTime(.0001,when);
+ amp.gain.exponentialRampToValueAtTime(.07,when+.006);
+ amp.gain.exponentialRampToValueAtTime(.0001,when+.29);
+ osc.connect(amp);amp.connect(introMaster);osc.start(when);osc.stop(when+.31);
+}
+function introShimmer(ac,when,gain=.006){
+ if(!introNoise){
+  introNoise=ac.createBuffer(1,Math.round(ac.sampleRate*.16),ac.sampleRate);
+  const samples=introNoise.getChannelData(0);
+  for(let i=0;i<samples.length;i++)samples[i]=Math.random()*2-1;
+ }
+ const noise=ac.createBufferSource(),filter=ac.createBiquadFilter(),amp=ac.createGain();
+ noise.buffer=introNoise;filter.type='highpass';filter.frequency.value=2300;
+ amp.gain.setValueAtTime(.0001,when);
+ amp.gain.exponentialRampToValueAtTime(gain,when+.006);
+ amp.gain.exponentialRampToValueAtTime(.0001,when+.115);
+ noise.connect(filter);filter.connect(amp);amp.connect(introMaster);
+ noise.start(when);noise.stop(when+.13);
+}
+function scheduleIntroBar(ac,time,index){
+ const chord=introChords[index%introChords.length];
+ const voicing=(Math.floor(index/8)%3);
+ chord.forEach((hz,i)=>{
+  // Pads change subtly each eight bars; no distracting piano melody.
+  introTone(ac,hz*(voicing===1&&i===3?2:1),time,Math.min(introBar*1.42,3.3),.0125, i%2?'triangle':'sine');
+ });
+ for(let b=0;b<4;b++){
+  introKick(ac,time+introBeat*b);
+  if(b%2===1)introShimmer(ac,time+introBeat*b,.006);
+  if(b===0||b===2)introTone(ac,chord[0]/2,time+introBeat*b,introBeat*.8,.025,'sine');
+  introShimmer(ac,time+introBeat*(b+.5),.003);
+ }
+ if(index%4===2)introTone(ac,chord[2]*2,time+introBeat*2.65,introBeat*2,.006,'sine');
+}
+function scheduleIntroMusic(){
+ if(!introRunning)return;
+ const ac=introAudio;
+ if(!ac||ac.state!=='running')return;
+ if(introNextTime<ac.currentTime-.2)introNextTime=ac.currentTime+.05;
+ while(introNextTime<ac.currentTime+.4){
+  scheduleIntroBar(ac,introNextTime,introBarCount++);
+  introNextTime+=introBar;
+ }
+}
+function startIntroMusic(){
+ if(!introRunning)return;
+ const ac=context();if(!ac)return;
+ introAudio=ac;
+ if(!introMaster){
+  introMaster=ac.createGain();introMaster.gain.value=.38;
+  introMaster.connect(ac.destination);
+ }
+ if(!introTicker)introTicker=window.setInterval(scheduleIntroMusic,130);
+ scheduleIntroMusic();
+}
+function fadeIntroMusic(){
+ const ac=introAudio;
+ if(!ac||!introMaster)return;
+ const now=ac.currentTime;
+ introMaster.gain.cancelScheduledValues(now);
+ introMaster.gain.setValueAtTime(introMaster.gain.value,now);
+ introMaster.gain.linearRampToValueAtTime(.0001,now+1.75);
+ window.setTimeout(()=>{
+  introRunning=false;
+  if(introTicker)window.clearInterval(introTicker);
+  introTicker=0;
+ },1900);
+}
+startIntroMusic();
 
 // A single game-like start action intentionally unlocks music under autoplay rules.
 const entryGate=$('entry-gate'),entryButton=$('enter-portfolio'),siteMain=$('site-main'),siteHeader=document.querySelector('.site-header');
@@ -251,14 +432,29 @@ function fantasyEntranceSfx(){
 function enterPortfolio(){
  if(hasEntered)return;
  hasEntered=true;
- // Both calls execute synchronously in this genuine click, authorizing the audio.
+ // The music starts at exactly 10% on every visit, regardless of past changes.
+ musicLevel=.10;volumeInput.value='10';volumeValue.textContent='10%';
+ updateMusicVolumes();
+ // These audio operations run inside a real click to satisfy browser autoplay policies.
+ startIntroMusic();
+ scheduleIntroMusic();
  requestMusic();
  fantasyEntranceSfx();
+ fadeIntroMusic();
  entryButton.disabled=true;
  entryGate.classList.add('is-opening');
  document.body.classList.remove('pre-entry');
  document.body.classList.add('entering-portfolio');
  siteMain.inert=false;siteHeader.inert=false;
+ // Bring the primary soundtrack up under the portal SFX as the home page emerges.
+ const fadeStart=performance.now();
+ function rise(now){
+  entryMix=Math.min(1,Math.max(0,(now-fadeStart-370)/1150));
+  updateMusicVolumes();
+  if(entryMix<1)requestAnimationFrame(rise);
+ }
+ requestAnimationFrame(rise);
+ if(collageTimer)window.clearInterval(collageTimer);
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
   entryGate.hidden=true;
