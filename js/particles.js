@@ -15,7 +15,7 @@
   const query = new URLSearchParams(location.search);
   const forceCanvas = query.has('particleFallback');
   const forceReduced = query.has('particleReduced');
-  const MAX_PARTICLES = 32000;
+  const MAX_PARTICLES = 96000;
   const TRAIL_LENGTH = 6;
   const MAX_PULSES = 4;
   const TAU = Math.PI * 2;
@@ -57,11 +57,11 @@
   }
 
   function particleBudget(width, height) {
-    const areaCount = Math.round((width * height) / 42);
+    const areaCount = Math.round((width * height) / 14);
     const mobile = width < 600;
     const lowPower = (navigator.hardwareConcurrency || 8) <= 4;
-    const floor = mobile ? 3600 : 9000;
-    const ceiling = mobile ? 9000 : MAX_PARTICLES;
+    const floor = mobile ? 10800 : 27000;
+    const ceiling = mobile ? 27000 : MAX_PARTICLES;
     return clamp(Math.round(areaCount * (lowPower ? .78 : 1)), floor, ceiling);
   }
 
@@ -259,14 +259,14 @@
       pointSize += pulseGlow * 4.0 + cursorGlow * 1.2;
       gl_PointSize = clamp(pointSize * uDpr * twinkle, 1.0, 64.0);
 
-      vec3 lightA = vec3(.12, .27, .36);
-      vec3 lightB = vec3(.34, .52, .60);
+      vec3 lightA = vec3(.055, .145, .205);
+      vec3 lightB = vec3(.16, .31, .39);
       vec3 darkA = vec3(.21, .62, .82);
       vec3 darkB = vec3(.61, .89, 1.0);
       vec3 lightColor = mix(lightA, lightB, tint);
       vec3 darkColor = mix(darkA, darkB, tint);
       if (kind > .5 && kind < 1.5) {
-        lightColor = mix(lightColor, vec3(.29, .38, .58), .38);
+        lightColor = mix(lightColor, vec3(.17, .22, .43), .46);
         darkColor = mix(darkColor, vec3(.69, .62, 1.0), .34);
       }
       vec3 color = mix(lightColor, darkColor, uTheme);
@@ -274,7 +274,7 @@
       float baseAlpha = mix(.29, .68, depth);
       if (kind > 1.5) baseAlpha = mix(.014, .052, depth);
       else if (kind > .5) baseAlpha = min(.9, baseAlpha * 1.18);
-      baseAlpha *= mix(1.08, 1.0, uTheme);
+      baseAlpha *= mix(1.25, 1.0, uTheme);
       baseAlpha *= 1.0 + pulseGlow * 1.55 + cursorGlow * 1.35;
       vColor = vec4(color, baseAlpha);
       vKind = kind;
@@ -379,7 +379,7 @@
       this.canvas.height = Math.max(1, Math.round(height * this.dpr));
       this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
       this.targetCount = particleBudget(width, height);
-      this.minimumCount = Math.min(this.targetCount, width < 600 ? 2600 : 6500);
+      this.minimumCount = Math.min(this.targetCount, width < 600 ? 7800 : 19500);
       if (!this.currentCount) this.currentCount = this.targetCount;
       else this.currentCount = Math.min(this.targetCount, Math.max(this.currentCount, this.minimumCount));
       publishStats(this.getStats());
@@ -513,7 +513,7 @@
       this.canvas.width = Math.max(1, Math.round(width * this.dpr));
       this.canvas.height = Math.max(1, Math.round(height * this.dpr));
       this.context.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
-      this.count = clamp(Math.round((width * height) / 720), width < 600 ? 900 : 1000, 1800);
+      this.count = clamp(Math.round((width * height) / 240), width < 600 ? 1800 : 2400, 3600);
       const data = createDistribution(this.count);
       this.points = Array.from({ length: this.count }, (_, index) => ({
         x: data.base[index * 2],
@@ -589,7 +589,7 @@
       context.globalCompositeOperation = dark ? 'lighter' : 'source-over';
       const palettes = dark
         ? ['rgba(69,174,216,.48)', 'rgba(151,218,255,.68)', 'rgba(105,92,214,.055)']
-        : ['rgba(39,76,94,.46)', 'rgba(72,99,132,.58)', 'rgba(70,112,127,.055)'];
+        : ['rgba(20,55,73,.64)', 'rgba(44,65,108,.74)', 'rgba(38,78,94,.08)'];
 
       for (let kind = 2; kind >= 0; kind -= 1) {
         context.beginPath();
