@@ -209,10 +209,13 @@ syncMusicButton();
 
 // Always-visible re-entry collage, built entirely from real portfolio materials.
 // The gentle, randomized card changes are capped at <3 Hz and respect reduced motion.
+// Cinematic entrance: a compact, constantly moving wall of the author's real work.
+// Five independent sideways-moving strips cover the full frame. Only a few local
+// elements flash or change at a time; the CTA stays sharp and visually dominant.
 const collageRoot=$('entry-collage');
 const collageAssets=[
- ['assets/images/poster-thehomes.webp','THE HOMES'],
- ['assets/images/smarketing-historia-1.webp','SMARKETING'],
+ ['assets/images/poster-thehomes.webp','VIDEO / THE HOMES'],
+ ['assets/images/smarketing-historia-1.webp','CONTENIDO'],
  ['assets/images/omar-1.webp','DISEÑO'],
  ['assets/images/foto-terror.webp','FOTOGRAFÍA'],
  ['assets/images/poster-casita.webp','VIDEO'],
@@ -228,68 +231,117 @@ const collageAssets=[
  ['assets/images/sabias-3.webp','CARRUSEL'],
  ['assets/images/wbmf-london.webp','EDITORIAL'],
  ['assets/images/poster-smarketing.webp','VIDEO'],
- ['assets/images/fotografia-halloween-04.webp','RETRATO']
+ ['assets/images/fotografia-halloween-04.webp','RETRATO'],
+ ['assets/images/omar-2.webp','DISEÑO'],
+ ['assets/images/fotografia-halloween-01.webp','FOTOGRAFÍA'],
+ ['assets/images/thehomes-2.webp','CAMPAÑA'],
+ ['assets/images/smarketing-historia-2.webp','CONTENIDO'],
+ ['assets/images/sabias-2.webp','CARRUSEL'],
+ ['assets/images/fotografia-halloween-06.webp','RETRATO'],
+ ['assets/images/thehomes-4.webp','CAMPAÑA'],
+ ['assets/images/smarketing-historia-3.webp','CONTENIDO'],
+ ['assets/images/fotografia-halloween-03.webp','RETRATO']
 ];
-const collageSpots=[
- [4,6],[21,12],[40,4],[64,8],[82,5],[93,22],
- [7,34],[25,38],[46,29],[70,32],[89,45],
- [4,64],[20,76],[44,68],[62,79],[83,72],[95,88],[34,91]
+// Published editing examples already present in the projects catalog.
+// Embedded video is optional: image previews remain as graceful fallbacks.
+const collageVideoSamples=[
+ {id:'6-oAd_46hvQ',label:'VIDEO / EDICIÓN'},
+ {id:'IPPXTg9O-Bs',label:'VIDEO / YOUTUBE'}
 ];
-let collageTimer=0,collagePhase=0;
-function collagePosition(card,i,first=false){
- const base=collageSpots[i%collageSpots.length];
- const phase=collagePhase;
- const wave=(i*1.618+phase*.69);
- const dx=first?0:(Math.random()*12-6);
- const dy=first?0:(Math.random()*16-8);
- const rotation=((i*29)%17-8)+(first?0:(Math.random()*12-6));
- const width=first?112+(i*31)%83:110+Math.round(Math.random()*85);
- const proportions=[.62,.78,1,1.25,1.5];
- const ratio=first?proportions[i%proportions.length]:proportions[Math.floor(Math.random()*proportions.length)];
+let collageTimer=0;
+let collageTick=0;
+const collageCards=[];
+const collageReduced=matchMedia('(prefers-reduced-motion: reduce)');
+const collageMobile=matchMedia('(max-width: 740px)');
+function makeCollageCard(row,col,copy){
+ const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
+ const [src,label]=collageAssets[index];
+ const figure=document.createElement('figure');
+ figure.className='entry-collage-tile';
+ figure.dataset.row=String(row);
+ const ratio=[.64,.78,1,1.23,1.47,1.72][(row*3+col*5)%6];
+ const width=148+((col*31+row*47)%95);
  const height=Math.round(width/ratio);
- card.style.setProperty('--x',(base[0]+dx)+'%');
- card.style.setProperty('--y',(base[1]+dy)+'%');
- card.style.setProperty('--w',width+'px');
- card.style.setProperty('--h',height+'px');
- card.style.setProperty('--angle',rotation+'deg');
- card.style.setProperty('--brightness',String(1+(i%4)*.06));
- card.style.setProperty('--tile-alpha',String(.38+((i*17)%6)*.08));
+ figure.style.setProperty('--card-w',width+'px');
+ figure.style.setProperty('--card-ratio',String(ratio));
+ figure.style.setProperty('--tilt',(((col*7+row*9)%13)-6)+'deg');
+ figure.style.setProperty('--jitter-x','0px');
+ figure.style.setProperty('--jitter-y','0px');
+ figure.style.setProperty('--jitter-scale','1');
+ figure.style.setProperty('--card-h',height+'px');
+ const image=document.createElement('img');
+ image.src=src;image.alt='';image.loading=col<8?'eager':'lazy';image.decoding='async';
+ figure.appendChild(image);
+ const videoSlot=copy===0&&((row===1&&col===2)||(row===3&&col===4));
+ if(videoSlot&&!collageReduced.matches&&!collageMobile.matches){
+  const spec=collageVideoSamples[row===1?0:1];
+  const iframe=document.createElement('iframe');
+  iframe.className='entry-collage-video';
+  iframe.title='Vista previa de video sin sonido';
+  iframe.setAttribute('aria-hidden','true');
+  iframe.tabIndex=-1;
+  iframe.loading='eager';
+  iframe.referrerPolicy='strict-origin-when-cross-origin';
+  iframe.allow='autoplay; encrypted-media; picture-in-picture';
+  iframe.src='https://www.youtube-nocookie.com/embed/'+spec.id+
+   '?autoplay=1&mute=1&controls=0&loop=1&playlist='+spec.id+
+   '&playsinline=1&rel=0&disablekb=1&iv_load_policy=3';
+  figure.appendChild(iframe);
+  figure.classList.add('entry-collage-tile--video');
+  figure.dataset.fallback=src;
+ }
+ const cap=document.createElement('figcaption');
+ cap.textContent=videoSlot?'VIDEO / EDICIÓN':label;
+ figure.appendChild(cap);
+ // Never modify card dimensions across duplicated groups: marquee stays seamless.
+ if(!videoSlot)collageCards.push(figure);
+ return figure;
 }
 function initCollage(){
  if(!collageRoot)return;
  const fragment=document.createDocumentFragment();
- collageAssets.forEach(([src,label],i)=>{
-  const tile=document.createElement('figure');
-  tile.className='entry-collage-tile';
-  const pic=document.createElement('img');
-  pic.src=src;pic.alt='';pic.decoding='async';pic.loading=i<8?'eager':'lazy';
-  const cap=document.createElement('figcaption');cap.textContent=label;
-  tile.append(pic,cap);collagePosition(tile,i,true);
-  tile.style.setProperty('--delay',(i%7)*.085+'s');
-  fragment.appendChild(tile);
- });
- collageRoot.appendChild(fragment);
- if(reduce.matches)return;
+ for(let row=0;row<5;row++){
+  const lane=document.createElement('div');
+  lane.className='entry-collage-lane entry-collage-lane--'+row;
+  lane.style.setProperty('--speed',(17+row*5)+'s');
+  const track=document.createElement('div');
+  track.className='entry-collage-track';
+  for(let copy=0;copy<2;copy++)
+   for(let col=0;col<14;col++)track.appendChild(makeCollageCard(row,col,copy));
+  lane.appendChild(track);fragment.appendChild(lane);
+ }
+ collageRoot.replaceChildren(fragment);
+ if(collageReduced.matches)return;
+ // Fast but restrained editorial bursts: only one or two tiles per beat.
  collageTimer=window.setInterval(()=>{
   if(!document.body.classList.contains('pre-entry')||document.hidden)return;
-  collagePhase++;
-  const tiles=collageRoot.children;
-  // Rotate a handful of small tiles at a time, never the whole screen.
-  const changed=new Set();
-  while(changed.size<4)changed.add(Math.floor(Math.random()*tiles.length));
-  let j=0;
-  for(const i of changed){
-   const tile=tiles[i];
-   collagePosition(tile,i);
-   if(j<2){
-    const next=Math.floor(Math.random()*collageAssets.length);
+  collageTick++;
+  // Prefer currently visible pieces: spectators should actually see each burst.
+  const visible=collageCards.filter(tile=>{
+   const bounds=tile.getBoundingClientRect();
+   return bounds.right>8&&bounds.left<innerWidth-8&&bounds.bottom>8&&bounds.top<innerHeight-8;
+  });
+  const options=visible.length?visible:collageCards;
+  for(let j=0;j<(collageTick%3===0?2:1);j++){
+   const tile=options[(Math.random()*options.length)|0];
+   if(!tile)continue;
+   tile.style.setProperty('--jitter-x',(Math.random()*42-21).toFixed(0)+'px');
+   tile.style.setProperty('--jitter-y',(Math.random()*24-12).toFixed(0)+'px');
+   tile.style.setProperty('--jitter-scale',(Math.random()*.16+.93).toFixed(2));
+   if(collageTick%2===0||j===1){
+    const [newSrc,newLabel]=collageAssets[(Math.random()*collageAssets.length)|0];
     const img=tile.querySelector('img');
-    if(img&&img.complete)img.src=collageAssets[next][0];
-    tile.querySelector('figcaption').textContent=collageAssets[next][1];
+    img.src=newSrc;
+    tile.querySelector('figcaption').textContent=newLabel;
    }
-   tile.classList.remove('is-glint');void tile.offsetWidth;tile.classList.add('is-glint');j++;
+   tile.classList.remove('is-glint');
+   void tile.offsetWidth;
+   tile.classList.add('is-glint');
   }
- },2650);
+ },780);
+ document.addEventListener('visibilitychange',()=>{
+  collageRoot.classList.toggle('is-paused',document.hidden);
+ });
 }
 initCollage();
 
