@@ -243,10 +243,14 @@ function collagePosition(card,i,first=false){
  const dx=first?0:(Math.random()*12-6);
  const dy=first?0:(Math.random()*16-8);
  const rotation=((i*29)%17-8)+(first?0:(Math.random()*12-6));
- const width=112+(i*31)%83;
+ const width=first?112+(i*31)%83:110+Math.round(Math.random()*85);
+ const proportions=[.62,.78,1,1.25,1.5];
+ const ratio=first?proportions[i%proportions.length]:proportions[Math.floor(Math.random()*proportions.length)];
+ const height=Math.round(width/ratio);
  card.style.setProperty('--x',(base[0]+dx)+'%');
  card.style.setProperty('--y',(base[1]+dy)+'%');
  card.style.setProperty('--w',width+'px');
+ card.style.setProperty('--h',height+'px');
  card.style.setProperty('--angle',rotation+'deg');
  card.style.setProperty('--brightness',String(1+(i%4)*.06));
  card.style.setProperty('--tile-alpha',String(.38+((i*17)%6)*.08));
