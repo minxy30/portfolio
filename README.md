@@ -48,3 +48,7 @@ El icono del altavoz abre un deslizador de 0 % a 100 %. No existe botón de paus
 ### Crossfade de la pista ambiental
 
 Para suavizar el loop, dos elementos de audio comparten la pista alojada en `assets/audio/Abyssal-Light-Loop-web.m4a`. El reproductor empieza a mezclar los últimos ~5 segundos con el comienzo de la misma pista usando una curva de volumen de potencia aproximadamente constante (sin repetición abrupta). El volumen afecta a ambos reproductores; abrir un proyecto de video pausa ambos y cerrar el visor los reanuda desde donde quedaron. Si el navegador rechaza el segundo reproductor, hay un reinicio de respaldo sin mezcla. La música sigue sujeta a las restricciones de autoplay de cada navegador.
+
+
+## Acceso inicial tipo juego
+La página muestra una entrada cinematográfica con botón **«Entrar al portafolio»**. El clic genera un sonido de portal fantástico sintetizado en Web Audio, llama a la reproducción de `Abyssal Light Loop` mediante un gesto real del usuario y desencadena un destello que revela la portada y sus cinco hojas en secuencia. El fondo de partículas y la navegación original no se modifican. Hay una variante sin animación prolongada para `prefers-reduced-motion`. No se descargan efectos de sonido externos.

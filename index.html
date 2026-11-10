@@ -16,11 +16,36 @@
 <script defer src="js/particles.js"></script>
 <script defer src="js/app.js"></script>
 </head>
-<body data-theme="dark" data-screen="home">
+<body data-theme="dark" data-screen="home" class="pre-entry">
 <a class="skip" href="#video">Ir directamente a los trabajos</a>
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
 <audio id="ambient-audio" preload="auto"></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
+<div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-note">
+  <div class="entry-veil" aria-hidden="true"></div>
+  <div class="entry-content">
+    <p class="entry-overline">YAZMIN MORENO <span>·</span> PORTAFOLIO CREATIVO</p>
+    <div class="entry-portal" aria-hidden="true">
+      <span class="entry-orbit entry-orbit-a"></span>
+      <span class="entry-orbit entry-orbit-b"></span>
+      <span class="entry-orbit entry-orbit-c"></span>
+      <span class="entry-portal-core"></span>
+      <span class="entry-portal-star entry-star-a"></span>
+      <span class="entry-portal-star entry-star-b"></span>
+      <span class="entry-portal-star entry-star-c"></span>
+    </div>
+    <h1 id="entry-title">Un universo por explorar<span>.</span></h1>
+    <button id="enter-portfolio" class="entry-launch" type="button">
+      <span class="entry-launch-play" aria-hidden="true">▶</span>
+      <span>Entrar al portafolio</span>
+      <span class="entry-launch-arrow" aria-hidden="true">↗</span>
+    </button>
+    <p class="entry-note" id="entry-note"><span aria-hidden="true">✧</span> Una experiencia visual y sonora</p>
+  </div>
+  <div class="entry-flare" aria-hidden="true"></div>
+  <p class="entry-bottom">ELIGE TU PROPIO RECORRIDO <span>✦</span> 2026</p>
+</div>
+
 <header class="site-header">
   <div class="header-start"><a class="cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a><button id="header-home-icon" class="header-home-icon" type="button" aria-label="Inicio" title="Inicio" hidden><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg><span>Inicio</span></button></div>
   <button class="brand" id="brand-home" type="button" aria-label="Volver al inicio">Yazmin <span>Moreno</span><b>.</b></button>

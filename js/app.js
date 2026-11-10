@@ -50,6 +50,7 @@ function soundEffect(type='click'){
 }
 // Desktop hover has one soft plastic tap, rate-limited to avoid a cascade of clicks.
 document.addEventListener('pointerover',e=>{
+ if(document.body.classList.contains('pre-entry'))return;
  if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;
  const target=e.target.closest?.('button,a[href],[role="button"]');
  if(!target||target.disabled||target.contains(e.relatedTarget))return;
@@ -187,6 +188,7 @@ volumeInput.addEventListener('input',()=>{
  setPref('ym-volume',String(volumeInput.value));syncMusicButton();
 });
 document.addEventListener('pointerdown',e=>{
+ if(document.body.classList.contains('pre-entry'))return;
  if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
@@ -195,19 +197,85 @@ document.addEventListener('pointerdown',e=>{
  }
 },{capture:true,passive:true});
 document.addEventListener('keydown',e=>{
+ if(document.body.classList.contains('pre-entry'))return;
  if(e.key==='Escape'&&!volumePanel.hidden){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
  if((e.key==='Enter'||e.key===' ')&&!musicIsPlaying())requestMusic();
 });
 syncMusicButton();
-// Browser autoplay policies may postpone initial playback until the first gesture.
-requestMusic();
+// The visitor activates audio with the Enter button, avoiding blocked autoplay.
+
+// A single game-like start action intentionally unlocks music under autoplay rules.
+const entryGate=$('entry-gate'),entryButton=$('enter-portfolio'),siteMain=$('site-main'),siteHeader=document.querySelector('.site-header');
+let hasEntered=false;
+siteMain.inert=true;
+siteHeader.inert=true;
+function fantasyEntranceSfx(){
+ if(CFG.enableClickSounds===false)return;
+ const ac=context();
+ if(!ac)return;
+ const t=ac.currentTime;
+ // Airy portal sweep: filtered noise, with a light original rising chime.
+ const len=Math.round(ac.sampleRate*1.18);
+ const noiseBuf=ac.createBuffer(1,len,ac.sampleRate),samples=noiseBuf.getChannelData(0);
+ for(let i=0;i<len;i++)samples[i]=Math.random()*2-1;
+ const gust=ac.createBufferSource(),filter=ac.createBiquadFilter(),vol=ac.createGain();
+ gust.buffer=noiseBuf;filter.type='bandpass';filter.Q.value=.7;
+ filter.frequency.setValueAtTime(250,t);
+ filter.frequency.exponentialRampToValueAtTime(2300,t+.58);
+ filter.frequency.exponentialRampToValueAtTime(480,t+1.1);
+ vol.gain.setValueAtTime(.0001,t);
+ vol.gain.exponentialRampToValueAtTime(.055,t+.25);
+ vol.gain.exponentialRampToValueAtTime(.0001,t+1.15);
+ gust.connect(filter);filter.connect(vol);vol.connect(ac.destination);
+ gust.start(t);gust.stop(t+1.18);
+ const tones=[{hz:294,at:.04},{hz:440,at:.17},{hz:587,at:.34},{hz:740,at:.50},{hz:880,at:.72}];
+ for(const note of tones){
+  const osc=ac.createOscillator(),amp=ac.createGain(),start=t+note.at;
+  osc.type='sine';osc.frequency.setValueAtTime(note.hz,start);
+  osc.frequency.exponentialRampToValueAtTime(note.hz*1.012,start+.35);
+  amp.gain.setValueAtTime(.0001,start);
+  amp.gain.exponentialRampToValueAtTime(.024,start+.035);
+  amp.gain.exponentialRampToValueAtTime(.0001,start+.92);
+  osc.connect(amp);amp.connect(ac.destination);osc.start(start);osc.stop(start+.95);
+ }
+ const bass=ac.createOscillator(),bassAmp=ac.createGain();
+ bass.type='triangle';bass.frequency.setValueAtTime(110,t);
+ bass.frequency.exponentialRampToValueAtTime(165,t+.46);
+ bassAmp.gain.setValueAtTime(.0001,t);
+ bassAmp.gain.exponentialRampToValueAtTime(.018,t+.15);
+ bassAmp.gain.exponentialRampToValueAtTime(.0001,t+.75);
+ bass.connect(bassAmp);bassAmp.connect(ac.destination);bass.start(t);bass.stop(t+.8);
+}
+function enterPortfolio(){
+ if(hasEntered)return;
+ hasEntered=true;
+ // Both calls execute synchronously in this genuine click, authorizing the audio.
+ requestMusic();
+ fantasyEntranceSfx();
+ entryButton.disabled=true;
+ entryGate.classList.add('is-opening');
+ document.body.classList.remove('pre-entry');
+ document.body.classList.add('entering-portfolio');
+ siteMain.inert=false;siteHeader.inert=false;
+ const speed=reduce.matches?130:1840;
+ window.setTimeout(()=>{
+  entryGate.hidden=true;
+  document.body.classList.remove('entering-portfolio');
+  entryButton.disabled=false;
+  const focusTarget=document.body.dataset.screen==='home'?document.querySelector('.paper-about'):$('back-home');
+  focusTarget?.focus({preventScroll:true});
+ },speed);
+}
+entryButton.addEventListener('click',enterPortfolio);
+entryButton.focus({preventScroll:true});
+
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
 const scenes=[$('scene-entrance'),$('scene-tools'),$('scene-contact')];
-function showStage(n){n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>showStage(+dot.dataset.stage));
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0;
