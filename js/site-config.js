@@ -10,5 +10,6 @@
 window.YAZMIN_SITE_CONFIG={
   backgroundVideoSrc:'',
   ambientAudioSrc:'assets/audio/Abyssal-Light-Loop-web.m4a',
+  lobbyAudioSrc:'assets/audio/lobby-fantasy-house-original.m4a',
   enableClickSounds:true
 };

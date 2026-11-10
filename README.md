@@ -64,3 +64,10 @@ El portal tiene una composición sintetizada original de **fantasía/organic hou
 ### Collage cinético v8
 
 La pantalla de entrada presenta cinco franjas horizontales densas de trabajos existentes que se desplazan a velocidades diferentes y alternan dirección. Cada ~780 ms una o dos tarjetas cambian su imagen/posición o producen un breve destello localizado (no destellos de toda la pantalla). Dos tarjetas intentan reproducir videos públicos de la selección ya incluida de YouTube mediante iframes sin sonido y sin controles; el funcionamiento de autoplay depende de YouTube y del navegador, por lo que hay imágenes de respaldo. En móviles, conexiones de bajo rendimiento y modo de movimiento reducido, se priorizan imágenes estáticas. La zona central y el botón son más prominentes. Todo el fondo y contenido principal permanecen iguales.
+
+
+## Música original de lobby y cierre de portafolio
+
+**Pista original:** `assets/audio/lobby-fantasy-house-original.m4a` (3:41.5, 104 BPM, ~1.4 MB). Composición instrumental de fantasía/organic house sintetizada específicamente para este proyecto, sin samples externos, piano agudo ni voz. El original también se guarda en Drive en `1BFfYh94jaXoLtR0PLBw78nvCV3qHQF6l`. En el lobby suena al 16 % de volumen, con crossfade de ~4.6 segundos al reiniciar. Al pulsar `Entrar al portafolio`, el lobby sale gradualmente y entra **Abyssal Light Loop** al 10 % con su propio loop de 5 segundos. Al pulsar **Cerrar portafolio**, se restaura el lobby con su música y el collage; se silencian temporalmente los videos abiertos y se recuperan las vistas previas en mute.
+
+El navegador puede bloquear la reproducción inicial del lobby antes de una interacción. En ese caso aparece **Activar música del lobby**, que reproduce la canción sin salir de la pantalla. Los previews de videos decorativos siempre tienen `mute=1` y no muestran controles.

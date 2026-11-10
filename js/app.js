@@ -249,6 +249,7 @@ const collageVideoSamples=[
  {id:'IPPXTg9O-Bs',label:'VIDEO / YOUTUBE'}
 ];
 let collageTimer=0;
+let collageVisibilityBound=false;
 let collageTick=0;
 const collageCards=[];
 const collageReduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -299,6 +300,8 @@ function makeCollageCard(row,col,copy){
 }
 function initCollage(){
  if(!collageRoot)return;
+ if(collageTimer)window.clearInterval(collageTimer);
+ collageCards.length=0; // Reopening the lobby never retains detached old tiles.
  const fragment=document.createDocumentFragment();
  for(let row=0;row<5;row++){
   const lane=document.createElement('div');
@@ -339,108 +342,140 @@ function initCollage(){
    tile.classList.add('is-glint');
   }
  },780);
- document.addEventListener('visibilitychange',()=>{
-  collageRoot.classList.toggle('is-paused',document.hidden);
- });
+ if(!collageVisibilityBound){
+  collageVisibilityBound=true;
+  document.addEventListener('visibilitychange',()=>{
+   collageRoot.classList.toggle('is-paused',document.hidden);
+  });
+ }
 }
 initCollage();
 
-// Original, procedural fantasy / organic-house intro bed:
-// 103 BPM, soft kick, moving warm pads, gentle bass and air textures, no vocals.
-// Attempts autoplay only when the browser permits it; otherwise the entry click
-// unlocks the audio and plays a short fantasy-house transition.
-const introBeat=60/103,introBar=introBeat*4;
-let introAudio=null,introMaster=null,introNextTime=0,introBarCount=0,introTicker=0,introRunning=true,introNoise=null;
-const introChords=[
- [174.61,207.65,261.63,311.13],
- [155.56,196,233.08,311.13],
- [138.59,174.61,207.65,261.63],
- [155.56,196,261.63,293.66],
- [174.61,207.65,261.63,349.23],
- [146.83,174.61,233.08,311.13],
- [138.59,174.61,220,261.63],
- [155.56,196,233.08,293.66]
-];
-function introTone(ac,hz,when,duration,gain,type='sine',dest=introMaster){
- const osc=ac.createOscillator(),amp=ac.createGain();
- osc.type=type;osc.frequency.setValueAtTime(hz,when);
- amp.gain.setValueAtTime(.0001,when);
- amp.gain.exponentialRampToValueAtTime(Math.max(.00011,gain),when+.06);
- amp.gain.exponentialRampToValueAtTime(.0001,when+duration);
- osc.connect(amp);amp.connect(dest);osc.start(when);osc.stop(when+duration+.025);
+// Separate ORIGINAL fantasy-house lobby soundtrack, rendered from synthesis.
+// Saved as 3:41.5 AAC audio. No voice, no piano; plays at 16% by default.
+// This file is entirely separate from Abyssal Light Loop inside the portfolio.
+const lobbySource=CFG.lobbyAudioSrc||'assets/audio/lobby-fantasy-house-original.m4a';
+const lobbyPlayers=[new Audio(lobbySource),new Audio(lobbySource)];
+const lobbyActivate=$('lobby-audio-enable'),lobbySlider=$('lobby-volume'),lobbyValue=$('lobby-volume-value');
+let lobbyActiveTrack=lobbyPlayers[0],lobbyStandbyTrack=lobbyPlayers[1];
+let lobbyLevel=.16,lobbyMix=1,lobbyTransition=null,lobbyFrame=0,lobbyPending=false;
+let lobbyFadeFrame=0,lobbyShouldPlay=true,lobbyAudioBlocked=false;
+for(const track of lobbyPlayers){track.preload='auto';track.loop=false;track.volume=0}
+lobbySlider.value='16';lobbyValue.textContent='16%';
+function lobbyIsPlaying(){return !lobbyActiveTrack.paused||!!(lobbyTransition&&!lobbyTransition.to.paused)}
+function lobbyProgress(){
+ if(!lobbyTransition)return 0;
+ return Math.max(0,Math.min(1,(lobbyTransition.from.currentTime-lobbyTransition.start)/lobbyTransition.duration));
 }
-function introKick(ac,when){
- const osc=ac.createOscillator(),amp=ac.createGain();
- osc.type='sine';osc.frequency.setValueAtTime(120,when);
- osc.frequency.exponentialRampToValueAtTime(47,when+.17);
- amp.gain.setValueAtTime(.0001,when);
- amp.gain.exponentialRampToValueAtTime(.07,when+.006);
- amp.gain.exponentialRampToValueAtTime(.0001,when+.29);
- osc.connect(amp);amp.connect(introMaster);osc.start(when);osc.stop(when+.31);
-}
-function introShimmer(ac,when,gain=.006){
- if(!introNoise){
-  introNoise=ac.createBuffer(1,Math.round(ac.sampleRate*.16),ac.sampleRate);
-  const samples=introNoise.getChannelData(0);
-  for(let i=0;i<samples.length;i++)samples[i]=Math.random()*2-1;
+function updateLobbyVolumes(){
+ if(!lobbyTransition){
+  lobbyActiveTrack.volume=Math.min(1,lobbyLevel*lobbyMix);
+  lobbyStandbyTrack.volume=0;return;
  }
- const noise=ac.createBufferSource(),filter=ac.createBiquadFilter(),amp=ac.createGain();
- noise.buffer=introNoise;filter.type='highpass';filter.frequency.value=2300;
- amp.gain.setValueAtTime(.0001,when);
- amp.gain.exponentialRampToValueAtTime(gain,when+.006);
- amp.gain.exponentialRampToValueAtTime(.0001,when+.115);
- noise.connect(filter);filter.connect(amp);amp.connect(introMaster);
- noise.start(when);noise.stop(when+.13);
+ const p=lobbyProgress();
+ lobbyTransition.from.volume=Math.min(1,lobbyLevel*lobbyMix*Math.cos(p*Math.PI/2));
+ lobbyTransition.to.volume=Math.min(1,lobbyLevel*lobbyMix*Math.sin(p*Math.PI/2));
 }
-function scheduleIntroBar(ac,time,index){
- const chord=introChords[index%introChords.length];
- const voicing=(Math.floor(index/8)%3);
- chord.forEach((hz,i)=>{
-  // Pads change subtly each eight bars; no distracting piano melody.
-  introTone(ac,hz*(voicing===1&&i===3?2:1),time,Math.min(introBar*1.42,3.3),.0125, i%2?'triangle':'sine');
+function finishLobbyBlend(){
+ if(!lobbyTransition)return;
+ const {from,to}=lobbyTransition;
+ lobbyTransition=null;cancelAnimationFrame(lobbyFrame);
+ from.pause();try{from.currentTime=0}catch(e){}
+ from.volume=0;lobbyActiveTrack=to;lobbyStandbyTrack=from;
+ updateLobbyVolumes();
+}
+function advanceLobbyBlend(){
+ if(!lobbyTransition||!lobbyShouldPlay)return;
+ if(lobbyTransition.from.paused)return;
+ updateLobbyVolumes();
+ if(lobbyProgress()>=1){finishLobbyBlend();return}
+ lobbyFrame=requestAnimationFrame(advanceLobbyBlend);
+}
+function beginLobbyBlend(){
+ if(lobbyPending||lobbyTransition||!lobbyShouldPlay||lobbyActiveTrack.paused)return;
+ const remaining=lobbyActiveTrack.duration-lobbyActiveTrack.currentTime;
+ if(!Number.isFinite(remaining)||remaining>4.6||remaining<=0)return;
+ lobbyPending=true;
+ const from=lobbyActiveTrack,to=lobbyStandbyTrack;
+ try{to.currentTime=0}catch(e){lobbyPending=false;return}
+ to.volume=0;
+ let p;try{p=to.play()}catch(e){lobbyPending=false;from.loop=true;return}
+ if(!p||!p.then){lobbyPending=false;return}
+ p.then(()=>{
+  lobbyPending=false;from.loop=false;
+  if(!lobbyShouldPlay||lobbyActiveTrack!==from||from.paused){to.pause();return}
+  lobbyTransition={from,to,start:from.currentTime,duration:Math.max(.15,from.duration-from.currentTime)};
+  updateLobbyVolumes();cancelAnimationFrame(lobbyFrame);
+  lobbyFrame=requestAnimationFrame(advanceLobbyBlend);
+ }).catch(()=>{lobbyPending=false;if(!from.paused)from.loop=true});
+}
+function lobbyFeedback(){
+ // It is impossible to force audible autoplay in all browsers. This button
+ // provides one accessible gesture while allowing users to stay in the lobby.
+ lobbyActivate.hidden=lobbyIsPlaying()||!lobbyAudioBlocked;
+ lobbyActivate.setAttribute('aria-label','Activar música de fantasía del lobby');
+}
+function requestLobbyMusic(){
+ if(!lobbyShouldPlay)return Promise.resolve();
+ const targets=lobbyTransition?[lobbyTransition.from,lobbyTransition.to]:[lobbyActiveTrack];
+ const paused=targets.filter(track=>track.paused);
+ if(!paused.length){lobbyAudioBlocked=false;lobbyFeedback();return Promise.resolve()}
+ let p;
+ try{p=Promise.all(paused.map(track=>track.play()))}
+ catch(e){lobbyAudioBlocked=true;lobbyFeedback();return Promise.resolve()}
+ return p.then(()=>{
+  lobbyAudioBlocked=false;updateLobbyVolumes();lobbyFeedback();
+  if(lobbyTransition){cancelAnimationFrame(lobbyFrame);lobbyFrame=requestAnimationFrame(advanceLobbyBlend)}
+ }).catch(err=>{
+  lobbyAudioBlocked=true;lobbyFeedback();
+  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('Música lobby:',err);
  });
- for(let b=0;b<4;b++){
-  introKick(ac,time+introBeat*b);
-  if(b%2===1)introShimmer(ac,time+introBeat*b,.006);
-  if(b===0||b===2)introTone(ac,chord[0]/2,time+introBeat*b,introBeat*.8,.025,'sine');
-  introShimmer(ac,time+introBeat*(b+.5),.003);
- }
- if(index%4===2)introTone(ac,chord[2]*2,time+introBeat*2.65,introBeat*2,.006,'sine');
 }
-function scheduleIntroMusic(){
- if(!introRunning)return;
- const ac=introAudio;
- if(!ac||ac.state!=='running')return;
- if(introNextTime<ac.currentTime-.2)introNextTime=ac.currentTime+.05;
- while(introNextTime<ac.currentTime+.4){
-  scheduleIntroBar(ac,introNextTime,introBarCount++);
-  introNextTime+=introBar;
+for(const track of lobbyPlayers){
+ track.addEventListener('timeupdate',()=>{
+  if(track===lobbyActiveTrack&&!lobbyTransition)beginLobbyBlend();
+  else if(lobbyTransition?.from===track){updateLobbyVolumes();if(lobbyProgress()>=1)finishLobbyBlend()}
+ });
+ track.addEventListener('ended',()=>{
+  if(lobbyTransition?.from===track){finishLobbyBlend();return}
+  if(!lobbyShouldPlay||track!==lobbyActiveTrack)return;
+  track.currentTime=0;track.play().catch(()=>{lobbyAudioBlocked=true;lobbyFeedback()});
+ });
+ track.addEventListener('playing',()=>{if(lobbyShouldPlay){lobbyAudioBlocked=false;lobbyFeedback()}});
+ track.addEventListener('error',()=>{if(lobbyShouldPlay){lobbyAudioBlocked=true;lobbyFeedback()}});
+}
+function fadeLobby(target,duration=1300,done){
+ cancelAnimationFrame(lobbyFadeFrame);
+ const initial=lobbyMix,start=performance.now();
+ function frame(now){
+  const u=Math.max(0,Math.min(1,(now-start)/duration));
+  lobbyMix=initial+(target-initial)*(u*u*(3-2*u));
+  updateLobbyVolumes();
+  if(u<1)lobbyFadeFrame=requestAnimationFrame(frame);
+  else if(done)done();
  }
+ lobbyFadeFrame=requestAnimationFrame(frame);
+}
+function parkLobbyAudio(){
+ lobbyShouldPlay=false;cancelAnimationFrame(lobbyFrame);
+ lobbyPlayers.forEach(track=>track.pause());
 }
 function startIntroMusic(){
- if(!introRunning)return;
- const ac=context();if(!ac)return;
- introAudio=ac;
- if(!introMaster){
-  introMaster=ac.createGain();introMaster.gain.value=.38;
-  introMaster.connect(ac.destination);
- }
- if(!introTicker)introTicker=window.setInterval(scheduleIntroMusic,130);
- scheduleIntroMusic();
+ lobbyShouldPlay=true;
+ return requestLobbyMusic();
 }
 function fadeIntroMusic(){
- const ac=introAudio;
- if(!ac||!introMaster)return;
- const now=ac.currentTime;
- introMaster.gain.cancelScheduledValues(now);
- introMaster.gain.setValueAtTime(introMaster.gain.value,now);
- introMaster.gain.linearRampToValueAtTime(.0001,now+1.75);
- window.setTimeout(()=>{
-  introRunning=false;
-  if(introTicker)window.clearInterval(introTicker);
-  introTicker=0;
- },1900);
+ fadeLobby(0,1600,parkLobbyAudio);
 }
+lobbyActivate.addEventListener('click',e=>{e.stopPropagation();startIntroMusic()});
+lobbySlider.addEventListener('input',()=>{
+ lobbyLevel=Math.max(0,Math.min(1,Number(lobbySlider.value)/100));
+ lobbyValue.textContent=String(lobbySlider.value)+'%';
+ updateLobbyVolumes();startIntroMusic();
+});
+lobbyFeedback();
+// Request lobby music right away; if sound autoplay is blocked, expose the
+// dedicated "Activar música del lobby" gesture without leaving the screen.
 startIntroMusic();
 
 // A single game-like start action intentionally unlocks music under autoplay rules.
@@ -492,8 +527,7 @@ function enterPortfolio(){
  musicLevel=.10;volumeInput.value='10';volumeValue.textContent='10%';
  updateMusicVolumes();
  // These audio operations run inside a real click to satisfy browser autoplay policies.
- startIntroMusic();
- scheduleIntroMusic();
+ // User activation unlocks the music and the magical transition in one click.
  requestMusic();
  fantasyEntranceSfx();
  fadeIntroMusic();
@@ -511,6 +545,7 @@ function enterPortfolio(){
  }
  requestAnimationFrame(rise);
  if(collageTimer)window.clearInterval(collageTimer);
+ for(const video of collageRoot.querySelectorAll('iframe.entry-collage-video'))video.src='about:blank';
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
   entryGate.hidden=true;
@@ -520,6 +555,53 @@ function enterPortfolio(){
   focusTarget?.focus({preventScroll:true});
  },speed);
 }
+
+// Close the experience and return to the actual lobby without reloading.
+// Lobby music resumes, the 10%-volume main music fades and stops, and the
+// original collage is restored with its autoplay-muted video previews.
+const closePortfolioButton=$('close-portfolio');
+let closingPortfolio=false;
+function returnToLobby(){
+ if(closingPortfolio||!hasEntered)return;
+ closingPortfolio=true;
+ if(viewer.open){
+  $('viewer-media').replaceChildren();
+  viewer.close();activeProject=null;
+  pausedForProjectVideo=false;wasPlaying=false;
+ }
+ if(aboutDialog?.open)aboutDialog.close();
+ soundEffect('reveal');
+ lobbyShouldPlay=true;lobbyMix=0;updateLobbyVolumes();
+ startIntroMusic();fadeLobby(1,1450);
+ const oldMix=entryMix,fadeStart=performance.now();
+ function mainExit(now){
+  const u=Math.min(1,(now-fadeStart)/950);
+  entryMix=oldMix*(1-u);
+  updateMusicVolumes();
+  if(u<1)requestAnimationFrame(mainExit);
+  else{
+   cancelAnimationFrame(crossfadeFrame);transition=null;crossfadePending=false;
+   musicA.pause();musicB.pause();
+   try{musicA.currentTime=0;musicB.currentTime=0}catch(e){}
+   activeTrack=musicA;standbyTrack=musicB;entryMix=0;updateMusicVolumes();
+  }
+ }
+ requestAnimationFrame(mainExit);
+ entryGate.hidden=false;entryGate.classList.remove('is-opening');
+ entryButton.disabled=false;
+ hasEntered=false;
+ document.body.classList.remove('entering-portfolio');
+ document.body.classList.add('pre-entry');
+ siteMain.inert=true;siteHeader.inert=true;
+ goHome(0);
+ try{history.replaceState({screen:'inicio'},'',location.pathname+location.search)}catch(e){}
+ // Rebuild only the lobby's muted visual previews and restarting strips.
+ initCollage();
+ entryButton.focus({preventScroll:true});
+ window.setTimeout(()=>closingPortfolio=false,1000);
+}
+closePortfolioButton.addEventListener('click',returnToLobby);
+
 entryButton.addEventListener('click',enterPortfolio);
 entryButton.focus({preventScroll:true});
 

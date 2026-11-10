@@ -21,11 +21,11 @@
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
 <audio id="ambient-audio" preload="auto"></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
-<div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-note">
+<div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-fields">
   <div class="entry-veil" aria-hidden="true"></div>
   <div class="entry-collage" id="entry-collage" aria-hidden="true"></div>
   <div class="entry-content">
-    <p class="entry-overline">YAZMIN MORENO <span>·</span> PORTAFOLIO CREATIVO</p>
+    <p class="entry-overline">PORTAFOLIO <span>CREATIVO</span> / 2026</p>
     <div class="entry-portal" aria-hidden="true">
       <span class="entry-orbit entry-orbit-a"></span>
       <span class="entry-orbit entry-orbit-b"></span>
@@ -35,13 +35,17 @@
       <span class="entry-portal-star entry-star-b"></span>
       <span class="entry-portal-star entry-star-c"></span>
     </div>
-    <h1 id="entry-title">Un universo por explorar<span>.</span></h1>
+    <h1 id="entry-title">Yazmin <span>Moreno.</span></h1>
+    <p class="entry-fields" id="entry-fields">Edición audiovisual <span>·</span> Diseño visual <span>·</span> Fotografía <span>·</span> Copywriting</p>
     <button id="enter-portfolio" class="entry-launch" type="button">
       <span class="entry-launch-play" aria-hidden="true">▶</span>
       <span>Entrar al portafolio</span>
       <span class="entry-launch-arrow" aria-hidden="true">↗</span>
     </button>
-    <p class="entry-note" id="entry-note"><span aria-hidden="true">✧</span> Una experiencia visual y sonora</p>
+    <div class="lobby-sound-controls" aria-label="Audio del lobby">
+      <button type="button" id="lobby-audio-enable" class="lobby-audio-enable"><span aria-hidden="true">♫</span> Activar música del lobby</button>
+      <label for="lobby-volume" class="lobby-volume-label">Lobby <input type="range" id="lobby-volume" min="0" max="100" value="16" step="1" aria-label="Volumen de la música del lobby"/><output id="lobby-volume-value" for="lobby-volume">16%</output></label>
+    </div>
   </div>
   <div class="entry-flare" aria-hidden="true"></div>
   <p class="entry-bottom">ELIGE TU PROPIO RECORRIDO <span>✦</span> 2026</p>
@@ -60,6 +64,7 @@
       <span>Los efectos de navegación tienen volumen independiente.</span>
     </div>
     </div>
+    <button class="close-portfolio" id="close-portfolio" type="button" aria-label="Cerrar portafolio" title="Cerrar portafolio"><span aria-hidden="true">×</span> <span class="close-portfolio-label">Cerrar portafolio</span></button>
     <button class="contact-link" id="header-contact" type="button">Hablemos <span aria-hidden="true">↗</span></button>
   </div>
 </header>
