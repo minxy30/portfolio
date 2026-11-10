@@ -1,30 +1,4 @@
 window.PORTFOLIO_DATA = {
-  "benito": {
-    "title": "Benito Camelo",
-    "kind": "Edición audiovisual · YouTube",
-    "deck": "Historias de entretenimiento",
-    "description": "Edición de contenido de entretenimiento para YouTube: ritmo, estructura, música, efectos y montaje.",
-    "role": "Edición audiovisual y trabajo de música y sonido. Los videos publicados incluidos son muestras provisionales; aún falta identificar con certeza los favoritos señalados en la revisión.",
-    "type": "video",
-    "aspect": "landscape",
-    "platform": "youtube",
-    "clips": [
-      {
-        "label": "Muestra 01",
-        "id": "6-oAd_46hvQ"
-      },
-      {
-        "label": "Muestra 02",
-        "id": "SeXLp7olM2g"
-      },
-      {
-        "label": "Muestra 03",
-        "id": "IPPXTg9O-Bs"
-      }
-    ],
-    "tools": "Premiere Pro · Edición",
-    "results": "Pieza final preparada para comunicación digital."
-  },
   "zaru": {
     "title": "The Homes",
     "kind": "Video publicitario · Campaña Zarú",
@@ -193,5 +167,80 @@ window.PORTFOLIO_DATA = {
     ],
     "tools": "Redacción editorial · Adaptación de mensajes",
     "results": "Publicaciones editoriales adaptadas a formatos de redes."
+  },
+  "benito-1": {
+    "title": "Benito Camello · Edición publicada 01",
+    "kind": "Edición audiovisual · YouTube",
+    "deck": "Montaje, ritmo, música y tratamiento sonoro",
+    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
+    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+    "type": "video",
+    "aspect": "landscape",
+    "platform": "youtube",
+    "tools": "Premiere Pro · Edición",
+    "results": "Video publicado en YouTube; sin métricas verificadas.",
+    "id": "6-oAd_46hvQ",
+    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+  },
+  "benito-2": {
+    "title": "Benito Camello · Edición publicada 02",
+    "kind": "Edición audiovisual · YouTube",
+    "deck": "Montaje, ritmo, música y tratamiento sonoro",
+    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
+    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+    "type": "video",
+    "aspect": "landscape",
+    "platform": "youtube",
+    "tools": "Premiere Pro · Edición",
+    "results": "Video publicado en YouTube; sin métricas verificadas.",
+    "id": "SeXLp7olM2g",
+    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+  },
+  "benito-3": {
+    "title": "Benito Camello · Edición publicada 03",
+    "kind": "Edición audiovisual · YouTube",
+    "deck": "Montaje, ritmo, música y tratamiento sonoro",
+    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
+    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+    "type": "video",
+    "aspect": "landscape",
+    "platform": "youtube",
+    "tools": "Premiere Pro · Edición",
+    "results": "Video publicado en YouTube; sin métricas verificadas.",
+    "id": "IPPXTg9O-Bs",
+    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+  },
+  "benito-4": {
+    "title": "Benito Camello · Edición publicada 04",
+    "kind": "Edición audiovisual · YouTube",
+    "deck": "Montaje, ritmo, música y tratamiento sonoro",
+    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
+    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+    "type": "video",
+    "aspect": "landscape",
+    "platform": "youtube",
+    "tools": "Premiere Pro · Edición",
+    "results": "Video publicado en YouTube; sin métricas verificadas.",
+    "id": "4rEh5xkFjR4",
+    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+  },
+  "foto-halloween": {
+    "title": "Fotografía · Personajes de fantasía",
+    "kind": "Fotografía · Serie temática",
+    "deck": "Retratos y escenas en una sesión de caracterización",
+    "description": "Selección de seis fotografías de una serie temática de ocho archivos compartidos. Se priorizaron retratos, detalles y variedad compositiva.",
+    "role": "Material fotográfico facilitado por la autora. Se precisa confirmar las responsabilidades de captura, edición y dirección de la sesión para definir créditos públicos.",
+    "type": "gallery",
+    "aspect": "portrait",
+    "images": [
+      "assets/images/fotografia-halloween-01.webp",
+      "assets/images/fotografia-halloween-02.webp",
+      "assets/images/fotografia-halloween-03.webp",
+      "assets/images/fotografia-halloween-04.webp",
+      "assets/images/fotografia-halloween-05.webp",
+      "assets/images/fotografia-halloween-06.webp"
+    ],
+    "tools": "Fotografía digital",
+    "results": "Selección visual de seis fotografías; métricas no aplicables."
   }
 };

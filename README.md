@@ -1,44 +1,28 @@
-# Portafolio interactivo de Yazmin Moreno — Versión 5
+# Portafolio Yazmin Moreno — Ajustes v6 (9 de noviembre de 2026)
 
-Sitio web estático para GitHub Pages, sin backend. Esta versión sigue el wireframe original de cinco hojas y su flujo: **Inicio → Herramientas → Contacto**, con escenas que se sustituyen mediante scrollytelling en lugar de una página inicial larga. Las disciplinas son entradas directas a bibliotecas tipo Pinterest, con barra lateral en escritorio, filtros, revelación por scroll y visor dentro de la web.
+Este paquete es un **parche incremental** para el repositorio `minxy30/portfolio`. No es el sitio completo offline: las demás imágenes, datos de proyectos y archivos existentes se mantienen en GitHub.
 
-## Diseño
+## Cambios
 
-- El fondo de **partículas** es permanente y reacciona al puntero y a toques. Color automático según modo claro/oscuro. Fuente: `js/particles.js` (Canvas 2D sin librerías externas).
-- En Inicio están las cinco hojas `Sobre mí`, `Video`, `Diseño`, `Fotografía`, `Copywriter` con hover de escala, sombra e iluminación.
-- Hacer clic sobre una hoja abre su página mediante una **revelación de luz radial** desde el punto del clic; el header siempre mantiene CV, nombre, modo claro/oscuro, sonido, Contacto.
-- Desplazamiento vertical desde Inicio pasa a **Herramientas** y luego a **Contacto**, con reemplazo de escena y efectos de revelación, no scroll largo.
-- Secciones de trabajo: estructura del wireframe, con rail lateral, filtros horizontales y masonry con formatos diversos; scroll revelando piezas. Cada disciplina termina con footer de CV y contacto.
-- Visor: fondo desenfocado, trabajo a la izquierda (~62 %), texto a la derecha (~38 %). En móvil imagen/reproductor arriba y texto debajo. Los videos usan iframe de Drive/YouTube. Ningún MP4 de proyectos se distribuye en esta web.
-- Diseño responsivo, navegación por teclado, Escape para cerrar, soporte `prefers-reduced-motion`, controles accesibles.
+- Música ambiental original nueva: `assets/audio/ambient-original.ogg`, **4:00, 96 BPM**. House suave, armonías jazz, pad y bajo redondo, sin piano agudo. Repetición automática; final e inicio cruzados para una transición discreta. El visitante debe activar la música manualmente.
+- Efectos sonoros independientes de la música: clic de tipo tap filtrado y swoosh de viento. El botón de volumen sólo silencia la música, no los sonidos de navegación.
+- Más partículas diminutas, especialmente visibles en modo claro. Canvas optimizado con dos grupos de color y menor frecuencia de actualización en móvil.
+- Herramientas: iconos de marca mediante Simple Icons v13 (Adobe, porque se retiraron en v14) y v16, más iconos/favicons oficiales obtenidos del dominio de cada proveedor. Si no cargan por conexión o retiro del recurso, aparece un monograma honesto; no se inventan logotipos. Animación de polvo al hover que revela el logo. Creative Cloud es la denominación correcta de Adobe, no «Creative Claude».
+- **Sobre mí:** se abre en ventana macOS desde la hoja o el rail. Foto a la izquierda, nombre superpuesto y carrera, perfil profesional a la derecha. No se declara experiencia senior.
+- Header en bibliotecas: nombre de la disciplina `| Yazmin Moreno` en el centro; botón de inicio con icono de casa junto al CV. Se quitaron los encabezados decorativos anteriores de cada biblioteca.
+- Video: ahora se muestran **ocho tarjetas independientes** (cuatro videos de Benito Camello, The Homes, Smarketing, Casita de Sol, Minsis). Los cuatro enlaces de Benito provienen de los suministrados por la autora; **no se ha verificado que sean los favoritos titulados Bolivia, México y Ormuz**. Por ello tienen títulos neutrales, sin afirmaciones falsas.
+- Fotografía: serie conceptual de seis fotografías seleccionadas de ocho de una carpeta de Drive aportada por la autora. Se muestra como **una sola galería**, además del retrato conceptual anterior.
+- Carruseles existentes de The Homes (4 páginas), Omar China (3), Smarketing editorial (3), y Sabías que (3) continúan como conjuntos completos disponibles en el repositorio, sin mezclarlos en tarjetas individuales. Se añadió swipe táctil además de flechas.
+- Desvanecimiento y entrada de abajo a arriba para textos del scrollytelling, además de las tarjetas.
 
-## Música original y SFX
+## Configuración futura
 
-`assets/audio/ambient-original.ogg` es una composición instrumental **original de 2:08**, creada para este sitio sin muestras ajenas. No se reproduce automáticamente, no entra en loop; el visitante la activa al pulsar el botón de volumen **justo al lado del tema claro/oscuro**. El mismo botón silencia música y efectos. Se pausa al abrir un proyecto de video y se reanuda al cerrarlo si el visitante la tenía activada. Los efectos breves de clic/revelación se sintetizan con Web Audio, sin archivos adicionales.
+La portada seguirá usando partículas hasta que se produzca tu video. Para agregarlo, súbelo como `assets/hero/intro.mp4` y actualiza `js/site-config.js` → `backgroundVideoSrc`. Las partículas permanecen superpuestas.
 
-## En dos semanas: reemplazar el fondo provisional
+## Permisos y verificación editorial
 
-1. Renderiza tu video de fondo en **MP4 silencioso** (H.264, compatible con GitHub Pages), comprimido y corto, por ejemplo 10–20 segundos. 
-2. En el repositorio `minxy30/portfolio`, súbelo como `assets/hero/intro.mp4`.
-3. Abre `js/site-config.js` y cambia `backgroundVideoSrc:''` por `backgroundVideoSrc:'assets/hero/intro.mp4'`.
-4. El video quedará **detrás del sistema de partículas permanente**, manteniendo el modo claro/oscuro. No afectará la música ni los reproductores de tus proyectos.
+Los reproductores Google Drive requieren que la propietaria configure lector con enlace y autorización de exhibición. Las métricas de rendimiento no se inventan. Verifica los tres títulos favoritos y la autoría de los materiales gráficos/fotográficos antes de publicar el portafolio a reclutadores.
 
-## Contenidos y advertencias
+## Licencias de los iconos
 
-- Los favoritos de Benito Camelo (Bolivia, México y Ormuz) todavía no están vinculados con seguridad a los 48 enlaces históricos: **no se han inventado títulos o identificaciones**. El portfolio mantiene muestras etiquetadas de forma genérica que deben revisarse antes de enviar postulaciones.
-- Los videos de Google Drive necesitan permiso de lector para cualquier persona con el enlace (y autorización de exhibición). Esta web no altera sus permisos.
-- La autoría individual de algunas fotos, copies y piezas corporativas necesita confirmación; se indica en los textos sin atribuciones indebidas. Los resultados no incluyen métricas inventadas.
-- Puedes editar las obras y textos en `js/projects-data.js`. Si mantienes `projects.json` como respaldo, sincronízalo.
-
-## Estructura
-
-- `index.html`: páginas, header, escenas, biblioteca y visor.
-- `css/styles.css`: diseño, responsive, transiciones.
-- `js/particles.js`: partículas fluidas interactivas.
-- `js/app.js`: navegación/escenas, filtros, visor, audio, SFX y tema.
-- `js/site-config.js`: video futuro, música y preferencias.
-- `assets/audio/ambient-original.ogg`: composición original (128 segundos).
-
-## Rendimiento y compatibilidad
-
-El Canvas limita la resolución a 1.6 DPR y reduce el número de partículas en móvil; se detiene al ocultar la pestaña y respeta movimiento reducido. Los iframes solo se instancian al abrir un proyecto. La portada funciona sin música, sin video nuevo y sin bibliotecas de terceros.
+Los pictogramas externos representan marcas de terceros; se utilizan para identificar las herramientas aprendidas, no para sugerir afiliación. Consulta licencias y condiciones de uso antes de redistribuir sus archivos. Las fuentes de iconos referenciadas por URL pueden cambiar con el tiempo.
