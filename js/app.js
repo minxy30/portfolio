@@ -60,14 +60,97 @@ document.addEventListener('pointerover',e=>{
 const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel');
 const savedVolume=localPref('ym-volume');
 let musicLevel=savedVolume!==null&&Number.isFinite(Number(savedVolume))?Math.max(0,Math.min(1,Number(savedVolume)/100)):.20;
-let audioNeedsGesture=false,unlockRunning=false;
-music.src=CFG.ambientAudioSrc||'';
-music.loop=true;
-music.preload='auto';
-music.volume=musicLevel;
+const crossfadeSeconds=5;
+const musicA=music,musicB=new Audio();
+const musicUrl=CFG.ambientAudioSrc||'';
+let activeTrack=musicA,standbyTrack=musicB,transition=null,crossfadeFrame=0;
+let audioNeedsGesture=false,unlockRunning=false,pausedForProjectVideo=false,crossfadePending=false;
+[musicA,musicB].forEach(track=>{track.src=musicUrl;track.loop=false;track.preload='auto';track.volume=0});
 volumeInput.value=String(Math.round(musicLevel*100));
 volumeValue.textContent=String(Math.round(musicLevel*100))+'%';
 
+function musicIsPlaying(){return !activeTrack.paused||Boolean(transition&&!transition.to.paused)}
+function currentFadeProgress(){
+ if(!transition)return 0;
+ const {from,duration,start}=transition;
+ return Math.max(0,Math.min(1,(from.currentTime-start)/duration));
+}
+function updateMusicVolumes(){
+ if(!transition){activeTrack.volume=musicLevel;standbyTrack.volume=0;return}
+ const progress=currentFadeProgress();
+ transition.from.volume=musicLevel*Math.cos(progress*Math.PI/2);
+ transition.to.volume=musicLevel*Math.sin(progress*Math.PI/2);
+}
+function finishCrossfade(){
+ if(!transition)return;
+ const {from,to}=transition;
+ transition=null;
+ cancelAnimationFrame(crossfadeFrame);
+ from.pause();from.currentTime=0;from.volume=0;
+ activeTrack=to;standbyTrack=from;
+ updateMusicVolumes();
+}
+function animateCrossfade(){
+ if(!transition)return;
+ if(pausedForProjectVideo||transition.from.paused){cancelAnimationFrame(crossfadeFrame);return}
+ updateMusicVolumes();
+ if(currentFadeProgress()>=1){finishCrossfade();return}
+ crossfadeFrame=requestAnimationFrame(animateCrossfade);
+}
+function beginCrossfade(){
+ if(transition||crossfadePending||pausedForProjectVideo||activeTrack.paused)return;
+ const remaining=activeTrack.duration-activeTrack.currentTime;
+ if(!Number.isFinite(remaining)||remaining<=0||remaining>crossfadeSeconds)return;
+ const from=activeTrack,to=standbyTrack;
+ crossfadePending=true;
+ try{to.currentTime=0}catch(e){crossfadePending=false;return}
+ to.volume=0;
+ let p;
+ try{p=to.play()}catch(e){crossfadePending=false;from.loop=true;return}
+ if(!p||!p.then){crossfadePending=false;return}
+ p.then(()=>{
+  crossfadePending=false;
+  from.loop=false;
+  // Playback could have been interrupted while the second stream was starting.
+  if(pausedForProjectVideo||activeTrack!==from||from.paused){to.pause();return}
+  const actualRemaining=Math.max(.15,from.duration-from.currentTime);
+  transition={from,to,start:from.currentTime,duration:actualRemaining};
+  updateMusicVolumes();
+  cancelAnimationFrame(crossfadeFrame);
+  crossfadeFrame=requestAnimationFrame(animateCrossfade);
+ }).catch(()=>{
+  crossfadePending=false;
+  // Fallback if a browser rejects the second player's playback.
+  // The original track still restarts when it reaches its end.
+  if(!from.paused)from.loop=true;
+ });
+}
+for(const track of [musicA,musicB]){
+ track.addEventListener('timeupdate',()=>{
+  if(transition&&transition.from===track){
+   updateMusicVolumes();
+   if(currentFadeProgress()>=1)finishCrossfade();
+  }else if(!transition&&track===activeTrack)beginCrossfade();
+ });
+ track.addEventListener('ended',()=>{
+  if(transition&&transition.from===track){finishCrossfade();return}
+  if(track!==activeTrack||pausedForProjectVideo)return;
+  // Emergency gap-safe fallback when the second stream was unavailable.
+  track.currentTime=0;
+  track.play().catch(()=>{audioNeedsGesture=true;syncMusicButton()});
+ });
+ track.addEventListener('error',()=>{
+  if(track!==activeTrack)return;
+  audioNeedsGesture=true;syncMusicButton();
+  toast('No se pudo cargar la pista ambiental. Comprueba tu conexión.');
+ });
+ track.addEventListener('playing',()=>{if(track===activeTrack){audioNeedsGesture=false;syncMusicButton()}});
+}
+function pauseMusicForVideo(){
+ pausedForProjectVideo=true;
+ cancelAnimationFrame(crossfadeFrame);
+ musicA.pause();musicB.pause();
+}
 function syncMusicButton(){
  sound.classList.toggle('sound-needs-gesture',audioNeedsGesture);
  sound.dataset.muted=String(musicLevel===0);
@@ -75,55 +158,50 @@ function syncMusicButton(){
  sound.setAttribute('aria-label',sound.title);
 }
 function requestMusic(){
- // The soundtrack pauses only while a project video is open.
- if(viewer.open&&activeProject&&DATA[activeProject]?.type==='video')return Promise.resolve();
- if(!music.paused)return Promise.resolve();
- const play=music.play();
- if(!play||!play.then)return Promise.resolve();
- return play.then(()=>{audioNeedsGesture=false;syncMusicButton()}).catch(err=>{
+ if(pausedForProjectVideo||(viewer.open&&activeProject&&DATA[activeProject]?.type==='video'))return Promise.resolve();
+ const targets=transition?[transition.from,transition.to]:[activeTrack];
+ const promises=targets.filter(track=>track.paused).map(track=>track.play());
+ if(!promises.length)return Promise.resolve();
+ return Promise.all(promises).then(()=>{
+  audioNeedsGesture=false;syncMusicButton();
+  updateMusicVolumes();
+  if(transition){cancelAnimationFrame(crossfadeFrame);crossfadeFrame=requestAnimationFrame(animateCrossfade)}
+ }).catch(err=>{
   audioNeedsGesture=true;syncMusicButton();
-  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('No se pudo iniciar la música ambiental.',err);
+  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')
+   console.warn('No se pudo iniciar la música ambiental.',err);
  });
 }
-// This control only opens the volume slider: it never pauses the soundtrack.
-// 0% makes the music inaudible without interrupting its position or loop.
+// The speaker has no pause button: it only opens the volume slider.
 volumeTrigger.addEventListener('click',()=>{
  const show=volumePanel.hidden;
  volumePanel.hidden=!show;
  volumeTrigger.setAttribute('aria-expanded',String(show));
  if(show)volumeInput.focus();
- requestMusic();
- soundEffect('toggle');
+ requestMusic();soundEffect('toggle');
 });
 volumeInput.addEventListener('input',()=>{
  musicLevel=Math.max(0,Math.min(1,Number(volumeInput.value)/100));
- music.volume=musicLevel;
+ updateMusicVolumes();
  volumeValue.textContent=String(volumeInput.value)+'%';
- setPref('ym-volume',String(volumeInput.value));
- syncMusicButton();
+ setPref('ym-volume',String(volumeInput.value));syncMusicButton();
 });
 document.addEventListener('pointerdown',e=>{
  if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
- if(music.paused&&!unlockRunning){
-  unlockRunning=true;
-  requestMusic().finally(()=>unlockRunning=false);
+ if(!pausedForProjectVideo&&!musicIsPlaying()&&!unlockRunning){
+  unlockRunning=true;requestMusic().finally(()=>unlockRunning=false);
  }
 },{capture:true,passive:true});
 document.addEventListener('keydown',e=>{
  if(e.key==='Escape'&&!volumePanel.hidden){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
- if((e.key==='Enter'||e.key===' ')&&music.paused)requestMusic();
+ if((e.key==='Enter'||e.key===' ')&&!musicIsPlaying())requestMusic();
 });
-music.addEventListener('error',()=>{
- audioNeedsGesture=true;syncMusicButton();
- toast('No se pudo cargar la pista ambiental. Comprueba tu conexión.');
-});
-music.addEventListener('playing',()=>{audioNeedsGesture=false;syncMusicButton()});
-// Autoplay with sound can be blocked: retry at the first visitor gesture.
 syncMusicButton();
+// Browser autoplay policies may postpone initial playback until the first gesture.
 requestMusic();
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
@@ -199,14 +277,14 @@ function decorateToolDust(){
 decorateToolDust();
 function openProject(id,focusEl){const item=DATA[id];if(!item||!viewer)return;returnFocus=focusEl||returnFocus;activeProject=id;$('viewer-area').textContent=item.kind;$('viewer-title').textContent=item.title;$('viewer-deck').textContent=item.deck||'';$('viewer-description').textContent=item.description||'';$('viewer-role').textContent=item.role||'';$('viewer-results').textContent=item.results||'Pieza final entregada.';$('viewer-tools').textContent=item.tools||'Herramientas documentadas en el proyecto';$('viewer-note').textContent=item.note||'';makeMedia(item);let index=activeItems.indexOf(id);$('viewer-count').textContent=`${index+1} / ${activeItems.length}`;$('viewer-prev').disabled=index<=0;$('viewer-next').disabled=index>=activeItems.length-1;
 if(item.type==='video'){
- if(!music.paused){wasPlaying=true;music.pause()}
- // Keep wasPlaying across consecutive video projects.
-}else if(viewer.open&&wasPlaying){
- wasPlaying=false;
+ wasPlaying=wasPlaying||musicIsPlaying();
+ pauseMusicForVideo();
+}else if(viewer.open&&pausedForProjectVideo){
+ pausedForProjectVideo=false;wasPlaying=false;
  requestMusic();
 }
 if(!viewer.open)viewer.showModal();$('viewer-close').focus();soundEffect('click')}
-function closeProject(){if(!viewer.open)return;$('viewer-media').replaceChildren();viewer.close();activeProject=null;if(wasPlaying){requestMusic();}wasPlaying=false;if(returnFocus?.isConnected)returnFocus.focus()}
+function closeProject(){if(!viewer.open)return;$('viewer-media').replaceChildren();viewer.close();activeProject=null;pausedForProjectVideo=false;wasPlaying=false;requestMusic();if(returnFocus?.isConnected)returnFocus.focus()}
 $('viewer-close').addEventListener('click',closeProject);viewer.addEventListener('cancel',e=>{e.preventDefault();closeProject()});viewer.addEventListener('click',e=>{if(e.target===viewer)closeProject()});
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));

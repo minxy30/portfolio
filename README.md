@@ -43,3 +43,8 @@ Los pictogramas externos representan marcas de terceros; se utilizan para identi
 ### Música continua, control solo de volumen
 
 El icono del altavoz abre un deslizador de 0 % a 100 %. No existe botón de pausa: al seleccionar 0 % la pista continúa en silencio, sin reiniciar el loop. La música se pausa únicamente al abrir un proyecto de video, para evitar superposición de audio, y se reanuda al cerrarlo. Se solicita reproducción inicial en todos los navegadores, pero sus políticas de autoplay pueden bloquear el sonido hasta una interacción del visitante. Los sonidos de navegación permanecen independientes.
+
+
+### Crossfade de la pista ambiental
+
+Para suavizar el loop, dos elementos de audio comparten la pista alojada en `assets/audio/Abyssal-Light-Loop-web.m4a`. El reproductor empieza a mezclar los últimos ~5 segundos con el comienzo de la misma pista usando una curva de volumen de potencia aproximadamente constante (sin repetición abrupta). El volumen afecta a ambos reproductores; abrir un proyecto de video pausa ambos y cerrar el visor los reanuda desde donde quedaron. Si el navegador rechaza el segundo reproductor, hay un reinicio de respaldo sin mezcla. La música sigue sujeta a las restricciones de autoplay de cada navegador.
