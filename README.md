@@ -26,3 +26,10 @@ Los reproductores Google Drive requieren que la propietaria configure lector con
 ## Licencias de los iconos
 
 Los pictogramas externos representan marcas de terceros; se utilizan para identificar las herramientas aprendidas, no para sugerir afiliación. Consulta licencias y condiciones de uso antes de redistribuir sus archivos. Las fuentes de iconos referenciadas por URL pueden cambiar con el tiempo.
+
+
+## Música del portafolio (Drive)
+
+La pista «Abyssal Light Loop.mp3» se encuentra en Google Drive (`1_NWK3zKvX8BklDdnq-FLfotC-7wYCPrB`) y **no se incluye en GitHub**. `js/site-config.js` utiliza la URL de descarga de Drive como fuente del elemento `<audio>`. Google Drive no es un CDN ni garantiza una URL de streaming compatible con todos los navegadores. Es imprescindible establecer **Acceso general → Cualquier persona con el enlace → Lector** en el MP3 y probarlo sin sesión iniciada. Hasta habilitarlo, la música no estará disponible para visitantes. El conector del proyecto no permite conceder ese permiso de acceso público.
+
+El audio solicita reproducción al cargar; si el navegador bloquea autoplay con sonido, se activa en la primera interacción del visitante. El icono del altavoz controla la música; el botón de reguladores abre el volumen ajustable (se guarda localmente). Los efectos de hover/clic siguen activos aunque la música esté silenciada. Los videos pausarán la música.

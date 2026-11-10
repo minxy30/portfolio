@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f3f2ef">
+<meta name="theme-color" content="#080e14">
 <meta name="description" content="Yazmin Moreno. Portafolio de edición audiovisual, diseño, fotografía y copywriting. Selección de proyectos y trabajos creativos.">
 <title>Yazmin Moreno — Portafolio creativo</title>
 <link rel="icon" href="data:,">
@@ -16,17 +16,27 @@
 <script defer src="js/particles.js"></script>
 <script defer src="js/app.js"></script>
 </head>
-<body data-theme="light" data-screen="home">
+<body data-theme="dark" data-screen="home">
 <a class="skip" href="#video">Ir directamente a los trabajos</a>
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
-<audio id="ambient-audio" preload="none" src="assets/audio/ambient-original.ogg"></audio>
+<audio id="ambient-audio" preload="metadata" loop></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
 <header class="site-header">
   <div class="header-start"><a class="cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a><button id="header-home-icon" class="header-home-icon" type="button" aria-label="Inicio" title="Inicio" hidden><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg><span>Inicio</span></button></div>
   <button class="brand" id="brand-home" type="button" aria-label="Volver al inicio">Yazmin <span>Moreno</span><b>.</b></button>
   <div class="header-right">
     <button class="icon-button" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-    <button class="icon-button" id="sound-toggle" type="button" aria-label="Activar música ambiental" aria-pressed="false" title="Activar música ambiental"><svg id="volume-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="sound-wave" d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/><path class="sound-slash" d="m17 9 4 6m0-6-4 6"/></svg><span class="sound-led"></span></button>
+    <div class="audio-group">
+    <button class="icon-button" id="sound-toggle" type="button" aria-label="Silenciar música ambiental" aria-pressed="true" title="Silenciar música ambiental"><svg id="volume-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="sound-wave" d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/><path class="sound-slash" d="m17 9 4 6m0-6-4 6"/></svg><span class="sound-led"></span></button>
+    <button class="volume-trigger" id="volume-trigger" type="button" aria-controls="volume-panel" aria-expanded="false" aria-label="Ajustar volumen de música" title="Ajustar volumen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2" fill="var(--card)"/><circle cx="16" cy="17" r="2" fill="var(--card)"/></svg>
+    </button>
+    <div class="volume-panel" id="volume-panel" hidden>
+      <label for="ambient-volume">Música <output id="volume-value" for="ambient-volume">20%</output></label>
+      <input id="ambient-volume" type="range" min="0" max="100" step="1" value="20" aria-label="Volumen de música ambiental">
+      <span>Los efectos de navegación tienen volumen independiente.</span>
+    </div>
+    </div>
     <button class="contact-link" id="header-contact" type="button">Hablemos <span aria-hidden="true">↗</span></button>
   </div>
 </header>

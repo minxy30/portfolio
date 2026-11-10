@@ -47,3 +47,18 @@ body[data-theme="dark"]{--bg:#080e14;--ink:#f3f3ef;--muted:#b5bec6;--line:rgba(2
  .scene-tools .scene-continue{margin-top:6px}
 }
 
+
+
+/* Music controls are compact and available alongside the color toggle. */
+.audio-group{position:relative;display:flex;align-items:center;gap:4px}
+.volume-trigger{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--card);transition:transform .2s,background .2s}
+.volume-trigger:hover,.volume-trigger[aria-expanded="true"]{background:var(--paper);color:#111;transform:scale(1.06)}
+.volume-panel{position:absolute;top:calc(100% + 15px);right:0;z-index:120;width:237px;padding:17px 18px 14px;background:var(--card);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);backdrop-filter:blur(20px)}
+.volume-panel[hidden]{display:none}
+.volume-panel label{display:flex;align-items:center;justify-content:space-between;gap:15px;font:800 12px var(--display);margin-bottom:12px}
+.volume-panel output{font-weight:600;color:var(--muted)}
+.volume-panel input{width:100%;accent-color:var(--brand-accent);cursor:pointer;touch-action:pan-x}
+.volume-panel span{display:block;color:var(--muted);font:500 10px/1.4 var(--font);margin-top:11px}
+.sound-needs-gesture .sound-led{background:#f2a14d!important;box-shadow:0 0 0 3px rgba(242,161,77,.2)}
+@media(max-width:740px){.audio-group{gap:2px}.volume-trigger{width:28px;height:28px}.volume-trigger svg{width:15px;height:15px}.volume-panel{right:-44px;top:calc(100% + 13px)}}
+@media(max-width:390px){.volume-trigger{width:26px;height:26px}.volume-panel{right:-28px}}

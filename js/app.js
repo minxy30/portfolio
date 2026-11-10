@@ -11,7 +11,7 @@ const CATS=[
  {id:'about',label:'Sobre mí',title:'Sobre mí',intro:'Detrás de cada idea',desc:'Mi perfil, herramientas y enfoque creativo.',icon:'✳',filters:[],items:[]}
 ];
 const catById=Object.fromEntries(CATS.map(c=>[c.id,c]));
-let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,stage=0,locked=false,visitorSound=false,wasPlaying=false,audioCtx=null,toastTimer=0,scrollLock=0,returnFocus=null;
+let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,stage=0,locked=false,visitorSound=true,wasPlaying=false,audioCtx=null,toastTimer=0,scrollLock=0,returnFocus=null;
 const originalBrand=$('brand-home').innerHTML;const aboutDialog=$('about-viewer');let aboutReturnFocus=null;
 const sound=$('sound-toggle'),music=$('ambient-audio'),viewer=$('project-viewer'),work=$('work-space'),workMain=$('work-main');
 let reduce=matchMedia('(prefers-reduced-motion: reduce)');
@@ -19,40 +19,87 @@ function toast(msg){let e=$('status-toast');e.textContent=msg;e.classList.add('s
 function localPref(name){try{return localStorage.getItem(name)}catch{return null}}
 function setPref(name,val){try{localStorage.setItem(name,val)}catch{}}
 function setTheme(val){document.body.dataset.theme=val;setPref('ym-theme',val);$('theme-toggle').setAttribute('aria-label',val==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',val==='dark'?'#080e14':'#f1f1ec')}
-setTheme(localPref('ym-theme')==='dark'?'dark':'light');
+setTheme('dark'); // Cada visita empieza en oscuro; el visitante puede cambiarlo durante la sesión.
 $('theme-toggle').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');soundEffect('toggle')});
 function context(){if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;audioCtx=new C()}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
+// Navigation SFX are independent of background music and never muted by the music button.
+let lastHoverAt=0;
 function soundEffect(type='click'){
  if(CFG.enableClickSounds===false)return;
  const ac=context();if(!ac)return;
  const now=ac.currentTime;
- // Non-tonal, muted plastic tap or airy wind whoosh, completely independent from music mute.
- const duration=type==='reveal'?.47:.105;
- const buffer=ac.createBuffer(1,Math.round(ac.sampleRate*duration),ac.sampleRate),ch=buffer.getChannelData(0);
+ const hover=type==='hover',reveal=type==='reveal';
+ const duration=reveal?.43:hover?.057:.11;
+ const buffer=ac.createBuffer(1,Math.max(1,Math.round(ac.sampleRate*duration)),ac.sampleRate);
+ const ch=buffer.getChannelData(0);
  for(let i=0;i<ch.length;i++)ch[i]=(Math.random()*2-1);
- const src=ac.createBufferSource();src.buffer=buffer;
- const filter=ac.createBiquadFilter();filter.type=type==='reveal'?'bandpass':'lowpass';
- filter.frequency.setValueAtTime(type==='reveal'?310:1050,now);filter.Q.value=type==='reveal'?.45:.8;
- if(type==='reveal')filter.frequency.exponentialRampToValueAtTime(1400,now+duration*.73);
+ const noise=ac.createBufferSource();noise.buffer=buffer;
+ const filter=ac.createBiquadFilter();filter.type=reveal?'bandpass':'lowpass';
+ filter.frequency.setValueAtTime(reveal?350:hover?1750:1050,now);filter.Q.value=reveal?.4:.7;
+ if(reveal)filter.frequency.exponentialRampToValueAtTime(1500,now+duration*.7);
  const gain=ac.createGain();gain.gain.setValueAtTime(.0001,now);
- gain.gain.linearRampToValueAtTime(type==='reveal'?.043:.034,now+(type==='reveal'?.15:.006));
+ gain.gain.linearRampToValueAtTime(reveal?.11:hover?.062:.085,now+(reveal?.12:hover?.005:.006));
  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
- src.connect(filter);filter.connect(gain);gain.connect(ac.destination);src.start(now);src.stop(now+duration);
- if(type!=='reveal'){const tap=ac.createOscillator(),env=ac.createGain();tap.type='triangle';tap.frequency.setValueAtTime(190,now);tap.frequency.exponentialRampToValueAtTime(108,now+.065);env.gain.setValueAtTime(.013,now);env.gain.exponentialRampToValueAtTime(.0001,now+.074);tap.connect(env);env.connect(ac.destination);tap.start(now);tap.stop(now+.077)}
+ noise.connect(filter);filter.connect(gain);gain.connect(ac.destination);noise.start(now);noise.stop(now+duration);
+ if(!reveal){const tap=ac.createOscillator(),env=ac.createGain();tap.type='triangle';
+  tap.frequency.setValueAtTime(hover?240:185,now);
+  tap.frequency.exponentialRampToValueAtTime(hover?150:105,now+(hover?.042:.068));
+  env.gain.setValueAtTime(hover?.025:.034,now);
+  env.gain.exponentialRampToValueAtTime(.0001,now+(hover?.05:.078));
+  tap.connect(env);env.connect(ac.destination);tap.start(now);tap.stop(now+(hover?.053:.08))}
 }
-function fadeMusic(target,duration=450,done){let start=music.volume,from=performance.now();function frame(now){let t=Math.min(1,(now-from)/duration);music.volume=Math.max(0,Math.min(1,start+(target-start)*t));if(t<1)requestAnimationFrame(frame);else if(done)done()}requestAnimationFrame(frame)}
-function setSound(on){
- visitorSound=on;sound.setAttribute('aria-pressed',String(on));
- sound.title=on?'Silenciar música ambiental':'Activar música ambiental';sound.setAttribute('aria-label',sound.title);
- if(on){
-  music.loop=true;music.volume=0;
-  const start=()=>music.play().then(()=>fadeMusic(.22,900)).catch(()=>toast('Activa el sonido para escuchar la música.'));
-  start();toast('Música ambiental activada · 4:00 · Loop continuo');
- }else{fadeMusic(0,260,()=>music.pause());toast('Música silenciada · Los efectos de navegación siguen activos')}
- soundEffect('toggle');
-}
-sound.addEventListener('click',()=>setSound(!visitorSound));
+// Desktop hover has one soft plastic tap, rate-limited to avoid a cascade of clicks.
+document.addEventListener('pointerover',e=>{
+ if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;
+ const target=e.target.closest?.('button,a[href],[role="button"]');
+ if(!target||target.disabled||target.contains(e.relatedTarget))return;
+ const now=performance.now();if(now-lastHoverAt<125)return;
+ lastHoverAt=now;soundEffect('hover');
+},{passive:true});
+
+const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('volume-trigger'),volumePanel=$('volume-panel');
+const storedVolume=Number(localPref('ym-volume'));
+let musicLevel=Number.isFinite(storedVolume)&&localPref('ym-volume')!==null?Math.max(0,Math.min(1,storedVolume/100)):.20;
+let audioNeedsGesture=false,unlockRunning=false;
+music.src=CFG.ambientAudioSrc||'';
 music.loop=true;
+music.preload='metadata';
+music.volume=musicLevel;
+volumeInput.value=String(Math.round(musicLevel*100));
+volumeValue.textContent=String(Math.round(musicLevel*100))+'%';
+function syncMusicButton(){
+ sound.setAttribute('aria-pressed',String(visitorSound));
+ sound.classList.toggle('sound-needs-gesture',visitorSound&&audioNeedsGesture);
+ sound.title=!visitorSound?'Activar música ambiental':audioNeedsGesture?'Toca para iniciar la música':'Silenciar música ambiental';
+ sound.setAttribute('aria-label',sound.title);
+}
+function requestMusic(){
+ if(!visitorSound||(viewer.open&&activeProject&&DATA[activeProject]?.type==='video'))return Promise.resolve();
+ // Audio must be explicitly activated by a user gesture on many browsers.
+ const play=music.play();if(!play||!play.then)return Promise.resolve();
+ return play.then(()=>{audioNeedsGesture=false;syncMusicButton()}).catch(err=>{
+  audioNeedsGesture=true;syncMusicButton();
+  if(err?.name!=='NotAllowedError'&&err?.name!=='AbortError')console.warn('La música no se pudo cargar desde Google Drive.',err);
+ });
+}
+function setSound(on){
+ visitorSound=on;
+ if(on){music.volume=musicLevel;requestMusic();toast('Música activada · Ajusta el volumen junto al altavoz');}
+ else{music.pause();audioNeedsGesture=false;toast('Música silenciada · Los efectos siguen activos');}
+ syncMusicButton();soundEffect('toggle');
+}
+sound.addEventListener('click',()=>{if(visitorSound&&audioNeedsGesture){requestMusic();soundEffect('toggle')}else setSound(!visitorSound)});
+volumeTrigger.addEventListener('click',()=>{const show=volumePanel.hidden;volumePanel.hidden=!show;volumeTrigger.setAttribute('aria-expanded',String(show));if(show)volumeInput.focus()});
+volumeInput.addEventListener('input',()=>{
+ musicLevel=Math.max(0,Math.min(1,Number(volumeInput.value)/100));
+ music.volume=musicLevel;volumeValue.textContent=String(volumeInput.value)+'%';setPref('ym-volume',String(volumeInput.value));
+});
+document.addEventListener('pointerdown',e=>{if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')};if(!e.target.closest?.('#sound-toggle')&&visitorSound&&music.paused&&!unlockRunning){unlockRunning=true;requestMusic().finally(()=>unlockRunning=false)}},{capture:true,passive:true});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!volumePanel.hidden){volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false')}if((e.key==='Enter'||e.key===' ')&&visitorSound&&music.paused)requestMusic()});
+music.addEventListener('error',()=>{if(visitorSound){audioNeedsGesture=true;syncMusicButton();toast('Audio de Drive no disponible. Comprueba el acceso de lector al archivo.')}});
+music.addEventListener('playing',()=>{audioNeedsGesture=false;syncMusicButton()});
+// Try autoplay on load; browser policies usually require the first tap/click.
+syncMusicButton();setTimeout(()=>{requestMusic()},0);
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
