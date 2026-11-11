@@ -252,7 +252,6 @@ const collageVideoMap={
  'assets/images/poster-casita.webp':'assets/video/lobby-casita.mp4',
  'assets/images/poster-minsis.webp':'assets/video/lobby-minsis.mp4'
 };
-let collageVideoObserver=null;
 const collageVideos=[];
 let collageViewportKey='',collageResizeTimer=0;
 let collageTimer=0;
@@ -263,61 +262,89 @@ const collageReduced=matchMedia('(prefers-reduced-motion: reduce)');
 const collageMobile=matchMedia('(max-width: 740px)');
 function makeCollageCard(row,col,copy){
  const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
- let [src,label]=collageAssets[index];
- // Only preview video projects that are still published in the project catalog.
- const liveCandidates=collageAssets.filter(([poster])=>Boolean(collageVideoMap[poster]));
- const isLivePreview=copy===0&&row<liveCandidates.length&&col===1+(row%3);
- if(isLivePreview)[src,label]=liveCandidates[row];
+ const [src,label]=collageAssets[index];
  const figure=document.createElement('figure');
  figure.className='entry-collage-tile';
  figure.dataset.row=String(row);
  const ratio=[.64,.78,1,1.23,1.47,1.72][(row*3+col*5)%6];
  const width=148+((col*31+row*47)%95);
- const height=Math.round(width/ratio);
  figure.style.setProperty('--card-w',width+'px');
  figure.style.setProperty('--card-ratio',String(ratio));
  figure.style.setProperty('--tilt',(((col*7+row*9)%13)-6)+'deg');
  figure.style.setProperty('--jitter-x','0px');
  figure.style.setProperty('--jitter-y','0px');
  figure.style.setProperty('--jitter-scale','1');
- figure.style.setProperty('--card-h',height+'px');
  const image=document.createElement('img');
  image.src=src;image.alt='';
- image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
+ image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
+ image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
- // Every video project preview runs as an actual muted HTML5 video, also on portrait.
- const clip=isLivePreview?collageVideoMap[src]:null;
- const videoSlot=Boolean(clip)&&!collageReduced.matches;
- if(videoSlot){
+ const cap=document.createElement('figcaption');cap.textContent=label;
+ figure.appendChild(cap);
+ collageCards.push(figure);
+ return figure;
+}
+// Four genuine, lightweight, silent video previews remain visible throughout
+// the lobby. They float among the moving stills, rather than disappearing when
+// one half of a duplicated marquee leaves the viewport. Each preview is
+// generated only while its related project is still in the public catalog.
+function makeLiveLobbyVideos(){
+ const layer=document.createElement('div');
+ layer.className='entry-collage-live-layer';
+ layer.setAttribute('aria-hidden','true');
+ const places=[
+  {x:'14%',y:'16%',tilt:'-4deg',speed:'8s'},
+  {x:'85%',y:'22%',tilt:'3deg',speed:'10s'},
+  {x:'15%',y:'77%',tilt:'4deg',speed:'9s'},
+  {x:'83%',y:'84%',tilt:'-3deg',speed:'11s'}
+ ];
+ const available=collageAssets.filter(([poster])=>Boolean(collageVideoMap[poster]));
+ const used=new Set();
+ const sources=available.filter(([poster])=>{
+  if(used.has(poster))return false;
+  used.add(poster);return true;
+ });
+ sources.slice(0,4).forEach(([poster,label],i)=>{
+  const config=places[i];
+  const figure=document.createElement('figure');
+  figure.className='entry-collage-live-tile';
+  figure.style.setProperty('--live-x',config.x);
+  figure.style.setProperty('--live-y',config.y);
+  figure.style.setProperty('--live-tilt',config.tilt);
+  figure.style.setProperty('--live-speed',config.speed);
+  const fallback=document.createElement('img');
+  fallback.src=poster;fallback.alt='';fallback.decoding='async';
   const video=document.createElement('video');
   video.className='entry-collage-video';
-  video.setAttribute('aria-hidden','true');
-  video.tabIndex=-1;
-  video.muted=true;video.defaultMuted=true;
-  video.setAttribute('muted','');
-  video.autoplay=true;video.loop=true;video.playsInline=true;
-  video.setAttribute('playsinline','');
-  video.preload='none';video.controls=false;
-  video.disablePictureInPicture=true;
-  video.dataset.src=clip;
-  video.poster=src;
-  video.addEventListener('error',()=>{video.style.display='none'});
-  figure.appendChild(video);
-  figure.classList.add('entry-collage-tile--video');
+  video.src=collageVideoMap[poster];
+  video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
+  video.autoplay=true;video.setAttribute('autoplay','');
+  video.loop=true;video.playsInline=true;video.setAttribute('playsinline','');
+  video.preload='auto';video.controls=false;video.disablePictureInPicture=true;
+  video.setAttribute('aria-hidden','true');video.tabIndex=-1;
+  video.addEventListener('error',()=>{video.hidden=true});
+  video.addEventListener('loadeddata',playAllLobbyPreviews);
+  video.addEventListener('canplay',playAllLobbyPreviews);
+  const cap=document.createElement('figcaption');cap.textContent=label;
+  figure.append(fallback,video,cap);
+  layer.appendChild(figure);
   collageVideos.push(video);
+ });
+ return layer;
+}
+function playAllLobbyPreviews(){
+ if(!document.body.classList.contains('pre-entry')||document.hidden)return;
+ for(const video of collageVideos){
+  if(video.error)continue;
+  video.muted=true; // Explicitly reassert muted on every playback attempt.
+  if(video.paused)video.play().catch(()=>{});
  }
- const cap=document.createElement('figcaption');
- cap.textContent=label;
- figure.appendChild(cap);
- // Never modify card dimensions across duplicated groups: marquee stays seamless.
- if(!videoSlot)collageCards.push(figure);
- return figure;
 }
 function initCollage(){
  if(!collageRoot)return;
  collageAssets=buildCollageAssets();
  if(collageTimer)window.clearInterval(collageTimer);
- if(collageVideoObserver)collageVideoObserver.disconnect();
+ for(const oldVideo of collageVideos){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load()}
  collageCards.length=0;collageVideos.length=0;
  const portrait=innerHeight>innerWidth*1.12;
  const rowHeight=portrait?260:230;
@@ -338,21 +365,19 @@ function initCollage(){
    for(let col=0;col<cols;col++)track.appendChild(makeCollageCard(row,col,copy));
   lane.appendChild(track);fragment.appendChild(lane);
  }
+ fragment.appendChild(makeLiveLobbyVideos());
  collageRoot.replaceChildren(fragment);
- // Load and play only the videos actually entering the viewport.
- // All displayed videos are muted by both the media files and HTML attributes.
- if('IntersectionObserver' in window){
-  collageVideoObserver=new IntersectionObserver(entries=>{
-   for(const e of entries){
-    const video=e.target;
-    if(e.isIntersecting&&document.body.classList.contains('pre-entry')&&!document.hidden){
-     if(!video.src)video.src=video.dataset.src;
-     video.play().catch(()=>{});
-    }else video.pause();
-   }
-  },{root:collageRoot,rootMargin:'90px',threshold:.01});
-  collageVideos.forEach(video=>collageVideoObserver.observe(video));
- }else collageVideos.forEach(video=>{video.src=video.dataset.src;video.play().catch(()=>{})});
+ playAllLobbyPreviews();
+ // Keep the actual previews playing while the lobby is visible, regardless
+ // of the horizontal still-image marquee's position. Only four decoders are used.
+ if(!collageVisibilityBound){
+  collageVisibilityBound=true;
+  document.addEventListener('visibilitychange',()=>{
+   collageRoot.classList.toggle('is-paused',document.hidden);
+   if(!document.hidden)playAllLobbyPreviews();
+  });
+  window.addEventListener('pageshow',playAllLobbyPreviews);
+ }
  if(collageReduced.matches)return;
  // Fast but restrained editorial bursts: only one or two tiles per beat.
  collageTimer=window.setInterval(()=>{
@@ -382,12 +407,6 @@ function initCollage(){
    tile.classList.add('is-glint');
   }
  },780);
- if(!collageVisibilityBound){
-  collageVisibilityBound=true;
-  document.addEventListener('visibilitychange',()=>{
-   collageRoot.classList.toggle('is-paused',document.hidden);
-  });
- }
 }
 initCollage();
 // Orientation changes and large resizes rebuild the collage to fill the new height.
@@ -594,7 +613,6 @@ function enterPortfolio(){
  }
  requestAnimationFrame(rise);
  if(collageTimer)window.clearInterval(collageTimer);
- if(collageVideoObserver)collageVideoObserver.disconnect();
  for(const video of collageVideos)video.pause();
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
@@ -765,7 +783,7 @@ window.addEventListener('resize',()=>{
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
 const scenes=[$('scene-entrance'),$('scene-tools'),$('scene-contact')];
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');if(stage===1)requestAnimationFrame(()=>queueToolFit());document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0,lastWheelAt=0;
@@ -774,11 +792,6 @@ window.addEventListener('wheel',e=>{
  if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;
  const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
  if(Math.abs(delta)<1)return;
- const wall=e.target instanceof Element?e.target.closest('#tool-wall'):null;
- if(wall&&stage===1){
-  const down=wall.scrollTop+wall.clientHeight<wall.scrollHeight-3,up=wall.scrollTop>3;
-  if(wall.scrollHeight>wall.clientHeight+5&&((delta>0&&down)||(delta<0&&up))){wheelBuffer=0;return}
- }
  e.preventDefault();
  const now=performance.now();
  if(locked||now-scrollLock<680){wheelBuffer=0;return}
@@ -791,7 +804,7 @@ window.addEventListener('wheel',e=>{
 },{passive:false});
 let touchY=null;
 $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??null},{passive:true});
-$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;if(stage===1&&e.target.closest?.('#tool-wall')){const box=$('tool-wall');const d=touchY-(e.changedTouches[0]?.clientY??touchY);if((d>0&&box.scrollTop+box.clientHeight<box.scrollHeight-4)||(d<0&&box.scrollTop>4)){touchY=null;return}}const d=-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
+$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
 window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},530)},520)}
 const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / CDMX</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
@@ -869,6 +882,26 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
 }
 // Hover-only particle assembly reveals the actual brand logo after a soft dust burst.
 
+
+// The full tool library stays centered and FIXED within a single scene.
+// On smaller screens, scale the content uniformly instead of creating an
+// internal scrollbar; filters and scene navigation remain available.
+let toolFitFrame=0;
+function fitToolScene(){
+ const scene=$('scene-tools'),inner=scene?.querySelector('.scene-inner');
+ if(!scene||!inner)return;
+ inner.style.setProperty('--tools-fit','1');
+ const available=Math.max(180,scene.clientHeight-30);
+ const needed=Math.max(inner.scrollHeight,inner.getBoundingClientRect().height);
+ const scale=Math.max(.36,Math.min(1,available/Math.max(needed,1)));
+ inner.style.setProperty('--tools-fit',String(scale));
+}
+function queueToolFit(){
+ cancelAnimationFrame(toolFitFrame);
+ toolFitFrame=requestAnimationFrame(fitToolScene);
+}
+window.addEventListener('resize',queueToolFit,{passive:true});
+
 // All tools stay on one page; grouped tabs help people hiring for a specific role.
 function categorizeTools(){
  const wall=$('tool-wall'),tabs=$('tool-filters');
@@ -925,7 +958,7 @@ function categorizeTools(){
  function select(id){
   sections.forEach(s=>s.hidden=id!=='all'&&s.dataset.category!==id);
   buttons.forEach(btn=>{const yes=btn.dataset.filter===id;btn.classList.toggle('active',yes);btn.setAttribute('aria-pressed',String(yes))});
-  wall.scrollTop=0;
+  queueToolFit();
  }
  for(const [id,label] of [['all','Todas'],...groups.map(g=>[g[0],g[1]])]){
   const btn=document.createElement('button');btn.type='button';btn.className='filter-chip tool-filter-chip';btn.textContent=label;btn.dataset.filter=id;
@@ -935,6 +968,7 @@ function categorizeTools(){
  select('all');
 }
 categorizeTools();
+queueToolFit();
 
 function decorateToolDust(){
  document.querySelectorAll('.particle-tool').forEach(tile=>{

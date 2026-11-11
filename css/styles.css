@@ -531,3 +531,75 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .rail-link{min-height:clamp(72px,7.6vh,118px)}
  .scene-tools .scene-inner{max-width:min(86vw,900px)}
 }
+
+
+/* Nov 2026 — Lobby video continuity and fixed, centered Tools page.
+   Video: just four muted, actual MP4 players anchored within the collage;
+   still-image strips keep moving independently without pausing the videos. */
+.entry-collage-live-layer{position:absolute;inset:0;z-index:5;overflow:hidden;
+ pointer-events:none;contain:layout paint}
+.entry-collage-live-tile{position:absolute;left:var(--live-x);top:var(--live-y);
+ width:clamp(118px,16vw,220px);height:clamp(112px,18dvh,215px);
+ margin:0;overflow:hidden;pointer-events:none;border-radius:3px;
+ border:1px solid rgba(164,237,230,.4);background:#0c2734;
+ box-shadow:0 8px 29px #0008,0 0 20px #71e8dd28;
+ opacity:.76;filter:brightness(.87) saturate(.85);
+ transform:translate(-50%,-50%) rotate(var(--live-tilt));
+ animation:lobbyLiveFloat var(--live-speed,9s) ease-in-out infinite alternate;
+ will-change:transform}
+.entry-collage-live-tile>img{position:absolute;inset:0;width:100%;height:100%;
+ object-fit:cover;display:block}
+.entry-collage-live-tile>video{position:absolute;inset:0;width:100%;height:100%;
+ object-fit:cover;opacity:1;display:block;pointer-events:none;transform:none;
+ background:transparent}
+.entry-collage-live-tile>video[hidden]{display:none!important}
+.entry-collage-live-tile figcaption{position:absolute;inset:auto 0 0;z-index:2;
+ padding:17px 8px 7px;color:#f3ffff;background:linear-gradient(transparent,#030c17db);
+ font:800 8px/1.3 var(--display);text-transform:uppercase;letter-spacing:.12em;
+ text-shadow:0 1px 5px #000}
+@keyframes lobbyLiveFloat{
+ from{transform:translate(calc(-50% - 12px),calc(-50% + 8px)) rotate(var(--live-tilt))}
+ to{transform:translate(calc(-50% + 12px),calc(-50% - 8px)) rotate(var(--live-tilt))}
+}
+@media(max-width:740px){
+ .entry-collage-live-tile{width:clamp(94px,27vw,136px);height:clamp(105px,17dvh,170px);
+ opacity:.67}
+ .entry-collage-live-tile figcaption{font-size:6px;padding:11px 5px 5px}
+}
+@media(prefers-reduced-motion:reduce){
+ .entry-collage-live-tile{animation:none!important;will-change:auto}
+}
+
+/* Tools must be a single, fully visible and vertically centered composition.
+   The scale is calculated by app.js from content height and screen height. */
+.scene-tools{overflow:hidden}
+.scene-tools .scene-inner{height:auto!important;max-height:none!important;
+ overflow:visible!important;scrollbar-width:none!important;
+ flex:0 0 auto!important;min-height:0!important;justify-content:center;
+ transform-origin:center center;
+ transform:scale(var(--tools-fit,1))!important;
+ padding:clamp(7px,1.4dvh,25px) 0!important}
+.scene-tools .tool-wall{height:auto!important;max-height:none!important;
+ overflow:visible!important;overflow-y:visible!important;
+ flex:0 0 auto!important;min-height:0!important;
+ scrollbar-width:none!important;overscroll-behavior:auto}
+.scene-tools .tool-wall::-webkit-scrollbar,
+.scene-tools .scene-inner::-webkit-scrollbar{display:none!important}
+.scene-tools .tool-category{flex-shrink:0}
+@media(max-width:740px){
+ .scene-tools .scene-inner{width:calc(100vw - 36px)!important}
+ .scene-tools .tool-wall{gap:clamp(4px,1dvh,10px)!important}
+}
+
+/* Five disciplines should span the entire height in a portrait monitor,
+   not cluster near the upper half of the left rail. */
+@media(min-width:741px){
+ .work-rail{height:100%;justify-content:space-evenly!important;
+ gap:clamp(5px,1dvh,20px)!important;
+ padding:clamp(12px,2dvh,35px) 7px!important}
+ .rail-link{flex:0 1 auto!important;min-height:clamp(68px,8dvh,120px)!important}
+}
+@media(max-width:740px){
+ .work-rail{justify-content:space-around!important;gap:3px!important}
+ .rail-link{flex:1 1 auto;min-width:0!important}
+}
