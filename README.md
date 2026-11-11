@@ -87,3 +87,7 @@ El lobby tiene volumen **fijo al 80 %** sin deslizador. Si las políticas del na
 - Ventanas: el diálogo «Sobre mí» desactiva el scrollytelling y la navegación de fondo. Las barras tipo Mac pasan de tres aparentes botones a un indicador decorativo de colores difuminados.
 
 Estas decisiones buscan mejorar el rendimiento durante la grabación con OBS; no equivalen por sí solas a una medición de FPS en el dispositivo de la usuaria.
+
+### Comprobación de rendimiento
+
+Para comprobar la mejora durante una grabación con OBS, comparar el lobby anterior con la versión optimizada en la misma resolución y frecuencia de actualización, con y sin captura activa. Revisar también el cambio de secciones, el diálogo «Sobre mí», las herramientas y el efecto de acumulación con clics consecutivos. No atribuir una cifra de FPS sin mediciones en el dispositivo.
