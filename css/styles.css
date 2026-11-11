@@ -385,3 +385,149 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
  .contact-options .contact-brand-mark{width:26px;height:26px}
 }
 @media(prefers-reduced-motion:reduce){.rail-link.is-active .rail-icon{animation:none}}
+
+/* 2026-11: portrait-first polish, lower work footer and gentle content hierarchy. */
+@media(min-width:741px){
+ .work-rail{justify-content:flex-start;gap:clamp(8px,1.1vh,17px);padding-top:clamp(18px,3.8vh,54px)}
+ .rail-link{min-height:clamp(68px,8vh,102px);flex:0 0 auto}
+}
+.work-main{display:flex;flex-direction:column;min-height:0}
+.work-grid{flex:0 0 auto}
+.work-end{flex:0 0 auto;margin-top:auto}
+.work-footer{flex:0 0 auto;min-height:clamp(260px,32dvh,530px);
+ display:flex;flex-direction:column;justify-content:center;padding-top:clamp(35px,5vh,90px);
+ padding-bottom:clamp(28px,4vh,80px)}
+.work-footer>p{margin:0}
+.work-footer h2{margin:8px 0 22px}
+.work-footer-actions{align-items:center;margin-bottom:13px}
+.work-footer-actions a,.work-footer-actions button{display:inline-flex;align-items:center;gap:8px;
+ min-height:47px;padding:11px 13px;background:var(--card);border:1px solid var(--line);
+ border-radius:7px;color:var(--ink);font:700 12px var(--font)}
+.work-footer-actions button{cursor:pointer}
+.work-footer-actions a:hover,.work-footer-actions button:hover{transform:translateY(-3px);
+ box-shadow:0 7px 22px color-mix(in srgb,var(--ink) 10%,transparent)}
+.work-footer-actions .contact-brand-mark{height:21px;width:21px;flex:0 0 21px}
+.work-email{margin:6px 0 28px;color:var(--muted);font:600 12px var(--font);overflow-wrap:anywhere}
+.scene-tools .scene-inner{height:auto;max-height:calc(100dvh - var(--hdr) - 55px);
+ width:min(1000px,calc(100vw - 92px));display:flex;flex-direction:column;
+ justify-content:center;margin:auto;overflow:visible;padding:clamp(10px,2vh,28px) 0}
+.scene-tools .tool-wall{flex:0 1 auto;max-height:min(49dvh,530px);min-height:0;overflow-y:auto}
+.scene-tools .scene-continue{margin-top:clamp(9px,2vh,25px)}
+@media(max-width:740px){
+ .work-rail{justify-content:space-between}
+ .work-end{margin-top:32px}
+ .work-footer{min-height:clamp(250px,36dvh,500px)}
+ .scene-tools .scene-inner{width:calc(100vw - 45px);max-height:calc(100dvh - var(--hdr) - 22px)}
+ .scene-tools .tool-wall{max-height:57dvh}
+}
+/* Gmail is a full multi-color envelope; email remains copyable without a mail app. */
+.contact-options .contact-card{position:relative;min-width:0;background:var(--card);border:1px solid var(--line);
+ display:flex;flex-direction:column;min-height:120px;transition:transform .25s,box-shadow .25s}
+.contact-options .contact-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.contact-options .contact-card>a{border:0;background:transparent;min-height:106px;flex:1;
+ padding:21px 18px 12px;box-shadow:none;transform:none}
+.contact-options .contact-card>a:hover{transform:none;box-shadow:none}
+.contact-options .contact-card small{position:static;font-size:clamp(9px,.86vw,12px);
+ color:var(--muted);align-self:flex-start;margin-top:12px;overflow-wrap:anywhere}
+.contact-options .copy-email{position:relative;text-align:left;align-self:flex-start;margin:0 0 12px 18px;
+ font:700 11px var(--font);border:0;background:none;padding:4px 3px;color:var(--accent)}
+.contact-options .copy-email:hover{text-decoration:underline}
+.contact-brand-mark.gmail-icon{width:35px;height:29px;overflow:visible;background:#fff;border-radius:4px;padding:2px}
+.work-footer-actions .gmail-icon{width:25px;height:23px;background:#fff;border-radius:3px;padding:2px}
+@media(max-width:740px){
+ .contact-options .contact-card>a{min-height:93px;padding:13px 12px 7px}
+ .contact-options .contact-card small{font-size:9px;margin-top:6px}
+ .contact-options .copy-email{margin:0 0 8px 10px}
+}
+/* Lobby CTA for CV: secondary, visible without competing with enter. */
+.lobby-cv-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+ margin:11px 0 0;padding:10px 18px;background:#0c1e2abd;color:#effffa;
+ border:1px solid #b1f3e277;border-radius:9px;cursor:pointer;
+ font:800 clamp(12px,1vw,15px) var(--font);letter-spacing:.025em;
+ box-shadow:0 5px 25px #0004;transition:background .2s,transform .2s}
+.lobby-cv-button:hover,.lobby-cv-button:focus-visible{background:#d7fff129;color:#fff;
+ transform:translateY(-2px);border-color:#dcfff1}
+.lobby-cv-button .contact-brand-mark{width:20px;height:20px;flex:0 0 20px}
+.lobby-cv-button>span:last-child{font-size:17px;color:#a9f7ea}
+/* CV is a single-page-at-a-time, always-fit viewer with optional big-PDF link. */
+.cv-dialog{padding:0;border:0;background:transparent;max-width:none;max-height:none;
+ width:100vw;height:100dvh;inset:0;overflow:hidden;color:#10202a}
+.cv-dialog::backdrop{background:#030c16b8;backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px)}
+.cv-modal{position:absolute;inset:0;margin:auto;display:flex;flex-direction:column;
+ width:min(910px,calc(100vw - 38px));height:min(940px,calc(100dvh - 28px));
+ background:#f3f5f4;border:1px solid #c4d4d5;border-radius:14px;overflow:hidden;
+ box-shadow:0 26px 100px #0008}
+.cv-modal-toolbar{height:52px;flex:0 0 52px;display:flex;gap:16px;align-items:center;
+ padding:0 19px;background:#e9eeed;border-bottom:1px solid #ced8d8}
+.cv-modal-toolbar strong{font:800 12px var(--display);flex:1}
+.cv-close{background:#f8ffff;border:1px solid #bbd0d0;border-radius:7px;
+ padding:8px 12px;font:800 12px var(--font);cursor:pointer}
+.cv-page-area{position:relative;flex:1;min-height:0;min-width:0;padding:12px;
+ display:grid;place-items:center;overflow:hidden;background:#edf2f0}
+.cv-page-area canvas{width:auto;height:auto;max-width:100%;max-height:100%;
+ background:#fff;box-shadow:0 5px 26px #20323c26;object-fit:contain}
+.cv-page-area iframe{width:100%;height:100%;border:0;background:#fff}
+.cv-loading{font:700 13px var(--font);color:#52636d}
+.cv-modal-footer{min-height:56px;display:flex;align-items:center;justify-content:flex-end;
+ gap:13px;padding:10px 17px;background:#e9eeed;border-top:1px solid #ced8d8;
+ font:800 12px var(--font)}
+.cv-modal-footer a{padding:7px 11px;border:1px solid #cad8d8;border-radius:8px;color:#142b35}
+.cv-modal-footer a:hover{background:#fff}
+.cv-pagination{display:flex;gap:10px;align-items:center;margin-right:auto}
+.cv-pagination[hidden]{display:none}
+.cv-pagination button{background:#fff;color:#17333e;border:1px solid #bdccca;
+ border-radius:6px;width:34px;height:32px;cursor:pointer}
+.cv-pagination button:disabled{opacity:.3;cursor:default}
+@media(max-width:740px){
+ .cv-modal{width:100vw;height:100dvh;border:0;border-radius:0}
+ .cv-modal-toolbar{padding:0 11px;gap:8px}
+ .cv-modal-toolbar strong{font-size:11px}
+ .cv-modal-footer{padding:9px 10px;gap:6px;justify-content:space-between;font-size:10px}
+ .cv-modal-footer a{padding:8px 5px}
+ .cv-page-area{padding:8px}
+ .lobby-cv-button{padding:9px 14px}
+}
+
+/* Author-supplied discipline icons: true upright 0° in all orientations. */
+.rail-icon{display:inline-flex;align-items:center;justify-content:center;
+ flex:0 0 24px;width:24px;height:24px;
+ transform:rotate(180deg);transform-origin:center}
+.rail-icon img{display:block;width:23px;height:23px;object-fit:contain;max-width:none}
+body[data-theme="dark"] .rail-icon img{filter:invert(1)}
+.rail-link .rail-label{white-space:nowrap}
+.rail-link.is-active .rail-icon{animation:railIconPop .46s cubic-bezier(.18,.8,.3,1.25) both}
+@keyframes railIconPop{
+ 0%{opacity:.45;transform:rotate(180deg) scale(.66);filter:blur(2px)}
+ 55%{opacity:1;transform:rotate(180deg) scale(1.24);filter:blur(0)}
+ 100%{opacity:1;transform:rotate(180deg) scale(1);filter:blur(0)}
+}
+@media(max-width:740px){
+ .rail-icon{display:inline-flex!important;flex:0 0 20px;width:20px;height:20px;
+ transform:none}
+ .rail-icon img{height:18px;width:18px}
+ .rail-link{gap:5px}
+ .rail-link.is-active .rail-icon{animation:railIconPopMobile .46s ease-out both}
+}
+@keyframes railIconPopMobile{0%{opacity:.5;transform:scale(.7);filter:blur(2px)}
+ 60%{opacity:1;transform:scale(1.18);filter:blur(0)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){
+ .rail-link.is-active .rail-icon{animation:none!important}
+}
+
+/* Lightweight, mouse-click-only particle accumulator: ring grows thicker per click. */
+.atmosphere .charge-ring-overlay{position:absolute;z-index:4;left:50%;top:50%;
+ width:260px!important;height:260px!important;inset:auto;pointer-events:none;
+ transform:translate(-50%,-50%);opacity:0;transition:none;object-fit:contain;
+ display:block;filter:none;will-change:left,top}
+@media(prefers-reduced-motion:reduce){.charge-ring-overlay{display:none!important}}
+
+/* Portrait monitors: larger work cards use the height instead of clustering up top. */
+@media(min-width:741px) and (max-aspect-ratio:3/4){
+ .work-grid.masonry{columns:2 320px;column-gap:clamp(20px,2vw,32px)}
+ .work-grid.masonry .project-card{margin-bottom:clamp(24px,2.5vh,42px)}
+ .work-main{padding-left:clamp(20px,3vw,45px);padding-right:clamp(20px,3vw,45px)}
+ .work-footer{min-height:clamp(370px,32dvh,620px)}
+ .work-rail{gap:clamp(8px,1.2vh,18px);padding-top:clamp(16px,3vh,48px)}
+ .rail-link{min-height:clamp(72px,7.6vh,118px)}
+ .scene-tools .scene-inner{max-width:min(86vw,900px)}
+}

@@ -19,6 +19,14 @@
   const TRAIL_LENGTH = 6;
   const MAX_PULSES = 4;
   const TAU = Math.PI * 2;
+  // Small 2D overlay ensures the accumulating ring is visible even between GPU dots.
+  const chargeRing = document.createElement('canvas');
+  chargeRing.width = 320;chargeRing.height=320;
+  chargeRing.className='charge-ring-overlay';
+  chargeRing.setAttribute('aria-hidden','true');
+  canvas.parentElement?.appendChild(chargeRing);
+  const ringCtx=chargeRing.getContext('2d',{alpha:true});
+  let ringVisible=false;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const mix = (a, b, amount) => a + (b - a) * amount;
@@ -730,6 +738,55 @@
     while (pulses.length && time - pulses[pulses.length - 1].startedAt > 1500) pulses.pop();
   }
 
+  function drawChargeRing(now){
+    if(!ringCtx)return;
+    if(!charge||forceReduced||reduceMotion.matches||document.body.classList.contains('pre-entry')){
+      if(ringVisible){ringCtx.clearRect(0,0,320,320);chargeRing.style.opacity='0';ringVisible=false}
+      return;
+    }
+    ringVisible=true;
+    const age=Math.max(0,(now-charge.lastHit)/1000);
+    const wobble=Math.sin(age*40+1.1)*Math.exp(-age*7.8);
+    const mass=Math.min(5.1,Math.log2(1+charge.clicks));
+    const r=29+mass*8.5+wobble*7;
+    const thick=1.7+mass*1.75;
+    const dark=isDark();
+    const rgb=dark?'133,240,236':'26,115,150';
+    const cx=160,cy=160;
+    ringCtx.clearRect(0,0,320,320);
+    chargeRing.style.left=(charge.x*100)+'%';
+    chargeRing.style.top=((1-charge.y)*100)+'%';
+    chargeRing.style.opacity='1';
+    // A physical-looking rim: each click makes the line denser AND thicker.
+    ringCtx.lineWidth=thick;
+    ringCtx.strokeStyle='rgba('+rgb+','+Math.min(.86,.28+mass*.095)+')';
+    ringCtx.shadowColor='rgba('+rgb+','+(dark?.75:.26)+')';
+    ringCtx.shadowBlur=dark?7+mass*2.2:2.2;
+    ringCtx.beginPath();ringCtx.arc(cx,cy,r,0,TAU);ringCtx.stroke();
+    ringCtx.shadowBlur=0;
+    // Packed motes make the visible line a particle accumulation, not a flat circle.
+    const count=Math.min(340,130+charge.clicks*7);
+    for(let i=0;i<count;i++){
+      const angle=(i/count)*TAU;
+      const seeded=Math.sin(i*12.9898+charge.clicks*2.791)*43758.5453;
+      const v=seeded-Math.floor(seeded);
+      const spread=(v-.5)*(thick*2.4+2);
+      const angleWobble=(Math.sin(i*.41+now*.014)*.45+wobble*.6)*(1+mass*.16);
+      const dotRadius=r+spread+angleWobble;
+      const xx=cx+Math.cos(angle)*dotRadius, yy=cy+Math.sin(angle)*dotRadius;
+      const dotSize=(.7+(i%5)*.18)*(1+mass*.085);
+      ringCtx.fillStyle='rgba('+rgb+','+(.38+(i%6)*.085)+')';
+      ringCtx.beginPath();ringCtx.arc(xx,yy,dotSize,0,TAU);ringCtx.fill();
+    }
+    // A short concentric tap recoil survives even when the ring has reached max size.
+    if(age<.36){
+      const ripple=r+11+age*39;
+      ringCtx.lineWidth=1.5+Math.abs(wobble)*1.7;
+      ringCtx.strokeStyle='rgba('+rgb+','+Math.max(0,(1-age/.36)*.48)+')';
+      ringCtx.beginPath();ringCtx.arc(cx,cy,ripple,0,TAU);ringCtx.stroke();
+    }
+  }
+
   function frame(time) {
     animationFrame = requestAnimationFrame(frame);
     if (document.hidden || document.body.classList.contains('pre-entry') || !renderer) {
@@ -740,6 +797,7 @@
     previousFrame = time;
     updatePointer(time, delta);
     renderer.render(time, delta);
+    if(charge||ringVisible)drawChargeRing(time);
   }
 
   function setPointer(event) {

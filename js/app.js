@@ -215,35 +215,35 @@ syncMusicButton();
 // Five independent sideways-moving strips cover the full frame. Only a few local
 // elements flash or change at a time; the CTA stays sharp and visually dominant.
 const collageRoot=$('entry-collage');
-const collageAssets=[
- ['assets/images/poster-thehomes.webp','VIDEO / THE HOMES'],
- ['assets/images/smarketing-historia-1.webp','CONTENIDO'],
- ['assets/images/omar-1.webp','DISEÑO'],
- ['assets/images/foto-terror.webp','FOTOGRAFÍA'],
- ['assets/images/poster-casita.webp','VIDEO'],
- ['assets/images/sabias-1.webp','CARRUSEL'],
- ['assets/images/fotografia-halloween-02.webp','RETRATO'],
- ['assets/images/thehomes-3.webp','CAMPAÑA'],
- ['assets/images/poster-minsis.webp','MOTION'],
- ['assets/images/wbmf-fanta.webp','EDITORIAL'],
- ['assets/images/omar-3.webp','DISEÑO'],
- ['assets/images/smarketing-mexico.webp','CONTENIDO'],
- ['assets/images/fotografia-halloween-05.webp','FOTOGRAFÍA'],
- ['assets/images/thehomes-1.webp','CAMPAÑA'],
- ['assets/images/sabias-3.webp','CARRUSEL'],
- ['assets/images/wbmf-london.webp','EDITORIAL'],
- ['assets/images/poster-smarketing.webp','VIDEO'],
- ['assets/images/fotografia-halloween-04.webp','RETRATO'],
- ['assets/images/omar-2.webp','DISEÑO'],
- ['assets/images/fotografia-halloween-01.webp','FOTOGRAFÍA'],
- ['assets/images/thehomes-2.webp','CAMPAÑA'],
- ['assets/images/smarketing-historia-2.webp','CONTENIDO'],
- ['assets/images/sabias-2.webp','CARRUSEL'],
- ['assets/images/fotografia-halloween-06.webp','RETRATO'],
- ['assets/images/thehomes-4.webp','CAMPAÑA'],
- ['assets/images/smarketing-historia-3.webp','CONTENIDO'],
- ['assets/images/fotografia-halloween-03.webp','RETRATO']
-];
+// The lobby is populated from the SAME curated project list as the portfolio.
+// Removing a project from CATS or DATA removes its assets from the next lobby load.
+// This does not expose the user's private Google Drive or require public Drive permissions.
+const curatedVideoPosters={
+ zaru:'assets/images/poster-thehomes.webp',
+ smarketing:'assets/images/poster-smarketing.webp',
+ casita:'assets/images/poster-casita.webp',
+ minsis:'assets/images/poster-minsis.webp'
+};
+function buildCollageAssets(){
+ const pool=[],seen=new Set();
+ const publishedIds=CATS.flatMap(group=>group.items.map(([id])=>id));
+ for(const id of publishedIds){
+  const project=DATA[id];
+  if(!project||project.hidden||project.archived||project.visible===false)continue;
+  const label=String(project.title||project.kind||'PROYECTO').toUpperCase().slice(0,40);
+  const pics=Array.isArray(project.images)?project.images:
+   project.type==='video'?[curatedVideoPosters[id]||
+    (project.platform==='youtube'&&/^[\w-]{11}$/.test(project.id||'')?
+      'https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg':null)]:[];
+  for(const src of pics){
+   if(typeof src!=='string'||!src||seen.has(src))continue;
+   if(!/^(assets\/images\/|https:\/\/i\.ytimg\.com\/vi\/)/.test(src))continue;
+   pool.push([src,label]);seen.add(src);
+  }
+ }
+ return pool.length?pool:[['assets/images/yazmin-retrato.jpg','YAZMIN MORENO']];
+}
+let collageAssets=buildCollageAssets();
 // Short muted previews were derived from the user's original Drive videos.
 // Native MP4 previews autoplay much more reliably than Drive/YouTube iframes.
 const collageVideoMap={
@@ -264,15 +264,10 @@ const collageMobile=matchMedia('(max-width: 740px)');
 function makeCollageCard(row,col,copy){
  const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
  let [src,label]=collageAssets[index];
- const cinemaPosters=[
-  ['assets/images/poster-thehomes.webp','VIDEO / THE HOMES'],
-  ['assets/images/poster-smarketing.webp','VIDEO / SMARKETING'],
-  ['assets/images/poster-casita.webp','VIDEO / CASITA'],
-  ['assets/images/poster-minsis.webp','MOTION / MINSIS']
- ];
- // Dedicated live preview once per project, remaining cards remain poster stills.
- const isLivePreview=copy===0&&row<4&&col===1+(row%3);
- if(isLivePreview)[src,label]=cinemaPosters[row];
+ // Only preview video projects that are still published in the project catalog.
+ const liveCandidates=collageAssets.filter(([poster])=>Boolean(collageVideoMap[poster]));
+ const isLivePreview=copy===0&&row<liveCandidates.length&&col===1+(row%3);
+ if(isLivePreview)[src,label]=liveCandidates[row];
  const figure=document.createElement('figure');
  figure.className='entry-collage-tile';
  figure.dataset.row=String(row);
@@ -287,7 +282,8 @@ function makeCollageCard(row,col,copy){
  figure.style.setProperty('--jitter-scale','1');
  figure.style.setProperty('--card-h',height+'px');
  const image=document.createElement('img');
- image.src=src;image.alt='';image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
+ image.src=src;image.alt='';
+ image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
  // Every video project preview runs as an actual muted HTML5 video, also on portrait.
  const clip=isLivePreview?collageVideoMap[src]:null;
@@ -319,6 +315,7 @@ function makeCollageCard(row,col,copy){
 }
 function initCollage(){
  if(!collageRoot)return;
+ collageAssets=buildCollageAssets();
  if(collageTimer)window.clearInterval(collageTimer);
  if(collageVideoObserver)collageVideoObserver.disconnect();
  collageCards.length=0;collageVideos.length=0;
@@ -374,7 +371,8 @@ function initCollage(){
    tile.style.setProperty('--jitter-y',(Math.random()*24-12).toFixed(0)+'px');
    tile.style.setProperty('--jitter-scale',(Math.random()*.16+.93).toFixed(2));
    if(collageTick%2===0||j===1){
-    const [newSrc,newLabel]=collageAssets[(Math.random()*collageAssets.length)|0];
+    const fresh=collageAssets.filter(([poster])=>!collageVideoMap[poster]);
+    const [newSrc,newLabel]=(fresh.length?fresh:collageAssets)[(Math.random()*(fresh.length||collageAssets.length))|0];
     const img=tile.querySelector('img');
     img.src=newSrc;
     tile.querySelector('figcaption').textContent=newLabel;
@@ -657,6 +655,112 @@ closePortfolioButton.addEventListener('click',returnToLobby);
 entryButton.addEventListener('click',enterPortfolio);
 entryButton.focus({preventScroll:true});
 
+
+// One-click recruitment: direct Gmail compose plus copyable address, no Outlook dependency.
+const publicEmail='yazmin.moreno374@gmail.com';
+document.addEventListener('click',async event=>{
+ const button=event.target.closest?.('[data-copy-email]');
+ if(!button)return;
+ const previous=button.textContent;
+ let copied=false;
+ try{await navigator.clipboard.writeText(publicEmail);copied=true}catch(error){
+  // Clipboard fallback for older browsers or restricted embedded contexts.
+  const input=document.createElement('textarea');input.value=publicEmail;
+  input.style.position='fixed';input.style.opacity='0';
+  document.body.appendChild(input);input.select();
+  try{copied=document.execCommand('copy')}catch(e){}
+  input.remove();
+ }
+ if(copied){toast('Correo copiado: '+publicEmail);button.textContent='¡Copiado!'}
+ else toast('Correo: '+publicEmail);
+ window.setTimeout(()=>{if(button.isConnected)button.textContent=previous},1800);
+ soundEffect('click');
+});
+
+// PDF preview is fitted to the available screen; separate pages use arrows instead
+// of requiring a visitor to scroll the PDF. "Ver en grande" always remains available.
+const cvDialog=$('cv-dialog'),cvOpen=$('lobby-view-cv'),cvClose=$('cv-close');
+const cvCanvas=$('cv-page-canvas'),cvFallback=$('cv-pdf-fallback');
+const cvArea=$('cv-page-area'),cvLoading=$('cv-loading'),cvPagination=$('cv-pagination');
+const cvPrev=$('cv-prev'),cvNext=$('cv-next'),cvCount=$('cv-page-count');
+let cvDocument=null,cvPage=1,cvLibPromise=null,cvRenderTask=null,cvRevision=0,cvResizeTimer=0,cvReturnFocus=null;
+function ensureCvLibrary(){
+ if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
+ if(cvLibPromise)return cvLibPromise;
+ cvLibPromise=new Promise((resolve,reject)=>{
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  script.async=true;script.crossOrigin='anonymous';
+  script.onload=()=>window.pdfjsLib?resolve(window.pdfjsLib):reject(new Error('PDF.js no disponible'));
+  script.onerror=()=>reject(new Error('No se pudo descargar el visor'));
+  document.head.appendChild(script);
+ });
+ return cvLibPromise;
+}
+function cvFallbackView(){
+ cvLoading.hidden=true;cvCanvas.hidden=true;cvPagination.hidden=true;
+ cvFallback.hidden=false;
+ if(cvFallback.src==='about:blank')cvFallback.src='assets/docs/CV-Yazmin-Moreno.pdf#page=1&view=Fit&toolbar=0&navpanes=0';
+}
+async function renderCvPage(pageNumber){
+ if(!cvDialog?.open)return;
+ const seq=++cvRevision;
+ try{
+  const library=await ensureCvLibrary();
+  if(!cvDocument){
+   library.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+   cvDocument=await library.getDocument('assets/docs/CV-Yazmin-Moreno.pdf').promise;
+  }
+  if(!cvDialog.open||seq!==cvRevision)return;
+  cvPage=Math.max(1,Math.min(cvDocument.numPages,pageNumber));
+  const page=await cvDocument.getPage(cvPage);
+  if(!cvDialog.open||seq!==cvRevision)return;
+  if(cvRenderTask){try{cvRenderTask.cancel();await cvRenderTask.promise}catch(e){}cvRenderTask=null}
+  const rect=cvArea.getBoundingClientRect(),unscaled=page.getViewport({scale:1});
+  const scale=Math.min(Math.max(1,rect.width-28)/unscaled.width,Math.max(1,rect.height-24)/unscaled.height);
+  const viewport=page.getViewport({scale});
+  const dpi=Math.min(window.devicePixelRatio||1,2);
+  cvCanvas.width=Math.max(1,Math.ceil(viewport.width*dpi));
+  cvCanvas.height=Math.max(1,Math.ceil(viewport.height*dpi));
+  cvCanvas.style.width=viewport.width+'px';cvCanvas.style.height=viewport.height+'px';
+  cvLoading.hidden=true;cvCanvas.hidden=false;cvFallback.hidden=true;
+  cvRenderTask=page.render({canvasContext:cvCanvas.getContext('2d'),viewport,
+   transform:[dpi,0,0,dpi,0,0]});
+  await cvRenderTask.promise;
+  if(seq!==cvRevision)return;
+  cvPagination.hidden=cvDocument.numPages<=1;
+  cvCount.textContent=cvPage+' / '+cvDocument.numPages;
+  cvPrev.disabled=cvPage<=1;cvNext.disabled=cvPage>=cvDocument.numPages;
+ }catch(error){
+  if(!cvDialog.open)return;
+  console.warn('Visor PDF: se usará el visor nativo',error);
+  cvFallbackView();
+ }
+}
+function openCvDialog(){
+ if(!cvDialog||cvDialog.open)return;
+ cvReturnFocus=document.activeElement;
+ cvDialog.showModal();cvLoading.hidden=false;cvFallback.hidden=true;
+ cvCanvas.hidden=true;cvPage=1;cvClose.focus({preventScroll:true});
+ requestAnimationFrame(()=>renderCvPage(1));
+ soundEffect('click');
+}
+cvOpen?.addEventListener('click',openCvDialog);
+cvClose?.addEventListener('click',()=>cvDialog.close());
+cvDialog?.addEventListener('click',e=>{if(e.target===cvDialog)cvDialog.close()});
+cvDialog?.addEventListener('close',()=>{
+ cvRevision++;
+ if(cvRenderTask){try{cvRenderTask.cancel()}catch(e){}cvRenderTask=null}
+ if(cvReturnFocus?.isConnected)cvReturnFocus.focus({preventScroll:true});
+});
+cvPrev?.addEventListener('click',()=>renderCvPage(cvPage-1));
+cvNext?.addEventListener('click',()=>renderCvPage(cvPage+1));
+window.addEventListener('resize',()=>{
+ if(!cvDialog?.open||!cvDocument)return;
+ window.clearTimeout(cvResizeTimer);
+ cvResizeTimer=window.setTimeout(()=>renderCvPage(cvPage),160);
+},{passive:true});
+
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
@@ -717,7 +821,30 @@ $('brand-home').addEventListener('click',e=>route('home',e.currentTarget));
 $('header-contact').addEventListener('click',e=>route('contact',e.currentTarget));
 $('back-home').addEventListener('click',e=>route('home',e.currentTarget));
 window.addEventListener('popstate',routeByHash);
-function renderRail(){const el=$('work-rail');el.replaceChildren();const ordered=[CATS[0],CATS[1],CATS[2],CATS[3],CATS[4]];for(const c of ordered){let b=document.createElement('button');b.type='button';b.className='rail-link'+(activeCategory===c.id?' is-active':'');b.setAttribute('aria-current',activeCategory===c.id?'page':'false');b.innerHTML=`<span class="rail-icon" aria-hidden="true">${c.icon}</span>${c.label}`;b.addEventListener('click',()=>route(c.id,b));el.appendChild(b)}}
+// Icons supplied by the author. Their artwork stays UPRIGHT (0°), while
+// category labels keep the original vertical reading direction.
+const railIconFiles={
+ video:'assets/icons/rail-video.svg',
+ diseno:'assets/icons/rail-diseno.svg',
+ fotografia:'assets/icons/rail-fotografia.svg',
+ copywriter:'assets/icons/rail-copywriter.svg'
+};
+function renderRail(){
+ const el=$('work-rail');el.replaceChildren();
+ for(const c of CATS){
+  const b=document.createElement('button');
+  b.type='button';b.className='rail-link'+(activeCategory===c.id?' is-active':'');
+  b.setAttribute('aria-current',activeCategory===c.id?'page':'false');
+  const icon=document.createElement('span');icon.className='rail-icon';icon.setAttribute('aria-hidden','true');
+  if(railIconFiles[c.id]){
+   const img=document.createElement('img');img.src=railIconFiles[c.id];
+   img.alt='';img.decoding='async';icon.appendChild(img);
+  }else icon.textContent=c.icon;
+  const label=document.createElement('span');label.className='rail-label';label.textContent=c.label;
+  b.append(icon,label);
+  b.addEventListener('click',()=>route(c.id,b));el.appendChild(b);
+ }
+}
 function selectCategory(id){const c=catById[id];if(!c)return;activeCategory=id;$('brand-home').innerHTML=`${c.title} <span class="brand-divider">|</span> <span class="brand-suffix">Yazmin Moreno</span>`;$('header-home-icon').hidden=false;activeFilter='all';renderRail();$('work-heading').innerHTML=`${c.title} <span>| Yazmin Moreno</span>`;$('work-intro-title').textContent=c.intro;$('work-caption').textContent='TRABAJOS SELECCIONADOS / '+c.title.toUpperCase();$('work-intro-detail').textContent=c.desc;const tabs=$('work-tabs');tabs.replaceChildren();
 if(id==='about'){const home=document.createElement('button');home.type='button';home.className='filter-chip active';home.textContent='Mi perfil';tabs.appendChild(home);$('work-grid').className='about-container';$('work-grid').innerHTML=aboutHTML;activeItems=[]}
 else{$('work-grid').className='masonry';for(const [key,label]of c.filters){const b=document.createElement('button');b.type='button';b.className='filter-chip'+(key==='all'?' active':'');b.setAttribute('aria-pressed',String(key==='all'));b.textContent=label;b.addEventListener('click',()=>{activeFilter=key;tabs.querySelectorAll('button').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});renderGrid()});tabs.appendChild(b)}renderGrid()}

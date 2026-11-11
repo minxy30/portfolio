@@ -42,6 +42,7 @@
       <span>Entrar al portafolio</span>
       <span class="entry-launch-arrow" aria-hidden="true">↗</span>
     </button>
+    <button id="lobby-view-cv" class="lobby-cv-button" type="button" aria-haspopup="dialog"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 13h8M8 17h6"/></svg><span>Ver mi CV</span><span aria-hidden="true">↗</span></button>
     <div class="lobby-sound-controls" aria-label="Audio del lobby">
       <button type="button" id="lobby-audio-enable" class="lobby-audio-enable"><span aria-hidden="true">♫</span> Activar música del lobby</button>
     </div>
@@ -112,10 +113,20 @@
         <h1>Hagamos<br><em>algo grande.</em></h1>
         <p class="scene-subtitle">Disponible para conversar sobre proyectos audiovisuales, diseño y oportunidades creativas.</p>
         <div class="contact-options">
-          <a href="mailto:yazmin.moreno374@gmail.com?subject=Proyecto%20creativo%20-%20Portafolio" aria-label="Enviar un correo a Yazmin"><span class="contact-label"><img class="contact-brand-mark" src="https://cdn.simpleicons.org/gmail/EA4335" alt="" loading="lazy">Correo</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Gmail</small></a>
-          <a href="https://wa.me/525657513910" target="_blank" rel="noopener noreferrer" aria-label="Conversar por WhatsApp"><span class="contact-label"><img class="contact-brand-mark" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="" loading="lazy">WhatsApp</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Mensaje</small></a>
-          <a href="tel:+525657513910" aria-label="Llamar por teléfono"><span class="contact-label"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2.1 2.1 0 0 1-2.3 2.1 19.4 19.4 0 0 1-8.3-3 19 19 0 0 1-6-6A19.4 19.4 0 0 1 2.4 4.6 2.1 2.1 0 0 1 4.5 2h3a2.1 2.1 0 0 1 2.1 1.8l.5 3a2.1 2.1 0 0 1-.6 1.8L7.7 10a16 16 0 0 0 6.3 6.3l1.4-1.8a2.1 2.1 0 0 1 1.8-.6l3 .5A2.1 2.1 0 0 1 22 16.9z"/></svg>Llamar</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Teléfono</small></a>
-          <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer" aria-label="Ver currículum vitae"><span class="contact-label"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 13h8M8 17h6"/></svg>CV</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Currículum</small></a>
+          <div class="contact-card contact-email">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=yazmin.moreno374%40gmail.com&su=Colaboraci%C3%B3n%20desde%20tu%20portafolio" target="_blank" rel="noopener noreferrer" aria-label="Redactar correo para Yazmin en Gmail"><span class="contact-label"><svg class="contact-brand-mark gmail-icon" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+  <path d="M14 18v28h36V18L32 32Z" fill="#fff"/>
+  <path d="M4 46h10V18L4 10v36Z" fill="#4285F4"/>
+  <path d="M50 46h10V10l-10 8Z" fill="#34A853"/>
+  <path d="M14 5 32 19 50 5v13L32 32 14 18Z" fill="#EA4335"/>
+  <path d="M4 10V6c0-5 6-7 10-1v13Z" fill="#C5221F"/>
+  <path d="M50 5c4-6 10-4 10 1v4l-10 8Z" fill="#FBBC04"/>
+</svg>Correo</span><span class="contact-arrow" aria-hidden="true">↗</span><small>yazmin.moreno374@gmail.com</small></a>
+            <button type="button" class="copy-email" data-copy-email aria-label="Copiar dirección de correo">Copiar correo <span aria-hidden="true">⧉</span></button>
+          </div>
+          <a href="https://wa.me/525657513910?text=Hola%2C%20vi%20tu%20portafolio%20y%20me%20interesa%20colaborar%20contigo." target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp con un mensaje de colaboración"><span class="contact-label"><svg class="contact-brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="#25D366"/><path d="M7.5 17.1 6.6 19l2.4-.72a7 7 0 1 0-1.5-1.2" fill="#25D366" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.1c-.4-.5-.7-.5-.9.1-.8 2 .8 4.7 3.3 6.3 1.8 1.1 3.5 1.3 4.1.3l.3-.9-2-1-1 1c-1.5-.6-2.3-1.5-3-2.8l.8-1Z" fill="#fff"/></svg>WhatsApp</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Mensaje preparado</small></a>
+          <a href="tel:+525657513910" aria-label="Llamar por teléfono"><span class="contact-label"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2.1 2.1 0 0 1-2.3 2.1 19.4 19.4 0 0 1-8.3-3 19 19 0 0 1-6-6A19.4 19.4 0 0 1 2.4 4.6 2.1 2.1 0 0 1 4.5 2h3a2.1 2.1 0 0 1 2.1 1.8l.5 3a2.1 2.1 0 0 1-.6 1.8L7.7 10a16 16 0 0 0 6.3 6.3l1.4-1.8a2.1 2.1 0 0 1 1.8-.6l3 .5A2.1 2.1 0 0 1 22 16.9z"/></svg>Llamar</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Teléfono</small></a>
+          <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir currículum vitae"><span class="contact-label"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 13h8M8 17h6"/></svg>CV</span><span class="contact-arrow" aria-hidden="true">↗</span><small>Currículum</small></a>
         </div>
         <p class="contact-credit">YAZMIN MORENO © <span data-current-year>2026</span> · CIUDAD DE MÉXICO</p>
       </div>
@@ -137,7 +148,21 @@
       <div class="work-end"><span>FIN DE LA SELECCIÓN</span><button type="button" id="work-return-top">VOLVER ARRIBA ↑</button></div>
       <footer class="work-footer" id="work-footer">
         <p>¿Colaboramos?</p><h2>Hablemos<span>.</span></h2>
-        <div class="work-footer-actions"><a href="mailto:yazmin.moreno374@gmail.com">Gmail ↗</a><a target="_blank" rel="noopener" href="https://wa.me/525657513910">WhatsApp ↗</a><a href="tel:+525657513910">Llamar ↗</a><a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">CV ↗</a></div>
+        <div class="work-footer-actions">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=yazmin.moreno374%40gmail.com&su=Colaboraci%C3%B3n%20desde%20tu%20portafolio" target="_blank" rel="noopener noreferrer" aria-label="Redactar correo en Gmail"><svg class="contact-brand-mark gmail-icon" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+  <path d="M14 18v28h36V18L32 32Z" fill="#fff"/>
+  <path d="M4 46h10V18L4 10v36Z" fill="#4285F4"/>
+  <path d="M50 46h10V10l-10 8Z" fill="#34A853"/>
+  <path d="M14 5 32 19 50 5v13L32 32 14 18Z" fill="#EA4335"/>
+  <path d="M4 10V6c0-5 6-7 10-1v13Z" fill="#C5221F"/>
+  <path d="M50 5c4-6 10-4 10 1v4l-10 8Z" fill="#FBBC04"/>
+</svg> Gmail <span aria-hidden="true">↗</span></a>
+          <button type="button" data-copy-email class="footer-copy-email" title="Copiar dirección de correo" aria-label="Copiar dirección de correo">Copiar correo</button>
+          <a target="_blank" rel="noopener noreferrer" href="https://wa.me/525657513910?text=Hola%2C%20vi%20tu%20portafolio%20y%20me%20interesa%20colaborar%20contigo." aria-label="WhatsApp con mensaje preparado"><svg class="contact-brand-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="#25D366"/><path d="M7.5 17.1 6.6 19l2.4-.72a7 7 0 1 0-1.5-1.2" fill="#25D366" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.1c-.4-.5-.7-.5-.9.1-.8 2 .8 4.7 3.3 6.3 1.8 1.1 3.5 1.3 4.1.3l.3-.9-2-1-1 1c-1.5-.6-2.3-1.5-3-2.8l.8-1Z" fill="#fff"/></svg> WhatsApp <span aria-hidden="true">↗</span></a>
+          <a href="tel:+525657513910"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2.1 2.1 0 0 1-2.3 2.1 19.4 19.4 0 0 1-8.3-3 19 19 0 0 1-6-6A19.4 19.4 0 0 1 2.4 4.6 2.1 2.1 0 0 1 4.5 2h3a2.1 2.1 0 0 1 2.1 1.8l.5 3a2.1 2.1 0 0 1-.6 1.8L7.7 10a16 16 0 0 0 6.3 6.3l1.4-1.8a2.1 2.1 0 0 1 1.8-.6l3 .5A2.1 2.1 0 0 1 22 16.9z"/></svg> Llamar <span aria-hidden="true">↗</span></a>
+          <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer"><svg class="contact-brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 13h8M8 17h6"/></svg> CV <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="work-email">yazmin.moreno374@gmail.com</p>
         <small>YAZMIN MORENO © <span data-current-year>2026</span></small>
       </footer>
     </div>
@@ -160,6 +185,29 @@
       <div class="viewer-text" id="viewer-text"><p class="eyebrow" id="viewer-area"></p><h2 id="viewer-title"></h2><p class="viewer-deck" id="viewer-deck"></p><div class="viewer-info"><h3>EL PROYECTO</h3><p id="viewer-description"></p><h3>MI PARTICIPACIÓN</h3><p id="viewer-role"></p><h3>RESULTADO</h3><p id="viewer-results"></p><h3>HERRAMIENTAS</h3><p id="viewer-tools"></p></div><p class="viewer-note" id="viewer-note"></p></div>
     </div>
     <div class="viewer-bottom"><button type="button" id="viewer-prev">← Anterior</button><span id="viewer-count">1 / 1</span><button type="button" id="viewer-next">Siguiente →</button></div>
+  </div>
+</dialog>
+<dialog id="cv-dialog" class="cv-dialog" aria-labelledby="cv-dialog-title">
+  <div class="cv-modal">
+    <div class="cv-modal-toolbar">
+      <span class="mac-ribbon" aria-hidden="true"></span>
+      <strong id="cv-dialog-title">Currículum · Yazmin Moreno</strong>
+      <button type="button" id="cv-close" class="cv-close" aria-label="Cerrar currículum">Cerrar <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="cv-page-area" id="cv-page-area" aria-label="Vista previa del currículum">
+      <div class="cv-loading" id="cv-loading" role="status">Preparando vista del CV…</div>
+      <canvas id="cv-page-canvas" aria-label="Página del currículum" hidden></canvas>
+      <iframe id="cv-pdf-fallback" title="Currículum de Yazmin Moreno" src="about:blank" hidden></iframe>
+    </div>
+    <div class="cv-modal-footer">
+      <div class="cv-pagination" id="cv-pagination" hidden>
+        <button type="button" id="cv-prev" aria-label="Página anterior">←</button>
+        <span id="cv-page-count">1 / 1</span>
+        <button type="button" id="cv-next" aria-label="Página siguiente">→</button>
+      </div>
+      <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">Ver en grande ↗</a>
+      <a href="assets/docs/CV-Yazmin-Moreno.pdf" download="CV-Yazmin-Moreno.pdf">Guardar PDF <span aria-hidden="true">↓</span></a>
+    </div>
   </div>
 </dialog>
 <div class="status-toast" id="status-toast" role="status" aria-live="polite"></div>
