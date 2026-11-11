@@ -45,14 +45,14 @@
     if(!charge)return;
     const {x,y,clicks}=charge;
     charge=null;chargeTimer=0;
-    pulses.unshift({x,y,startedAt:performance.now(),strength:clamp(.76+clicks*.38,1,3.55)});
+    pulses.unshift({x,y,startedAt:performance.now(),strength:clamp(.84+Math.log2(1+clicks)*.74,1,4.8)});
     if(pulses.length>MAX_PULSES)pulses.length=MAX_PULSES;
   }
   function accumulateClick(x,y){
     const near=charge&&Math.hypot((charge.x-x)*innerWidth,(charge.y-y)*innerHeight)<Math.min(230,innerWidth*.22);
     if(charge&&!near)discharge();
-    if(!charge)charge={x,y,clicks:0};
-    charge.x=x;charge.y=y;charge.clicks=Math.min(9,charge.clicks+1);
+    if(!charge)charge={x,y,clicks:0,lastHit:0};
+    charge.x=x;charge.y=y;charge.clicks=Math.min(32,charge.clicks+1);charge.lastHit=performance.now();
     clearTimeout(chargeTimer);
     chargeTimer=setTimeout(discharge,RELEASE_AFTER_MS);
   }
@@ -259,13 +259,22 @@
         float distanceToPulse = length(delta);
         vec2 normal = delta / max(distanceToPulse, .0001);
         if (pulse.z < -.5) {
-          // Accumulate an increasingly bright, gravitational core while clicking.
-          float gather = (1.0 - smoothstep(0.0, .15, distanceToPulse)) * min(1.0, .2 + pulse.w * .14);
-          vec2 displacement = -normal * gather * (.012 + pulse.w * .0045);
+          // A new elastic wobble on EVERY click; size continues growing beyond 9 clicks.
+          float sinceTap = max(0.0, -pulse.z - 1.0);
+          float envelope = exp(-sinceTap * 7.2);
+          float elastic = sin(sinceTap * 38.0 + 1.2) * envelope;
+          float mass = min(1.0, log2(1.0 + pulse.w) / 5.1);
+          float gather = 1.0 - smoothstep(0.0, .115 + mass * .04, distanceToPulse);
+          vec2 tangent = vec2(-normal.y, normal.x);
+          vec2 displacement = (-normal * (.010 + mass * .021)
+                              + normal * elastic * .024
+                              + tangent * elastic * .014) * gather;
           displacement.x /= aspect;
           p += displacement;
-          float core = exp(-pow(distanceToPulse / (.022 + pulse.w * .004), 2.0)) * pulse.w * .36;
-          pulseGlow += core + gather * .23;
+          float core = exp(-pow(distanceToPulse / (.021 + mass * .033), 2.0));
+          float iris = exp(-pow((distanceToPulse - (.023 + sinceTap * .064)) / .011, 2.0));
+          pulseGlow += core * (.22 + mass * .44) + gather * (.09 + mass * .12)
+                     + iris * envelope * .54;
         } else {
           float front = pulse.z * .255;
           float band = exp(-pow((distanceToPulse - front) / .044, 2.0)) * pulse.w;
@@ -281,7 +290,7 @@
 
       float twinkle = .86 + .14 * sin(uTime * mix(.7, 1.6, tint) + phase);
       float pointSize = mix(.72, 2.15, depth);
-      if (kind > 1.5) pointSize = mix(12.0, 42.0, depth);
+      if (kind > 1.5) pointSize = mix(mix(1.0,2.3,depth),mix(12.0,42.0,depth),uTheme);
       else if (kind > .5) pointSize *= 1.48;
       pointSize += pulseGlow * 4.0 + cursorGlow * 1.2;
       gl_PointSize = clamp(pointSize * uDpr * twinkle, 1.0, 64.0);
@@ -299,7 +308,7 @@
       vec3 color = mix(lightColor, darkColor, uTheme);
       color = mix(color, vec3(.58, .94, 1.0), clamp(pulseGlow * .72 + cursorGlow * .28, 0.0, .72));
       float baseAlpha = mix(.29, .68, depth);
-      if (kind > 1.5) baseAlpha = mix(.014, .052, depth);
+      if (kind > 1.5) baseAlpha = mix(mix(.35,.58,depth),mix(.014,.052,depth),uTheme);
       else if (kind > .5) baseAlpha = min(.9, baseAlpha * 1.18);
       baseAlpha *= mix(1.25, 1.0, uTheme);
       baseAlpha *= 1.0 + pulseGlow * 1.55 + cursorGlow * 1.35;
@@ -461,7 +470,7 @@
       const pulseData = new Float32Array(MAX_PULSES * 4);
       const reserved = charge ? 1 : 0;
       if(charge){
-        pulseData[0]=charge.x;pulseData[1]=charge.y;pulseData[2]=-1;
+        pulseData[0]=charge.x;pulseData[1]=charge.y;pulseData[2]=-1-Math.min(.5,(time-charge.lastHit)/1000);
         pulseData[3]=charge.clicks;
       }
       for(let index=reserved;index<MAX_PULSES;index+=1){
@@ -585,8 +594,13 @@
         const dx=x-charge.x*width,dy=y-(1-charge.y)*height;
         const distance=Math.hypot(dx,dy)||1;
         const pull=Math.max(0,1-distance/Math.min(155,height*.20))*.45;
-        x-=dx/distance*pull*(6+charge.clicks*3);
-        y-=dy/distance*pull*(6+charge.clicks*3);
+        const age=Math.min(.5,(performance.now()-charge.lastHit)/1000);
+        const jolt=Math.sin(age*38+1.2)*Math.exp(-age*7.2);
+        const mass=Math.log2(1+charge.clicks);
+        x-=dx/distance*pull*(7+mass*8-jolt*19);
+        y-=dy/distance*pull*(7+mass*8-jolt*19);
+        x+=-dy/distance*pull*jolt*11;
+        y+=dx/distance*pull*jolt*11;
       }
       if (!this.reduced) {
         for (const pulse of pulses) {
@@ -633,7 +647,7 @@
         for (const point of this.points) {
           if (Math.round(point.kind) !== kind) continue;
           const [x, y] = this.position(point, seconds);
-          const size = kind === 2 ? mix(8, 26, point.depth) : kind === 1 ? mix(.9, 2.1, point.depth) : mix(.55, 1.45, point.depth);
+          const size = kind === 2 ? (dark ? mix(8,26,point.depth) : mix(.65,1.55,point.depth)) : kind === 1 ? mix(.9, 2.1, point.depth) : mix(.55, 1.45, point.depth);
           context.moveTo(x + size, y);
           context.arc(x, y, size, 0, TAU);
         }
@@ -643,12 +657,17 @@
       context.globalCompositeOperation = 'source-over';
       if(charge&&!this.reduced){
         const px=charge.x*innerWidth,py=(1-charge.y)*innerHeight;
-        const radius=12+charge.clicks*4;
+        const age=Math.min(.5,(performance.now()-charge.lastHit)/1000);
+        const wobble=Math.sin(age*38+1.2)*Math.exp(-age*7.2);
+        const radius=14+Math.log2(1+charge.clicks)*10;
         const glow=context.createRadialGradient(px,py,0,px,py,radius);
         glow.addColorStop(0,'rgba(180,252,247,.52)');
         glow.addColorStop(.32,'rgba(85,204,223,.20)');
         glow.addColorStop(1,'rgba(85,204,223,0)');
         context.fillStyle=glow;context.beginPath();context.arc(px,py,radius,0,TAU);context.fill();
+        context.beginPath();context.arc(px,py,Math.max(5,radius*.48+wobble*9),0,TAU);
+        context.strokeStyle='rgba(85,204,223,'+(.18+Math.abs(wobble)*.46)+')';
+        context.lineWidth=1.5+Math.abs(wobble)*2;context.stroke();
       }
     }
 

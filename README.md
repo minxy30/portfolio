@@ -91,3 +91,13 @@ Estas decisiones buscan mejorar el rendimiento durante la grabación con OBS; no
 ### Comprobación de rendimiento
 
 Para comprobar la mejora durante una grabación con OBS, comparar el lobby anterior con la versión optimizada en la misma resolución y frecuencia de actualización, con y sin captura activa. Revisar también el cambio de secciones, el diálogo «Sobre mí», las herramientas y el efecto de acumulación con clics consecutivos. No atribuir una cifra de FPS sin mediciones en el dispositivo.
+
+
+## Ajustes del 10 de noviembre de 2026 — navegación, acumulación y logos
+
+- La rueda del mouse recorre la lista de Herramientas solo si todavía hay contenido desplazable en ese sentido. Al llegar al extremo, cambia de escena; también se reinicia su acumulador al pulsar los indicadores laterales. Se impide el scroll exterior cuando el visor «Sobre mí» está abierto.
+- La acumulación de partículas acepta hasta 32 clics consecutivos antes de soltar la explosión; cada pulsación reaviva un anillo y movimiento elástico visible, con un crecimiento suave de la masa y el brillo en WebGL y en el fallback Canvas. El área de influencia del cursor permanece reducida 30 %.
+- En el tema claro los puntos de tipo halo grande se convierten en motas pequeñas y más definidas, y se reduce la viñeta para evitar las manchas grandes.
+- La biblioteca distingue mejor la barra lateral mediante tarjetas de fondo discreto, contorno y acento del apartado activo, y una animación breve que se podrá actualizar cuando la autora entregue los SVG específicos de cada disciplina.
+- Se retiró Adobe Creative Cloud de Herramientas, se añadió un distintivo vectorial local de InDesign (diferenciado del SVG repetido de Illustrator), se utilizan logotipos de Canva y Claude sin fondo y se redondean los de Grok y OpenAI. Se añadieron iconos a las tarjetas de Gmail, WhatsApp, llamada y CV.
+- Queda **pendiente** la asociación verificable de cada proyecto a sus programas/herramientas. No se implementan filtros por programas sin fichas definitivas de trabajos, funciones y herramientas utilizadas.

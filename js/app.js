@@ -662,13 +662,32 @@ if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVid
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
 const scenes=[$('scene-entrance'),$('scene-tools'),$('scene-contact')];
 function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
-for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>showStage(+dot.dataset.stage));
+for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
-let wheelBuffer=0;
-window.addEventListener('wheel',e=>{if(aboutDialog?.open||e.target.closest?.('#tool-wall'))return;if(document.body.dataset.screen!=='home'||viewer.open)return;if(Math.abs(e.deltaY)<3)return;e.preventDefault();const now=Date.now();if(now-scrollLock<740)return;wheelBuffer+=e.deltaY;if(Math.abs(wheelBuffer)>=55){showStage(stage+(wheelBuffer>0?1:-1));scrollLock=now;wheelBuffer=0}},{passive:false});
+let wheelBuffer=0,lastWheelAt=0;
+window.addEventListener('wheel',e=>{
+ if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;
+ if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;
+ const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
+ if(Math.abs(delta)<1)return;
+ const wall=e.target instanceof Element?e.target.closest('#tool-wall'):null;
+ if(wall&&stage===1){
+  const down=wall.scrollTop+wall.clientHeight<wall.scrollHeight-3,up=wall.scrollTop>3;
+  if(wall.scrollHeight>wall.clientHeight+5&&((delta>0&&down)||(delta<0&&up))){wheelBuffer=0;return}
+ }
+ e.preventDefault();
+ const now=performance.now();
+ if(locked||now-scrollLock<680){wheelBuffer=0;return}
+ if(now-lastWheelAt>360||Math.sign(wheelBuffer)!==Math.sign(delta))wheelBuffer=0;
+ lastWheelAt=now;wheelBuffer+=delta;
+ if(Math.abs(wheelBuffer)>=42){
+  const next=stage+(wheelBuffer>0?1:-1);wheelBuffer=0;
+  if(next>=0&&next<scenes.length){scrollLock=now;showStage(next)}
+ }
+},{passive:false});
 let touchY=null;
 $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??null},{passive:true});
-$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
+$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;if(stage===1&&e.target.closest?.('#tool-wall')){const box=$('tool-wall');const d=touchY-(e.changedTouches[0]?.clientY??touchY);if((d>0&&box.scrollTop+box.clientHeight<box.scrollHeight-4)||(d<0&&box.scrollTop>4)){touchY=null;return}}const d=-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
 window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},530)},520)}
 const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / CDMX</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
@@ -678,6 +697,14 @@ function openAbout(){
   $('about-close').focus();soundEffect('click');
 }
 function closeAbout(){if(!aboutDialog?.open)return;aboutDialog.close();document.body.classList.remove('about-is-open');siteMain.inert=false;siteHeader.inert=false;if(aboutReturnFocus?.isConnected)aboutReturnFocus.focus();soundEffect('click')}
+// Permit the modal's own scroll, but not wheel or touch movement behind it.
+for(const type of ['wheel','touchmove']){
+ document.addEventListener(type,e=>{
+  if(!aboutDialog?.open)return;
+  const inside=e.target instanceof Element?e.target.closest('.about-description,.about-modal-body'):null;
+  if(!inside)e.preventDefault();
+ },{capture:true,passive:false});
+}
 $('about-close')?.addEventListener('click',closeAbout);
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
 aboutDialog?.addEventListener('click',e=>{if(e.target===aboutDialog)closeAbout()});
@@ -719,10 +746,10 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
 function categorizeTools(){
  const wall=$('tool-wall'),tabs=$('tool-filters');
  if(!wall||!tabs)return;
- const tiles=[...wall.querySelectorAll('.tool-chip')];
+ const tiles=[...wall.querySelectorAll('.tool-chip')].filter(tile=>{const redundant=tile.querySelector('.tool-name')?.textContent.trim()==='Adobe Creative Cloud';if(redundant)tile.remove();return !redundant});
  for(const [name,symbol,source,color] of [
  ['Illustrator','Ai','assets/logos/illustrator.svg','#ff9a00'],
- ['Claude','Cl','assets/logos/claude.png','#d97757'],
+ ['Claude','Cl','https://cdn.simpleicons.org/claude/D97757','#d97757'],
  ['Grok','Gk','assets/logos/grok.png','#181818']
  ]){
   const node=document.createElement('div');node.className='tool-chip particle-tool';node.dataset.symbol=symbol;node.style.setProperty('--tool',color);
@@ -738,20 +765,22 @@ function categorizeTools(){
  'Premiere Pro':'assets/logos/premiere.svg','After Effects · básico':'assets/logos/after-effects.svg',
  'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg',
  'Google Flow':'assets/logos/flow.png','OpenAI':'assets/logos/openai.png',
- 'Canva':'assets/logos/canva.png','Adobe UXP':'assets/logos/uxp.png',
+ 'Canva':'https://cdn.simpleicons.org/canva/00C4CC','Adobe UXP':'assets/logos/uxp.png',
  'Trello':'https://cdn.simpleicons.org/trello','WordPress':'https://cdn.simpleicons.org/wordpress',
- 'InDesign':'https://cdn.simpleicons.org/adobeindesign'
+ 'InDesign':'assets/logos/indesign.svg'
  };
  const byName=new Map(tiles.map(node=>{
   const name=node.querySelector('.tool-name').textContent.trim();
   if(sources[name])node.querySelector('.tool-mark img').src=sources[name];
+   if(name==='Grok'||name==='OpenAI')node.classList.add('tool-rounded-brand');
+   if(name==='Canva'||name==='Claude')node.classList.add('tool-transparent-brand');
   return [name,node];
  }));
  const groups=[
  ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
  ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
  ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
- ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe Creative Cloud','Adobe UXP']]
+ ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP']]
  ];
  const fragment=document.createDocumentFragment(),sections=[],buttons=[];
  let assigned=0;
