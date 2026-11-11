@@ -76,3 +76,14 @@ El navegador puede bloquear la reproducción inicial del lobby antes de una inte
 ### Lobby v9: video local, alto adaptable, cursor 3D y año automático
 
 El lobby tiene volumen **fijo al 80 %** sin deslizador. Si las políticas del navegador bloquean audio al abrir, aparece un único botón accesible para activarlo. Las vistas previas proceden de **The Homes, Smarketing 360, Casita de Sol y Minsis Kids**, extraídas de los videos que la autora proporcionó en Drive, codificadas a H.264 como clips mudos de 4 a 8 segundos. En el collage se usan **<video autoplay muted loop playsinline>**, y un observador solo carga/reproduce clips cuando son visibles. Los proyectos audiovisuales abiertos deliberadamente mantienen el sonido. El número de franjas del fondo se calcula según la altura de la ventana para llenar pantallas verticales y horizontales. Los indicadores de año del sitio se actualizan mediante `new Date().getFullYear()`. «Cerrar portafolio» se ubica a la izquierda, junto al CV. El cursor tipo vidrio/cromo reflectante es un SVG original que sigue el ratón en escritorio y responde a enlaces; móviles conservan el cursor táctil nativo. El sistema de partículas existente permanece intacto.
+
+
+## Ajustes de rendimiento, habilidades y partículas (noviembre 2026)
+
+- Se **elimina** el cursor personalizado para restaurar el cursor nativo y reducir el trabajo visual en cada movimiento.
+- Lobby: las filas se calculan según la proporción de pantalla (4–6 en vertical, 3–5 en horizontal), con tarjetas más grandes, menos nodos duplicados y un máximo de cuatro clips MP4 mudos que solo cargan cuando están visibles. El motor de partículas se suspende detrás de la pantalla de entrada para no gastar GPU en algo oculto.
+- Partículas del portafolio: se reduce la zona de influencia del puntero un 30 % y el máximo gráfico a 68 000 partículas; los clics consecutivos se acumulan en un núcleo y generan una sola explosión al transcurrir 390 ms sin nuevos clics (máximo nueve cargas). El fallback Canvas 2D también refleja la acumulación.
+- Herramientas: agrupadas en Video, Diseño, IA creativa y Gestión/publicación; filtros en la misma pantalla y desplazamiento interno. Se incorporan los logos compartidos por la usuaria y versiones vectoriales locales de Illustrator, Premiere, After Effects, Photoshop y Lightroom. El SVG suministrado bajo «InDesign» era idéntico al de Illustrator: se mantiene un icono correcto de InDesign del repositorio de marcas, sin atribuirle el logo equivocado.
+- Ventanas: el diálogo «Sobre mí» desactiva el scrollytelling y la navegación de fondo. Las barras tipo Mac pasan de tres aparentes botones a un indicador decorativo de colores difuminados.
+
+Estas decisiones buscan mejorar el rendimiento durante la grabación con OBS; no equivalen por sí solas a una medición de FPS en el dispositivo de la usuaria.

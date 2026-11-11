@@ -21,27 +21,6 @@
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
 <audio id="ambient-audio" preload="auto"></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
-<div id="glossy-cursor" class="glossy-cursor" aria-hidden="true" hidden>
-  <svg viewBox="0 0 72 78" width="49" height="53" xmlns="http://www.w3.org/2000/svg" focusable="false">
-    <defs>
-      <linearGradient id="cursor-gloss" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#ffffff"/><stop offset=".23" stop-color="#defcff"/><stop offset=".47" stop-color="#a0d8e8"/>
-        <stop offset=".7" stop-color="#7f86b4"/><stop offset=".85" stop-color="#deefff"/><stop offset="1" stop-color="#f7ffff"/>
-      </linearGradient>
-      <linearGradient id="cursor-bevel" x1="0" y1="0" x2=".95" y2="1">
-        <stop offset="0" stop-color="#fbffff"/><stop offset=".45" stop-color="#d4ffff"/><stop offset="1" stop-color="#416c9a"/>
-      </linearGradient>
-      <radialGradient id="cursor-aura"><stop offset="0" stop-color="#9fe9ff" stop-opacity=".38"/><stop offset="1" stop-color="#9fe9ff" stop-opacity="0"/></radialGradient>
-    </defs>
-    <circle cx="36" cy="37" r="32" fill="url(#cursor-aura)"/>
-    <path d="M9 4 L12 59 L24 47 L35 69 L49 62 L37 39 L62 38 Z" fill="#061324" opacity=".55" transform="translate(1 2)"/>
-    <path d="M9 4 L12 59 L24 47 L35 69 L49 62 L37 39 L62 38 Z" stroke="#1b3451" stroke-width="2.2" stroke-linejoin="round" fill="url(#cursor-gloss)"/>
-    <path d="M13 11 L16 48 L24 40 L37 63" stroke="#fff" stroke-opacity=".88" stroke-width="2.8" stroke-linejoin="round" fill="none" stroke-linecap="round"/>
-    <path d="M20 19 L48 34 L31 33 L41 56" fill="none" stroke="#3f7a98" stroke-opacity=".34" stroke-width="2"/>
-    <path d="M11 4 L19 19 L9 25 Z" fill="url(#cursor-bevel)" opacity=".94"/>
-    <circle cx="15" cy="14" r="2.3" fill="white" opacity=".92"/>
-  </svg>
-</div>
 <div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-fields">
   <div class="entry-veil" aria-hidden="true"></div>
   <div class="entry-collage" id="entry-collage" aria-hidden="true"></div>
@@ -106,7 +85,8 @@
         <p class="eyebrow">01 / MIS HERRAMIENTAS</p>
         <h1>De la idea<br><em>a la pantalla.</em></h1>
         <p class="scene-subtitle">Programas que utilizo para editar, construir y comunicar ideas.</p>
-        <div class="tool-wall" aria-label="Herramientas de trabajo"><div class="tool-chip particle-tool" data-symbol="Pr" style="--tool:#9999FF"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobepremierepro.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Pr</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">Premiere Pro</span></div>
+        <nav class="tool-filters" id="tool-filters" aria-label="Filtrar herramientas por especialidad"></nav>
+        <div class="tool-wall" id="tool-wall" aria-label="Herramientas agrupadas por disciplina"><div class="tool-chip particle-tool" data-symbol="Pr" style="--tool:#9999FF"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobepremierepro.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Pr</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">Premiere Pro</span></div>
 <div class="tool-chip particle-tool" data-symbol="Ae" style="--tool:#9999FF"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobeaftereffects.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Ae</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">After Effects · básico</span></div>
 <div class="tool-chip particle-tool" data-symbol="Id" style="--tool:#FF3366"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobeindesign.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Id</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">InDesign</span></div>
 <div class="tool-chip particle-tool" data-symbol="Ps" style="--tool:#31A8FF"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@13/icons/adobephotoshop.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Ps</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">Photoshop</span></div>
@@ -123,6 +103,7 @@
 <div class="tool-chip particle-tool" data-symbol="Mg" style="--tool:#6856B6"><span class="tool-mark"><img src="https://www.google.com/s2/favicons?domain=magnific.ai&sz=64" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Mg</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">Magnific AI</span></div>
 <div class="tool-chip particle-tool" data-symbol="AI" style="--tool:#1BA98F"><span class="tool-mark"><img src="https://cdn.jsdelivr.net/npm/simple-icons@16/icons/openai.svg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">AI</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">OpenAI</span></div>
 <div class="tool-chip particle-tool" data-symbol="Ux" style="--tool:#D14B41"><span class="tool-mark"><img src="https://www.google.com/s2/favicons?domain=developer.adobe.com&sz=64" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.opacity='1'"><b class="tool-fallback">Ux</b><canvas class="tool-dust" aria-hidden="true"></canvas></span><span class="tool-name">Adobe UXP</span></div></div>
+        
         <div class="scene-continue"><button type="button" class="text-link" data-next="2">CONTINUAR A CONTACTO <span>↓</span></button></div>
       </div>
     </section>
@@ -165,7 +146,7 @@
 </main>
 <dialog class="about-viewer" id="about-viewer" aria-labelledby="about-dialog-title">
  <div class="about-modal-panel">
-  <div class="viewer-toolbar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>YAZMIN MORENO / SOBRE MÍ</span><button type="button" id="about-close" class="viewer-close">Cerrar <span>×</span></button></div>
+  <div class="viewer-toolbar"><span class="mac-ribbon" aria-hidden="true"></span><span>YAZMIN MORENO / SOBRE MÍ</span><button type="button" id="about-close" class="viewer-close">Cerrar <span>×</span></button></div>
   <div class="about-modal-body">
    <div class="about-photo-side"><img src="assets/images/yazmin-retrato.jpg" alt="Retrato de Yazmin Moreno"><div class="about-photo-overlay"><h2>Yazmin<br>Moreno<span>.</span></h2></div><p>INGENIERÍA EN COMUNICACIÓN MULTIMEDIA</p></div>
    <div class="about-description"><p class="eyebrow">SOBRE MÍ / PERFIL CREATIVO</p><h2 id="about-dialog-title">Aprender. Crear. <em>Seguir creciendo.</em></h2><p>Creo y edito contenido para creadores y marcas mientras termino la Ingeniería en Comunicación Multimedia. Integro diseño, redacción y producción audiovisual para adaptar cada pieza a su objetivo, audiencia y formato.</p><p>Parto de ideas iniciales o materiales existentes: organizo información, identifico qué destacar y lo transformo en una propuesta visual clara. Incorporo herramientas de IA generativa para explorar conceptos, crear recursos y optimizar procesos, manteniendo el criterio creativo y editorial.</p><p>He desarrollado experiencia práctica y sigo ampliando mis habilidades. Me entusiasma aprender con equipos creativos que trabajen con artistas, entretenimiento, cultura y proyectos audiovisuales.</p><div class="about-modal-actions"><a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV ↗</a><a href="mailto:yazmin.moreno374@gmail.com">Hablemos ↗</a></div></div>
@@ -174,7 +155,7 @@
 </dialog>
 <dialog id="project-viewer" class="project-viewer" aria-labelledby="viewer-title">
   <div class="viewer-panel">
-    <div class="viewer-toolbar"><span class="mac-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>YAZMIN MORENO / PROYECTOS</span><button type="button" class="viewer-close" id="viewer-close" aria-label="Cerrar proyecto">Cerrar <span>×</span></button></div>
+    <div class="viewer-toolbar"><span class="mac-ribbon" aria-hidden="true"></span><span>YAZMIN MORENO / PROYECTOS</span><button type="button" class="viewer-close" id="viewer-close" aria-label="Cerrar proyecto">Cerrar <span>×</span></button></div>
     <div class="viewer-body" id="viewer-body">
       <div class="viewer-media" id="viewer-media"></div>
       <div class="viewer-text" id="viewer-text"><p class="eyebrow" id="viewer-area"></p><h2 id="viewer-title"></h2><p class="viewer-deck" id="viewer-deck"></p><div class="viewer-info"><h3>EL PROYECTO</h3><p id="viewer-description"></p><h3>MI PARTICIPACIÓN</h3><p id="viewer-role"></p><h3>RESULTADO</h3><p id="viewer-results"></p><h3>HERRAMIENTAS</h3><p id="viewer-tools"></p></div><p class="viewer-note" id="viewer-note"></p></div>

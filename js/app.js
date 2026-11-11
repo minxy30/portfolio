@@ -263,7 +263,16 @@ const collageReduced=matchMedia('(prefers-reduced-motion: reduce)');
 const collageMobile=matchMedia('(max-width: 740px)');
 function makeCollageCard(row,col,copy){
  const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
- const [src,label]=collageAssets[index];
+ let [src,label]=collageAssets[index];
+ const cinemaPosters=[
+  ['assets/images/poster-thehomes.webp','VIDEO / THE HOMES'],
+  ['assets/images/poster-smarketing.webp','VIDEO / SMARKETING'],
+  ['assets/images/poster-casita.webp','VIDEO / CASITA'],
+  ['assets/images/poster-minsis.webp','MOTION / MINSIS']
+ ];
+ // Dedicated live preview once per project, remaining cards remain poster stills.
+ const isLivePreview=copy===0&&row<4&&col===1+(row%3);
+ if(isLivePreview)[src,label]=cinemaPosters[row];
  const figure=document.createElement('figure');
  figure.className='entry-collage-tile';
  figure.dataset.row=String(row);
@@ -278,10 +287,10 @@ function makeCollageCard(row,col,copy){
  figure.style.setProperty('--jitter-scale','1');
  figure.style.setProperty('--card-h',height+'px');
  const image=document.createElement('img');
- image.src=src;image.alt='';image.loading=col<8?'eager':'lazy';image.decoding='async';
+ image.src=src;image.alt='';image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
  // Every video project preview runs as an actual muted HTML5 video, also on portrait.
- const clip=collageVideoMap[src];
+ const clip=isLivePreview?collageVideoMap[src]:null;
  const videoSlot=Boolean(clip)&&!collageReduced.matches;
  if(videoSlot){
   const video=document.createElement('video');
@@ -313,9 +322,11 @@ function initCollage(){
  if(collageTimer)window.clearInterval(collageTimer);
  if(collageVideoObserver)collageVideoObserver.disconnect();
  collageCards.length=0;collageVideos.length=0;
- const rowHeight=innerHeight>innerWidth?150:185;
- const rows=Math.max(5,Math.min(13,Math.ceil(innerHeight/rowHeight)));
- collageViewportKey=rows+':'+(innerHeight>innerWidth?'portrait':'landscape');
+ const portrait=innerHeight>innerWidth*1.12;
+ const rowHeight=portrait?260:230;
+ const rows=Math.max(portrait?4:3,Math.min(portrait?6:5,Math.round(innerHeight/rowHeight)));
+ const cols=Math.max(portrait?5:7,Math.min(11,Math.ceil(innerWidth/(portrait?185:215))+1));
+ collageViewportKey=rows+':'+cols+':'+(portrait?'portrait':'landscape');
  collageRoot.style.setProperty('--entry-rows',String(rows));
  const fragment=document.createDocumentFragment();
  for(let row=0;row<rows;row++){
@@ -327,7 +338,7 @@ function initCollage(){
   const track=document.createElement('div');
   track.className='entry-collage-track';
   for(let copy=0;copy<2;copy++)
-   for(let col=0;col<14;col++)track.appendChild(makeCollageCard(row,col,copy));
+   for(let col=0;col<cols;col++)track.appendChild(makeCollageCard(row,col,copy));
   lane.appendChild(track);fragment.appendChild(lane);
  }
  collageRoot.replaceChildren(fragment);
@@ -386,8 +397,10 @@ window.addEventListener('resize',()=>{
  if(!document.body.classList.contains('pre-entry'))return;
  window.clearTimeout(collageResizeTimer);
  collageResizeTimer=window.setTimeout(()=>{
-  const rows=Math.max(5,Math.min(13,Math.ceil(innerHeight/(innerHeight>innerWidth?150:185))));
-  const key=rows+':'+(innerHeight>innerWidth?'portrait':'landscape');
+  const portrait=innerHeight>innerWidth*1.12;
+  const rows=Math.max(portrait?4:3,Math.min(portrait?6:5,Math.round(innerHeight/(portrait?260:230))));
+  const cols=Math.max(portrait?5:7,Math.min(11,Math.ceil(innerWidth/(portrait?185:215))+1));
+  const key=rows+':'+cols+':'+(portrait?'portrait':'landscape');
   if(key!==collageViewportKey)initCollage();
  },220);
 },{passive:true});
@@ -608,7 +621,7 @@ function returnToLobby(){
   viewer.close();activeProject=null;
   pausedForProjectVideo=false;wasPlaying=false;
  }
- if(aboutDialog?.open)aboutDialog.close();
+ if(aboutDialog?.open)closeAbout();
  soundEffect('reveal');
  lobbyShouldPlay=true;lobbyMix=0;updateLobbyVolumes();
  startIntroMusic();fadeLobby(1,1450);
@@ -648,23 +661,23 @@ entryButton.focus({preventScroll:true});
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
 const scenes=[$('scene-entrance'),$('scene-tools'),$('scene-contact')];
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>showStage(+dot.dataset.stage));
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0;
-window.addEventListener('wheel',e=>{if(document.body.dataset.screen!=='home'||viewer.open)return;if(Math.abs(e.deltaY)<3)return;e.preventDefault();const now=Date.now();if(now-scrollLock<740)return;wheelBuffer+=e.deltaY;if(Math.abs(wheelBuffer)>=55){showStage(stage+(wheelBuffer>0?1:-1));scrollLock=now;wheelBuffer=0}},{passive:false});
+window.addEventListener('wheel',e=>{if(aboutDialog?.open||e.target.closest?.('#tool-wall'))return;if(document.body.dataset.screen!=='home'||viewer.open)return;if(Math.abs(e.deltaY)<3)return;e.preventDefault();const now=Date.now();if(now-scrollLock<740)return;wheelBuffer+=e.deltaY;if(Math.abs(wheelBuffer)>=55){showStage(stage+(wheelBuffer>0?1:-1));scrollLock=now;wheelBuffer=0}},{passive:false});
 let touchY=null;
 $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??null},{passive:true});
-$('home-deck').addEventListener('touchend',e=>{if(touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
-window.addEventListener('keydown',e=>{if(viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
+$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
+window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},530)},520)}
 const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / CDMX</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
 function openAbout(){
   if(!aboutDialog)return;aboutReturnFocus=document.activeElement;
-  if(!aboutDialog.open)aboutDialog.showModal();
+  if(!aboutDialog.open)aboutDialog.showModal();document.body.classList.add('about-is-open');siteMain.inert=true;siteHeader.inert=true;
   $('about-close').focus();soundEffect('click');
 }
-function closeAbout(){if(!aboutDialog?.open)return;aboutDialog.close();if(aboutReturnFocus?.isConnected)aboutReturnFocus.focus();soundEffect('click')}
+function closeAbout(){if(!aboutDialog?.open)return;aboutDialog.close();document.body.classList.remove('about-is-open');siteMain.inert=false;siteHeader.inert=false;if(aboutReturnFocus?.isConnected)aboutReturnFocus.focus();soundEffect('click')}
 $('about-close')?.addEventListener('click',closeAbout);
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
 aboutDialog?.addEventListener('click',e=>{if(e.target===aboutDialog)closeAbout()});
@@ -701,6 +714,72 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
    box.appendChild(stage)}
 }
 // Hover-only particle assembly reveals the actual brand logo after a soft dust burst.
+
+// All tools stay on one page; grouped tabs help people hiring for a specific role.
+function categorizeTools(){
+ const wall=$('tool-wall'),tabs=$('tool-filters');
+ if(!wall||!tabs)return;
+ const tiles=[...wall.querySelectorAll('.tool-chip')];
+ for(const [name,symbol,source,color] of [
+ ['Illustrator','Ai','assets/logos/illustrator.svg','#ff9a00'],
+ ['Claude','Cl','assets/logos/claude.png','#d97757'],
+ ['Grok','Gk','assets/logos/grok.png','#181818']
+ ]){
+  const node=document.createElement('div');node.className='tool-chip particle-tool';node.dataset.symbol=symbol;node.style.setProperty('--tool',color);
+  const mark=document.createElement('span');mark.className='tool-mark';
+  const logo=document.createElement('img');logo.alt='';logo.src=source;logo.loading='lazy';logo.decoding='async';
+  const fallback=document.createElement('b');fallback.className='tool-fallback';fallback.textContent=symbol;
+  logo.onerror=()=>{logo.style.display='none';fallback.style.opacity='1'};
+  const dust=document.createElement('canvas');dust.className='tool-dust';dust.setAttribute('aria-hidden','true');
+  const title=document.createElement('span');title.className='tool-name';title.textContent=name;
+  mark.append(logo,fallback,dust);node.append(mark,title);tiles.push(node);
+ }
+ const sources={
+ 'Premiere Pro':'assets/logos/premiere.svg','After Effects · básico':'assets/logos/after-effects.svg',
+ 'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg',
+ 'Google Flow':'assets/logos/flow.png','OpenAI':'assets/logos/openai.png',
+ 'Canva':'assets/logos/canva.png','Adobe UXP':'assets/logos/uxp.png',
+ 'Trello':'https://cdn.simpleicons.org/trello','WordPress':'https://cdn.simpleicons.org/wordpress',
+ 'InDesign':'https://cdn.simpleicons.org/adobeindesign'
+ };
+ const byName=new Map(tiles.map(node=>{
+  const name=node.querySelector('.tool-name').textContent.trim();
+  if(sources[name])node.querySelector('.tool-mark img').src=sources[name];
+  return [name,node];
+ }));
+ const groups=[
+ ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
+ ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
+ ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
+ ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe Creative Cloud','Adobe UXP']]
+ ];
+ const fragment=document.createDocumentFragment(),sections=[],buttons=[];
+ let assigned=0;
+ for(const [id,label,caption,names]of groups){
+  const section=document.createElement('section');section.className='tool-category';section.dataset.category=id;
+  const head=document.createElement('div');head.className='tool-category-head';
+  const h=document.createElement('h2');h.textContent=label;
+  const small=document.createElement('small');small.textContent=caption;head.append(h,small);
+  const grid=document.createElement('div');grid.className='tool-category-grid';
+  for(const name of names){const tile=byName.get(name);if(tile){grid.appendChild(tile);assigned++}}
+  section.append(head,grid);sections.push(section);fragment.appendChild(section);
+ }
+ wall.replaceChildren(fragment);
+ if(assigned!==tiles.length)console.warn('Unassigned tools',assigned,tiles.length);
+ function select(id){
+  sections.forEach(s=>s.hidden=id!=='all'&&s.dataset.category!==id);
+  buttons.forEach(btn=>{const yes=btn.dataset.filter===id;btn.classList.toggle('active',yes);btn.setAttribute('aria-pressed',String(yes))});
+  wall.scrollTop=0;
+ }
+ for(const [id,label] of [['all','Todas'],...groups.map(g=>[g[0],g[1]])]){
+  const btn=document.createElement('button');btn.type='button';btn.className='filter-chip tool-filter-chip';btn.textContent=label;btn.dataset.filter=id;
+  btn.addEventListener('click',()=>{select(id);soundEffect('click')});
+  tabs.appendChild(btn);buttons.push(btn);
+ }
+ select('all');
+}
+categorizeTools();
+
 function decorateToolDust(){
  document.querySelectorAll('.particle-tool').forEach(tile=>{
   const canvas=tile.querySelector('canvas.tool-dust'),img=tile.querySelector('img');if(!canvas||!img)return;
@@ -730,35 +809,6 @@ $('viewer-close').addEventListener('click',closeProject);viewer.addEventListener
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));
 $('work-return-top').addEventListener('click',()=>{workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});soundEffect('click')});
-
-// Polished, pearlescent 3D-style cursor inspired by reflective chrome/glass pointers.
-// Desktop pointer only; native cursors remain for touch, keyboard, and reduced motion.
-const glossyCursor=$('glossy-cursor');
-const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
-let cursorFrame=0,cursorX=-90,cursorY=-90,cursorInteractive=false;
-function moveGlossyCursor(){
- cursorFrame=0;
- glossyCursor.style.transform='translate3d('+cursorX+'px,'+cursorY+'px,0) translate(-6px,-4px) scale('+(cursorInteractive?1.17:1)+')';
-}
-function showGlossyCursor(){
- if(!finePointer.matches){document.body.classList.remove('glossy-pointer');glossyCursor.hidden=true;return}
- document.body.classList.add('glossy-pointer');glossyCursor.hidden=false;
-}
-showGlossyCursor();
-if(finePointer.addEventListener)finePointer.addEventListener('change',showGlossyCursor);
-document.addEventListener('pointermove',e=>{
- if(e.pointerType!=='mouse'||!finePointer.matches)return;
- cursorX=e.clientX;cursorY=e.clientY;
- if(!cursorFrame)cursorFrame=requestAnimationFrame(moveGlossyCursor);
- glossyCursor.classList.add('is-visible');
- const target=e.target.closest?.('a,button,[role="button"],input,select,textarea,label');
- const interactive=Boolean(target);
- if(interactive!==cursorInteractive){cursorInteractive=interactive;glossyCursor.classList.toggle('is-interactive',interactive)}
-},{passive:true});
-document.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')glossyCursor.classList.add('is-pressed')},{passive:true});
-document.addEventListener('pointerup',()=>glossyCursor.classList.remove('is-pressed'),{passive:true});
-document.documentElement.addEventListener('pointerleave',()=>glossyCursor.classList.remove('is-visible'),{passive:true});
-window.addEventListener('blur',()=>glossyCursor.classList.remove('is-visible'));
 
 // Preserves natural browser navigation; direct #video/#diseno URLs work on Pages.
 routeByHash();

@@ -15,7 +15,7 @@
   const query = new URLSearchParams(location.search);
   const forceCanvas = query.has('particleFallback');
   const forceReduced = query.has('particleReduced');
-  const MAX_PARTICLES = 96000;
+  const MAX_PARTICLES = 68000; // Higher OBS/browser stability without losing particle atmosphere.
   const TRAIL_LENGTH = 6;
   const MAX_PULSES = 4;
   const TAU = Math.PI * 2;
@@ -39,6 +39,23 @@
   };
   const trail = Array.from({ length: TRAIL_LENGTH }, () => ({ x: .5, y: .5 }));
   const pulses = [];
+  let charge = null,chargeTimer = 0;
+  const RELEASE_AFTER_MS = 390;
+  function discharge(){
+    if(!charge)return;
+    const {x,y,clicks}=charge;
+    charge=null;chargeTimer=0;
+    pulses.unshift({x,y,startedAt:performance.now(),strength:clamp(.76+clicks*.38,1,3.55)});
+    if(pulses.length>MAX_PULSES)pulses.length=MAX_PULSES;
+  }
+  function accumulateClick(x,y){
+    const near=charge&&Math.hypot((charge.x-x)*innerWidth,(charge.y-y)*innerHeight)<Math.min(230,innerWidth*.22);
+    if(charge&&!near)discharge();
+    if(!charge)charge={x,y,clicks:0};
+    charge.x=x;charge.y=y;charge.clicks=Math.min(9,charge.clicks+1);
+    clearTimeout(chargeTimer);
+    chargeTimer=setTimeout(discharge,RELEASE_AFTER_MS);
+  }
 
   let renderer = null;
   let animationFrame = 0;
@@ -60,9 +77,9 @@
     const areaCount = Math.round((width * height) / 14);
     const mobile = width < 600;
     const lowPower = (navigator.hardwareConcurrency || 8) <= 4;
-    const floor = mobile ? 10800 : 27000;
-    const ceiling = mobile ? 27000 : MAX_PARTICLES;
-    return clamp(Math.round(areaCount * (lowPower ? .78 : 1)), floor, ceiling);
+    const floor = mobile ? 8500 : 22000;
+    const ceiling = mobile ? 21000 : MAX_PARTICLES;
+    return clamp(Math.round(areaCount * (lowPower ? .57 : 1)), floor, ceiling);
   }
 
   function pixelRatio(width) {
@@ -223,7 +240,7 @@
         delta.x *= aspect;
         float distanceToPointer = length(delta);
         float history = 1.0 - float(index) / float(${TRAIL_LENGTH});
-        float radius = mix(.11, .235, history);
+        float radius = mix(.077, .1645, history); // Reduced by 30%.
         float falloff = (1.0 - smoothstep(0.0, radius, distanceToPointer)) * history * uPointerStrength;
         vec2 normal = delta / max(distanceToPointer, .0001);
         vec2 tangent = vec2(-normal.y, normal.x);
@@ -240,13 +257,23 @@
         vec2 delta = p - pulse.xy;
         delta.x *= aspect;
         float distanceToPulse = length(delta);
-        float front = pulse.z * .255;
-        float band = exp(-pow((distanceToPulse - front) / .044, 2.0)) * pulse.w;
         vec2 normal = delta / max(distanceToPulse, .0001);
-        vec2 displacement = normal * band * .075;
-        displacement.x /= aspect;
-        p += displacement;
-        pulseGlow += band;
+        if (pulse.z < -.5) {
+          // Accumulate an increasingly bright, gravitational core while clicking.
+          float gather = (1.0 - smoothstep(0.0, .15, distanceToPulse)) * min(1.0, .2 + pulse.w * .14);
+          vec2 displacement = -normal * gather * (.012 + pulse.w * .0045);
+          displacement.x /= aspect;
+          p += displacement;
+          float core = exp(-pow(distanceToPulse / (.022 + pulse.w * .004), 2.0)) * pulse.w * .36;
+          pulseGlow += core + gather * .23;
+        } else {
+          float front = pulse.z * .255;
+          float band = exp(-pow((distanceToPulse - front) / .044, 2.0)) * pulse.w;
+          vec2 displacement = normal * band * .075;
+          displacement.x /= aspect;
+          p += displacement;
+          pulseGlow += band;
+        }
       }
 
       vec2 clip = p * 2.0 - 1.0;
@@ -432,16 +459,19 @@
         trailData[index * 2 + 1] = trail[index].y;
       }
       const pulseData = new Float32Array(MAX_PULSES * 4);
-      for (let index = 0; index < MAX_PULSES; index += 1) {
-        const pulse = pulses[index];
-        if (!pulse) continue;
-        const age = (time - pulse.startedAt) / 1000;
-        if (age < 0 || age > 1.35) continue;
-        const fade = 1 - age / 1.35;
-        pulseData[index * 4] = pulse.x;
-        pulseData[index * 4 + 1] = pulse.y;
-        pulseData[index * 4 + 2] = age;
-        pulseData[index * 4 + 3] = fade * pulse.strength;
+      const reserved = charge ? 1 : 0;
+      if(charge){
+        pulseData[0]=charge.x;pulseData[1]=charge.y;pulseData[2]=-1;
+        pulseData[3]=charge.clicks;
+      }
+      for(let index=reserved;index<MAX_PULSES;index+=1){
+        const pulse=pulses[index-reserved];
+        if(!pulse)continue;
+        const age=(time-pulse.startedAt)/1000;
+        if(age<0||age>1.35)continue;
+        const fade=1-age/1.35;
+        pulseData[index*4]=pulse.x;pulseData[index*4+1]=pulse.y;
+        pulseData[index*4+2]=age;pulseData[index*4+3]=fade*pulse.strength;
       }
 
       gl.clearColor(0, 0, 0, 0);
@@ -545,12 +575,19 @@
         const dx = x - pointer.x * width;
         const dy = y - (1 - pointer.y) * height;
         const distance = Math.hypot(dx, dy) || 1;
-        const radius = Math.min(240, Math.max(145, height * .23));
+        const radius = Math.min(168, Math.max(101.5, height * .161)); // Reduced by 30%.
         const force = Math.pow(Math.max(0, 1 - distance / radius), 2) * pointer.strength;
         x += (-dy / distance * (32 + pointer.speed * 38) + dx / distance * 17) * force;
         y += (dx / distance * (32 + pointer.speed * 38) + dy / distance * 17) * force;
       }
 
+      if(!this.reduced&&charge){
+        const dx=x-charge.x*width,dy=y-(1-charge.y)*height;
+        const distance=Math.hypot(dx,dy)||1;
+        const pull=Math.max(0,1-distance/Math.min(155,height*.20))*.45;
+        x-=dx/distance*pull*(6+charge.clicks*3);
+        y-=dy/distance*pull*(6+charge.clicks*3);
+      }
       if (!this.reduced) {
         for (const pulse of pulses) {
           const age = (performance.now() - pulse.startedAt) / 1000;
@@ -604,6 +641,15 @@
         context.fill();
       }
       context.globalCompositeOperation = 'source-over';
+      if(charge&&!this.reduced){
+        const px=charge.x*innerWidth,py=(1-charge.y)*innerHeight;
+        const radius=12+charge.clicks*4;
+        const glow=context.createRadialGradient(px,py,0,px,py,radius);
+        glow.addColorStop(0,'rgba(180,252,247,.52)');
+        glow.addColorStop(.32,'rgba(85,204,223,.20)');
+        glow.addColorStop(1,'rgba(85,204,223,0)');
+        context.fillStyle=glow;context.beginPath();context.arc(px,py,radius,0,TAU);context.fill();
+      }
     }
 
     getStats() {
@@ -667,7 +713,7 @@
 
   function frame(time) {
     animationFrame = requestAnimationFrame(frame);
-    if (document.hidden || !renderer) {
+    if (document.hidden || document.body.classList.contains('pre-entry') || !renderer) {
       previousFrame = time;
       return;
     }
@@ -702,15 +748,10 @@
 
   addEventListener('pointermove', setPointer, { passive: true });
   addEventListener('pointerdown', event => {
+    if(document.body.classList.contains('pre-entry')||event.button>0)return;
     setPointer(event);
-    if (forceReduced || reduceMotion.matches) return;
-    pulses.unshift({
-      x: pointer.targetX,
-      y: pointer.targetY,
-      startedAt: performance.now(),
-      strength: .95,
-    });
-    if (pulses.length > MAX_PULSES) pulses.length = MAX_PULSES;
+    if(forceReduced||reduceMotion.matches)return;
+    accumulateClick(pointer.targetX,pointer.targetY);
   }, { passive: true });
   addEventListener('pointerout', event => {
     if (!event.relatedTarget) pointer.active = false;
@@ -739,14 +780,8 @@
       fallbackReason,
     },
     pulse: (x = innerWidth / 2, y = innerHeight / 2) => {
-      if (forceReduced || reduceMotion.matches) return false;
-      pulses.unshift({
-        x: clamp(x / Math.max(innerWidth, 1), 0, 1),
-        y: clamp(1 - y / Math.max(innerHeight, 1), 0, 1),
-        startedAt: performance.now(),
-        strength: .95,
-      });
-      if (pulses.length > MAX_PULSES) pulses.length = MAX_PULSES;
+      if(forceReduced||reduceMotion.matches)return false;
+      accumulateClick(clamp(x/Math.max(innerWidth,1),0,1),clamp(1-y/Math.max(innerHeight,1),0,1));
       return true;
     },
   };
