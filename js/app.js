@@ -12,6 +12,8 @@ const CATS=[
 ];
 const catById=Object.fromEntries(CATS.map(c=>[c.id,c]));
 let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,stage=0,locked=false,visitorSound=true,wasPlaying=false,audioCtx=null,toastTimer=0,scrollLock=0,returnFocus=null;
+// Avoid editing copyright and portfolio year by hand every January.
+document.querySelectorAll('[data-current-year]').forEach(node=>node.textContent=String(new Date().getFullYear()));
 const originalBrand=$('brand-home').innerHTML;const aboutDialog=$('about-viewer');let aboutReturnFocus=null;
 const sound=$('sound-toggle'),music=$('ambient-audio'),viewer=$('project-viewer'),work=$('work-space'),workMain=$('work-main');
 let reduce=matchMedia('(prefers-reduced-motion: reduce)');
@@ -242,12 +244,17 @@ const collageAssets=[
  ['assets/images/smarketing-historia-3.webp','CONTENIDO'],
  ['assets/images/fotografia-halloween-03.webp','RETRATO']
 ];
-// Published editing examples already present in the projects catalog.
-// Embedded video is optional: image previews remain as graceful fallbacks.
-const collageVideoSamples=[
- {id:'6-oAd_46hvQ',label:'VIDEO / EDICIÓN'},
- {id:'IPPXTg9O-Bs',label:'VIDEO / YOUTUBE'}
-];
+// Short muted previews were derived from the user's original Drive videos.
+// Native MP4 previews autoplay much more reliably than Drive/YouTube iframes.
+const collageVideoMap={
+ 'assets/images/poster-thehomes.webp':'assets/video/lobby-thehomes.mp4',
+ 'assets/images/poster-smarketing.webp':'assets/video/lobby-smarketing.mp4',
+ 'assets/images/poster-casita.webp':'assets/video/lobby-casita.mp4',
+ 'assets/images/poster-minsis.webp':'assets/video/lobby-minsis.mp4'
+};
+let collageVideoObserver=null;
+const collageVideos=[];
+let collageViewportKey='',collageResizeTimer=0;
 let collageTimer=0;
 let collageVisibilityBound=false;
 let collageTick=0;
@@ -273,26 +280,29 @@ function makeCollageCard(row,col,copy){
  const image=document.createElement('img');
  image.src=src;image.alt='';image.loading=col<8?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
- const videoSlot=copy===0&&((row===1&&col===2)||(row===3&&col===4));
- if(videoSlot&&!collageReduced.matches&&!collageMobile.matches){
-  const spec=collageVideoSamples[row===1?0:1];
-  const iframe=document.createElement('iframe');
-  iframe.className='entry-collage-video';
-  iframe.title='Vista previa de video sin sonido';
-  iframe.setAttribute('aria-hidden','true');
-  iframe.tabIndex=-1;
-  iframe.loading='eager';
-  iframe.referrerPolicy='strict-origin-when-cross-origin';
-  iframe.allow='autoplay; encrypted-media; picture-in-picture';
-  iframe.src='https://www.youtube-nocookie.com/embed/'+spec.id+
-   '?autoplay=1&mute=1&controls=0&loop=1&playlist='+spec.id+
-   '&playsinline=1&rel=0&disablekb=1&iv_load_policy=3';
-  figure.appendChild(iframe);
+ // Every video project preview runs as an actual muted HTML5 video, also on portrait.
+ const clip=collageVideoMap[src];
+ const videoSlot=Boolean(clip)&&!collageReduced.matches;
+ if(videoSlot){
+  const video=document.createElement('video');
+  video.className='entry-collage-video';
+  video.setAttribute('aria-hidden','true');
+  video.tabIndex=-1;
+  video.muted=true;video.defaultMuted=true;
+  video.setAttribute('muted','');
+  video.autoplay=true;video.loop=true;video.playsInline=true;
+  video.setAttribute('playsinline','');
+  video.preload='none';video.controls=false;
+  video.disablePictureInPicture=true;
+  video.dataset.src=clip;
+  video.poster=src;
+  video.addEventListener('error',()=>{video.style.display='none'});
+  figure.appendChild(video);
   figure.classList.add('entry-collage-tile--video');
-  figure.dataset.fallback=src;
+  collageVideos.push(video);
  }
  const cap=document.createElement('figcaption');
- cap.textContent=videoSlot?'VIDEO / EDICIÓN':label;
+ cap.textContent=label;
  figure.appendChild(cap);
  // Never modify card dimensions across duplicated groups: marquee stays seamless.
  if(!videoSlot)collageCards.push(figure);
@@ -301,12 +311,19 @@ function makeCollageCard(row,col,copy){
 function initCollage(){
  if(!collageRoot)return;
  if(collageTimer)window.clearInterval(collageTimer);
- collageCards.length=0; // Reopening the lobby never retains detached old tiles.
+ if(collageVideoObserver)collageVideoObserver.disconnect();
+ collageCards.length=0;collageVideos.length=0;
+ const rowHeight=innerHeight>innerWidth?150:185;
+ const rows=Math.max(5,Math.min(13,Math.ceil(innerHeight/rowHeight)));
+ collageViewportKey=rows+':'+(innerHeight>innerWidth?'portrait':'landscape');
+ collageRoot.style.setProperty('--entry-rows',String(rows));
  const fragment=document.createDocumentFragment();
- for(let row=0;row<5;row++){
+ for(let row=0;row<rows;row++){
   const lane=document.createElement('div');
-  lane.className='entry-collage-lane entry-collage-lane--'+row;
-  lane.style.setProperty('--speed',(17+row*5)+'s');
+  lane.className='entry-collage-lane entry-collage-lane--'+(row%5);
+  lane.style.top=(row*100/rows)+'%';
+  lane.style.height=(100/rows+.28)+'%';
+  lane.style.setProperty('--speed',(17+(row%5)*5)+'s');
   const track=document.createElement('div');
   track.className='entry-collage-track';
   for(let copy=0;copy<2;copy++)
@@ -314,6 +331,20 @@ function initCollage(){
   lane.appendChild(track);fragment.appendChild(lane);
  }
  collageRoot.replaceChildren(fragment);
+ // Load and play only the videos actually entering the viewport.
+ // All displayed videos are muted by both the media files and HTML attributes.
+ if('IntersectionObserver' in window){
+  collageVideoObserver=new IntersectionObserver(entries=>{
+   for(const e of entries){
+    const video=e.target;
+    if(e.isIntersecting&&document.body.classList.contains('pre-entry')&&!document.hidden){
+     if(!video.src)video.src=video.dataset.src;
+     video.play().catch(()=>{});
+    }else video.pause();
+   }
+  },{root:collageRoot,rootMargin:'90px',threshold:.01});
+  collageVideos.forEach(video=>collageVideoObserver.observe(video));
+ }else collageVideos.forEach(video=>{video.src=video.dataset.src;video.play().catch(()=>{})});
  if(collageReduced.matches)return;
  // Fast but restrained editorial bursts: only one or two tiles per beat.
  collageTimer=window.setInterval(()=>{
@@ -350,18 +381,29 @@ function initCollage(){
  }
 }
 initCollage();
+// Orientation changes and large resizes rebuild the collage to fill the new height.
+window.addEventListener('resize',()=>{
+ if(!document.body.classList.contains('pre-entry'))return;
+ window.clearTimeout(collageResizeTimer);
+ collageResizeTimer=window.setTimeout(()=>{
+  const rows=Math.max(5,Math.min(13,Math.ceil(innerHeight/(innerHeight>innerWidth?150:185))));
+  const key=rows+':'+(innerHeight>innerWidth?'portrait':'landscape');
+  if(key!==collageViewportKey)initCollage();
+ },220);
+},{passive:true});
 
 // Separate ORIGINAL fantasy-house lobby soundtrack, rendered from synthesis.
 // Saved as 3:41.5 AAC audio. No voice, no piano; plays at 16% by default.
 // This file is entirely separate from Abyssal Light Loop inside the portfolio.
 const lobbySource=CFG.lobbyAudioSrc||'assets/audio/lobby-fantasy-house-original.m4a';
 const lobbyPlayers=[new Audio(lobbySource),new Audio(lobbySource)];
-const lobbyActivate=$('lobby-audio-enable'),lobbySlider=$('lobby-volume'),lobbyValue=$('lobby-volume-value');
+const lobbyActivate=$('lobby-audio-enable');
 let lobbyActiveTrack=lobbyPlayers[0],lobbyStandbyTrack=lobbyPlayers[1];
-let lobbyLevel=.16,lobbyMix=1,lobbyTransition=null,lobbyFrame=0,lobbyPending=false;
+const lobbyLevel=.80; // Fixed 80% gain, intentionally no lobby volume control.
+let lobbyMix=1,lobbyTransition=null,lobbyFrame=0,lobbyPending=false;
 let lobbyFadeFrame=0,lobbyShouldPlay=true,lobbyAudioBlocked=false;
 for(const track of lobbyPlayers){track.preload='auto';track.loop=false;track.volume=0}
-lobbySlider.value='16';lobbyValue.textContent='16%';
+
 function lobbyIsPlaying(){return !lobbyActiveTrack.paused||!!(lobbyTransition&&!lobbyTransition.to.paused)}
 function lobbyProgress(){
  if(!lobbyTransition)return 0;
@@ -468,11 +510,7 @@ function fadeIntroMusic(){
  fadeLobby(0,1600,parkLobbyAudio);
 }
 lobbyActivate.addEventListener('click',e=>{e.stopPropagation();startIntroMusic()});
-lobbySlider.addEventListener('input',()=>{
- lobbyLevel=Math.max(0,Math.min(1,Number(lobbySlider.value)/100));
- lobbyValue.textContent=String(lobbySlider.value)+'%';
- updateLobbyVolumes();startIntroMusic();
-});
+
 lobbyFeedback();
 // Request lobby music right away; if sound autoplay is blocked, expose the
 // dedicated "Activar música del lobby" gesture without leaving the screen.
@@ -545,7 +583,8 @@ function enterPortfolio(){
  }
  requestAnimationFrame(rise);
  if(collageTimer)window.clearInterval(collageTimer);
- for(const video of collageRoot.querySelectorAll('iframe.entry-collage-video'))video.src='about:blank';
+ if(collageVideoObserver)collageVideoObserver.disconnect();
+ for(const video of collageVideos)video.pause();
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
   entryGate.hidden=true;
@@ -691,6 +730,36 @@ $('viewer-close').addEventListener('click',closeProject);viewer.addEventListener
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));
 $('work-return-top').addEventListener('click',()=>{workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});soundEffect('click')});
+
+// Polished, pearlescent 3D-style cursor inspired by reflective chrome/glass pointers.
+// Desktop pointer only; native cursors remain for touch, keyboard, and reduced motion.
+const glossyCursor=$('glossy-cursor');
+const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
+let cursorFrame=0,cursorX=-90,cursorY=-90,cursorInteractive=false;
+function moveGlossyCursor(){
+ cursorFrame=0;
+ glossyCursor.style.transform='translate3d('+cursorX+'px,'+cursorY+'px,0) translate(-6px,-4px) scale('+(cursorInteractive?1.17:1)+')';
+}
+function showGlossyCursor(){
+ if(!finePointer.matches){document.body.classList.remove('glossy-pointer');glossyCursor.hidden=true;return}
+ document.body.classList.add('glossy-pointer');glossyCursor.hidden=false;
+}
+showGlossyCursor();
+if(finePointer.addEventListener)finePointer.addEventListener('change',showGlossyCursor);
+document.addEventListener('pointermove',e=>{
+ if(e.pointerType!=='mouse'||!finePointer.matches)return;
+ cursorX=e.clientX;cursorY=e.clientY;
+ if(!cursorFrame)cursorFrame=requestAnimationFrame(moveGlossyCursor);
+ glossyCursor.classList.add('is-visible');
+ const target=e.target.closest?.('a,button,[role="button"],input,select,textarea,label');
+ const interactive=Boolean(target);
+ if(interactive!==cursorInteractive){cursorInteractive=interactive;glossyCursor.classList.toggle('is-interactive',interactive)}
+},{passive:true});
+document.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')glossyCursor.classList.add('is-pressed')},{passive:true});
+document.addEventListener('pointerup',()=>glossyCursor.classList.remove('is-pressed'),{passive:true});
+document.documentElement.addEventListener('pointerleave',()=>glossyCursor.classList.remove('is-visible'),{passive:true});
+window.addEventListener('blur',()=>glossyCursor.classList.remove('is-visible'));
+
 // Preserves natural browser navigation; direct #video/#diseno URLs work on Pages.
 routeByHash();
 })();

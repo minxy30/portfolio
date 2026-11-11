@@ -21,11 +21,32 @@
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
 <audio id="ambient-audio" preload="auto"></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
+<div id="glossy-cursor" class="glossy-cursor" aria-hidden="true" hidden>
+  <svg viewBox="0 0 72 78" width="49" height="53" xmlns="http://www.w3.org/2000/svg" focusable="false">
+    <defs>
+      <linearGradient id="cursor-gloss" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffffff"/><stop offset=".23" stop-color="#defcff"/><stop offset=".47" stop-color="#a0d8e8"/>
+        <stop offset=".7" stop-color="#7f86b4"/><stop offset=".85" stop-color="#deefff"/><stop offset="1" stop-color="#f7ffff"/>
+      </linearGradient>
+      <linearGradient id="cursor-bevel" x1="0" y1="0" x2=".95" y2="1">
+        <stop offset="0" stop-color="#fbffff"/><stop offset=".45" stop-color="#d4ffff"/><stop offset="1" stop-color="#416c9a"/>
+      </linearGradient>
+      <radialGradient id="cursor-aura"><stop offset="0" stop-color="#9fe9ff" stop-opacity=".38"/><stop offset="1" stop-color="#9fe9ff" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="36" cy="37" r="32" fill="url(#cursor-aura)"/>
+    <path d="M9 4 L12 59 L24 47 L35 69 L49 62 L37 39 L62 38 Z" fill="#061324" opacity=".55" transform="translate(1 2)"/>
+    <path d="M9 4 L12 59 L24 47 L35 69 L49 62 L37 39 L62 38 Z" stroke="#1b3451" stroke-width="2.2" stroke-linejoin="round" fill="url(#cursor-gloss)"/>
+    <path d="M13 11 L16 48 L24 40 L37 63" stroke="#fff" stroke-opacity=".88" stroke-width="2.8" stroke-linejoin="round" fill="none" stroke-linecap="round"/>
+    <path d="M20 19 L48 34 L31 33 L41 56" fill="none" stroke="#3f7a98" stroke-opacity=".34" stroke-width="2"/>
+    <path d="M11 4 L19 19 L9 25 Z" fill="url(#cursor-bevel)" opacity=".94"/>
+    <circle cx="15" cy="14" r="2.3" fill="white" opacity=".92"/>
+  </svg>
+</div>
 <div class="entry-gate" id="entry-gate" role="dialog" aria-modal="true" aria-labelledby="entry-title" aria-describedby="entry-fields">
   <div class="entry-veil" aria-hidden="true"></div>
   <div class="entry-collage" id="entry-collage" aria-hidden="true"></div>
   <div class="entry-content">
-    <p class="entry-overline">PORTAFOLIO <span>CREATIVO</span> / 2026</p>
+    <p class="entry-overline">PORTAFOLIO <span>CREATIVO</span> / <span data-current-year>2026</span></p>
     <div class="entry-portal" aria-hidden="true">
       <span class="entry-orbit entry-orbit-a"></span>
       <span class="entry-orbit entry-orbit-b"></span>
@@ -44,15 +65,14 @@
     </button>
     <div class="lobby-sound-controls" aria-label="Audio del lobby">
       <button type="button" id="lobby-audio-enable" class="lobby-audio-enable"><span aria-hidden="true">♫</span> Activar música del lobby</button>
-      <label for="lobby-volume" class="lobby-volume-label">Lobby <input type="range" id="lobby-volume" min="0" max="100" value="16" step="1" aria-label="Volumen de la música del lobby"/><output id="lobby-volume-value" for="lobby-volume">16%</output></label>
     </div>
   </div>
   <div class="entry-flare" aria-hidden="true"></div>
-  <p class="entry-bottom">ELIGE TU PROPIO RECORRIDO <span>✦</span> 2026</p>
+  <p class="entry-bottom">ELIGE TU PROPIO RECORRIDO <span>✦</span> <span data-current-year>2026</span></p>
 </div>
 
 <header class="site-header">
-  <div class="header-start"><a class="cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a><button id="header-home-icon" class="header-home-icon" type="button" aria-label="Inicio" title="Inicio" hidden><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg><span>Inicio</span></button></div>
+  <div class="header-start"><button class="close-portfolio" id="close-portfolio" type="button" aria-label="Cerrar portafolio" title="Cerrar portafolio"><span aria-hidden="true">×</span> <span class="close-portfolio-label">Cerrar portafolio</span></button><a class="cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span></a><button id="header-home-icon" class="header-home-icon" type="button" aria-label="Inicio" title="Inicio" hidden><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg><span>Inicio</span></button></div>
   <button class="brand" id="brand-home" type="button" aria-label="Volver al inicio">Yazmin <span>Moreno</span><b>.</b></button>
   <div class="header-right">
     <button class="icon-button" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" title="Cambiar tema"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
@@ -64,7 +84,6 @@
       <span>Los efectos de navegación tienen volumen independiente.</span>
     </div>
     </div>
-    <button class="close-portfolio" id="close-portfolio" type="button" aria-label="Cerrar portafolio" title="Cerrar portafolio"><span aria-hidden="true">×</span> <span class="close-portfolio-label">Cerrar portafolio</span></button>
     <button class="contact-link" id="header-contact" type="button">Hablemos <span aria-hidden="true">↗</span></button>
   </div>
 </header>
@@ -72,7 +91,7 @@
   <!-- Pantallas de inicio: se reemplazan en el mismo plano, no forman una página larga. -->
   <div class="home-deck" id="home-deck">
     <section class="home-scene scene-entrance is-active" id="scene-entrance" aria-label="Inicio — selección de disciplina">
-      <div class="home-annotation">PORTAFOLIO <span>CREATIVO</span> / 2026</div>
+      <div class="home-annotation">PORTAFOLIO <span>CREATIVO</span> / <span data-current-year>2026</span></div>
       <div class="paper-menu" aria-label="Explora mi trabajo">
         <button type="button" class="paper paper-about" data-destination="about">Sobre mí <span aria-hidden="true">↗</span></button>
         <button type="button" class="paper paper-video" data-destination="video">Video <span aria-hidden="true">↗</span></button>
@@ -118,7 +137,7 @@
           <a href="tel:+525657513910">Llamar <span aria-hidden="true">↗</span><small>Teléfono</small></a>
           <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">CV <span aria-hidden="true">↗</span><small>Currículum</small></a>
         </div>
-        <p class="contact-credit">YAZMIN MORENO © 2026 · CIUDAD DE MÉXICO</p>
+        <p class="contact-credit">YAZMIN MORENO © <span data-current-year>2026</span> · CIUDAD DE MÉXICO</p>
       </div>
     </section>
     <nav class="stage-indicator" aria-label="Pantallas de inicio">
@@ -131,7 +150,7 @@
   <section class="work-space" id="work-space" aria-label="Biblioteca de proyectos" hidden>
     <aside class="work-rail" id="work-rail" aria-label="Secciones del portafolio"></aside>
     <div class="work-main" id="work-main">
-      <div class="work-topline"><button type="button" id="back-home" class="back-home">← <span>Inicio</span></button><h1 id="work-heading">Edición de video <span>| Yazmin Moreno</span></h1><span class="work-heading-right">PORTAFOLIO / 2026</span></div>
+      <div class="work-topline"><button type="button" id="back-home" class="back-home">← <span>Inicio</span></button><h1 id="work-heading">Edición de video <span>| Yazmin Moreno</span></h1><span class="work-heading-right">PORTAFOLIO / <span data-current-year>2026</span></span></div>
       <nav class="work-tabs" id="work-tabs" aria-label="Filtrar trabajos"></nav>
       <div class="work-intro" id="work-intro"><p class="eyebrow" id="work-caption">TRABAJOS SELECCIONADOS</p><h2 id="work-intro-title">Edición de video</h2><p id="work-intro-detail">Una selección de proyectos con distintas competencias.</p></div>
       <div class="masonry" id="work-grid" aria-live="polite"></div>
@@ -139,7 +158,7 @@
       <footer class="work-footer" id="work-footer">
         <p>¿Colaboramos?</p><h2>Hablemos<span>.</span></h2>
         <div class="work-footer-actions"><a href="mailto:yazmin.moreno374@gmail.com">Gmail ↗</a><a target="_blank" rel="noopener" href="https://wa.me/525657513910">WhatsApp ↗</a><a href="tel:+525657513910">Llamar ↗</a><a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">CV ↗</a></div>
-        <small>YAZMIN MORENO © 2026</small>
+        <small>YAZMIN MORENO © <span data-current-year>2026</span></small>
       </footer>
     </div>
   </section>
