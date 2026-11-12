@@ -429,7 +429,8 @@ const lobbySource=CFG.lobbyAudioSrc||'assets/audio/lobby-fantasy-house-original.
 const lobbyPlayers=[new Audio(lobbySource),new Audio(lobbySource)];
 const lobbyActivate=$('lobby-audio-enable');
 let lobbyActiveTrack=lobbyPlayers[0],lobbyStandbyTrack=lobbyPlayers[1];
-const lobbyLevel=.80; // Fixed 80% gain, intentionally no lobby volume control.
+const lobbyLevel=.80; // Fixed 80% gain; the only lobby control is mute/unmute.
+let lobbyUserMuted=false;
 let lobbyMix=1,lobbyTransition=null,lobbyFrame=0,lobbyPending=false;
 let lobbyFadeFrame=0,lobbyShouldPlay=true,lobbyAudioBlocked=false;
 for(const track of lobbyPlayers){track.preload='auto';track.loop=false;track.volume=0}
@@ -440,13 +441,14 @@ function lobbyProgress(){
  return Math.max(0,Math.min(1,(lobbyTransition.from.currentTime-lobbyTransition.start)/lobbyTransition.duration));
 }
 function updateLobbyVolumes(){
+ const gain=lobbyUserMuted?0:lobbyLevel*lobbyMix;
  if(!lobbyTransition){
-  lobbyActiveTrack.volume=Math.min(1,lobbyLevel*lobbyMix);
+  lobbyActiveTrack.volume=Math.min(1,gain);
   lobbyStandbyTrack.volume=0;return;
  }
  const p=lobbyProgress();
- lobbyTransition.from.volume=Math.min(1,lobbyLevel*lobbyMix*Math.cos(p*Math.PI/2));
- lobbyTransition.to.volume=Math.min(1,lobbyLevel*lobbyMix*Math.sin(p*Math.PI/2));
+ lobbyTransition.from.volume=Math.min(1,gain*Math.cos(p*Math.PI/2));
+ lobbyTransition.to.volume=Math.min(1,gain*Math.sin(p*Math.PI/2));
 }
 function finishLobbyBlend(){
  if(!lobbyTransition)return;
@@ -482,13 +484,19 @@ function beginLobbyBlend(){
  }).catch(()=>{lobbyPending=false;if(!from.paused)from.loop=true});
 }
 function lobbyFeedback(){
- // It is impossible to force audible autoplay in all browsers. This button
- // provides one accessible gesture while allowing users to stay in the lobby.
- lobbyActivate.hidden=lobbyIsPlaying()||!lobbyAudioBlocked;
- lobbyActivate.setAttribute('aria-label','Activar música de fantasía del lobby');
+ // Keep a compact sound toggle present. Browser autoplay policy may block
+ // audible playback until an actual user gesture; don't pretend it is playing.
+ const off=lobbyUserMuted||(lobbyAudioBlocked&&!lobbyIsPlaying());
+ lobbyActivate.hidden=false;
+ lobbyActivate.classList.toggle('is-muted',off);
+ lobbyActivate.setAttribute('aria-pressed',String(!off));
+ const label=off?'Activar música del lobby':'Silenciar música del lobby';
+ lobbyActivate.setAttribute('aria-label',label);
+ lobbyActivate.title=label;
 }
 function requestLobbyMusic(){
  if(!lobbyShouldPlay)return Promise.resolve();
+ updateLobbyVolumes();
  const targets=lobbyTransition?[lobbyTransition.from,lobbyTransition.to]:[lobbyActiveTrack];
  const paused=targets.filter(track=>track.paused);
  if(!paused.length){lobbyAudioBlocked=false;lobbyFeedback();return Promise.resolve()}
@@ -539,7 +547,26 @@ function startIntroMusic(){
 function fadeIntroMusic(){
  fadeLobby(0,1600,parkLobbyAudio);
 }
-lobbyActivate.addEventListener('click',e=>{e.stopPropagation();startIntroMusic()});
+lobbyActivate.addEventListener('click',e=>{
+ e.stopPropagation();
+ if(lobbyUserMuted||lobbyAudioBlocked&&!lobbyIsPlaying()){
+  lobbyUserMuted=false;updateLobbyVolumes();startIntroMusic();
+ }else{
+  lobbyUserMuted=true;updateLobbyVolumes();
+ }
+ lobbyFeedback();
+});
+// Attempt the soundtrack immediately, then unlock it on the visitor's FIRST
+// interaction when the browser blocks autoplay. This also works after a return
+// to the lobby, without introducing a large "Activar música" call to action.
+function unlockLobbyOnGesture(e){
+ if(e.target?.closest?.('#lobby-audio-enable'))return;
+ if(!lobbyShouldPlay||lobbyUserMuted||lobbyIsPlaying()||
+    !document.body.classList.contains('pre-entry'))return;
+ requestLobbyMusic();
+}
+document.addEventListener('pointerdown',unlockLobbyOnGesture,{capture:true});
+document.addEventListener('keydown',unlockLobbyOnGesture,{capture:true});
 
 lobbyFeedback();
 // Request lobby music right away; if sound autoplay is blocked, expose the
@@ -783,7 +810,7 @@ window.addEventListener('resize',()=>{
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
 const scenes=[$('scene-entrance'),$('scene-tools'),$('scene-contact')];
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');if(stage===1)requestAnimationFrame(()=>queueToolFit());document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});setTimeout(()=>{locked=false},600)}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0,lastWheelAt=0;
@@ -807,7 +834,7 @@ $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??n
 $('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72)showStage(stage+(d>0?1:-1))},{passive:true});
 window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},530)},520)}
-const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / CDMX</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
+const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / MÉXICO</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
 function openAbout(){
   if(!aboutDialog)return;aboutReturnFocus=document.activeElement;
   if(!aboutDialog.open)aboutDialog.showModal();document.body.classList.add('about-is-open');siteMain.inert=true;siteHeader.inert=true;
@@ -891,9 +918,9 @@ function fitToolScene(){
  const scene=$('scene-tools'),inner=scene?.querySelector('.scene-inner');
  if(!scene||!inner)return;
  inner.style.setProperty('--tools-fit','1');
- const available=Math.max(180,scene.clientHeight-30);
- const needed=Math.max(inner.scrollHeight,inner.getBoundingClientRect().height);
- const scale=Math.max(.36,Math.min(1,available/Math.max(needed,1)));
+ const available=Math.max(150,scene.clientHeight-44);
+ const needed=Math.max(inner.scrollHeight,inner.offsetHeight);
+ const scale=Math.max(.24,Math.min(1,available/Math.max(needed,1)));
  inner.style.setProperty('--tools-fit',String(scale));
 }
 function queueToolFit(){
@@ -901,6 +928,24 @@ function queueToolFit(){
  toolFitFrame=requestAnimationFrame(fitToolScene);
 }
 window.addEventListener('resize',queueToolFit,{passive:true});
+
+function animateToolSelection(){
+ if(reduce.matches)return;
+ const wall=$('tool-wall');
+ const tiles=Array.from(wall.querySelectorAll('.tool-category:not([hidden]) .tool-chip'));
+ for(const [i,tile] of tiles.entries()){
+  tile.classList.remove('tool-cascade');
+  tile.style.setProperty('--tool-stagger',String(i));
+ }
+ // Restart the animation when the visitor switches specialties.
+ void wall.offsetWidth;
+ tiles.forEach(tile=>{
+  tile.classList.add('tool-cascade');
+  tile.addEventListener('animationend',event=>{
+   if(event.animationName==='toolCardCascade')tile.classList.remove('tool-cascade');
+  },{once:true});
+ });
+}
 
 // All tools stay on one page; grouped tabs help people hiring for a specific role.
 function categorizeTools(){
@@ -959,6 +1004,8 @@ function categorizeTools(){
   sections.forEach(s=>s.hidden=id!=='all'&&s.dataset.category!==id);
   buttons.forEach(btn=>{const yes=btn.dataset.filter===id;btn.classList.toggle('active',yes);btn.setAttribute('aria-pressed',String(yes))});
   queueToolFit();
+  if(document.getElementById('scene-tools')?.classList.contains('is-active'))
+   requestAnimationFrame(animateToolSelection);
  }
  for(const [id,label] of [['all','Todas'],...groups.map(g=>[g[0],g[1]])]){
   const btn=document.createElement('button');btn.type='button';btn.className='filter-chip tool-filter-chip';btn.textContent=label;btn.dataset.filter=id;

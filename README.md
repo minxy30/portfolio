@@ -68,7 +68,7 @@ La pantalla de entrada presenta cinco franjas horizontales densas de trabajos ex
 
 ## Música original de lobby y cierre de portafolio
 
-**Pista original:** `assets/audio/lobby-fantasy-house-original.m4a` (3:41.5, 104 BPM, ~1.4 MB). Composición instrumental de fantasía/organic house sintetizada específicamente para este proyecto, sin samples externos, piano agudo ni voz. El original también se guarda en Drive en `1BFfYh94jaXoLtR0PLBw78nvCV3qHQF6l`. En el lobby suena al 16 % de volumen, con crossfade de ~4.6 segundos al reiniciar. Al pulsar `Entrar al portafolio`, el lobby sale gradualmente y entra **Abyssal Light Loop** al 10 % con su propio loop de 5 segundos. Al pulsar **Cerrar portafolio**, se restaura el lobby con su música y el collage; se silencian temporalmente los videos abiertos y se recuperan las vistas previas en mute.
+**Pista original:** `assets/audio/lobby-fantasy-house-original.m4a` (3:41.5, 104 BPM, ~1.4 MB). Composición instrumental de fantasía/organic house sintetizada específicamente para este proyecto, sin samples externos, piano agudo ni voz. El original también se guarda en Drive en `1BFfYh94jaXoLtR0PLBw78nvCV3qHQF6l`. En el lobby suena al 80 % de volumen, con crossfade de ~4.6 segundos al reiniciar. Al pulsar `Entrar al portafolio`, el lobby sale gradualmente y entra **Abyssal Light Loop** al 10 % con su propio loop de 5 segundos. Al pulsar **Cerrar portafolio**, se restaura el lobby con su música y el collage; se silencian temporalmente los videos abiertos y se recuperan las vistas previas en mute.
 
 El navegador puede bloquear la reproducción inicial del lobby antes de una interacción. En ese caso aparece **Activar música del lobby**, que reproduce la canción sin salir de la pantalla. Los previews de videos decorativos siempre tienen `mute=1` y no muestran controles.
 
@@ -118,3 +118,15 @@ Para comprobar la mejora durante una grabación con OBS, comparar el lobby anter
 - Los otros videos del catálogo que solo tienen enlace externo de YouTube siguen figurando con su imagen representativa: para que esas piezas también tengan reproducción autónoma y fiable en el lobby, se necesita incorporar clips MP4 autorizados, cortos y silenciados, como los cuatro que ya existen. No se falsifica reproducción mediante un póster animado.
 - **Herramientas:** nunca tiene un scroll interior. El contenido se muestra completo, centrado y ajustado proporcionalmente a la altura disponible, incluyendo cuando se filtra por grupo o cambia la orientación. La rueda o gesto vertical se reserva para navegar entre las tres escenas de inicio.
 - **Barra izquierda de trabajos:** las cinco categorías usan Flexbox con distribución espaciada uniformemente a lo largo de la altura del monitor; la versión móvil continúa horizontal.
+
+
+## Adaptación de layout, audio y motion (12 de noviembre de 2026)
+
+- **Biblioteca de proyectos:** masonry basado en columnas automáticas del ancho disponible, sin `column-count` fijo ni anchuras mínimas acumuladas. Los contenidos verticales y horizontales conservan sus proporciones; `work-main` tiene desplazamiento vertical normal y el footer aparece después de todas las tarjetas, no superpuesto. En monitor vertical se usan columnas más anchas y menos numerosas.
+- **Barra lateral izquierda:** en monitor horizontal las cinco secciones mantienen cajas compactas con separación reducida. En monitor vertical la altura libre se reparte entre las cinco cajas, que se estiran hasta casi tocarse conservando las dimensiones de texto e iconos.
+- **Header:** «Cerrar portafolio» es una salida visualmente discreta al extremo izquierdo; «Inicio» es el botón primario de navegación y el CV queda junto a «Hablemos» a la derecha, sin añadir otra fila.
+- **Herramientas:** se centra verticalmente en el espacio real entre el encabezado y la parte inferior; un factor de escala calculado adapta la vista sin scrollbar interior, incluyendo la acción «Continuar a contacto». Cada filtro anima las tarjetas una por una, con animaciones superpuestas desde escala pequeña hasta tamaño normal y respeto de `prefers-reduced-motion`.
+- **Lobby:** se intenta reproducir la música inmediatamente al 80 % sin un botón grande de activación. Un pequeño control abajo a la izquierda permite silenciar o reactivar el audio sin detener la posición temporal de la canción. Los efectos de sonido siguen independientes. **La reproducción audible automática sin interacción previa no se puede garantizar**: los navegadores pueden bloquearla; se reintenta al primer gesto y el botón de sonido sirve de alternativa accesible.
+- El perfil muestra la ubicación únicamente como **México** (sin municipio ni ciudad).
+
+Se conservaron sin alteración las fichas de proyectos, el motor de partículas, las pistas musicales y el funcionamiento de los clips mudos del lobby.
