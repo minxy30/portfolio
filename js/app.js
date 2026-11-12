@@ -235,7 +235,7 @@ const featuredBenitoYoutubeIds=[
 // video-title correspondences until the public YouTube titles can be verified.
 // Thumbnails are independent decorative lobby images, not video players.
 function featuredBenitoPosters(){
- return featuredBenitoYoutubeIds.map(id=>['https://i.ytimg.com/vi/'+id+'/hqdefault.jpg','BENITO CAMELLO · YOUTUBE']);
+ return featuredBenitoYoutubeIds.map(id=>['https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg','BENITO CAMELLO · YOUTUBE']);
 }
 function buildCollageAssets(){
  const pool=[],seen=new Set();
@@ -368,13 +368,13 @@ function makeLiveLobbyVideos(){
   figure.style.setProperty('--live-tilt',position.tilt);
   figure.style.setProperty('--live-speed',position.speed);
   const poster=document.createElement('img');
-  poster.src='https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg';
+  poster.src='https://i.ytimg.com/vi/'+project.id+'/maxresdefault.jpg';
   poster.alt='';poster.decoding='async';
   // Only the authentic thumbnail is shown until a full video from Drive
   // is approved. No YouTube player = no YouTube advertisements in the lobby.
   poster.loading='eager';
   poster.referrerPolicy='strict-origin-when-cross-origin';
-  poster.onerror=()=>{poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
+  poster.onerror=()=>{if(!poster.src.includes('/hqdefault.jpg')){poster.src='https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg';return;}poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
   const caption=document.createElement('figcaption');
   caption.textContent='BENITO CAMELLO · YOUTUBE';
   figure.classList.add('entry-collage-thumbnail-tile');
