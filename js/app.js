@@ -253,6 +253,7 @@ const collageVideoMap={
  'assets/images/poster-minsis.webp':'assets/video/lobby-minsis.mp4'
 };
 const collageVideos=[];
+const lobbyYoutubeFrames=[];
 let collageViewportKey='',collageResizeTimer=0;
 let collageTimer=0;
 let collageVisibilityBound=false;
@@ -330,10 +331,56 @@ function makeLiveLobbyVideos(){
   layer.appendChild(figure);
   collageVideos.push(video);
  });
+
+ // Published Benito Camello YouTube works: real embedded players, not animated
+ // thumbnails. YouTube embeds may still depend on the viewer's browser settings.
+ const youtubeWorks=CATS[0].items.map(([id])=>DATA[id]).filter(project=>
+  project&&project.platform==='youtube'&&/^[A-Za-z0-9_-]{11}$/.test(project.id||'')&&
+  project.hidden!==true&&project.archived!==true&&project.visible!==false
+ ).slice(0,4);
+ const youtubePlaces=[
+  {x:'34%',y:'11%',tilt:'-2deg',speed:'9s'},
+  {x:'69%',y:'11%',tilt:'2deg',speed:'10s'},
+  {x:'31%',y:'90%',tilt:'2deg',speed:'11s'},
+  {x:'70%',y:'90%',tilt:'-2deg',speed:'9.5s'}
+ ];
+ youtubeWorks.forEach((project,i)=>{
+  const position=youtubePlaces[i];
+  const figure=document.createElement('figure');
+  figure.className='entry-collage-live-tile entry-collage-youtube-tile';
+  figure.style.setProperty('--live-x',position.x);
+  figure.style.setProperty('--live-y',position.y);
+  figure.style.setProperty('--live-tilt',position.tilt);
+  figure.style.setProperty('--live-speed',position.speed);
+  const poster=document.createElement('img');
+  poster.src='https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg';
+  poster.alt='';poster.decoding='async';
+  const frame=document.createElement('iframe');
+  frame.className='entry-collage-youtube-frame';
+  frame.title='Vista previa silenciada de '+project.title;
+  frame.allow='autoplay; encrypted-media; picture-in-picture';
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  frame.loading='eager';
+  frame.tabIndex=-1;frame.setAttribute('aria-hidden','true');
+  // Single-video loops require playlist=VIDEO_ID in YouTube's iframe player.
+  // Do not turn on API-driven audio: all lobby video players are muted.
+  frame.dataset.embed='https://www.youtube-nocookie.com/embed/'+project.id+
+    '?autoplay=1&mute=1&loop=1&playlist='+project.id+
+    '&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0';
+  const caption=document.createElement('figcaption');
+  caption.textContent='BENITO CAMELLO · VIDEO';
+  figure.append(poster,frame,caption);
+  layer.appendChild(figure);
+  lobbyYoutubeFrames.push(frame);
+ });
  return layer;
 }
 function playAllLobbyPreviews(){
  if(!document.body.classList.contains('pre-entry')||document.hidden)return;
+ // Start muted YouTube players after they have been attached to the document.
+ for(const frame of lobbyYoutubeFrames){
+  if(frame.src!==frame.dataset.embed)frame.src=frame.dataset.embed;
+ }
  for(const video of collageVideos){
   if(video.error)continue;
   video.muted=true; // Explicitly reassert muted on every playback attempt.
@@ -345,7 +392,8 @@ function initCollage(){
  collageAssets=buildCollageAssets();
  if(collageTimer)window.clearInterval(collageTimer);
  for(const oldVideo of collageVideos){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load()}
- collageCards.length=0;collageVideos.length=0;
+ for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
+ collageCards.length=0;collageVideos.length=0;lobbyYoutubeFrames.length=0;
  const portrait=innerHeight>innerWidth*1.12;
  const rowHeight=portrait?260:230;
  const rows=Math.max(portrait?4:3,Math.min(portrait?6:5,Math.round(innerHeight/rowHeight)));
@@ -374,7 +422,10 @@ function initCollage(){
   collageVisibilityBound=true;
   document.addEventListener('visibilitychange',()=>{
    collageRoot.classList.toggle('is-paused',document.hidden);
-   if(!document.hidden)playAllLobbyPreviews();
+   if(document.hidden){
+    for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
+    for(const video of collageVideos)video.pause();
+   }else playAllLobbyPreviews();
   });
   window.addEventListener('pageshow',playAllLobbyPreviews);
  }
@@ -641,6 +692,9 @@ function enterPortfolio(){
  requestAnimationFrame(rise);
  if(collageTimer)window.clearInterval(collageTimer);
  for(const video of collageVideos)video.pause();
+ // Unload YouTube embeds when the visitor enters the portfolio; prevents
+ // playback/decoding behind the project pages.
+ for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
   entryGate.hidden=true;
@@ -785,15 +839,18 @@ async function renderCvPage(pageNumber){
 function openCvDialog(){
  if(!cvDialog||cvDialog.open)return;
  cvReturnFocus=document.activeElement;
+ cvDialog.classList.toggle('cv-over-about',Boolean(aboutDialog?.open));
  cvDialog.showModal();cvLoading.hidden=false;cvFallback.hidden=true;
  cvCanvas.hidden=true;cvPage=1;cvClose.focus({preventScroll:true});
  requestAnimationFrame(()=>renderCvPage(1));
  soundEffect('click');
 }
 cvOpen?.addEventListener('click',openCvDialog);
+$('about-view-cv')?.addEventListener('click',openCvDialog);
 cvClose?.addEventListener('click',()=>cvDialog.close());
 cvDialog?.addEventListener('click',e=>{if(e.target===cvDialog)cvDialog.close()});
 cvDialog?.addEventListener('close',()=>{
+ cvDialog.classList.remove('cv-over-about');
  cvRevision++;
  if(cvRenderTask){try{cvRenderTask.cancel()}catch(e){}cvRenderTask=null}
  if(cvReturnFocus?.isConnected)cvReturnFocus.focus({preventScroll:true});
@@ -845,11 +902,16 @@ function closeAbout(){if(!aboutDialog?.open)return;aboutDialog.close();document.
 for(const type of ['wheel','touchmove']){
  document.addEventListener(type,e=>{
   if(!aboutDialog?.open)return;
+  if(cvDialog?.open&&cvDialog.contains(e.target))return;
   const inside=e.target instanceof Element?e.target.closest('.about-description,.about-modal-body'):null;
   if(!inside)e.preventDefault();
  },{capture:true,passive:false});
 }
 $('about-close')?.addEventListener('click',closeAbout);
+$('about-contact')?.addEventListener('click',()=>{
+ closeAbout();
+ route('contact',null);
+});
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
 aboutDialog?.addEventListener('click',e=>{if(e.target===aboutDialog)closeAbout()});
 $('header-home-icon')?.addEventListener('click',e=>route('home',e.currentTarget));
@@ -933,9 +995,12 @@ function animateToolSelection(){
  if(reduce.matches)return;
  const wall=$('tool-wall');
  const tiles=Array.from(wall.querySelectorAll('.tool-category:not([hidden]) .tool-chip'));
+ // All entries complete within ~1.8s for the full library. Smaller groups
+ // retain the overlapping motion instead of waiting for invisible items.
+ const spacing=Math.min(.16,1.43/Math.max(1,tiles.length-1));
  for(const [i,tile] of tiles.entries()){
   tile.classList.remove('tool-cascade');
-  tile.style.setProperty('--tool-stagger',String(i));
+  tile.style.setProperty('--tool-stagger',(i*spacing).toFixed(3)+'s');
  }
  // Restart the animation when the visitor switches specialties.
  void wall.offsetWidth;

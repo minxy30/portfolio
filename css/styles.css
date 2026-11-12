@@ -724,9 +724,9 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 
 /* Sequential overlapping motion graphic: tile N+1 begins around the middle
    of N's rise. The original cards keep their positions. */
-.scene-tools .tool-chip.tool-cascade{animation:toolCardCascade .44s
+.scene-tools .tool-chip.tool-cascade{animation:toolCardCascade .38s
  cubic-bezier(.16,.7,.2,1) both;
- animation-delay:calc(var(--tool-stagger,0) * 0.18s)}
+ animation-delay:var(--tool-stagger,0s)}
 @keyframes toolCardCascade{
  0%{opacity:0;transform:translateY(15px) scale(.15);filter:blur(5px)}
  50%{opacity:.92;transform:translateY(5px) scale(.65);filter:blur(0)}
@@ -754,4 +754,80 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 @media(max-width:740px){
  .entry-gate .lobby-sound-controls{left:10px;bottom:13px}
  .lobby-audio-toggle{width:36px;height:36px}
+}
+
+
+/* Focused update: quick overlapping tools motion, Mac-like stacked CV above About. */
+.about-modal-actions button{
+ display:inline-flex;align-items:center;justify-content:center;
+ border:1px solid var(--line);background:transparent;color:var(--ink);
+ padding:12px 16px;font:800 13px var(--font);
+ cursor:pointer;transition:background .2s,color .2s,border-color .2s;
+}
+.about-modal-actions button:hover,.about-modal-actions button:focus-visible{
+ background:var(--ink);color:var(--bg);
+}
+/* A second native dialog goes into the top layer. Keep the About window
+   visible behind it, rather than replacing the original profile panel. */
+.cv-dialog.cv-over-about::backdrop{
+ background:rgba(5,12,20,.24);
+ backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.cv-dialog.cv-over-about .cv-modal{
+ width:min(630px,58vw);
+ height:min(770px,77dvh);
+ max-width:calc(100vw - 34px);
+ max-height:calc(100dvh - 34px);
+ border-radius:14px;border:1px solid #c4d4d5;
+ transform:translateX(clamp(28px,8vw,145px));
+ box-shadow:0 28px 90px rgba(0,0,0,.5),-8px 8px 0 rgba(80,138,149,.13);
+}
+@media(max-width:740px){
+ .cv-dialog.cv-over-about .cv-modal{
+  width:calc(100vw - 30px);
+  height:min(76dvh,720px);
+  max-height:calc(100dvh - 52px);
+  transform:none;
+  border-radius:12px;
+ }
+ .cv-dialog.cv-over-about .cv-modal-toolbar{height:48px;flex-basis:48px}
+ .cv-dialog.cv-over-about .cv-modal-footer{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+ .scene-tools .tool-chip.tool-cascade{animation:none!important}
+}
+
+
+/* Lobby top-right soundtrack toggle: mute / unmute only, fixed 80% gain.
+   Respect safe areas on mobile without overlapping the main title. */
+.entry-gate .lobby-sound-controls{
+ top:max(18px,env(safe-area-inset-top))!important;
+ right:max(18px,env(safe-area-inset-right))!important;
+ left:auto!important;bottom:auto!important;z-index:20!important;
+}
+.entry-gate .lobby-audio-toggle{
+ width:43px;height:43px;border-radius:50%;display:grid;place-items:center;
+}
+.entry-collage-youtube-tile{width:clamp(200px,17vw,270px);
+ height:clamp(145px,17dvh,202px);opacity:.73}
+.entry-collage-youtube-frame{
+ position:absolute;left:50%;top:50%;display:block;border:0;
+ width:max(100%,320px);height:max(100%,220px);
+ transform:translate(-50%,-50%) scale(1.07);pointer-events:none;
+ background:transparent;
+}
+.entry-collage-youtube-tile figcaption{pointer-events:none}
+@media(max-width:740px){
+ .entry-gate .lobby-sound-controls{
+  top:max(12px,env(safe-area-inset-top))!important;
+  right:max(12px,env(safe-area-inset-right))!important;
+  left:auto!important;bottom:auto!important;
+ }
+ .entry-gate .lobby-audio-toggle{width:38px;height:38px}
+ .entry-collage-youtube-tile{width:clamp(130px,32vw,190px);
+  height:clamp(100px,15dvh,165px);opacity:.64}
+ .entry-collage-youtube-frame{width:320px;height:220px}
+}
+@media(prefers-reduced-motion:reduce){
+ .entry-collage-youtube-tile{animation:none}
 }

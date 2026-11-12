@@ -130,3 +130,11 @@ Para comprobar la mejora durante una grabación con OBS, comparar el lobby anter
 - El perfil muestra la ubicación únicamente como **México** (sin municipio ni ciudad).
 
 Se conservaron sin alteración las fichas de proyectos, el motor de partículas, las pistas musicales y el funcionamiento de los clips mudos del lobby.
+
+
+## Ajustes focalizados: animación, ventanas apiladas y lobby (noviembre 2026)
+
+- **Herramientas:** con sus 19 tarjetas, la secuencia de escala termina en aproximadamente **1.81 segundos** (última transición incluida); para filtros con menos tarjetas, es más rápida. `prefers-reduced-motion` mantiene la opción sin animación.
+- **Sobre mí:** el botón «Hablemos» cierra el cuadro y dirige al contacto de la pantalla principal, con las opciones Gmail, WhatsApp, teléfono y CV. «Ver CV» reutiliza el visor PDF dentro de otra ventana nativa sobre la primera, sin abrir otra pestaña. En escritorio permite observar el perfil detrás y en móvil conserva bordes visibles y un visor adaptable.
+- **Videos del lobby:** además de los cuatro MP4 locales, los cuatro trabajos publicados de Benito Camello usan incorporaciones reales de YouTube (`autoplay=1`, `mute=1`, `loop=1`, `playlist=ID`, `playsinline=1`, `controls=0`), seleccionadas del catálogo de proyectos. Se muestran en tarjetas flotantes fijas para que no desaparezcan durante el desplazamiento del collage. Se descargan/desactivan al entrar a la página de trabajos o al ocultar la pestaña, y se recuperan al volver al lobby. **YouTube controla la disponibilidad y puede impedir autoplay o inserción de ciertas piezas**; su funcionamiento no se puede garantizar desde el código.
+- **Audio del lobby:** el único control de sonido está en la esquina superior derecha. Solo alterna mute y sonido, mantiene volumen fijo del 80 % y no modifica el audio de los videos del fondo, que siempre se configura silenciado.
