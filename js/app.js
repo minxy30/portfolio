@@ -224,12 +224,26 @@ const curatedVideoPosters={
  casita:'assets/images/poster-casita.webp',
  minsis:'assets/images/poster-minsis.webp'
 };
+const featuredBenitoYoutubeIds=[
+ '1a3udPUoXXY',
+ '6-oAd_46hvQ',
+ 'bTT_fGufXqo',
+ 'IPPXTg9O-Bs',
+ 'kARNW5a_nGk'
+];
+// These are the five YouTube links selected by the author. Do not infer
+// video-title correspondences until the public YouTube titles can be verified.
+// Thumbnails are independent decorative lobby images, not video players.
+function featuredBenitoPosters(){
+ return featuredBenitoYoutubeIds.map(id=>['https://i.ytimg.com/vi/'+id+'/hqdefault.jpg','BENITO CAMELLO · YOUTUBE']);
+}
 function buildCollageAssets(){
  const pool=[],seen=new Set();
  const publishedIds=CATS.flatMap(group=>group.items.map(([id])=>id));
  for(const id of publishedIds){
   const project=DATA[id];
   if(!project||project.hidden||project.archived||project.visible===false)continue;
+  if(project.platform==='youtube')continue; // Featured five replace old provisional lobby choices.
   const label=String(project.title||project.kind||'PROYECTO').toUpperCase().slice(0,40);
   const pics=Array.isArray(project.images)?project.images:
    project.type==='video'?[curatedVideoPosters[id]||
@@ -240,6 +254,10 @@ function buildCollageAssets(){
    if(!/^(assets\/images\/|https:\/\/i\.ytimg\.com\/vi\/)/.test(src))continue;
    pool.push([src,label]);seen.add(src);
   }
+ }
+ // Keep the five official thumbnails in sync with the current author shortlist.
+ for(const [src,label] of featuredBenitoPosters()){
+  if(!seen.has(src)){pool.push([src,label]);seen.add(src)}
  }
  return pool.length?pool:[['assets/images/yazmin-retrato.jpg','YAZMIN MORENO']];
 }
@@ -333,15 +351,13 @@ function makeLiveLobbyVideos(){
 
  // Published Benito Camello YouTube works: real embedded players, not animated
  // thumbnails. YouTube embeds may still depend on the viewer's browser settings.
- const youtubeWorks=CATS[0].items.map(([id])=>DATA[id]).filter(project=>
-  project&&project.platform==='youtube'&&/^[A-Za-z0-9_-]{11}$/.test(project.id||'')&&
-  project.hidden!==true&&project.archived!==true&&project.visible!==false
- ).slice(0,4);
+ const youtubeWorks=featuredBenitoYoutubeIds.map(id=>({id}));
  const youtubePlaces=[
   {x:'34%',y:'11%',tilt:'-2deg',speed:'9s'},
   {x:'69%',y:'11%',tilt:'2deg',speed:'10s'},
   {x:'31%',y:'90%',tilt:'2deg',speed:'11s'},
-  {x:'70%',y:'90%',tilt:'-2deg',speed:'9.5s'}
+  {x:'70%',y:'90%',tilt:'-2deg',speed:'9.5s'},
+  {x:'51%',y:'90%',tilt:'1deg',speed:'10.5s'}
  ];
  youtubeWorks.forEach((project,i)=>{
   const position=youtubePlaces[i];
