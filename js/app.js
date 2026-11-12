@@ -349,9 +349,15 @@ function makeLiveLobbyVideos(){
   collageVideos.push(video);
  });
 
- // Published Benito Camello YouTube works: real embedded players, not animated
- // thumbnails. YouTube embeds may still depend on the viewer's browser settings.
- const youtubeWorks=featuredBenitoYoutubeIds.map(id=>({id}));
+ // Five short excerpts uploaded by the author to Google Drive.
+ // Direct video playback requires Google Drive to serve media to visitors.
+ const benitoShorts=[
+  {id:'19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ',name:'México'},
+  {id:'17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S',name:'IA'},
+  {id:'1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd',name:'Bolivia'},
+  {id:'1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T',name:'Viral'},
+  {id:'1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD',name:'Ormuz'}
+ ];
  const youtubePlaces=[
   {x:'34%',y:'11%',tilt:'-2deg',speed:'9s'},
   {x:'69%',y:'11%',tilt:'2deg',speed:'10s'},
@@ -359,7 +365,7 @@ function makeLiveLobbyVideos(){
   {x:'70%',y:'90%',tilt:'-2deg',speed:'9.5s'},
   {x:'51%',y:'90%',tilt:'1deg',speed:'10.5s'}
  ];
- youtubeWorks.forEach((project,i)=>{
+ benitoShorts.forEach((project,i)=>{
   const position=youtubePlaces[i];
   const figure=document.createElement('figure');
   figure.className='entry-collage-live-tile entry-collage-youtube-tile';
@@ -368,18 +374,25 @@ function makeLiveLobbyVideos(){
   figure.style.setProperty('--live-tilt',position.tilt);
   figure.style.setProperty('--live-speed',position.speed);
   const poster=document.createElement('img');
-  poster.src='https://i.ytimg.com/vi/'+project.id+'/maxresdefault.jpg';
-  poster.alt='';poster.decoding='async';
-  // Only the authentic thumbnail is shown until a full video from Drive
-  // is approved. No YouTube player = no YouTube advertisements in the lobby.
-  poster.loading='eager';
-  poster.referrerPolicy='strict-origin-when-cross-origin';
-  poster.onerror=()=>{if(!poster.src.includes('/hqdefault.jpg')){poster.src='https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg';return;}poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
+  poster.src='https://drive.google.com/thumbnail?id='+encodeURIComponent(project.id)+'&sz=w640';
+  poster.alt='';poster.decoding='async';poster.loading='eager';
+  poster.onerror=()=>{poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
+  const video=document.createElement('video');
+  video.className='entry-collage-video';
+  video.src='https://drive.google.com/uc?export=download&id='+encodeURIComponent(project.id);
+  video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
+  video.autoplay=true;video.setAttribute('autoplay','');
+  video.loop=true;video.playsInline=true;video.setAttribute('playsinline','');
+  video.preload='metadata';video.controls=false;video.disablePictureInPicture=true;
+  video.setAttribute('aria-hidden','true');video.tabIndex=-1;
+  video.addEventListener('error',()=>{video.hidden=true});
+  video.addEventListener('loadeddata',playAllLobbyPreviews);
+  video.addEventListener('canplay',playAllLobbyPreviews);
   const caption=document.createElement('figcaption');
-  caption.textContent='BENITO CAMELLO · YOUTUBE';
-  figure.classList.add('entry-collage-thumbnail-tile');
-  figure.append(poster,caption);
+  caption.textContent='BENITO CAMELLO · '+project.name.toUpperCase();
+  figure.append(poster,video,caption);
   layer.appendChild(figure);
+  collageVideos.push(video);
  });
  return layer;
 }
