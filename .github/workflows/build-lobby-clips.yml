@@ -1,0 +1,47 @@
+name: Build muted lobby previews from owner-provided Drive shorts
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/build-lobby-clips.yml
+permissions:
+  contents: write
+jobs:
+  transcode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gdown
+        run: python -m pip install --user gdown
+      - name: Download and encode short previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/video /tmp/lobby-shorts
+          ids=(
+            '19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ'
+            '17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S'
+            '1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd'
+            '1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T'
+            '1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD'
+          )
+          names=(mexico ia bolivia viral ormuz)
+          for index in "${!ids[@]}"; do
+            name="${names[$index]}"
+            python -m gdown --id "${ids[$index]}" -O "/tmp/lobby-shorts/$name-original.mp4"
+            ffmpeg -hide_banner -loglevel error -y -i "/tmp/lobby-shorts/$name-original.mp4" \
+              -map 0:v:0 -an -vf "fps=18,scale='min(480,iw)':-2:flags=lanczos,format=yuv420p" \
+              -c:v libx264 -preset veryfast -crf 34 -maxrate 450k -bufsize 900k \
+              -movflags +faststart "assets/video/lobby-$name.mp4"
+            test -s "assets/video/lobby-$name.mp4"
+            ffprobe -v error -select_streams v:0 -show_entries stream=codec_name \
+              -of default=noprint_wrappers=1 "assets/video/lobby-$name.mp4"
+          done
+      - name: Commit playable previews
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/video/lobby-{mexico,ia,bolivia,viral,ormuz}.mp4
+          git diff --cached --quiet || (git commit -m "Publish optimized Benito lobby videos" && git push)
