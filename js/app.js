@@ -224,19 +224,17 @@ const curatedVideoPosters={
  casita:'assets/images/poster-casita.webp',
  minsis:'assets/images/poster-minsis.webp'
 };
-const featuredBenitoYoutubeIds=[
- '1a3udPUoXXY',
- '6-oAd_46hvQ',
- 'bTT_fGufXqo',
- 'IPPXTg9O-Bs',
- 'kARNW5a_nGk'
+const benitoLobbyClips=[
+ ['México','19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ'],
+ ['IA','17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S'],
+ ['Bolivia','1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd'],
+ ['Viral','1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T'],
+ ['Ormuz','1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD']
 ];
-// These are the five YouTube links selected by the author. Do not infer
-// video-title correspondences until the public YouTube titles can be verified.
-// Thumbnails are independent decorative lobby images, not video players.
-function featuredBenitoPosters(){
- return featuredBenitoYoutubeIds.map(id=>['https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg','BENITO CAMELLO · YOUTUBE']);
-}
+const benitoLobbyPosters=benitoLobbyClips.map(([name,id])=>[
+ 'https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w640',
+ 'BENITO CAMELLO · '+name.toUpperCase()
+]);
 function buildCollageAssets(){
  const pool=[],seen=new Set();
  const publishedIds=CATS.flatMap(group=>group.items.map(([id])=>id));
@@ -255,8 +253,7 @@ function buildCollageAssets(){
    pool.push([src,label]);seen.add(src);
   }
  }
- // Keep the five official thumbnails in sync with the current author shortlist.
- for(const [src,label] of featuredBenitoPosters()){
+ for(const [src,label] of benitoLobbyPosters){
   if(!seen.has(src)){pool.push([src,label]);seen.add(src)}
  }
  return pool.length?pool:[['assets/images/yazmin-retrato.jpg','YAZMIN MORENO']];
@@ -270,7 +267,18 @@ const collageVideoMap={
  'assets/images/poster-casita.webp':'assets/video/lobby-casita.mp4',
  'assets/images/poster-minsis.webp':'assets/video/lobby-minsis.mp4'
 };
+for(const [name,id] of benitoLobbyClips){
+ collageVideoMap['https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w640']=
+ 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id);
+}
+const lobbyVideoSlots=[
+ 'assets/images/poster-thehomes.webp',benitoLobbyPosters[0][0],benitoLobbyPosters[1][0],
+ 'assets/images/poster-smarketing.webp',benitoLobbyPosters[2][0],benitoLobbyPosters[3][0],
+ 'assets/images/poster-casita.webp',benitoLobbyPosters[4][0],
+ 'assets/images/poster-minsis.webp'
+];
 const collageVideos=[];
+let collageVideoObserver=null;
 let collageViewportKey='',collageResizeTimer=0;
 let collageTimer=0;
 let collageVisibilityBound=false;
@@ -279,8 +287,12 @@ const collageCards=[];
 const collageReduced=matchMedia('(prefers-reduced-motion: reduce)');
 const collageMobile=matchMedia('(max-width: 740px)');
 function makeCollageCard(row,col,copy){
+ const videoSlot=(row<3&&col<5&&col%2===0)?row*3+col/2:-1;
+ const slotPoster=videoSlot>=0?lobbyVideoSlots[videoSlot]:null;
  const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
- const [src,label]=collageAssets[index];
+ const [src,label]=slotPoster?
+  [slotPoster,collageAssets.find(([p])=>p===slotPoster)?.[1]||'VIDEO']:
+  collageAssets[index];
  const figure=document.createElement('figure');
  figure.className='entry-collage-tile';
  figure.dataset.row=String(row);
@@ -294,113 +306,34 @@ function makeCollageCard(row,col,copy){
  figure.style.setProperty('--jitter-scale','1');
  const image=document.createElement('img');
  image.src=src;image.alt='';
- image.onerror=()=>{if(image.src.includes('/maxresdefault.jpg')){image.src=image.src.replace('/maxresdefault.jpg','/hqdefault.jpg');return;}image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
+ image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
  image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
+ if(slotPoster&&collageVideoMap[slotPoster]){
+  figure.classList.add('entry-collage-tile--video');
+  const video=document.createElement('video');
+  video.className='entry-collage-video';
+  video.dataset.src=collageVideoMap[slotPoster];
+  video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
+  video.autoplay=true;video.loop=true;video.playsInline=true;
+  video.setAttribute('playsinline','');video.setAttribute('autoplay','');
+  video.preload='none';video.controls=false;video.disablePictureInPicture=true;
+  video.setAttribute('aria-hidden','true');video.tabIndex=-1;
+  video.addEventListener('error',()=>{video.hidden=true;video.dataset.failed='true'});
+  video.addEventListener('canplay',playAllLobbyPreviews);
+  figure.appendChild(video);
+  collageVideos.push(video);
+ }
  const cap=document.createElement('figcaption');cap.textContent=label;
  figure.appendChild(cap);
  collageCards.push(figure);
  return figure;
 }
-// Four genuine, lightweight, silent video previews remain visible throughout
-// the lobby. They float among the moving stills, rather than disappearing when
-// one half of a duplicated marquee leaves the viewport. Each preview is
-// generated only while its related project is still in the public catalog.
-function makeLiveLobbyVideos(){
- const layer=document.createElement('div');
- layer.className='entry-collage-live-layer';
- layer.setAttribute('aria-hidden','true');
- const places=[
-  {x:'14%',y:'16%',tilt:'-4deg',speed:'8s'},
-  {x:'85%',y:'22%',tilt:'3deg',speed:'10s'},
-  {x:'15%',y:'77%',tilt:'4deg',speed:'9s'},
-  {x:'83%',y:'84%',tilt:'-3deg',speed:'11s'}
- ];
- const available=collageAssets.filter(([poster])=>Boolean(collageVideoMap[poster]));
- const used=new Set();
- const sources=available.filter(([poster])=>{
-  if(used.has(poster))return false;
-  used.add(poster);return true;
- });
- sources.slice(0,4).forEach(([poster,label],i)=>{
-  const config=places[i];
-  const figure=document.createElement('figure');
-  figure.className='entry-collage-live-tile';
-  figure.style.setProperty('--live-x',config.x);
-  figure.style.setProperty('--live-y',config.y);
-  figure.style.setProperty('--live-tilt',config.tilt);
-  figure.style.setProperty('--live-speed',config.speed);
-  const fallback=document.createElement('img');
-  fallback.src=poster;fallback.alt='';fallback.decoding='async';
-  const video=document.createElement('video');
-  video.className='entry-collage-video';
-  video.src=collageVideoMap[poster];
-  video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
-  video.autoplay=true;video.setAttribute('autoplay','');
-  video.loop=true;video.playsInline=true;video.setAttribute('playsinline','');
-  video.preload='auto';video.controls=false;video.disablePictureInPicture=true;
-  video.setAttribute('aria-hidden','true');video.tabIndex=-1;
-  video.addEventListener('error',()=>{video.hidden=true});
-  video.addEventListener('loadeddata',playAllLobbyPreviews);
-  video.addEventListener('canplay',playAllLobbyPreviews);
-  const cap=document.createElement('figcaption');cap.textContent=label;
-  figure.append(fallback,video,cap);
-  layer.appendChild(figure);
-  collageVideos.push(video);
- });
-
- // Five short excerpts uploaded by the author to Google Drive.
- // Direct video playback requires Google Drive to serve media to visitors.
- const benitoShorts=[
-  {id:'19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ',name:'México'},
-  {id:'17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S',name:'IA'},
-  {id:'1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd',name:'Bolivia'},
-  {id:'1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T',name:'Viral'},
-  {id:'1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD',name:'Ormuz'}
- ];
- const youtubePlaces=[
-  {x:'34%',y:'11%',tilt:'-2deg',speed:'9s'},
-  {x:'69%',y:'11%',tilt:'2deg',speed:'10s'},
-  {x:'31%',y:'90%',tilt:'2deg',speed:'11s'},
-  {x:'70%',y:'90%',tilt:'-2deg',speed:'9.5s'},
-  {x:'51%',y:'90%',tilt:'1deg',speed:'10.5s'}
- ];
- benitoShorts.forEach((project,i)=>{
-  const position=youtubePlaces[i];
-  const figure=document.createElement('figure');
-  figure.className='entry-collage-live-tile entry-collage-youtube-tile';
-  figure.style.setProperty('--live-x',position.x);
-  figure.style.setProperty('--live-y',position.y);
-  figure.style.setProperty('--live-tilt',position.tilt);
-  figure.style.setProperty('--live-speed',position.speed);
-  const poster=document.createElement('img');
-  poster.src='https://drive.google.com/thumbnail?id='+encodeURIComponent(project.id)+'&sz=w640';
-  poster.alt='';poster.decoding='async';poster.loading='eager';
-  poster.onerror=()=>{poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
-  const video=document.createElement('video');
-  video.className='entry-collage-video';
-  video.src='https://drive.google.com/uc?export=download&id='+encodeURIComponent(project.id);
-  video.muted=true;video.defaultMuted=true;video.setAttribute('muted','');
-  video.autoplay=true;video.setAttribute('autoplay','');
-  video.loop=true;video.playsInline=true;video.setAttribute('playsinline','');
-  video.preload='metadata';video.controls=false;video.disablePictureInPicture=true;
-  video.setAttribute('aria-hidden','true');video.tabIndex=-1;
-  video.addEventListener('error',()=>{video.hidden=true});
-  video.addEventListener('loadeddata',playAllLobbyPreviews);
-  video.addEventListener('canplay',playAllLobbyPreviews);
-  const caption=document.createElement('figcaption');
-  caption.textContent='BENITO CAMELLO · '+project.name.toUpperCase();
-  figure.append(poster,video,caption);
-  layer.appendChild(figure);
-  collageVideos.push(video);
- });
- return layer;
-}
 function playAllLobbyPreviews(){
  if(!document.body.classList.contains('pre-entry')||document.hidden)return;
  for(const video of collageVideos){
-  if(video.error)continue;
-  video.muted=true; // Explicitly reassert muted on every playback attempt.
+  if(video.dataset.failed||!video.src||!video.dataset.inView)continue;
+  video.muted=true;
   if(video.paused)video.play().catch(()=>{});
  }
 }
@@ -408,6 +341,7 @@ function initCollage(){
  if(!collageRoot)return;
  collageAssets=buildCollageAssets();
  if(collageTimer)window.clearInterval(collageTimer);
+ if(collageVideoObserver){collageVideoObserver.disconnect();collageVideoObserver=null;}
  for(const oldVideo of collageVideos){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load()}
  collageCards.length=0;collageVideos.length=0;
  const portrait=innerHeight>innerWidth*1.12;
@@ -429,8 +363,19 @@ function initCollage(){
    for(let col=0;col<cols;col++)track.appendChild(makeCollageCard(row,col,copy));
   lane.appendChild(track);fragment.appendChild(lane);
  }
- fragment.appendChild(makeLiveLobbyVideos());
  collageRoot.replaceChildren(fragment);
+ collageVideoObserver=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   const video=entry.target;
+   if(entry.isIntersecting){
+    video.dataset.inView='yes';
+    if(!video.src){video.src=video.dataset.src;video.load();}
+    if(document.body.classList.contains('pre-entry')&&!document.hidden)
+     video.play().catch(()=>{});
+   }else{delete video.dataset.inView;video.pause();}
+  }
+ },{root:null,rootMargin:'150px 0px',threshold:0});
+ collageVideos.forEach(video=>collageVideoObserver.observe(video));
  playAllLobbyPreviews();
  // Keep the actual previews playing while the lobby is visible, regardless
  // of the horizontal still-image marquee's position. Only four decoders are used.
@@ -462,7 +407,8 @@ function initCollage(){
    tile.style.setProperty('--jitter-y',(Math.random()*24-12).toFixed(0)+'px');
    tile.style.setProperty('--jitter-scale',(Math.random()*.16+.93).toFixed(2));
    if(collageTick%2===0||j===1){
-    const fresh=collageAssets.filter(([poster])=>!collageVideoMap[poster]);
+    if(tile.classList.contains('entry-collage-tile--video'))continue;
+   const fresh=collageAssets.filter(([poster])=>!collageVideoMap[poster]);
     const [newSrc,newLabel]=(fresh.length?fresh:collageAssets)[(Math.random()*(fresh.length||collageAssets.length))|0];
     const img=tile.querySelector('img');
     img.src=newSrc;
