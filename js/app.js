@@ -253,7 +253,6 @@ const collageVideoMap={
  'assets/images/poster-minsis.webp':'assets/video/lobby-minsis.mp4'
 };
 const collageVideos=[];
-const lobbyYoutubeFrames=[];
 let collageViewportKey='',collageResizeTimer=0;
 let collageTimer=0;
 let collageVisibilityBound=false;
@@ -355,32 +354,21 @@ function makeLiveLobbyVideos(){
   const poster=document.createElement('img');
   poster.src='https://i.ytimg.com/vi/'+project.id+'/hqdefault.jpg';
   poster.alt='';poster.decoding='async';
-  const frame=document.createElement('iframe');
-  frame.className='entry-collage-youtube-frame';
-  frame.title='Vista previa silenciada de '+project.title;
-  frame.allow='autoplay; encrypted-media; picture-in-picture';
-  frame.referrerPolicy='strict-origin-when-cross-origin';
-  frame.loading='eager';
-  frame.tabIndex=-1;frame.setAttribute('aria-hidden','true');
-  // Single-video loops require playlist=VIDEO_ID in YouTube's iframe player.
-  // Do not turn on API-driven audio: all lobby video players are muted.
-  frame.dataset.embed='https://www.youtube-nocookie.com/embed/'+project.id+
-    '?autoplay=1&mute=1&loop=1&playlist='+project.id+
-    '&playsinline=1&controls=0&rel=0&iv_load_policy=3&disablekb=1&fs=0';
+  // Only the authentic thumbnail is shown until a full video from Drive
+  // is approved. No YouTube player = no YouTube advertisements in the lobby.
+  poster.loading='eager';
+  poster.referrerPolicy='strict-origin-when-cross-origin';
+  poster.onerror=()=>{poster.onerror=null;poster.src='assets/images/yazmin-retrato.jpg'};
   const caption=document.createElement('figcaption');
-  caption.textContent='BENITO CAMELLO · VIDEO';
-  figure.append(poster,frame,caption);
+  caption.textContent='BENITO CAMELLO · YOUTUBE';
+  figure.classList.add('entry-collage-thumbnail-tile');
+  figure.append(poster,caption);
   layer.appendChild(figure);
-  lobbyYoutubeFrames.push(frame);
  });
  return layer;
 }
 function playAllLobbyPreviews(){
  if(!document.body.classList.contains('pre-entry')||document.hidden)return;
- // Start muted YouTube players after they have been attached to the document.
- for(const frame of lobbyYoutubeFrames){
-  if(frame.src!==frame.dataset.embed)frame.src=frame.dataset.embed;
- }
  for(const video of collageVideos){
   if(video.error)continue;
   video.muted=true; // Explicitly reassert muted on every playback attempt.
@@ -392,8 +380,7 @@ function initCollage(){
  collageAssets=buildCollageAssets();
  if(collageTimer)window.clearInterval(collageTimer);
  for(const oldVideo of collageVideos){oldVideo.pause();oldVideo.removeAttribute('src');oldVideo.load()}
- for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
- collageCards.length=0;collageVideos.length=0;lobbyYoutubeFrames.length=0;
+ collageCards.length=0;collageVideos.length=0;
  const portrait=innerHeight>innerWidth*1.12;
  const rowHeight=portrait?260:230;
  const rows=Math.max(portrait?4:3,Math.min(portrait?6:5,Math.round(innerHeight/rowHeight)));
@@ -423,7 +410,6 @@ function initCollage(){
   document.addEventListener('visibilitychange',()=>{
    collageRoot.classList.toggle('is-paused',document.hidden);
    if(document.hidden){
-    for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
     for(const video of collageVideos)video.pause();
    }else playAllLobbyPreviews();
   });
@@ -692,9 +678,6 @@ function enterPortfolio(){
  requestAnimationFrame(rise);
  if(collageTimer)window.clearInterval(collageTimer);
  for(const video of collageVideos)video.pause();
- // Unload YouTube embeds when the visitor enters the portfolio; prevents
- // playback/decoding behind the project pages.
- for(const frame of lobbyYoutubeFrames)frame.removeAttribute('src');
  const speed=reduce.matches?130:1840;
  window.setTimeout(()=>{
   entryGate.hidden=true;
