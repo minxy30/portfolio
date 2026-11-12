@@ -241,7 +241,7 @@ function buildCollageAssets(){
  for(const id of publishedIds){
   const project=DATA[id];
   if(!project||project.hidden||project.archived||project.visible===false)continue;
-  if(project.platform==='youtube')continue; // Featured five replace old provisional lobby choices.
+  if(project.type==='video')continue; // Video work appears exclusively as moving, playable clips.
   const label=String(project.title||project.kind||'PROYECTO').toUpperCase().slice(0,40);
   const pics=Array.isArray(project.images)?project.images:
    project.type==='video'?[curatedVideoPosters[id]||
@@ -252,9 +252,6 @@ function buildCollageAssets(){
    if(!/^(assets\/images\/|https:\/\/i\.ytimg\.com\/vi\/)/.test(src))continue;
    pool.push([src,label]);seen.add(src);
   }
- }
- for(const [src,label] of benitoLobbyPosters){
-  if(!seen.has(src)){pool.push([src,label]);seen.add(src)}
  }
  return pool.length?pool:[['assets/images/yazmin-retrato.jpg','YAZMIN MORENO']];
 }
@@ -269,7 +266,7 @@ const collageVideoMap={
 };
 for(const [name,id] of benitoLobbyClips){
  collageVideoMap['https://drive.google.com/thumbnail?id='+encodeURIComponent(id)+'&sz=w640']=
- 'https://drive.google.com/uc?export=download&id='+encodeURIComponent(id);
+ 'assets/video/lobby-'+({México:'mexico',IA:'ia',Bolivia:'bolivia',Viral:'viral',Ormuz:'ormuz'}[name])+'.mp4';
 }
 const lobbyVideoSlots=[
  'assets/images/poster-thehomes.webp',benitoLobbyPosters[0][0],benitoLobbyPosters[1][0],
@@ -291,7 +288,9 @@ function makeCollageCard(row,col,copy){
  const slotPoster=videoSlot>=0?lobbyVideoSlots[videoSlot]:null;
  const index=(row*9+col*5+(col%3)*2)%collageAssets.length;
  const [src,label]=slotPoster?
-  [slotPoster,collageAssets.find(([p])=>p===slotPoster)?.[1]||'VIDEO']:
+  [slotPoster,benitoLobbyPosters.find(([p])=>p===slotPoster)?.[1]||
+   ({'assets/images/poster-thehomes.webp':'THE HOMES','assets/images/poster-smarketing.webp':'SMARKETING 360',
+   'assets/images/poster-casita.webp':'CASITA DE SOL','assets/images/poster-minsis.webp':'MINSIS KIDS'}[slotPoster]||'VIDEO')]:
   collageAssets[index];
  const figure=document.createElement('figure');
  figure.className='entry-collage-tile';
@@ -305,10 +304,12 @@ function makeCollageCard(row,col,copy){
  figure.style.setProperty('--jitter-y','0px');
  figure.style.setProperty('--jitter-scale','1');
  const image=document.createElement('img');
- image.src=src;image.alt='';
- image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
- image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
- figure.appendChild(image);
+ if(!slotPoster){
+  image.src=src;image.alt='';
+  image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
+  image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
+  figure.appendChild(image);
+ }
  if(slotPoster&&collageVideoMap[slotPoster]){
   figure.classList.add('entry-collage-tile--video');
   const video=document.createElement('video');
