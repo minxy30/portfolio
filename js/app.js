@@ -294,7 +294,7 @@ function makeCollageCard(row,col,copy){
  figure.style.setProperty('--jitter-scale','1');
  const image=document.createElement('img');
  image.src=src;image.alt='';
- image.onerror=()=>{image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
+ image.onerror=()=>{if(image.src.includes('/maxresdefault.jpg')){image.src=image.src.replace('/maxresdefault.jpg','/hqdefault.jpg');return;}image.onerror=null;image.src='assets/images/yazmin-retrato.jpg'};
  image.loading=(copy===0&&col<4)?'eager':'lazy';image.decoding='async';
  figure.appendChild(image);
  const cap=document.createElement('figcaption');cap.textContent=label;
