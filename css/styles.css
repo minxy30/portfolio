@@ -831,3 +831,14 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 @media(prefers-reduced-motion:reduce){
  .entry-collage-youtube-tile{animation:none}
 }
+
+/* User-supplied original Benito Camello videos: Drive player and light fallback. */
+.viewer-drive-source{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#f7fffc12;color:#dcfff9;border:1px solid #c8fff74d;
+  border-radius:8px;padding:9px 12px;font:700 11px var(--font);
+  text-decoration:none;max-width:100%;margin-top:0;
+}
+.viewer-drive-source:hover,.viewer-drive-source:focus-visible{background:#f7fffc29;border-color:#d6fff2;}
+.media-box iframe{flex:0 1 auto;min-height:0;}
+@media(max-width:740px){.viewer-drive-source{padding:7px 9px;font-size:10px}}

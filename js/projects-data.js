@@ -168,61 +168,125 @@ window.PORTFOLIO_DATA = {
     "tools": "Redacción editorial · Adaptación de mensajes",
     "results": "Publicaciones editoriales adaptadas a formatos de redes."
   },
-  "benito-1": {
-    "title": "Benito Camello · Edición publicada 01",
-    "kind": "Edición audiovisual · YouTube",
-    "deck": "Montaje, ritmo, música y tratamiento sonoro",
-    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
-    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+  "benito-mexico": {
+    "title": "México jamás se había sentido así de chido",
+    "kind": "Edición audiovisual · Benito Camello",
+    "deck": "Edición de video publicada",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "youtube",
-    "tools": "Premiere Pro · Edición",
-    "results": "Video publicado en YouTube; sin métricas verificadas.",
-    "id": "6-oAd_46hvQ",
-    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+    "platform": "drive",
+    "id": "1UU3FM64slAynypB1hQHap4snWBUrlaxl",
+    "clips": [
+      {
+        "label": "Video completo",
+        "id": "1UU3FM64slAynypB1hQHap4snWBUrlaxl"
+      },
+      {
+        "label": "Fragmento",
+        "id": "19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ"
+      }
+    ],
+    "tools": "Edición audiovisual",
+    "results": "Archivo completo y fragmento corto disponibles en Drive.",
+    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
   },
-  "benito-2": {
-    "title": "Benito Camello · Edición publicada 02",
-    "kind": "Edición audiovisual · YouTube",
-    "deck": "Montaje, ritmo, música y tratamiento sonoro",
-    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
-    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+  "benito-ia": {
+    "title": "IA es la nueva bomba atómica",
+    "kind": "Edición audiovisual · Benito Camello",
+    "deck": "Edición de video publicada",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "youtube",
-    "tools": "Premiere Pro · Edición",
-    "results": "Video publicado en YouTube; sin métricas verificadas.",
-    "id": "SeXLp7olM2g",
-    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+    "platform": "drive",
+    "id": "1HSEWZS7De15K7rjQFRzuFxQli0mxor08",
+    "clips": [
+      {
+        "label": "Video completo",
+        "id": "1HSEWZS7De15K7rjQFRzuFxQli0mxor08"
+      },
+      {
+        "label": "Fragmento",
+        "id": "17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S"
+      }
+    ],
+    "tools": "Edición audiovisual",
+    "results": "Archivo completo y fragmento corto disponibles en Drive.",
+    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
   },
-  "benito-3": {
-    "title": "Benito Camello · Edición publicada 03",
-    "kind": "Edición audiovisual · YouTube",
-    "deck": "Montaje, ritmo, música y tratamiento sonoro",
-    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
-    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+  "benito-bolivia": {
+    "title": "Hablemos de la horrible situación de Bolivia",
+    "kind": "Edición audiovisual · Benito Camello",
+    "deck": "Edición de video publicada",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "youtube",
-    "tools": "Premiere Pro · Edición",
-    "results": "Video publicado en YouTube; sin métricas verificadas.",
-    "id": "IPPXTg9O-Bs",
-    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+    "platform": "drive",
+    "id": "1TWbeBngOQUy3ZJORXFtsQlG2Rp1qGg_R",
+    "clips": [
+      {
+        "label": "Video completo",
+        "id": "1TWbeBngOQUy3ZJORXFtsQlG2Rp1qGg_R"
+      },
+      {
+        "label": "Fragmento",
+        "id": "1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd"
+      }
+    ],
+    "tools": "Edición audiovisual",
+    "results": "Archivo completo y fragmento corto disponibles en Drive.",
+    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
   },
-  "benito-4": {
-    "title": "Benito Camello · Edición publicada 04",
-    "kind": "Edición audiovisual · YouTube",
-    "deck": "Montaje, ritmo, música y tratamiento sonoro",
-    "description": "Edición publicada en el canal de Benito Camello. Selección provisional de trabajos aportados por la autora.",
-    "role": "Edición de contenido audiovisual, montaje, ritmo y tratamiento sonoro. La correspondencia con los videos favoritos de Bolivia, México y Ormuz sigue por verificar.",
+  "benito-viral": {
+    "title": "Sucedió en directo y se hizo viral al instante",
+    "kind": "Edición audiovisual · Benito Camello",
+    "deck": "Edición de video publicada",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "youtube",
-    "tools": "Premiere Pro · Edición",
-    "results": "Video publicado en YouTube; sin métricas verificadas.",
-    "id": "4rEh5xkFjR4",
-    "note": "Muestra provisional. No se identifica esta pieza como uno de los tres favoritos sin verificar el título."
+    "platform": "drive",
+    "id": "15GeMttaRFHF-yKP5IJQzSVC2rQCB4II9",
+    "clips": [
+      {
+        "label": "Video completo",
+        "id": "15GeMttaRFHF-yKP5IJQzSVC2rQCB4II9"
+      },
+      {
+        "label": "Fragmento",
+        "id": "1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T"
+      }
+    ],
+    "tools": "Edición audiovisual",
+    "results": "Archivo completo y fragmento corto disponibles en Drive.",
+    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+  },
+  "benito-ormuz": {
+    "title": "Top 5 lugares para fumar en el estrecho de Ormuz",
+    "kind": "Edición audiovisual · Benito Camello",
+    "deck": "Edición de video publicada",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
+    "type": "video",
+    "aspect": "landscape",
+    "platform": "drive",
+    "id": "1TQyrCCEYhe5JVGe-hG-6leOQI3NWhLlq",
+    "clips": [
+      {
+        "label": "Video completo",
+        "id": "1TQyrCCEYhe5JVGe-hG-6leOQI3NWhLlq"
+      },
+      {
+        "label": "Fragmento",
+        "id": "1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD"
+      }
+    ],
+    "tools": "Edición audiovisual",
+    "results": "Archivo completo y fragmento corto disponibles en Drive.",
+    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
   },
   "foto-halloween": {
     "title": "Fotografía · Personajes de fantasía",
