@@ -903,3 +903,33 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .viewer-drive-source{margin-top:10px}
  .viewer-text h2{font-size:clamp(26px,7vw,40px)!important;line-height:1.13!important}
 }
+
+
+/* Drive player: render its UI at a larger virtual viewport so controls remain
+   proportionate on narrow phones. The iframe's own UI cannot be styled directly. */
+.viewer-media .drive-embed-viewport{
+ position:relative;overflow:hidden;background:#080808;border-radius:12px;
+ width:min(100%,960px);aspect-ratio:16/9;flex:none;margin-inline:auto;
+}
+.viewer-media .media-box.portrait .drive-embed-viewport{
+ width:min(100%,min(56dvh,420px));aspect-ratio:9/16;
+}
+.viewer-media .drive-embed-viewport iframe,
+.viewer-media .media-box.portrait .drive-embed-viewport iframe{
+ display:block;position:absolute;inset:0;width:100%!important;height:100%!important;
+ max-width:none!important;max-height:none!important;aspect-ratio:auto!important;border:0;
+}
+@media(max-width:740px){
+ .viewer-media{min-height:0!important;max-height:none!important}
+ .viewer-media .media-box{min-height:0!important}
+ .viewer-media .drive-embed-viewport{border-radius:8px}
+ .viewer-media .drive-embed-viewport iframe,
+ .viewer-media .media-box.portrait .drive-embed-viewport iframe{
+  width:150%!important;height:150%!important;
+  transform:scale(.6666667);transform-origin:top left;
+ }
+ .viewer-media .media-box.portrait .drive-embed-viewport{
+  width:min(100%,min(51dvh,360px));max-height:66dvh;
+ }
+ .viewer-media .viewer-drive-source{font-size:12px;line-height:1.4;text-align:center}
+}
