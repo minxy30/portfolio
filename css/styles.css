@@ -967,3 +967,11 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 
 /* Native MP4 thumbnails: show a still frame without downloading the full video. */
 .project-image .project-card-preview{display:block;width:100%;height:auto;aspect-ratio:var(--ratio,4/5);object-fit:cover;background:#101820;pointer-events:none}
+
+/* Neutral near-black dark mode: reduce the previous blue cast without altering light mode. */
+body[data-theme="dark"]{--bg:#050505;--card:rgba(17,17,18,.91);--glass:rgba(9,9,10,.94);--line:rgba(240,240,240,.17);--muted:#b5b5b8;--shadow:0 18px 75px rgba(0,0,0,.5)}
+body[data-theme="dark"] .atmosphere canvas{opacity:.20}
+body[data-theme="dark"] .background-video.has-source{opacity:.10}
+body[data-theme="dark"] .atmo-vignette{opacity:.68;background:radial-gradient(ellipse at 50% 38%,transparent 5%,#050505 82%)}
+body[data-theme="dark"] .project-image .image-no-preview{background:linear-gradient(145deg,#101011,#222225)}
+body[data-theme="dark"] .project-image .project-card-preview{background:#080808}
