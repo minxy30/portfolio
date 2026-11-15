@@ -1,9 +1,56 @@
 window.PORTFOLIO_DATA = {
-"nuevo-sep28-a": {"title":"Video audiovisual · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"landscape","id":"1IxBoIVdiA5Ns9uySned17mqcvsUQ1G7Q","tools":"Por documentar","results":"Pieza audiovisual."},
-"nuevo-sep30": {"title":"Video vertical · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"portrait","id":"1NGWrrx4wcs21u83eESP4q4_-y3ZqD6w-","tools":"Por documentar","results":"Pieza audiovisual."},
-"nuevo-sep28-b": {"title":"Video audiovisual · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"landscape","id":"1xVue_TxZ1YHXMNibc3I37yPbTPL4ypO0","tools":"Por documentar","results":"Pieza audiovisual."},
-"nuevo-oct16": {"title":"Video vertical · Octubre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"portrait","id":"1PhouweDPdOBSDHGoWVJPDQ5FTZezZvjj","tools":"Por documentar","results":"Pieza audiovisual."},
-
+  "nuevo-sep28-a": {
+    "title": "Video audiovisual · Septiembre 2026",
+    "kind": "Selección audiovisual",
+    "deck": "Pieza audiovisual",
+    "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
+    "role": "Participación por documentar.",
+    "type": "video",
+    "platform": "drive",
+    "aspect": "landscape",
+    "id": "1IxBoIVdiA5Ns9uySned17mqcvsUQ1G7Q",
+    "tools": "Por documentar",
+    "results": "Pieza audiovisual."
+  },
+  "nuevo-sep30": {
+    "title": "Video vertical · Septiembre 2026",
+    "kind": "Selección audiovisual",
+    "deck": "Pieza audiovisual",
+    "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
+    "role": "Participación por documentar.",
+    "type": "video",
+    "platform": "drive",
+    "aspect": "portrait",
+    "id": "1NGWrrx4wcs21u83eESP4q4_-y3ZqD6w-",
+    "tools": "Por documentar",
+    "results": "Pieza audiovisual."
+  },
+  "nuevo-sep28-b": {
+    "title": "Video audiovisual · Septiembre 2026",
+    "kind": "Selección audiovisual",
+    "deck": "Pieza audiovisual",
+    "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
+    "role": "Participación por documentar.",
+    "type": "video",
+    "platform": "drive",
+    "aspect": "landscape",
+    "id": "1xVue_TxZ1YHXMNibc3I37yPbTPL4ypO0",
+    "tools": "Por documentar",
+    "results": "Pieza audiovisual."
+  },
+  "nuevo-oct16": {
+    "title": "Video vertical · Octubre 2026",
+    "kind": "Selección audiovisual",
+    "deck": "Pieza audiovisual",
+    "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
+    "role": "Participación por documentar.",
+    "type": "video",
+    "platform": "drive",
+    "aspect": "portrait",
+    "id": "1PhouweDPdOBSDHGoWVJPDQ5FTZezZvjj",
+    "tools": "Por documentar",
+    "results": "Pieza audiovisual."
+  },
   "zaru": {
     "title": "The Homes",
     "kind": "Video publicitario · Campaña Zarú",
@@ -181,16 +228,18 @@ window.PORTFOLIO_DATA = {
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "drive",
-    "id": "1UU3FM64slAynypB1hQHap4snWBUrlaxl",
+    "platform": "youtube",
+    "id": "1a3udPUoXXY",
     "clips": [
       {
         "label": "Video completo",
-        "id": "1UU3FM64slAynypB1hQHap4snWBUrlaxl"
+        "id": "1a3udPUoXXY",
+        "platform": "youtube"
       },
       {
         "label": "Fragmento",
-        "id": "19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ"
+        "id": "19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ",
+        "platform": "drive"
       }
     ],
     "tools": "Edición audiovisual",
@@ -205,16 +254,18 @@ window.PORTFOLIO_DATA = {
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "drive",
-    "id": "1HSEWZS7De15K7rjQFRzuFxQli0mxor08",
+    "platform": "youtube",
+    "id": "6-oAd_46hvQ",
     "clips": [
       {
         "label": "Video completo",
-        "id": "1HSEWZS7De15K7rjQFRzuFxQli0mxor08"
+        "id": "6-oAd_46hvQ",
+        "platform": "youtube"
       },
       {
         "label": "Fragmento",
-        "id": "17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S"
+        "id": "17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S",
+        "platform": "drive"
       }
     ],
     "tools": "Edición audiovisual",
@@ -229,16 +280,18 @@ window.PORTFOLIO_DATA = {
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "drive",
-    "id": "1TWbeBngOQUy3ZJORXFtsQlG2Rp1qGg_R",
+    "platform": "youtube",
+    "id": "bTT_fGufXqo",
     "clips": [
       {
         "label": "Video completo",
-        "id": "1TWbeBngOQUy3ZJORXFtsQlG2Rp1qGg_R"
+        "id": "bTT_fGufXqo",
+        "platform": "youtube"
       },
       {
         "label": "Fragmento",
-        "id": "1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd"
+        "id": "1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd",
+        "platform": "drive"
       }
     ],
     "tools": "Edición audiovisual",
@@ -253,16 +306,18 @@ window.PORTFOLIO_DATA = {
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "drive",
-    "id": "15GeMttaRFHF-yKP5IJQzSVC2rQCB4II9",
+    "platform": "youtube",
+    "id": "IPPXTg9O-Bs",
     "clips": [
       {
         "label": "Video completo",
-        "id": "15GeMttaRFHF-yKP5IJQzSVC2rQCB4II9"
+        "id": "IPPXTg9O-Bs",
+        "platform": "youtube"
       },
       {
         "label": "Fragmento",
-        "id": "1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T"
+        "id": "1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T",
+        "platform": "drive"
       }
     ],
     "tools": "Edición audiovisual",
@@ -277,16 +332,18 @@ window.PORTFOLIO_DATA = {
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
-    "platform": "drive",
-    "id": "1TQyrCCEYhe5JVGe-hG-6leOQI3NWhLlq",
+    "platform": "youtube",
+    "id": "kARNW5a_nGk",
     "clips": [
       {
         "label": "Video completo",
-        "id": "1TQyrCCEYhe5JVGe-hG-6leOQI3NWhLlq"
+        "id": "kARNW5a_nGk",
+        "platform": "youtube"
       },
       {
         "label": "Fragmento",
-        "id": "1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD"
+        "id": "1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD",
+        "platform": "drive"
       }
     ],
     "tools": "Edición audiovisual",
