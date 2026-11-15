@@ -923,10 +923,10 @@ function driveEmbed(id){if(!/^[A-Za-z0-9_-]{15,}$/.test(id))return null;let f=do
 function makeMedia(item){const media=$('viewer-media');media.replaceChildren();const box=document.createElement('div');box.className='media-box'+(item.aspect==='portrait'?' portrait':'');media.appendChild(box);
  if(item.type==='video'){
   const build=identity=>{
-  box.querySelector('iframe,.drive-preview')?.remove();box.querySelector('.viewer-drive-source')?.remove();
+  box.querySelector('.drive-embed-viewport,iframe,.drive-preview')?.remove();box.querySelector('.viewer-drive-source')?.remove();
   if(item.platform==='drive'){
    const iframe=driveEmbed(identity);
-   if(iframe){iframe.loading='eager';box.prepend(iframe)}
+   if(iframe){iframe.loading='eager';const viewport=document.createElement('div');viewport.className='drive-embed-viewport';viewport.appendChild(iframe);box.prepend(viewport)}
    const fallback=document.createElement('a');fallback.className='viewer-drive-source';fallback.href='https://drive.google.com/file/d/'+encodeURIComponent(identity)+'/view';fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.textContent='Si no carga, abrir en Drive ↗';box.appendChild(fallback);
   }else{const iframe=ytEmbed(identity);if(iframe)box.prepend(iframe);else box.prepend(document.createTextNode('Video no disponible'))}
  };
