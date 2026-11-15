@@ -953,3 +953,14 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .portfolio-video-player .media-box.portrait .drive-embed-viewport{width:min(100%,min(51dvh,360px))}
  .portfolio-video-external{font-size:11px}
 }
+
+
+/* Compact, touch-friendly native HTML5 video player (for hosted MP4s). */
+.portfolio-video-player .native-video-wrap{width:min(100%,960px);display:flex;flex-direction:column;overflow:hidden;border-radius:12px;background:#090c10;color:#fff}
+.portfolio-video-player .native-video-wrap video{display:block;width:100%;height:auto;max-height:68dvh;object-fit:contain;background:#090c10}
+.portfolio-video-player .native-video-bar{display:flex;align-items:center;gap:9px;padding:9px 12px;min-height:48px;background:#121821;color:#f7f9fc}
+.portfolio-video-player .native-video-bar button{flex:0 0 auto;min-width:28px;min-height:30px;border:0;background:transparent;color:inherit;font:inherit;font-size:16px;cursor:pointer;padding:3px}
+.portfolio-video-player .native-video-seek{flex:1 1 auto;min-width:30px;accent-color:#e4e9f0;cursor:pointer}
+.portfolio-video-player .native-video-time{flex:0 0 auto;white-space:nowrap;font:500 11px/1.3 system-ui,sans-serif;color:#d5dce7;font-variant-numeric:tabular-nums}
+.portfolio-video-player .native-video-error{margin:0;padding:12px;text-align:center;font-size:12px;color:#fff}
+@media(max-width:740px){.portfolio-video-player .native-video-bar{gap:5px;padding:7px 8px;min-height:42px}.portfolio-video-player .native-video-bar button{min-width:25px;font-size:14px}.portfolio-video-player .native-video-time{font-size:10px}.portfolio-video-player .native-video-wrap video{max-height:62dvh}}
