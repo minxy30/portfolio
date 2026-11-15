@@ -981,3 +981,33 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
   padding:5px 9px;min-height:0;white-space:nowrap}
  .work-space:not([hidden]) > .work-rail .rail-link.is-active{border-top-color:var(--accent)}
 }
+
+/* Pinterest-inspired mobile floating category dock, scoped to project view only. */
+@media (max-width:740px){
+ .work-space:not([hidden]) > .work-main{padding-bottom:104px}
+ .work-space:not([hidden]) > .work-rail{
+  position:absolute!important;left:50%!important;right:auto!important;bottom:calc(14px + env(safe-area-inset-bottom,0px))!important;
+  transform:translateX(-50%)!important;order:initial!important;
+  width:min(94vw,430px)!important;height:68px!important;min-height:68px!important;
+  padding:5px 7px!important;box-sizing:border-box!important;
+  border:1px solid rgba(255,255,255,.15)!important;border-radius:24px!important;
+  display:flex!important;flex-direction:row!important;align-items:stretch!important;
+  justify-content:space-around!important;gap:3px!important;overflow:visible!important;
+  background:rgba(21,21,23,.96)!important;color:#fff!important;
+  box-shadow:0 10px 32px rgba(0,0,0,.55)!important;
+  backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;z-index:30!important
+ }
+ .work-space:not([hidden]) > .work-rail .rail-link{
+  display:flex!important;flex:1 1 0!important;min-width:0!important;min-height:0!important;
+  height:100%!important;flex-direction:column!important;align-items:center!important;
+  justify-content:center!important;gap:3px!important;writing-mode:horizontal-tb!important;
+  transform:none!important;padding:5px 2px!important;margin:0!important;
+  border:0!important;border-radius:18px!important;background:transparent!important;
+  color:#e4e4e5!important;font:700 10px/1.1 var(--display)!important;
+  letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important
+ }
+ .work-space:not([hidden]) > .work-rail .rail-link.is-active{background:rgba(255,255,255,.14)!important;color:#fff!important}
+ .work-space:not([hidden]) > .work-rail .rail-icon{display:flex!important;align-items:center;justify-content:center;width:26px;height:26px;flex:0 0 26px}
+ .work-space:not([hidden]) > .work-rail .rail-icon img{display:block;max-width:24px;max-height:24px;width:24px;height:24px;object-fit:contain;filter:brightness(0) invert(1)}
+ .work-space:not([hidden]) > .work-rail .rail-label{display:block!important;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+}
