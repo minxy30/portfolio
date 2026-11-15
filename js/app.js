@@ -922,24 +922,31 @@ function ytEmbed(id){if(!/^[A-Za-z0-9_-]{11}$/.test(id))return null;let f=docume
 function driveEmbed(id){if(!/^[A-Za-z0-9_-]{15,}$/.test(id))return null;let f=document.createElement('iframe');f.src=`https://drive.google.com/file/d/${id}/preview`;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.title='Visor de Google Drive';return f}
 function makeMedia(item){const media=$('viewer-media');media.replaceChildren();const box=document.createElement('div');box.className='media-box'+(item.aspect==='portrait'?' portrait':'');media.appendChild(box);
  if(item.type==='video'){
-  const build=identity=>{
-  box.querySelector('.drive-embed-viewport,iframe,.drive-preview')?.remove();box.querySelector('.viewer-drive-source')?.remove();
-  if(item.platform==='drive'){
-   const iframe=driveEmbed(identity);
-   if(iframe){iframe.loading='eager';const viewport=document.createElement('div');viewport.className='drive-embed-viewport';viewport.appendChild(iframe);box.prepend(viewport)}
-   const fallback=document.createElement('a');fallback.className='viewer-drive-source';fallback.href='https://drive.google.com/file/d/'+encodeURIComponent(identity)+'/view';fallback.target='_blank';fallback.rel='noopener noreferrer';fallback.textContent='Si no carga, abrir en Drive ↗';box.appendChild(fallback);
-  }else{const iframe=ytEmbed(identity);if(iframe)box.prepend(iframe);else box.prepend(document.createTextNode('Video no disponible'))}
- };
-  if(item.clips?.length){build(item.clips[0].id);const choices=document.createElement('div');choices.className='clip-choices';item.clips.forEach((clip,i)=>{const b=document.createElement('button');b.type='button';b.textContent=clip.label||`Video ${i+1}`;b.className=i===0?'is-selected':'';b.addEventListener('click',()=>{choices.querySelectorAll('button').forEach(x=>x.classList.remove('is-selected'));b.classList.add('is-selected');build(clip.id);soundEffect('click')});choices.appendChild(b)});box.appendChild(choices)}else{build(item.id)}
-  if(item.platform==='drive'&&item.id&&item.clips?.length){
-   const sourceLink=document.createElement('a');
-   sourceLink.className='viewer-drive-source';
-   sourceLink.href='https://drive.google.com/file/d/'+encodeURIComponent(item.id)+'/view';
-   sourceLink.target='_blank';sourceLink.rel='noopener noreferrer';
-   sourceLink.textContent='Abrir video completo en Drive ↗';
-   sourceLink.setAttribute('aria-label','Abrir video completo en una pestaña de Drive');
-   box.appendChild(sourceLink);
+  const controls=document.createElement('div');controls.className='portfolio-video-controls';
+  const player=document.createElement('div');player.className='portfolio-video-player';
+  const actions=document.createElement('div');actions.className='portfolio-video-actions';
+  const external=document.createElement('a');external.className='portfolio-video-external';external.target='_blank';external.rel='noopener noreferrer';external.textContent='Abrir en Drive ↗';
+  function build(identity){
+   player.replaceChildren();
+   if(item.platform==='drive'){
+    const iframe=driveEmbed(identity);
+    if(iframe){iframe.loading='eager';const viewport=document.createElement('div');viewport.className='drive-embed-viewport';viewport.appendChild(iframe);player.appendChild(viewport)}
+    else player.textContent='Video no disponible';
+    external.href='https://drive.google.com/file/d/'+encodeURIComponent(identity)+'/view';
+    external.setAttribute('aria-label','Abrir video en Google Drive en otra pestaña');
+   }else{
+    const iframe=ytEmbed(identity);if(iframe)player.appendChild(iframe);
+    external.hidden=true;
+   }
   }
+  if(item.clips?.length){
+   const choices=document.createElement('div');choices.className='clip-choices';choices.setAttribute('aria-label','Seleccionar versión del video');
+   item.clips.forEach((clip,i)=>{const b=document.createElement('button');b.type='button';b.textContent=clip.label||('Versión '+(i+1));b.className=i===0?'is-selected':'';b.setAttribute('aria-pressed',String(i===0));b.addEventListener('click',()=>{choices.querySelectorAll('button').forEach(x=>{x.classList.toggle('is-selected',x===b);x.setAttribute('aria-pressed',String(x===b))});build(clip.id);soundEffect('click')});choices.appendChild(b)});
+   controls.appendChild(choices);
+  }
+  build(item.clips?.length?item.clips[0].id:item.id);
+  if(item.platform==='drive')actions.appendChild(external);
+  box.append(controls,player,actions);
  }else if(item.images?.length){const stage=document.createElement('div');stage.className='gallery-stage';const pic=document.createElement('img');pic.alt=item.title;let index=0;pic.src=item.images[index];stage.appendChild(pic);const ctl=document.createElement('div');ctl.className='gallery-controls';const prev=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');prev.textContent='←';next.textContent='→';const update=()=>{pic.src=item.images[index];count.textContent=`${index+1} / ${item.images.length}`};prev.addEventListener('click',()=>{index=(index-1+item.images.length)%item.images.length;update();soundEffect()});next.addEventListener('click',()=>{index=(index+1)%item.images.length;update();soundEffect()});update();ctl.append(prev,count,next);if(item.images.length>1)stage.appendChild(ctl);
    let touchX=null;stage.addEventListener('touchstart',e=>{touchX=e.touches[0]?.clientX??null},{passive:true});stage.addEventListener('touchend',e=>{if(touchX==null)return;const dx=(e.changedTouches[0]?.clientX??touchX)-touchX;touchX=null;if(Math.abs(dx)>55){index=(index+(dx<0?1:-1)+item.images.length)%item.images.length;update();soundEffect('click')}},{passive:true});
    box.appendChild(stage)}
