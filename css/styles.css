@@ -967,3 +967,17 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 
 /* Native MP4 thumbnails: show a still frame without downloading the full video. */
 .project-image .project-card-preview{display:block;width:100%;height:auto;aspect-ratio:var(--ratio,4/5);object-fit:cover;background:#101820;pointer-events:none}
+
+/* Mobile only: place the existing discipline rail at the bottom of the WORK view.
+   Keep the home scenes and all other layout untouched. */
+@media (max-width:740px){
+ .work-space:not([hidden]){display:flex;flex-direction:column;min-height:0}
+ .work-space:not([hidden]) > .work-main{order:0;flex:1 1 0%;min-height:0;height:auto;overflow-y:auto}
+ .work-space:not([hidden]) > .work-rail{order:1;flex:0 0 auto;width:100%;height:58px;min-height:58px;
+  box-sizing:border-box;border:1px solid var(--line);border-bottom:0;
+  border-radius:18px 18px 0 0;padding:4px 7px calc(4px + env(safe-area-inset-bottom,0px));
+  background:var(--glass);overflow-x:auto;overflow-y:hidden;z-index:6}
+ .work-space:not([hidden]) > .work-rail .rail-link{border-bottom:0;border-top:3px solid transparent;
+  padding:5px 9px;min-height:0;white-space:nowrap}
+ .work-space:not([hidden]) > .work-rail .rail-link.is-active{border-top-color:var(--accent)}
+}
