@@ -1,4 +1,9 @@
 window.PORTFOLIO_DATA = {
+"nuevo-sep28-a": {"title":"Video audiovisual · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"landscape","id":"1IxBoIVdiA5Ns9uySned17mqcvsUQ1G7Q","tools":"Por documentar","results":"Pieza audiovisual."},
+"nuevo-sep30": {"title":"Video vertical · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"portrait","id":"1NGWrrx4wcs21u83eESP4q4_-y3ZqD6w-","tools":"Por documentar","results":"Pieza audiovisual."},
+"nuevo-sep28-b": {"title":"Video audiovisual · Septiembre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"landscape","id":"1xVue_TxZ1YHXMNibc3I37yPbTPL4ypO0","tools":"Por documentar","results":"Pieza audiovisual."},
+"nuevo-oct16": {"title":"Video vertical · Octubre 2026","kind":"Selección audiovisual","deck":"Pieza audiovisual","description":"Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.","role":"Participación por documentar.","type":"video","platform":"drive","aspect":"portrait","id":"1PhouweDPdOBSDHGoWVJPDQ5FTZezZvjj","tools":"Por documentar","results":"Pieza audiovisual."},
+
   "zaru": {
     "title": "The Homes",
     "kind": "Video publicitario · Campaña Zarú",
