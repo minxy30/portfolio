@@ -7,8 +7,8 @@ const CATS=[
  {id:'video',label:'Video',title:'Edición de video',intro:'',desc:'',icon:'▷',filters:[['all','Todo'],['youtube','YouTube'],['marcas','Marcas'],['motion','Motion Graphic'],['ia','Producción con IA']],items:[['benito-mexico','youtube'],['benito-ia','youtube'],['benito-bolivia','youtube'],['benito-viral','youtube'],['benito-ormuz','youtube'],['zaru','ia'],['smarketing','ia'],['casita','marcas'],['minsis','motion']]},
  {id:'diseno',label:'Diseño',title:'Diseño visual',intro:'',desc:'Composición, narrativas gráficas y publicaciones para marcas.',icon:'✎',filters:[['all','Todo'],['editorial','Editorial'],['carrusel','Carruseles'],['marcas','Marcas']],items:[['potencial','carrusel'],['omar','carrusel'],['editorial','editorial'],['wbmf','editorial'],['sabias','marcas']]},
  {id:'fotografia',label:'Fotografía',title:'Fotografía',intro:'',desc:'Fotografía conceptual y retratos.',icon:'◎',filters:[['all','Todo'],['conceptual','Conceptual'],['retrato','Retratos']],items:[['foto-halloween','retrato'],['foto-terror','conceptual']]},
- {id:'copywriter',label:'Copywriter',title:'Copywriter',intro:'',desc:'Copies, mensajes editoriales y parrillas de contenido.',icon:'≡',filters:[['all','Todo'],['redes','Redes sociales'],['editorial','Editorial']],items:[['copy-sm','redes'],['copy-wbmf','editorial']]},
- {id:'about',label:'Sobre mí',title:'Sobre mí',intro:'Detrás de cada idea',desc:'Mi perfil, herramientas y enfoque creativo.',icon:'✳',filters:[],items:[]}
+ {id:'copywriter',label:'Copywriter',title:'Copywriter',intro:'',desc:'Copies, mensajes editoriales y parrillas de contenido.',icon:'≡',filters:[['all','Todo'],['redes','Redes sociales'],['editorial','Editorial']],items:[['copy-sm','redes'],['copy-wbmf','editorial']]}
+
 ];
 const catById=Object.fromEntries(CATS.map(c=>[c.id,c]));
 let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,stage=0,locked=false,visitorSound=true,wasPlaying=false,audioCtx=null,toastTimer=0,scrollLock=0,returnFocus=null;
@@ -1065,7 +1065,22 @@ function decorateToolDust(){
  });
 }
 decorateToolDust();
-function openProject(id,focusEl){const item=DATA[id];if(!item||!viewer)return;returnFocus=focusEl||returnFocus;activeProject=id;$('viewer-area').textContent=item.kind;$('viewer-title').textContent=item.title;$('viewer-deck').textContent=item.deck||'';$('viewer-description').textContent=item.description||'';$('viewer-role').textContent=item.role||'';$('viewer-results').textContent=item.results||'Pieza final entregada.';$('viewer-tools').textContent=item.tools||'Herramientas documentadas en el proyecto';$('viewer-note').textContent=item.note||'';makeMedia(item);let index=activeItems.indexOf(id);$('viewer-count').textContent=`${index+1} / ${activeItems.length}`;$('viewer-prev').disabled=index<=0;$('viewer-next').disabled=index>=activeItems.length-1;
+function renderRelated(currentId){
+ const target=$('viewer-related-grid');if(!target)return;
+ target.replaceChildren();
+ const ids=activeItems.filter(id=>id!==currentId);
+ ids.forEach(id=>{
+  const item=DATA[id];if(!item)return;
+  const button=document.createElement('button');button.type='button';button.className='viewer-related-card';
+  const image=(item.images&&item.images[0])||posters[id];
+  if(image){const img=document.createElement('img');img.src=image;img.alt='';img.loading='lazy';button.appendChild(img)}
+  const label=document.createElement('span');label.textContent=item.title;button.appendChild(label);
+  button.setAttribute('aria-label','Ver proyecto: '+item.title);
+  button.addEventListener('click',()=>openProject(id,returnFocus));
+  target.appendChild(button);
+ });
+}
+function openProject(id,focusEl){const item=DATA[id];if(!item||!viewer)return;returnFocus=focusEl||returnFocus;activeProject=id;$('viewer-area').textContent=item.kind;$('viewer-title').textContent=item.title;$('viewer-deck').textContent=item.deck||'';$('viewer-description').textContent=item.description||'';$('viewer-role').textContent=item.role||'';$('viewer-results').textContent=item.results||'Pieza final entregada.';$('viewer-tools').textContent=item.tools||'Herramientas documentadas en el proyecto';$('viewer-note').textContent=item.note||'';makeMedia(item);renderRelated(id);if(viewer.open)$('viewer-body').scrollTop=0;let index=activeItems.indexOf(id);$('viewer-count').textContent=`${index+1} / ${activeItems.length}`;$('viewer-prev').disabled=index<=0;$('viewer-next').disabled=index>=activeItems.length-1;
 if(item.type==='video'){
  wasPlaying=wasPlaying||musicIsPlaying();
  pauseMusicForVideo();
@@ -1079,6 +1094,31 @@ $('viewer-close').addEventListener('click',closeProject);viewer.addEventListener
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));
 $('work-return-top').addEventListener('click',()=>{workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});soundEffect('click')});
+
+
+// Swipe horizontally to navigate projects; do not intercept vertical scrolling or media controls.
+let viewerTouchStart=null;
+$('viewer-body').addEventListener('touchstart',e=>{
+ const t=e.touches[0];if(!t)return;
+ viewerTouchStart={x:t.clientX,y:t.clientY,interactive:!!e.target.closest('video,iframe,button,a,input,[role="slider"],.media-box')};
+},{passive:true});
+$('viewer-body').addEventListener('touchend',e=>{
+ if(!viewerTouchStart||viewerTouchStart.interactive){viewerTouchStart=null;return}
+ const t=e.changedTouches[0];if(!t)return;
+ const dx=t.clientX-viewerTouchStart.x,dy=t.clientY-viewerTouchStart.y;
+ viewerTouchStart=null;
+ if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4)moveProject(dx<0?1:-1);
+},{passive:true});
+viewer.addEventListener('keydown',e=>{
+ if(e.target.closest('video,input,textarea,[role="slider"]'))return;
+ if(e.key==='ArrowLeft'){e.preventDefault();moveProject(-1)}
+ if(e.key==='ArrowRight'){e.preventDefault();moveProject(1)}
+});
+const mobileTop=$('mobile-back-top');
+if(mobileTop)mobileTop.addEventListener('click',()=>{
+ if(document.body.dataset.screen==='home'){showStage(0)}
+ else workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});
+});
 
 // Preserves natural browser navigation; direct #video/#diseno URLs work on Pages.
 routeByHash();
