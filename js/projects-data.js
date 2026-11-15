@@ -6,9 +6,9 @@ window.PORTFOLIO_DATA = {
     "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
     "role": "Participación por documentar.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "landscape",
-    "id": "1IxBoIVdiA5Ns9uySned17mqcvsUQ1G7Q",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep28-a.mp4",
     "tools": "Por documentar",
     "results": "Pieza audiovisual."
   },
@@ -19,9 +19,9 @@ window.PORTFOLIO_DATA = {
     "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
     "role": "Participación por documentar.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "portrait",
-    "id": "1NGWrrx4wcs21u83eESP4q4_-y3ZqD6w-",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep30.mp4",
     "tools": "Por documentar",
     "results": "Pieza audiovisual."
   },
@@ -32,9 +32,9 @@ window.PORTFOLIO_DATA = {
     "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
     "role": "Participación por documentar.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "landscape",
-    "id": "1xVue_TxZ1YHXMNibc3I37yPbTPL4ypO0",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep28-b.mp4",
     "tools": "Por documentar",
     "results": "Pieza audiovisual."
   },
@@ -45,9 +45,9 @@ window.PORTFOLIO_DATA = {
     "description": "Video incorporado a la selección de trabajos. Descripción editorial pendiente de revisión.",
     "role": "Participación por documentar.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "portrait",
-    "id": "1PhouweDPdOBSDHGoWVJPDQ5FTZezZvjj",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/oct16.mp4",
     "tools": "Por documentar",
     "results": "Pieza audiovisual."
   },
@@ -58,9 +58,9 @@ window.PORTFOLIO_DATA = {
     "description": "Campaña inmobiliaria construida a partir de imágenes estáticas, propuestas de secuencias, escenas generadas, voz, música y montaje.",
     "role": "Guion, propuesta visual, generación de escenas con herramientas de IA y edición final. No se presenta como material filmado personalmente.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "portrait",
-    "id": "1NSVQOAdZBtTL2Qjb-l_lOaQIHc9rLjhQ",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/zaru.mp4",
     "tools": "Premiere Pro · Edición",
     "results": "Pieza final preparada para comunicación digital."
   },
@@ -71,9 +71,9 @@ window.PORTFOLIO_DATA = {
     "description": "Video informativo con guion asistido, recursos visuales y edición para consumo vertical.",
     "role": "Guion asistido, dirección de recursos visuales, montaje y tratamiento sonoro. Las gráficas de Remotion se realizaron mediante instrucciones.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "portrait",
-    "id": "1U7oDG8iPb6dGdsKsi5FVAa0RPQ4qDGDg",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/smarketing.mp4",
     "tools": "Premiere Pro · Edición",
     "results": "Pieza final preparada para comunicación digital."
   },
@@ -84,9 +84,9 @@ window.PORTFOLIO_DATA = {
     "description": "Pieza de comunicación vertical editada a partir de grabaciones proporcionadas.",
     "role": "Edición en Premiere Pro, organización de material y atención a la privacidad de menores. No se atribuye filmación.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "portrait",
-    "id": "1aCt90Z5WIPtY2DiBWs3essgODzgwXMa-",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/casita.mp4",
     "tools": "Premiere Pro · Edición",
     "results": "Pieza final preparada para comunicación digital."
   },
@@ -97,9 +97,9 @@ window.PORTFOLIO_DATA = {
     "description": "Animación sencilla de aproximadamente cuatro segundos, creada para un logotipo de contenido infantil.",
     "role": "Animación de entrada y escala en After Effects. No se atribuye el diseño original del logotipo.",
     "type": "video",
-    "platform": "drive",
+    "platform": "file",
     "aspect": "landscape",
-    "id": "1vwZ5cudU7rPRX1LXBPdVo1LZsgN_RMix",
+    "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/minsis.mp4",
     "tools": "Premiere Pro · Edición",
     "results": "Pieza final preparada para comunicación digital."
   },
@@ -224,7 +224,7 @@ window.PORTFOLIO_DATA = {
     "title": "México jamás se había sentido así de chido",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El video completo se conserva en YouTube y el fragmento se reproduce desde el alojamiento del portafolio.",
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
@@ -238,19 +238,19 @@ window.PORTFOLIO_DATA = {
       },
       {
         "label": "Fragmento",
-        "id": "19Wy0dyV2yVSzhMTD3svLVIC7k2m7vuFJ",
-        "platform": "drive"
+        "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/benito-fragmentos/mexico.mp4",
+        "platform": "file"
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Archivo completo y fragmento corto disponibles en Drive.",
-    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-ia": {
     "title": "IA es la nueva bomba atómica",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El video completo se conserva en YouTube y el fragmento se reproduce desde el alojamiento del portafolio.",
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
@@ -264,19 +264,19 @@ window.PORTFOLIO_DATA = {
       },
       {
         "label": "Fragmento",
-        "id": "17_oiQzEXxhAE45vufIw5IrTeEf7v1C8S",
-        "platform": "drive"
+        "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/benito-fragmentos/ia.mp4",
+        "platform": "file"
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Archivo completo y fragmento corto disponibles en Drive.",
-    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-bolivia": {
     "title": "Hablemos de la horrible situación de Bolivia",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El video completo se conserva en YouTube y el fragmento se reproduce desde el alojamiento del portafolio.",
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
@@ -290,19 +290,19 @@ window.PORTFOLIO_DATA = {
       },
       {
         "label": "Fragmento",
-        "id": "1cYIEP-AVYMvv_WaLlsQU_cqCL9F4dyUd",
-        "platform": "drive"
+        "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/benito-fragmentos/bolivia.mp4",
+        "platform": "file"
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Archivo completo y fragmento corto disponibles en Drive.",
-    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-viral": {
     "title": "Sucedió en directo y se hizo viral al instante",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El video completo se conserva en YouTube y el fragmento se reproduce desde el alojamiento del portafolio.",
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
@@ -316,19 +316,19 @@ window.PORTFOLIO_DATA = {
       },
       {
         "label": "Fragmento",
-        "id": "1kJ-0gWMhBy9HAXxQs6m898a9g49sAF7T",
-        "platform": "drive"
+        "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/benito-fragmentos/viral.mp4",
+        "platform": "file"
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Archivo completo y fragmento corto disponibles en Drive.",
-    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-ormuz": {
     "title": "Top 5 lugares para fumar en el estrecho de Ormuz",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Trabajo audiovisual incluido en la selección del portafolio. El archivo de visualización se conserva en Google Drive.",
+    "description": "Trabajo audiovisual incluido en la selección del portafolio. El video completo se conserva en YouTube y el fragmento se reproduce desde el alojamiento del portafolio.",
     "role": "Edición audiovisual. No se atribuyen grabación ni producción original sin confirmación adicional.",
     "type": "video",
     "aspect": "landscape",
@@ -342,13 +342,13 @@ window.PORTFOLIO_DATA = {
       },
       {
         "label": "Fragmento",
-        "id": "1kzco9PTns8T0lVifjnIPT0wDOrZq1-oD",
-        "platform": "drive"
+        "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/benito-fragmentos/ormuz.mp4",
+        "platform": "file"
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Archivo completo y fragmento corto disponibles en Drive.",
-    "note": "La reproducción depende de la disponibilidad del visor de Google Drive."
+    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "foto-halloween": {
     "title": "Fotografía · Personajes de fantasía",
