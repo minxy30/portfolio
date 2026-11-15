@@ -975,3 +975,8 @@ body[data-theme="dark"] .background-video.has-source{opacity:.10}
 body[data-theme="dark"] .atmo-vignette{opacity:.68;background:radial-gradient(ellipse at 50% 38%,transparent 5%,#050505 82%)}
 body[data-theme="dark"] .project-image .image-no-preview{background:linear-gradient(145deg,#101011,#222225)}
 body[data-theme="dark"] .project-image .project-card-preview{background:#080808}
+
+/* Safety guard: home and portfolio must never overlap, including during mobile navigation. */
+.home-deck[hidden],.work-space[hidden]{display:none!important;visibility:hidden!important;pointer-events:none!important}
+body[data-screen="home"] .work-space,body[data-screen="work"] .home-deck{display:none!important;pointer-events:none!important}
+@media(max-width:740px){.work-space:not([hidden]){height:calc(100dvh - var(--hdr))!important;max-height:calc(100dvh - var(--hdr))!important;overflow:hidden!important}}
