@@ -21,7 +21,7 @@ function toast(msg){let e=$('status-toast');e.textContent=msg;e.classList.add('s
 function localPref(name){try{return localStorage.getItem(name)}catch{return null}}
 function setPref(name,val){try{localStorage.setItem(name,val)}catch{}}
 function setTheme(val){document.body.dataset.theme=val;setPref('ym-theme',val);$('theme-toggle').setAttribute('aria-label',val==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',val==='dark'?'#080e14':'#f1f1ec')}
-setTheme('dark'); // Cada visita empieza en oscuro; el visitante puede cambiarlo durante la sesión.
+setTheme(matchMedia('(max-width: 740px)').matches ? 'light' : 'dark'); // Móvil inicia claro; escritorio inicia oscuro. El visitante puede alternar.
 $('theme-toggle').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');soundEffect('toggle')});
 function context(){if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;audioCtx=new C()}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
 // Navigation SFX are independent of background music and never muted by the music button.
