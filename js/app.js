@@ -21,7 +21,7 @@ function toast(msg){let e=$('status-toast');e.textContent=msg;e.classList.add('s
 function localPref(name){try{return localStorage.getItem(name)}catch{return null}}
 function setPref(name,val){try{localStorage.setItem(name,val)}catch{}}
 function setTheme(val){document.body.dataset.theme=val;setPref('ym-theme',val);$('theme-toggle').setAttribute('aria-label',val==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',val==='dark'?'#080e14':'#f1f1ec')}
-setTheme(matchMedia('(max-width: 740px)').matches ? 'light' : 'dark'); // Móvil inicia claro; escritorio inicia oscuro. El visitante puede alternar.
+setTheme('light'); // All devices start in light mode; visitors may toggle dark mode.
 $('theme-toggle').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');soundEffect('toggle')});
 function context(){if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;audioCtx=new C()}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
 // Navigation SFX are independent of background music and never muted by the music button.
@@ -972,11 +972,7 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
     external.hidden=true;
    }
   }
-  if(item.clips?.length){
-   const choices=document.createElement('div');choices.className='clip-choices';choices.setAttribute('aria-label','Seleccionar versión del video');
-   item.clips.forEach((clip,i)=>{const b=document.createElement('button');b.type='button';b.textContent=clip.label||('Versión '+(i+1));b.className=i===0?'is-selected':'';b.setAttribute('aria-pressed',String(i===0));b.addEventListener('click',()=>{choices.querySelectorAll('button').forEach(x=>{x.classList.toggle('is-selected',x===b);x.setAttribute('aria-pressed',String(x===b))});build(clip.id,clip.platform||item.platform);soundEffect('click')});choices.appendChild(b)});
-   controls.appendChild(choices);
-  }
+
   build(item.clips?.length?item.clips[0].id:item.id,item.clips?.length?(item.clips[0].platform||item.platform):item.platform);
   actions.appendChild(external);
   box.append(controls,player,actions);
