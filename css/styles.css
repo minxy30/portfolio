@@ -1012,18 +1012,36 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .work-space:not([hidden]) > .work-rail .rail-label{display:block!important;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 }
 
-/* Desktop rail experiment: four equal-height category buttons and inverse theme. */
+/* Desktop: compact floating category dock, matching the mobile navigation. */
 @media(min-width:741px){
- body[data-theme="light"] .work-rail{background:#17191c!important;color:#f7f7f7!important;border-right-color:#393b40!important}
- body[data-theme="dark"] .work-rail{background:#f3f2ef!important;color:#17191c!important;border-right-color:#d2d1ce!important}
- .work-space:not([hidden])>.work-rail{display:grid!important;grid-template-rows:repeat(4,minmax(0,1fr))!important;
-  align-items:stretch!important;justify-items:stretch!important;gap:8px!important;padding:12px 7px!important;box-sizing:border-box!important}
- .work-space:not([hidden])>.work-rail .rail-link{height:100%!important;min-height:0!important;width:100%!important;
-  margin:0!important;flex:none!important;align-self:stretch!important;justify-self:stretch!important;
-  color:inherit!important;border:1px solid currentColor!important;border-color:color-mix(in srgb,currentColor 23%,transparent)!important;
-  background:transparent!important;box-sizing:border-box!important}
- .work-space:not([hidden])>.work-rail .rail-link.is-active{background:color-mix(in srgb,currentColor 13%,transparent)!important;
-  border-color:var(--accent)!important;box-shadow:inset 0 0 0 1px var(--accent)!important}
- body[data-theme="light"] .work-rail .rail-icon img{filter:brightness(0) invert(1)!important}
- body[data-theme="dark"] .work-rail .rail-icon img{filter:brightness(0)!important}
+ .work-space:not([hidden]){display:flex!important;flex-direction:column!important}
+ .work-space:not([hidden])>.work-main{order:0!important;flex:1 1 auto!important;width:100%!important;min-width:0!important;
+  padding-bottom:108px!important;box-sizing:border-box!important}
+ .work-space:not([hidden])>.work-rail{position:absolute!important;left:50%!important;right:auto!important;
+  bottom:18px!important;top:auto!important;transform:translateX(-50%)!important;
+  width:440px!important;max-width:calc(100vw - 40px)!important;height:70px!important;min-height:70px!important;
+  flex:0 0 auto!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;
+  justify-content:space-around!important;gap:4px!important;padding:6px 8px!important;
+  box-sizing:border-box!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:25px!important;
+  background:rgba(24,24,26,.96)!important;color:#fff!important;
+  box-shadow:0 12px 36px rgba(0,0,0,.30)!important;
+  backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;
+  overflow:visible!important;z-index:30!important}
+ .work-space:not([hidden])>.work-rail .rail-link{display:flex!important;flex:1 1 0!important;
+  width:auto!important;min-width:0!important;min-height:0!important;height:100%!important;
+  margin:0!important;padding:5px 3px!important;box-sizing:border-box!important;
+  flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;
+  writing-mode:horizontal-tb!important;transform:none!important;border:0!important;border-radius:18px!important;
+  background:transparent!important;box-shadow:none!important;color:#f5f5f5!important;
+  font:700 11px/1.1 var(--display)!important;letter-spacing:0!important;text-transform:none!important;white-space:nowrap!important}
+ .work-space:not([hidden])>.work-rail .rail-link:hover{background:rgba(255,255,255,.08)!important;transform:none!important}
+ .work-space:not([hidden])>.work-rail .rail-link.is-active{background:rgba(255,255,255,.16)!important;
+  border:0!important;box-shadow:none!important;color:#fff!important}
+ .work-space:not([hidden])>.work-rail .rail-link::before{display:none!important}
+ .work-space:not([hidden])>.work-rail .rail-icon{display:flex!important;align-items:center!important;justify-content:center!important;
+  width:26px!important;height:26px!important;flex:0 0 26px!important;transform:none!important}
+ .work-space:not([hidden])>.work-rail .rail-icon img{display:block!important;width:24px!important;height:24px!important;
+  object-fit:contain!important;filter:brightness(0) invert(1)!important}
+ .work-space:not([hidden])>.work-rail .rail-label{display:block!important;overflow:hidden!important;
+  text-overflow:ellipsis!important;max-width:100%!important}
 }
