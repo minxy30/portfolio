@@ -1091,3 +1091,13 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .scene-tools .tool-filters button{font-size:14px!important;min-height:44px!important}
  .scene-tools .scene-continue{font-size:14px!important;min-height:48px!important}
 }
+
+/* Mobile tools editorial cleanup: calm background and clearer category rhythm. */
+@media(max-width:740px){
+ .home-scene.scene-tools{background:var(--bg)!important;isolation:isolate!important}
+ .scene-tools .tool-wall{gap:24px!important}
+ .scene-tools .tool-category-head{margin-bottom:11px!important;gap:9px!important;flex-wrap:wrap!important}
+ .scene-tools .tool-category-grid{gap:9px!important}
+ .scene-tools .tool-category-grid .tool-chip{border-color:color-mix(in srgb,var(--ink) 9%,transparent)!important;
+  background:var(--card)!important;box-shadow:0 2px 8px rgba(20,30,35,.035)!important}
+}
