@@ -1101,3 +1101,10 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
  .scene-tools .tool-category-grid .tool-chip{border-color:color-mix(in srgb,var(--ink) 9%,transparent)!important;
   background:var(--card)!important;box-shadow:0 2px 8px rgba(20,30,35,.035)!important}
 }
+
+/* Mobile tools: balanced outer gutters, column spacing and pill thickness. */
+@media(max-width:740px){
+ .scene-tools .scene-inner{width:calc(100vw - 56px)!important;max-width:540px!important}
+ .scene-tools .tool-category-grid{column-gap:16px!important;row-gap:11px!important}
+ .scene-tools .tool-category-grid .tool-chip{min-height:58px!important;padding:8px 10px!important;align-self:stretch!important}
+}
