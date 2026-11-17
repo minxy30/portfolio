@@ -1,7 +1,0 @@
-body[data-theme="light"] #particle-canvas{opacity:0!important}
-body[data-theme="dark"] #water-canvas{opacity:0!important}
-.scene-tools .tool-wall,.scene-tools .eyebrow,.scene-tools .scene-continue{display:none}
-.scene-tools .scene-inner{text-align:center}
-.scene-tools .scene-inner h1{font-size:clamp(48px,10vw,110px);letter-spacing:.08em;margin:0}
-.scene-tools .scene-subtitle{font-size:clamp(16px,2vw,22px);margin-top:18px}
-
