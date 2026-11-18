@@ -1177,3 +1177,9 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 #work-grid.masonry.video-curated-grid{display:block!important;columns:unset!important;column-count:1!important;column-width:auto!important;column-gap:normal!important;column-fill:auto!important;width:100%!important;max-width:none!important}
 #work-grid.video-curated-grid>.curated-video-section{display:block!important;width:100%!important;max-width:none!important;break-inside:avoid-column}
 #work-grid.video-curated-grid .curated-video-masonry{width:100%!important;max-width:none!important;column-count:unset!important;column-width:auto!important}
+
+/* Make the audiovisual gallery span the full available content area. */
+.work-space:not([hidden])>.work-main{max-width:none!important;min-width:0!important;align-self:stretch!important}
+#work-grid.masonry.video-curated-grid{box-sizing:border-box!important;overflow:visible!important;max-width:100%!important}
+#work-grid.video-curated-grid>.curated-video-section{box-sizing:border-box!important;max-width:100%!important}
+#work-grid.video-curated-grid .curated-video-masonry{box-sizing:border-box!important;max-width:100%!important}
