@@ -886,11 +886,27 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 @media(prefers-reduced-motion:reduce){.entry-launch{animation:none!important}}
 
 /* Kinetic gallery hierarchy: previews sit above the warm interaction wash. */
-.kinetic-preview-stage{z-index:6!important}
+.kinetic-preview-stage{z-index:2!important}
+.kinetic-links{z-index:5!important}
 .kinetic-preview-panel{opacity:0!important;filter:none!important;box-shadow:0 24px 64px rgba(0,0,0,.34)!important}
 .kinetic-preview-panel.is-active{opacity:1!important}
 .kinetic-preview-panel::after{display:none!important}
 .kinetic-link::before{z-index:-1!important}
+
+/* Shared portfolio system: palette-led surfaces, clearer hierarchy, flexible cards. */
+:root{--portfolio-coral:#D97757;--portfolio-ink:#0B1A1F;--portfolio-gold:#FFDF8F;--portfolio-radius:16px}
+body:not([data-theme="dark"]){--surface-strong:#FFFFFF;--surface-soft:#fff8e7;--text-soft:#36525a}
+body[data-theme="dark"]{--surface-strong:#10252b;--surface-soft:#0d1d22;--text-soft:#c4d9d7}
+.work-space,.project-viewer,.about-modal,.cv-modal{color:var(--ink);background:var(--bg)}
+.work-topline,.work-tabs,.viewer-recommendations,.work-footer{border-color:color-mix(in srgb,var(--accent) 28%,var(--line))}
+.filter-chip,.rail-link,.contact-options a,.work-footer-actions a,.project-open{border-radius:999px;border-color:color-mix(in srgb,var(--accent) 34%,var(--line));transition:transform .25s ease,background .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease}
+.filter-chip.active,.filter-chip:hover,.filter-chip:focus-visible{background:var(--portfolio-coral);border-color:var(--portfolio-coral);color:#fff}
+.project-card,.project-open{background:var(--surface-strong);border-color:color-mix(in srgb,var(--accent) 22%,var(--line));border-radius:var(--portfolio-radius);overflow:hidden}
+.project-card:hover,.project-card:focus-within{box-shadow:0 18px 48px rgba(11,26,31,.14);border-color:var(--portfolio-coral)}
+.project-meta,.project-credit,.work-intro p,.work-footer p{color:var(--text-soft)}
+.modal-close,.viewer-close,.dialog-close{border-color:var(--portfolio-gold);color:var(--ink)}
+body[data-theme="dark"] .project-card,body[data-theme="dark"] .project-open{background:var(--surface-soft)}
+@media(max-width:740px){.project-card,.project-open{border-radius:12px}.work-topline{gap:12px}.filter-chip{min-height:36px;padding-inline:13px}}
 
 /* Final override: no white wash and no container around the lobby copy. */
 .entry-gate{background:#0B1A1F!important}
