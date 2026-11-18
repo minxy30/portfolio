@@ -931,14 +931,20 @@ const caption=document.createElement('div');caption.className='project-caption';
 let observer=null;
 function renderGrid(){const ids=visibleIDs(),el=$('work-grid');el.replaceChildren();el.classList.toggle('video-curated-grid',activeCategory==='video'&&activeFilter==='all');activeItems=ids;if(observer)observer.disconnect();if(!ids.length){el.textContent='No hay piezas en este filtro.';return}if(activeCategory==='video'&&activeFilter==='all'){
  const featured=['benito-mexico','benito-ia','zaru','smarketing'];
- const sectionTitle=(label)=>{const h=document.createElement('h2');h.textContent=label;h.className='gallery-section-title';return h};
- el.appendChild(sectionTitle('Proyectos destacados'));
- featured.filter(id=>ids.includes(id)).forEach(id=>el.appendChild(makeCard(id)));
- el.appendChild(sectionTitle('Más trabajos audiovisuales'));
- ids.filter(id=>!featured.includes(id)&&!['nuevo-sep30','nuevo-oct16','nuevo-sep28-a','nuevo-sep28-b'].includes(id)).forEach(id=>el.appendChild(makeCard(id)));
- el.appendChild(sectionTitle('Otras muestras · créditos por completar'));
- ids.filter(id=>['nuevo-sep30','nuevo-oct16','nuevo-sep28-a','nuevo-sep28-b'].includes(id)).forEach(id=>el.appendChild(makeCard(id)));
-}else ids.forEach(id=>el.appendChild(makeCard(id)));const cards=el.querySelectorAll('.project-card');if(reduce.matches||!('IntersectionObserver' in window)){cards.forEach(e=>e.classList.add('is-visible'))}else{observer=new IntersectionObserver(entries=>{entries.forEach(x=>{if(x.isIntersecting){x.target.classList.add('is-visible');observer.unobserve(x.target)}})},{root:workMain,rootMargin:'120px 0px',threshold:.02});cards.forEach(e=>observer.observe(e));setTimeout(()=>cards.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight+200)e.classList.add('is-visible')}),250)}}
+ const pending=['nuevo-sep30','nuevo-oct16','nuevo-sep28-a','nuevo-sep28-b'];
+ const addSection=(heading,projectIds)=>{
+  if(!projectIds.length)return;
+  const section=document.createElement('section');section.className='curated-video-section';
+  const title=document.createElement('h2');title.className='gallery-section-title';title.textContent=heading;
+  const wall=document.createElement('div');wall.className='curated-video-masonry';
+  projectIds.forEach(id=>wall.appendChild(makeCard(id)));
+  section.append(title,wall);el.appendChild(section);
+ };
+ addSection('Proyectos destacados',featured.filter(id=>ids.includes(id)));
+ addSection('Más trabajos audiovisuales',ids.filter(id=>!featured.includes(id)&&!pending.includes(id)));
+ addSection('Otras muestras · créditos por completar',ids.filter(id=>pending.includes(id)));
+}else ids.forEach(id=>el.appendChild(makeCard(id)));
+const cards=el.querySelectorAll('.project-card');if(reduce.matches||!('IntersectionObserver' in window)){cards.forEach(e=>e.classList.add('is-visible'))}else{observer=new IntersectionObserver(entries=>{entries.forEach(x=>{if(x.isIntersecting){x.target.classList.add('is-visible');observer.unobserve(x.target)}})},{root:workMain,rootMargin:'120px 0px',threshold:.02});cards.forEach(e=>observer.observe(e));setTimeout(()=>cards.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight+200)e.classList.add('is-visible')}),250)}}
 function ytEmbed(id){if(!/^[A-Za-z0-9_-]{11}$/.test(id))return null;let f=document.createElement('iframe');f.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1`;f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title='Reproductor de YouTube';f.referrerPolicy='strict-origin-when-cross-origin';f.loading='eager';return f}
 function driveEmbed(id){if(!/^[A-Za-z0-9_-]{15,}$/.test(id))return null;let f=document.createElement('iframe');f.src=`https://drive.google.com/file/d/${id}/preview`;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.title='Visor de Google Drive';return f}
 function nativeVideo(src){
