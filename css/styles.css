@@ -1170,3 +1170,10 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .video-curated-grid .curated-video-masonry{display:grid!important;columns:unset!important;column-count:unset!important;column-width:auto!important;column-gap:unset!important;align-items:start;width:100%;max-width:100%;box-sizing:border-box}
 .video-curated-grid .curated-video-masonry .masonry-stack{min-width:0;width:100%}
 .video-curated-grid .curated-video-masonry .project-card{display:block!important;width:100%!important;margin:0!important;min-width:0;max-width:100%}
+
+/* FIX: parent .work-grid had legacy multicolumn !important rules. They fragmented
+   the entire curated section into narrow columns, leaving unused viewport space.
+   Only the inner masonry gallery may own columns. */
+#work-grid.masonry.video-curated-grid{display:block!important;columns:unset!important;column-count:1!important;column-width:auto!important;column-gap:normal!important;column-fill:auto!important;width:100%!important;max-width:none!important}
+#work-grid.video-curated-grid>.curated-video-section{display:block!important;width:100%!important;max-width:none!important;break-inside:avoid-column}
+#work-grid.video-curated-grid .curated-video-masonry{width:100%!important;max-width:none!important;column-count:unset!important;column-width:auto!important}
