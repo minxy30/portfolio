@@ -242,7 +242,7 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Edición audiovisual",
+    "tools": "Adobe Premiere Pro",
     "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
@@ -268,7 +268,7 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Investigación editorial · Redacción de apoyo · Adobe Premiere Pro · Montaje audiovisual",
+    "tools": "Adobe Premiere Pro",
     "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
@@ -294,7 +294,7 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Investigación editorial · Redacción de apoyo · Adobe Premiere Pro · Montaje audiovisual",
+    "tools": "Adobe Premiere Pro",
     "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
@@ -320,7 +320,7 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Edición audiovisual",
+    "tools": "Adobe Premiere Pro",
     "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
@@ -346,7 +346,7 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Edición audiovisual",
+    "tools": "Adobe Premiere Pro",
     "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
