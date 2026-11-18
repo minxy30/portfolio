@@ -20,7 +20,7 @@ function toast(msg){let e=$('status-toast');e.textContent=msg;e.classList.add('s
 function localPref(name){try{return localStorage.getItem(name)}catch{return null}}
 function setPref(name,val){try{localStorage.setItem(name,val)}catch{}}
 function setTheme(val){document.body.dataset.theme=val;setPref('ym-theme',val);$('theme-toggle').setAttribute('aria-label',val==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');document.querySelector('meta[name="theme-color"]').setAttribute('content',val==='dark'?'#080e14':'#f1f1ec')}
-setTheme('light'); // All devices start in light mode; visitors may toggle dark mode.
+setTheme(localPref('ym-theme')||'light');
 $('theme-toggle').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');soundEffect('toggle')});
 function context(){if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;audioCtx=new C()}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
 // Navigation SFX are independent of background music and never muted by the music button.
@@ -421,6 +421,19 @@ function initCollage(){
  },780);
 }
 initCollage();
+// Subtle lobby depth: the collage follows the pointer on capable devices,
+// while touch and reduced-motion users keep a calm, static composition.
+const lobbyPointer=matchMedia('(hover: hover) and (pointer: fine)');
+if(lobbyPointer.matches&&!reduce.matches){
+ const gate=$('entry-gate');
+ gate?.addEventListener('pointermove',event=>{
+  if(!document.body.classList.contains('pre-entry'))return;
+  const x=(event.clientX/Math.max(1,innerWidth)-.5)*2;
+  const y=(event.clientY/Math.max(1,innerHeight)-.5)*2;
+  gate.style.setProperty('--lobby-x',`${(x*8).toFixed(2)}px`);
+  gate.style.setProperty('--lobby-y',`${(y*6).toFixed(2)}px`);
+ },{passive:true});
+}
 // Orientation changes and large resizes rebuild the collage to fill the new height.
 window.addEventListener('resize',()=>{
  if(!document.body.classList.contains('pre-entry'))return;
