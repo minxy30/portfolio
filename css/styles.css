@@ -867,6 +867,23 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 @media(max-width:740px){.entry-content{width:min(94vw,560px);padding:28px 20px;border-radius:22px}.entry-content h1{font-size:clamp(48px,15vw,76px)}.entry-fields{font-size:12px;line-height:1.45}.entry-launch{min-height:62px}.entry-portal{width:clamp(125px,34vw,175px)}}
 @media(prefers-reduced-motion:reduce){.entry-collage{transform:none!important;transition:none}.entry-gate::after{opacity:.55}}
 
+/* Lobby cleanup: return to an open editorial composition. */
+.entry-gate{background:#0B1A1F;color:#FFFFFF}
+.entry-gate::after{background:linear-gradient(90deg,#0B1A1Fbb 0%,#0B1A1F34 38%,#0B1A1F48 68%,#0B1A1Faa 100%),linear-gradient(180deg,#0B1A1F70 0%,transparent 32%,transparent 68%,#0B1A1Fbb 100%);opacity:1}
+.entry-content{width:min(92vw,980px);padding:24px 30px 28px;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.entry-content::before{display:none}
+.entry-portal{display:none!important}
+.entry-flare{display:none!important}
+.entry-content h1{color:#FFFFFF;text-shadow:0 4px 24px #0B1A1Faa;font-size:clamp(52px,8vw,122px)}
+.entry-content h1 span{color:#D97757;text-shadow:0 4px 24px #0B1A1F88}
+.entry-overline,.entry-fields{color:#FFFFFFe6;text-shadow:0 2px 12px #0B1A1F}
+.entry-overline span,.entry-fields span,.entry-bottom span{color:#FFDF8F}
+.entry-launch{border-color:#FFFFFF;background:#0B1A1F;color:#FFFFFF;box-shadow:0 10px 28px #0008}
+.entry-launch:hover,.entry-launch:focus-visible{background:#D97757;border-color:#D97757;box-shadow:0 14px 34px #0009}
+.entry-collage{transform:none;transition:none;filter:saturate(.86) contrast(1.06)}
+.entry-collage::after{background:linear-gradient(90deg,#0B1A1F88 0%,transparent 22%,transparent 78%,#0B1A1F88 100%),linear-gradient(180deg,#0B1A1F58 0%,transparent 25%,transparent 75%,#0B1A1F88 100%);opacity:1}
+@media(max-width:740px){.entry-content{width:min(94vw,600px);padding:20px 18px 24px}.entry-content h1{font-size:clamp(48px,15vw,78px)}}
+
 /* User-supplied original Benito Camello videos: Drive player and light fallback. */
 .viewer-drive-source{
   display:inline-flex;align-items:center;justify-content:center;
