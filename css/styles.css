@@ -881,7 +881,7 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .entry-overline,.entry-fields{color:#FFFFFF!important;text-shadow:0 2px 12px #000!important}
 .entry-overline span,.entry-fields span,.entry-bottom span{color:#FFDF8F!important}
 @keyframes lobbyButtonPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-.entry-launch{animation:lobbyButtonPulse 2.2s ease-in-out infinite;transform-origin:center}
+.entry-launch{animation:lobbyButtonPulse 2.2s ease-in-out infinite;transform-origin:center;border:1px solid #FFDF8F!important}
 .entry-launch:hover,.entry-launch:focus-visible{animation-play-state:paused}
 @media(prefers-reduced-motion:reduce){.entry-launch{animation:none!important}}
 
