@@ -369,14 +369,152 @@ window.PORTFOLIO_DATA = {
     "tools": "Fotografía digital",
     "results": "Selección visual de seis fotografías; métricas no aplicables."
   },
-"p02":{"title":"Expo Invierte","kind":"Invitación","deck":"Expo Invierte","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1WGGoKTJKlHmVlyQxrV0v6jMHVw2EEgko&sz=w1200"],"tools":"Drive","results":"Preview cargado desde Google Drive."},
-"p09":{"title":"Documentos antes de apartar","kind":"Carrusel","deck":"Documentos antes de apartar","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1HyWgvtEdf7FGUZpbqNpKha2mb5b-Dt29&sz=w1200","https://drive.google.com/thumbnail?id=1V6Wgn-55n9ooC5aD0ahexsXuDhOv-hxJ&sz=w1200","https://drive.google.com/thumbnail?id=1HTQhNrOpnrZPbfeozuMAmkPN25Oaw-4J&sz=w1200","https://drive.google.com/thumbnail?id=1BgL-JD67d6u1VrIU7bD2YGwf8FQZ4K0&sz=w1200V&sz=w1200"],"tools":"Drive · Canva","results":"Preview cargado desde Google Drive."},
-"p16":{"title":"Películas sobre marketing","kind":"Carrusel editorial","deck":"Películas sobre marketing","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1wTdovnoA37mUJ9KqGLa-mCVyhVFDQdwW&sz=w1200","https://drive.google.com/thumbnail?id=12M_Br1JZUB91_bK8DLs17J1uLEhyO0jp&sz=w1200","https://drive.google.com/thumbnail?id=15OGBVhxt-OYJGyQh_5-Gyg_JBte0fv8t&sz=w1200","https://drive.google.com/thumbnail?id=1EvLBJD6770jflb-aaV5Pt0VySOYAB_n&sz=w12004&sz=w1200"],"tools":"Drive · Affinity","results":"Preview cargado desde Google Drive."},
-"p17":{"title":"Tres términos inmobiliarios","kind":"Carrusel","deck":"Tres términos inmobiliarios","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1DNYt8NPEv9ud85sG7-G8Jy6dmzuPayos&sz=w1200","https://drive.google.com/thumbnail?id=1a2ZLTYhaHqe5xJMH63iBnLSC3NTqehj_&sz=w1200","https://drive.google.com/thumbnail?id=1VGNP8VNB9P7v8HgCdH3xfL8HDLvgPZib&sz=w1200","https://drive.google.com/thumbnail?id=1F1QqcjNM_wXyiNVu7W7B7f3L3AZakGW&sz=w1200C&sz=w1200"],"tools":"Drive · Canva","results":"Preview cargado desde Google Drive."},
-"p19":{"title":"Marketing 360","kind":"Campaña Meta","deck":"Marketing 360","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1PToLFnU-1sLi8dA7FBUa4dqhqmjfkSN9&sz=w1200"],"tools":"Drive · Canva","results":"Preview cargado desde Google Drive."},
-"p22":{"title":"Masterclass Design Thinking","kind":"Invitación","deck":"Masterclass Design Thinking","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1rbKLg380L9FFreH9FqLORtcbtok73c31&sz=w1200"],"tools":"Drive · Affinity","results":"Preview cargado desde Google Drive."},
-"p47-post":{"title":"¿Qué es un hook?","kind":"Diseño para redes · Smarketing 360","deck":"Comunicación visual sobre hooks y retención.","description":"Pieza gráfica para redes sociales sobre hooks y retención.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=11gIqA7Zhuee1GIhI5E3VIUmaWmc-j5CC&sz=w1200"],"tools":"Drive · Canva","results":"Post individual preparado para comunicación digital."},
-"p47":{"title":"Workflow con IA","kind":"Carrusel · Smarketing 360","deck":"Carrusel independiente sobre workflow con IA.","description":"Carrusel completo cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=18jRuZKF9UC-wYeQIUvwmRXCuKXg69lmm&sz=w1200","https://drive.google.com/thumbnail?id=1yOHop1DNzLC9z_vn_m5g5VDf0TIHT_B_&sz=w1200","https://drive.google.com/thumbnail?id=1aS5moeND3X4q5UqrdU9nfOeOsGwAg2uT&sz=w1200","https://drive.google.com/thumbnail?id=1VDwT_LbjSu_luC5jw88ZbLkZ6pZ-CCTx&sz=w1200"],"tools":"Drive · Canva","results":"Carrusel completo preparado para comunicación digital."},
-"p49":{"title":"El packaging también vende","kind":"Carrusel","deck":"El packaging también vende","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1489h8aDu2UfX1Zb_u5XwR_2Tf9FT1Q1D&sz=w1200","https://drive.google.com/thumbnail?id=1Uawj9-YsD3UyB_EPRqfn3wp3DwOj2VAD&sz=w1200","https://drive.google.com/thumbnail?id=1CwUouudkUlmtlWnqkHo7-93H8bEQr-6e&sz=w1200","https://drive.google.com/thumbnail?id=1rpEX5DYvouBllg2tS8eSGDiHdd9cgxh&sz=w1200F&sz=w1200"],"tools":"Drive · Canva","results":"Preview cargado desde Google Drive."},
-"p55":{"title":"Venta de vivienda","kind":"Campaña Meta","deck":"Venta de vivienda","description":"Preview cargado desde Google Drive.","role":"Diseño y composición propios.","type":"gallery","images":["https://drive.google.com/thumbnail?id=1y9TuoNj22SjkiuA19D6vDa0C8VZbx78s&sz=w1200","https://drive.google.com/thumbnail?id=1qO9wE-q9md5Gw34neeNFkQ_1x4-Dm1W0&sz=w1200","https://drive.google.com/thumbnail?id=1HdNWZjiO6spYLMG_x6KdIDxR1i4bx8rJ&sz=w1200","https://drive.google.com/thumbnail?id=1vuNtD5zsvMmnXoiUcCYU860dwSx7rjz&sz=w1200Z&sz=w1200"],"tools":"Drive · Affinity","results":"Preview cargado desde Google Drive."}
+  "p02": {
+    "title": "Expo Invierte",
+    "kind": "Pieza promocional · Expo Invierte",
+    "deck": "Expo Invierte",
+    "description": "Pieza visual sobre expo invierte.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1WGGoKTJKlHmVlyQxrV0v6jMHVw2EEgko&sz=w1200"
+    ],
+    "tools": "Herramientas por confirmar",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p09": {
+    "title": "Documentos antes de apartar",
+    "kind": "Contenido informativo · Inmobiliario",
+    "deck": "Documentos antes de apartar",
+    "description": "Serie de 4 piezas visuales sobre documentos antes de apartar.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1HyWgvtEdf7FGUZpbqNpKha2mb5b-Dt29&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1V6Wgn-55n9ooC5aD0ahexsXuDhOv-hxJ&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1HTQhNrOpnrZPbfeozuMAmkPN25Oaw-4J&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1BgL-JD67d6u1VrIU7bD2YGwf8FQZ4K0&sz=w1200V&sz=w1200"
+    ],
+    "tools": "Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p16": {
+    "title": "Películas sobre marketing",
+    "kind": "Diseño editorial · Marketing",
+    "deck": "Películas sobre marketing",
+    "description": "Serie de 4 piezas visuales sobre películas sobre marketing.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1wTdovnoA37mUJ9KqGLa-mCVyhVFDQdwW&sz=w1200",
+      "https://drive.google.com/thumbnail?id=12M_Br1JZUB91_bK8DLs17J1uLEhyO0jp&sz=w1200",
+      "https://drive.google.com/thumbnail?id=15OGBVhxt-OYJGyQh_5-Gyg_JBte0fv8t&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1EvLBJD6770jflb-aaV5Pt0VySOYAB_n&sz=w12004&sz=w1200"
+    ],
+    "tools": "Affinity",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p17": {
+    "title": "Tres términos inmobiliarios",
+    "kind": "Contenido informativo · Inmobiliario",
+    "deck": "Tres términos inmobiliarios",
+    "description": "Serie de 4 piezas visuales sobre tres términos inmobiliarios.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1DNYt8NPEv9ud85sG7-G8Jy6dmzuPayos&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1a2ZLTYhaHqe5xJMH63iBnLSC3NTqehj_&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1VGNP8VNB9P7v8HgCdH3xfL8HDLvgPZib&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1F1QqcjNM_wXyiNVu7W7B7f3L3AZakGW&sz=w1200C&sz=w1200"
+    ],
+    "tools": "Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p19": {
+    "title": "Marketing 360",
+    "kind": "Diseño promocional · Marketing",
+    "deck": "Marketing 360",
+    "description": "Pieza visual sobre marketing 360.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1PToLFnU-1sLi8dA7FBUa4dqhqmjfkSN9&sz=w1200"
+    ],
+    "tools": "Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p22": {
+    "title": "Masterclass Design Thinking",
+    "kind": "Pieza promocional · Masterclass",
+    "deck": "Masterclass Design Thinking",
+    "description": "Pieza visual sobre masterclass design thinking.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1rbKLg380L9FFreH9FqLORtcbtok73c31&sz=w1200"
+    ],
+    "tools": "Affinity",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p47-post": {
+    "title": "¿Qué es un hook?",
+    "kind": "Contenido educativo · Smarketing 360",
+    "deck": "Comunicación visual sobre hooks y retención.",
+    "description": "Pieza gráfica para redes sociales sobre hooks y retención.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=11gIqA7Zhuee1GIhI5E3VIUmaWmc-j5CC&sz=w1200"
+    ],
+    "tools": "Drive · Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p47": {
+    "title": "Workflow con IA",
+    "kind": "Contenido educativo · Smarketing 360",
+    "deck": "Carrusel independiente sobre workflow con IA.",
+    "description": "Serie de 4 piezas visuales sobre workflow con ia.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=18jRuZKF9UC-wYeQIUvwmRXCuKXg69lmm&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1yOHop1DNzLC9z_vn_m5g5VDf0TIHT_B_&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1aS5moeND3X4q5UqrdU9nfOeOsGwAg2uT&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1VDwT_LbjSu_luC5jw88ZbLkZ6pZ-CCTx&sz=w1200"
+    ],
+    "tools": "Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p49": {
+    "title": "El packaging también vende",
+    "kind": "Contenido de marca · Packaging",
+    "deck": "El packaging también vende",
+    "description": "Serie de 4 piezas visuales sobre el packaging también vende.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1489h8aDu2UfX1Zb_u5XwR_2Tf9FT1Q1D&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1Uawj9-YsD3UyB_EPRqfn3wp3DwOj2VAD&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1CwUouudkUlmtlWnqkHo7-93H8bEQr-6e&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1rpEX5DYvouBllg2tS8eSGDiHdd9cgxh&sz=w1200F&sz=w1200"
+    ],
+    "tools": "Canva",
+    "results": "Pieza incluida en la selección de diseño."
+  },
+  "p55": {
+    "title": "Venta de vivienda",
+    "kind": "Piezas promocionales · Inmobiliario",
+    "deck": "Venta de vivienda",
+    "description": "Conjunto de cuatro piezas visuales sobre venta de vivienda.",
+    "role": "Diseño y composición propios.",
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1y9TuoNj22SjkiuA19D6vDa0C8VZbx78s&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1qO9wE-q9md5Gw34neeNFkQ_1x4-Dm1W0&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1HdNWZjiO6spYLMG_x6KdIDxR1i4bx8rJ&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1vuNtD5zsvMmnXoiUcCYU860dwSx7rjz&sz=w1200Z&sz=w1200"
+    ],
+    "tools": "Affinity",
+    "results": "Pieza incluida en la selección de diseño."
+  }
 };
