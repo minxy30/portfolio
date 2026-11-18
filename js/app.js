@@ -971,9 +971,8 @@ function renderGrid(){const ids=visibleIDs(),el=$('work-grid');el.replaceChildre
   projectIds.forEach(id=>wall.appendChild(makeCard(id)));
   section.append(title,wall);el.appendChild(section);
  };
- const curated=[...featured.filter(id=>ids.includes(id)),...ids.filter(id=>!featured.includes(id)&&!pending.includes(id))];
- addSection('Proyectos audiovisuales',curated);
- addSection('Otras muestras · créditos por completar',ids.filter(id=>pending.includes(id)));
+ const allProjects=[...featured.filter(id=>ids.includes(id)),...ids.filter(id=>!featured.includes(id))];
+ addSection('Proyectos audiovisuales',allProjects);
 }else ids.forEach(id=>el.appendChild(makeCard(id)));
 if(activeCategory==='video'&&activeFilter==='all')watchCuratedMasonry();else if(masonryResizeObserver)masonryResizeObserver.disconnect();
 const cards=el.querySelectorAll('.project-card');if(reduce.matches||!('IntersectionObserver' in window)){cards.forEach(e=>e.classList.add('is-visible'))}else{observer=new IntersectionObserver(entries=>{entries.forEach(x=>{if(x.isIntersecting){x.target.classList.add('is-visible');observer.unobserve(x.target)}})},{root:workMain,rootMargin:'120px 0px',threshold:.02});cards.forEach(e=>observer.observe(e));setTimeout(()=>cards.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight+200)e.classList.add('is-visible')}),250)}}
