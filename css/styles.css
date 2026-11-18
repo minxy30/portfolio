@@ -1158,3 +1158,10 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .viewer-contribution-list li{padding-left:.15rem;line-height:1.55}
 .viewer-software-chip{display:inline-flex;align-items:center;gap:.65rem;padding:.5rem .8rem;border:1px solid rgba(150,160,190,.25);border-radius:12px;font-weight:600;max-width:100%}
 .viewer-software-chip img{width:28px;height:28px;display:block;object-fit:contain}
+
+/* Continuous Pinterest-style gallery: responsive card widths and no forced section gap. */
+.video-curated-grid .curated-video-section{margin-bottom:24px}
+.video-curated-grid .curated-video-masonry{column-count:auto;column-width:clamp(175px,19vw,260px);column-gap:clamp(12px,1.6vw,22px);column-fill:balance}
+.video-curated-grid .curated-video-masonry .project-card{display:inline-block;width:100%;max-width:100%;margin-bottom:clamp(14px,1.8vw,24px);break-inside:avoid-column}
+@media(max-width:740px){.video-curated-grid .curated-video-masonry{column-width:clamp(145px,40vw,205px);column-gap:12px}}
+@media(max-width:360px){.video-curated-grid .curated-video-masonry{column-count:1}}
