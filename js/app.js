@@ -929,36 +929,52 @@ if(item.type==='video'&&item.platform==='file'&&/^https:\/\//.test(item.id)){
 }else if(pic){const img=document.createElement('img');img.src=pic;img.loading='lazy';img.alt='Vista previa: '+item.title;img.decoding='async';img.onerror=()=>{img.style.opacity='0';const fallback=document.createElement('div');fallback.className='image-no-preview';fallback.innerHTML='<span>YAZMIN<br><small>Ver proyecto ↗</small></span>';frame.appendChild(fallback)};frame.appendChild(img)}else{const fall=document.createElement('div');fall.className='image-no-preview';fall.innerHTML='<span>YAZMIN<br><small>Ver proyecto ↗</small></span>';frame.appendChild(fall)}if(item.type==='video'){let play=document.createElement('span');play.className='play-hint';play.textContent='▶';play.setAttribute('aria-hidden','true');frame.appendChild(play)}
 const caption=document.createElement('div');caption.className='project-caption';const title=document.createElement('strong');title.textContent=item.title;const sub=document.createElement('span');sub.textContent=item.kind;caption.append(title,sub);btn.append(frame,caption);btn.addEventListener('click',()=>{if(item.externalUrl&&activeCategory==='copywriter'&&window.openCopywriterArticle){window.openCopywriterArticle(item,btn);return}if(item.externalUrl){window.open(item.externalUrl,'_blank','noopener,noreferrer');return}openProject(id,btn)});article.appendChild(btn);return article}
 let masonryResizeObserver=null;
+let masonryFrame=0;
 function layoutCuratedMasonry(){
  document.querySelectorAll('.curated-video-masonry').forEach(wall=>{
   const cards=[...wall.querySelectorAll('.project-card')];if(!cards.length)return;
   const main=wall.closest('.work-main');
-  const available=main?main.clientWidth-parseFloat(getComputedStyle(main).paddingLeft)-parseFloat(getComputedStyle(main).paddingRight):wall.clientWidth;
-  const width=Math.max(0,Math.floor(Math.min(window.innerWidth,main?.clientWidth||window.innerWidth)-(main?parseFloat(getComputedStyle(main).paddingLeft)+parseFloat(getComputedStyle(main).paddingRight):64)));if(!width)return;
-  wall.style.setProperty('width',width+'px','important');wall.style.setProperty('max-width','none','important');
+  const mainStyle=main?getComputedStyle(main):null;
+  const padding=mainStyle?(parseFloat(mainStyle.paddingLeft)||0)+(parseFloat(mainStyle.paddingRight)||0):0;
+  const width=Math.floor(main?main.clientWidth-padding:wall.parentElement.clientWidth);
+  if(width<=0)return;
   const gap=width<=740?12:18,minWidth=width<=740?145:190;
   const count=Math.max(1,Math.floor((width+gap)/(minWidth+gap)));
-  const colWidth=(width-(count-1)*gap)/count;
   if(wall.dataset.columns===String(count)&&wall.dataset.width===String(width))return;
   wall.dataset.columns=String(count);wall.dataset.width=String(width);
+  wall.style.removeProperty('width');wall.style.removeProperty('max-width');
   wall.style.display='grid';wall.style.gridTemplateColumns='repeat('+count+', minmax(0, 1fr))';wall.style.gap=gap+'px';
+  const colWidth=(width-(count-1)*gap)/count;
   const cols=Array.from({length:count},()=>{const col=document.createElement('div');col.className='masonry-stack';col.style.display='flex';col.style.flexDirection='column';col.style.gap=gap+'px';return col});
   const heights=Array(count).fill(0);
   cards.forEach(card=>{
-   const ratio=getComputedStyle(card.querySelector('.project-image')).getPropertyValue('--ratio').trim()||'4/5';
-   const parts=ratio.split('/').map(Number);const imageHeight=parts.length===2&&parts[0]>0&&parts[1]>0?colWidth*parts[1]/parts[0]:colWidth*1.25;
-   const caption=card.querySelector('.project-caption');const label=(caption?.textContent||'').length;
+   const image=card.querySelector('.project-image');
+   const ratio=image?getComputedStyle(image).getPropertyValue('--ratio').trim():'4/5';
+   const parts=ratio.split('/').map(Number);
+   const imageHeight=parts.length===2&&parts[0]>0&&parts[1]>0?colWidth*parts[1]/parts[0]:colWidth*1.25;
+   const label=(card.querySelector('.project-caption')?.textContent||'').length;
    const estimatedHeight=imageHeight+52+Math.max(0,Math.ceil(label/38)-1)*17+gap;
    const idx=heights.indexOf(Math.min(...heights));cols[idx].appendChild(card);heights[idx]+=estimatedHeight;
   });
   wall.replaceChildren(...cols);
  });
 }
+function scheduleCuratedMasonry(){
+ if(masonryFrame)cancelAnimationFrame(masonryFrame);
+ masonryFrame=requestAnimationFrame(()=>{masonryFrame=0;layoutCuratedMasonry()});
+}
 function watchCuratedMasonry(){
  if(masonryResizeObserver)masonryResizeObserver.disconnect();
  layoutCuratedMasonry();
- if('ResizeObserver' in window){masonryResizeObserver=new ResizeObserver(()=>layoutCuratedMasonry());document.querySelectorAll('.curated-video-masonry').forEach(w=>masonryResizeObserver.observe(w));}
+ if('ResizeObserver' in window){
+  masonryResizeObserver=new ResizeObserver(scheduleCuratedMasonry);
+  document.querySelectorAll('.curated-video-masonry').forEach(w=>{
+   const main=w.closest('.work-main');
+   masonryResizeObserver.observe(main||w.parentElement);
+  });
+ }
 }
+window.addEventListener('resize',scheduleCuratedMasonry,{passive:true});
 let observer=null;
 function renderGrid(){const ids=visibleIDs(),el=$('work-grid');el.replaceChildren();el.classList.toggle('video-curated-grid',activeCategory==='video'&&activeFilter==='all');activeItems=ids;if(observer)observer.disconnect();if(!ids.length){el.textContent='No hay piezas en este filtro.';return}if(activeCategory==='video'&&activeFilter==='all'){
  const featured=['benito-mexico','benito-ia','zaru','smarketing'];
