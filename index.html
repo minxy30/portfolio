@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080e14">
+<meta name="theme-color" content="#0B1A1F">
 <meta name="description" content="Portafolio de Yazmin Moreno: edición audiovisual para creadores y marcas, diseño gráfico y contenido editorial. Proyectos seleccionados con participación documentada.">
 <title>Yazmin Moreno — Edición audiovisual y contenido creativo</title>
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=portfolio-clean-20261118-1">
+<link rel="stylesheet" href="css/styles.css?v=kinetic-nav-20261118-1">
 <script defer src="js/projects-data.js?v=portfolio-clean-20261118-1"></script>
 <script defer src="js/site-config.js"></script>
 
 <script defer src="js/drive-previews.js?v=official-sabias-6"></script>
 <script defer src="js/copywriter-links.js?v=article-cover-fix-2"></script>
-<script defer src="js/app.js?v=portfolio-clean-20261118-1"></script>
+<script defer src="js/app.js?v=kinetic-nav-20261118-1"></script>
 </head>
 <body data-theme="dark" data-screen="home" class="pre-entry">
-<a class="skip" href="#video">Ir directamente a los trabajos</a>
+<a class="skip" href="#work-space" data-destination="video">Ir directamente a los trabajos</a>
 <div class="atmosphere" aria-hidden="true"><video id="background-video" class="background-video" autoplay muted playsinline loop></video><canvas id="particle-canvas"></canvas><div class="atmo-vignette"></div></div>
 <audio id="ambient-audio" preload="auto"></audio>
 <div class="light-reveal" id="light-reveal" aria-hidden="true"></div>
@@ -78,13 +78,44 @@
   <div class="home-deck" id="home-deck">
     <section class="home-scene scene-entrance is-active" id="scene-entrance" aria-label="Inicio — selección de disciplina">
       <div class="home-annotation">PORTAFOLIO <span>CREATIVO</span> / <span data-current-year>2026</span></div>
-      <div class="paper-menu" aria-label="Explora mi trabajo">
-        <button type="button" class="paper paper-about" data-destination="about">Sobre mí <span aria-hidden="true">↗</span></button>
-        <button type="button" class="paper paper-video" data-destination="video">Video <span aria-hidden="true">↗</span></button>
-        <button type="button" class="paper paper-design" data-destination="diseno">Diseño <span aria-hidden="true">↗</span></button>
-        <button type="button" class="paper paper-photo" data-destination="fotografia">Fotografía <span aria-hidden="true">↗</span></button>
-        <button type="button" class="paper paper-copy" data-destination="copywriter">Redacción <span aria-hidden="true">↗</span></button>
-      </div>
+      <nav class="kinetic-menu" id="kinetic-menu" aria-label="Explora mi trabajo">
+        <p class="kinetic-kicker" aria-hidden="true">CINCO FORMAS DE CONTAR UNA HISTORIA</p>
+        <div class="kinetic-preview-stage" aria-hidden="true">
+          <figure class="kinetic-preview-panel" data-preview-panel="about">
+            <img src="assets/images/yazmin-retrato.jpg" alt="" loading="eager" decoding="async">
+          </figure>
+          <figure class="kinetic-preview-panel kinetic-preview-video" data-preview-panel="video">
+            <video src="assets/video/lobby-mexico.mp4" poster="assets/images/poster-thehomes.webp" muted loop playsinline preload="metadata"></video>
+          </figure>
+          <figure class="kinetic-preview-panel" data-preview-panel="diseno">
+            <img src="assets/images/smarketing-mexico.webp" alt="" loading="eager" decoding="async">
+          </figure>
+          <figure class="kinetic-preview-panel" data-preview-panel="fotografia">
+            <img src="assets/images/fotografia-halloween-03.webp" alt="" loading="eager" decoding="async">
+          </figure>
+          <div class="kinetic-preview-panel kinetic-preview-copy" data-preview-panel="copywriter">
+            <span>IDEA</span><span>VOZ</span><span>RITMO</span>
+          </div>
+        </div>
+        <div class="kinetic-links">
+          <button type="button" class="kinetic-link" data-destination="about" data-preview="about" aria-label="Sobre mí" aria-haspopup="dialog" aria-controls="about-viewer" style="--indent:2vw">
+            <span class="kinetic-index" aria-hidden="true">01</span><span class="kinetic-word" data-word="Sobre mí" aria-hidden="true">Sobre mí</span><span class="kinetic-meta" aria-hidden="true">Perfil creativo</span>
+          </button>
+          <button type="button" class="kinetic-link" data-destination="video" data-preview="video" aria-label="Video" style="--indent:16vw">
+            <span class="kinetic-index" aria-hidden="true">02</span><span class="kinetic-word" data-word="Video" aria-hidden="true">Video</span><span class="kinetic-meta" aria-hidden="true">Edición audiovisual</span>
+          </button>
+          <button type="button" class="kinetic-link" data-destination="diseno" data-preview="diseno" aria-label="Diseño" style="--indent:36vw">
+            <span class="kinetic-index" aria-hidden="true">03</span><span class="kinetic-word" data-word="Diseño" aria-hidden="true">Diseño</span><span class="kinetic-meta" aria-hidden="true">Sistemas visuales</span>
+          </button>
+          <button type="button" class="kinetic-link" data-destination="fotografia" data-preview="fotografia" aria-label="Fotografía" style="--indent:8vw">
+            <span class="kinetic-index" aria-hidden="true">04</span><span class="kinetic-word" data-word="Fotografía" aria-hidden="true">Fotografía</span><span class="kinetic-meta" aria-hidden="true">Mirada y atmósfera</span>
+          </button>
+          <button type="button" class="kinetic-link" data-destination="copywriter" data-preview="copywriter" aria-label="Redacción" style="--indent:28vw">
+            <span class="kinetic-index" aria-hidden="true">05</span><span class="kinetic-word" data-word="Redacción" aria-hidden="true">Redacción</span><span class="kinetic-meta" aria-hidden="true">Ideas con voz</span>
+          </button>
+        </div>
+        <p class="kinetic-hint" aria-hidden="true">EXPLORA · ELIGE UNA DISCIPLINA</p>
+      </nav>
       <div class="home-bottom"><span>EDICIÓN AUDIOVISUAL · CONTENIDO PARA CREADORES Y MARCAS</span><button type="button" class="next-screen" data-next="1">DESLIZA PARA VER HERRAMIENTAS <span aria-hidden="true">↓</span></button></div>
     </section>
     <section class="home-scene scene-tools" id="scene-tools" aria-label="Herramientas que utilizo" inert>
@@ -147,7 +178,7 @@
   <section class="work-space" id="work-space" aria-label="Biblioteca de proyectos" hidden>
     <aside class="work-rail" id="work-rail" aria-label="Secciones del portafolio"></aside>
     <div class="work-main" id="work-main">
-      <div class="work-topline"><button type="button" id="back-home" class="back-home">← <span>Inicio</span></button><h1 id="work-heading">Edición de video <span>| Yazmin Moreno</span></h1><span class="work-heading-right">PORTAFOLIO / <span data-current-year>2026</span></span></div>
+      <div class="work-topline"><button type="button" id="back-home" class="back-home">← <span>Inicio</span></button><h1 id="work-heading" tabindex="-1">Edición de video <span>| Yazmin Moreno</span></h1><span class="work-heading-right">PORTAFOLIO / <span data-current-year>2026</span></span></div>
       <nav class="work-tabs" id="work-tabs" aria-label="Filtrar trabajos"></nav>
       <div class="work-intro" id="work-intro"><p class="eyebrow" id="work-caption">TRABAJOS SELECCIONADOS</p><h2 id="work-intro-title">Edición de video</h2><p id="work-intro-detail">Una selección de proyectos con distintas competencias.</p></div>
       <div class="masonry" id="work-grid" aria-live="polite"></div>
