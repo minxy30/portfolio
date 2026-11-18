@@ -1189,3 +1189,24 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 #work-grid.video-curated-grid>.curated-video-section{width:100%!important;max-width:100%!important;display:flow-root!important;column-span:all!important}
 #work-grid.video-curated-grid .curated-video-masonry{display:grid!important;columns:none!important;column-count:initial!important;column-width:auto!important;max-width:none!important;overflow:visible!important}
 #work-grid.video-curated-grid .masonry-stack{min-width:0!important}
+
+/* Clean audiovisual portfolio: flat surfaces and a restrained five-color palette. */
+:root{--bg:#FFFFFF;--ink:#0B1A1F;--muted:#536066;--line:rgba(11,26,31,.16);--card:#FFFFFF;--glass:#FFFFFF;--paper:#FFFFFF;--paper-edge:#0B1A1F;--accent:#D97757;--brand-accent:#D97757;--shadow:0 12px 30px rgba(11,26,31,.10)}
+body[data-theme="dark"]{--bg:#0B1A1F;--ink:#FFFFFF;--muted:#C4CBCB;--line:rgba(255,255,255,.18);--card:#0B1A1F;--glass:#0B1A1F;--paper:#0B1A1F;--paper-edge:#FFDF8F;--accent:#D97757;--brand-accent:#FFDF8F;--shadow:0 12px 30px rgba(0,0,0,.28)}
+/* Remove continuous background particles and decorative atmospheric textures. */
+.atmosphere,.atmo-vignette,#particle-canvas,.background-video{display:none!important}
+body,.work-space,.work-main,.work-grid,.video-curated-grid,.curated-video-section{background-color:var(--bg)!important;background-image:none!important}
+.work-space::before,.work-space::after,.work-main::before,.work-main::after,.work-grid::before,.work-grid::after{background-image:none!important;box-shadow:none!important}
+.project-card{transition:opacity .55s ease,transform .6s cubic-bezier(.2,.7,.2,1),filter .5s ease,box-shadow .25s ease!important}
+.project-card.is-visible{opacity:1;filter:none;transform:translateY(0)}
+.project-image{overflow:hidden}
+.project-image img,.project-image video{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover) and (pointer:fine){
+ .project-card.is-visible:hover{transform:translateY(-5px)!important;filter:none!important}
+ .project-card:hover .project-image img,.project-card:hover .project-image video{transform:scale(1.035)}
+}
+@media(prefers-reduced-motion:reduce){
+ .project-card,.project-image img,.project-image video{transition:none!important;animation:none!important}
+ .project-card{opacity:1!important;transform:none!important;filter:none!important}
+ .project-card:hover .project-image img,.project-card:hover .project-image video{transform:none!important}
+}
