@@ -887,7 +887,8 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 
 /* Kinetic gallery hierarchy: previews sit above the warm interaction wash. */
 .kinetic-preview-stage{z-index:6!important}
-.kinetic-preview-panel{opacity:1!important;filter:none!important;box-shadow:0 24px 64px rgba(0,0,0,.34)!important}
+.kinetic-preview-panel{opacity:0!important;filter:none!important;box-shadow:0 24px 64px rgba(0,0,0,.34)!important}
+.kinetic-preview-panel.is-active{opacity:1!important}
 .kinetic-preview-panel::after{display:none!important}
 .kinetic-link::before{z-index:-1!important}
 
