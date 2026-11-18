@@ -243,8 +243,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Adobe Premiere Pro",
-    "results": "Video completo disponible en YouTube.",
-    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
+    "results": "Video completo disponible en YouTube."
   },
   "benito-ia": {
     "title": "IA es la nueva bomba atómica",
@@ -269,8 +268,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Adobe Premiere Pro",
-    "results": "Video completo disponible en YouTube.",
-    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
+    "results": "Video completo disponible en YouTube."
   },
   "benito-bolivia": {
     "title": "Hablemos de la horrible situación de Bolivia",
@@ -295,8 +293,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Adobe Premiere Pro",
-    "results": "Video completo disponible en YouTube.",
-    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
+    "results": "Video completo disponible en YouTube."
   },
   "benito-viral": {
     "title": "Sucedió en directo y se hizo viral al instante",
@@ -321,8 +318,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Adobe Premiere Pro",
-    "results": "Video completo disponible en YouTube.",
-    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
+    "results": "Video completo disponible en YouTube."
   },
   "benito-ormuz": {
     "title": "Top 5 lugares para fumar en el estrecho de Ormuz",
@@ -347,8 +343,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Adobe Premiere Pro",
-    "results": "Video completo disponible en YouTube.",
-    "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
+    "results": "Video completo disponible en YouTube."
   },
   "foto-halloween": {
     "title": "Fotografía · Personajes de fantasía",
