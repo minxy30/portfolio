@@ -870,12 +870,12 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 /* Definitive lobby cleanup: no white wash and no container around the copy. */
 .entry-gate{background:#0B1A1F!important}
 .entry-veil,.entry-flare{display:none!important}
-.entry-gate::after{background:rgba(0,0,0,.58)!important;opacity:1!important}
+.entry-gate::after{background:transparent!important;opacity:0!important;display:none!important}
 .entry-content{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .entry-content::before{display:none!important}
 .entry-portal{display:none!important}
 .entry-collage::after{display:none!important}
-.entry-collage{opacity:.58!important;filter:saturate(.86) contrast(1.08)!important}
+.entry-collage{opacity:.72!important;filter:saturate(.94) contrast(1.08)!important}
 .entry-content h1{color:#FFFFFF!important;text-shadow:0 3px 18px #000!important}
 .entry-content h1 span{color:#D97757!important;text-shadow:0 3px 18px #000!important}
 .entry-overline,.entry-fields{color:#FFFFFF!important;text-shadow:0 2px 12px #000!important}
