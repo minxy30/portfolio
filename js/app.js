@@ -932,8 +932,11 @@ let masonryResizeObserver=null;
 function layoutCuratedMasonry(){
  document.querySelectorAll('.curated-video-masonry').forEach(wall=>{
   const cards=[...wall.querySelectorAll('.project-card')];if(!cards.length)return;
-  const width=wall.clientWidth;if(!width)return;
-  const gap=width<=740?12:20,minWidth=width<=740?145:235;
+  const main=wall.closest('.work-main');
+  const available=main?main.clientWidth-parseFloat(getComputedStyle(main).paddingLeft)-parseFloat(getComputedStyle(main).paddingRight):wall.clientWidth;
+  const width=Math.max(wall.clientWidth,Math.floor(available));if(!width)return;
+  wall.style.width='100%';wall.style.maxWidth='none';
+  const gap=width<=740?12:18,minWidth=width<=740?145:190;
   const count=Math.max(1,Math.floor((width+gap)/(minWidth+gap)));
   const colWidth=(width-(count-1)*gap)/count;
   if(wall.dataset.columns===String(count)&&wall.dataset.width===String(width))return;
