@@ -867,6 +867,22 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 @media(max-width:740px){.entry-content{width:min(94vw,560px);padding:28px 20px;border-radius:22px}.entry-content h1{font-size:clamp(48px,15vw,76px)}.entry-fields{font-size:12px;line-height:1.45}.entry-launch{min-height:62px}.entry-portal{width:clamp(125px,34vw,175px)}}
 @media(prefers-reduced-motion:reduce){.entry-collage{transform:none!important;transition:none}.entry-gate::after{opacity:.55}}
 
+/* Definitive lobby cleanup: no white wash and no container around the copy. */
+.entry-gate{background:#0B1A1F!important}
+.entry-veil,.entry-flare{display:none!important}
+.entry-gate::after{background:linear-gradient(90deg,#0B1A1Fdd 0%,#0B1A1F55 42%,#0B1A1F66 70%,#0B1A1Fdd 100%),linear-gradient(180deg,#0B1A1F88 0%,transparent 28%,transparent 70%,#0B1A1Fdd 100%)!important;opacity:1!important}
+.entry-content{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.entry-content::before{display:none!important}
+.entry-portal{display:none!important}
+
+/* Final override: no white wash and no container around the lobby copy. */
+.entry-gate{background:#0B1A1F!important}
+.entry-veil,.entry-flare{display:none!important}
+.entry-gate::after{background:linear-gradient(90deg,#0B1A1Fdd 0%,#0B1A1F55 42%,#0B1A1F66 70%,#0B1A1Fdd 100%),linear-gradient(180deg,#0B1A1F88 0%,transparent 28%,transparent 70%,#0B1A1Fdd 100%)!important;opacity:1!important}
+.entry-content{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.entry-content::before{display:none!important}
+.entry-portal{display:none!important}
+
 /* Lobby cleanup: return to an open editorial composition. */
 .entry-gate{background:#0B1A1F;color:#FFFFFF}
 .entry-gate::after{background:linear-gradient(90deg,#0B1A1Fbb 0%,#0B1A1F34 38%,#0B1A1F48 68%,#0B1A1Faa 100%),linear-gradient(180deg,#0B1A1F70 0%,transparent 32%,transparent 68%,#0B1A1Fbb 100%);opacity:1}
