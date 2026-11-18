@@ -223,7 +223,7 @@ window.PORTFOLIO_DATA = {
   "benito-mexico": {
     "title": "México jamás se había sentido así de chido",
     "kind": "Edición audiovisual · Benito Camello",
-    "deck": "Video publicado en YouTube",
+    "deck": "Edición de video publicado en YouTube",
     "description": "Edición y postproducción para YouTube a partir de la grabación del creador, con autonomía creativa y seguimiento de indicaciones específicas cuando correspondía.",
     "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
     "type": "video",
@@ -248,7 +248,7 @@ window.PORTFOLIO_DATA = {
   "benito-ia": {
     "title": "IA es la nueva bomba atómica",
     "kind": "Edición audiovisual · Benito Camello",
-    "deck": "Video publicado en YouTube",
+    "deck": "Edición de video publicado en YouTube",
     "description": "Investigación editorial previa a la grabación y edición audiovisual. Benito utilizó el documento como referencia y añadió sus propios comentarios.",
     "role": ["Investigación de noticias y redacción de documento de apoyo para la grabación","Búsqueda y selección de recursos visuales y sonoros","Montaje narrativo, ritmo y postproducción audiovisual"],
     "type": "video",
@@ -273,7 +273,7 @@ window.PORTFOLIO_DATA = {
   "benito-bolivia": {
     "title": "Hablemos de la horrible situación de Bolivia",
     "kind": "Edición audiovisual · Benito Camello",
-    "deck": "Video publicado en YouTube",
+    "deck": "Edición de video publicado en YouTube",
     "description": "Investigación editorial previa a la grabación y edición audiovisual. Benito utilizó el documento como referencia y añadió sus propios comentarios.",
     "role": ["Investigación de noticias y redacción de documento de apoyo para la grabación","Búsqueda y selección de recursos visuales y sonoros","Montaje narrativo, ritmo y postproducción audiovisual"],
     "type": "video",
@@ -298,7 +298,7 @@ window.PORTFOLIO_DATA = {
   "benito-viral": {
     "title": "Sucedió en directo y se hizo viral al instante",
     "kind": "Edición audiovisual · Benito Camello",
-    "deck": "Video publicado en YouTube",
+    "deck": "Edición de video publicado en YouTube",
     "description": "Edición y postproducción para YouTube a partir de la grabación del creador, con autonomía creativa y seguimiento de indicaciones específicas cuando correspondía.",
     "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
     "type": "video",
@@ -323,7 +323,7 @@ window.PORTFOLIO_DATA = {
   "benito-ormuz": {
     "title": "Top 5 lugares para fumar en el estrecho de Ormuz",
     "kind": "Edición audiovisual · Benito Camello",
-    "deck": "Video publicado en YouTube",
+    "deck": "Edición de video publicado en YouTube",
     "description": "Edición y postproducción para YouTube a partir de la grabación del creador, con autonomía creativa y seguimiento de indicaciones específicas cuando correspondía.",
     "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
     "type": "video",
