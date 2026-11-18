@@ -1135,3 +1135,10 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .copy-cover-kicker{font-size:10px;font-weight:800;letter-spacing:.13em;color:#c66a00}
 .copy-cover-content strong{font-size:clamp(21px,2.4vw,37px);line-height:1.08;letter-spacing:-.05em;overflow-wrap:anywhere}
 .copy-cover-content small{margin-top:auto;font-size:11px;color:#555}
+
+/* Audiovisual curation: full-width section labels and responsive cards */
+.masonry.video-curated-grid{columns:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:20px;align-items:start}
+.video-curated-grid .gallery-section-title{grid-column:1/-1;margin:20px 0 0;font-size:clamp(1.15rem,2.3vw,1.55rem);font-weight:750;letter-spacing:-.025em;line-height:1.3}
+.video-curated-grid .project-card{margin:0;min-width:0}
+@media(max-width:580px){.masonry.video-curated-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.video-curated-grid .gallery-section-title{margin-top:18px;font-size:1.15rem}}
+@media(max-width:370px){.masonry.video-curated-grid{grid-template-columns:1fr}}
