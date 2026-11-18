@@ -243,15 +243,15 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-ia": {
     "title": "IA es la nueva bomba atómica",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Edición y postproducción para YouTube a partir de la grabación proporcionada por el creador. Investigación y selección autónoma de imágenes, clips, memes, música y efectos; decisiones de montaje y ritmo narrativo en Adobe Premiere Pro, siguiendo indicaciones específicas cuando correspondía. Las primeras versiones habitualmente se aprobaban sin cambios.",
-    "role": "Edición audiovisual, montaje narrativo, investigación y curaduría de recursos visuales y sonoros. Grabación original a cargo de Benito Camello.",
+    "description": "Investigación de noticias y redacción de un documento editorial de apoyo, adaptado al estilo de comunicación del creador. Benito lo utilizaba como referencia durante la grabación y añadía sus propios comentarios. Posteriormente realicé la edición y postproducción en Adobe Premiere Pro, con búsqueda y selección de recursos visuales y sonoros, montaje y decisiones de ritmo narrativo.",
+    "role": "Investigación de noticias, redacción de contenido de apoyo para grabación, edición audiovisual y montaje narrativo. Presentación y comentarios propios a cargo de Benito Camello.",
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -268,16 +268,16 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Edición audiovisual",
-    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "tools": "Investigación editorial · Redacción de apoyo · Adobe Premiere Pro · Montaje audiovisual",
+    "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-bolivia": {
     "title": "Hablemos de la horrible situación de Bolivia",
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicada",
-    "description": "Edición y postproducción para YouTube a partir de la grabación proporcionada por el creador. Investigación y selección autónoma de imágenes, clips, memes, música y efectos; decisiones de montaje y ritmo narrativo en Adobe Premiere Pro, siguiendo indicaciones específicas cuando correspondía. Las primeras versiones habitualmente se aprobaban sin cambios.",
-    "role": "Edición audiovisual, montaje narrativo, investigación y curaduría de recursos visuales y sonoros. Grabación original a cargo de Benito Camello.",
+    "description": "Investigación de noticias y redacción de un documento editorial de apoyo, adaptado al estilo de comunicación del creador. Benito lo utilizaba como referencia durante la grabación y añadía sus propios comentarios. Posteriormente realicé la edición y postproducción en Adobe Premiere Pro, con búsqueda y selección de recursos visuales y sonoros, montaje y decisiones de ritmo narrativo.",
+    "role": "Investigación de noticias, redacción de contenido de apoyo para grabación, edición audiovisual y montaje narrativo. Presentación y comentarios propios a cargo de Benito Camello.",
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -294,8 +294,8 @@ window.PORTFOLIO_DATA = {
         "platform": "file"
       }
     ],
-    "tools": "Edición audiovisual",
-    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "tools": "Investigación editorial · Redacción de apoyo · Adobe Premiere Pro · Montaje audiovisual",
+    "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-viral": {
@@ -321,7 +321,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "benito-ormuz": {
@@ -347,7 +347,7 @@ window.PORTFOLIO_DATA = {
       }
     ],
     "tools": "Edición audiovisual",
-    "results": "Video completo disponible en YouTube y fragmento corto disponible en el reproductor del portafolio.",
+    "results": "Video completo disponible en YouTube.",
     "note": "El fragmento utiliza reproducción HTML5 optimizada para navegadores."
   },
   "foto-halloween": {
