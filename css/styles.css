@@ -1183,3 +1183,9 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 #work-grid.masonry.video-curated-grid{box-sizing:border-box!important;overflow:visible!important;max-width:100%!important}
 #work-grid.video-curated-grid>.curated-video-section{box-sizing:border-box!important;max-width:100%!important}
 #work-grid.video-curated-grid .curated-video-masonry{box-sizing:border-box!important;max-width:100%!important}
+
+/* Full-viewport gallery fix: break out of any inherited multicolumn fragment. */
+#work-grid.masonry.video-curated-grid{display:block!important;width:100%!important;max-width:100%!important;columns:none!important;column-count:initial!important;column-width:auto!important;overflow:visible!important}
+#work-grid.video-curated-grid>.curated-video-section{width:100%!important;max-width:100%!important;display:flow-root!important;column-span:all!important}
+#work-grid.video-curated-grid .curated-video-masonry{display:grid!important;columns:none!important;column-count:initial!important;column-width:auto!important;max-width:none!important;overflow:visible!important}
+#work-grid.video-curated-grid .masonry-stack{min-width:0!important}
