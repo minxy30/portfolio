@@ -928,6 +928,34 @@ if(item.type==='video'&&item.platform==='file'&&/^https:\/\//.test(item.id)){
  frame.appendChild(preview);
 }else if(pic){const img=document.createElement('img');img.src=pic;img.loading='lazy';img.alt='Vista previa: '+item.title;img.decoding='async';img.onerror=()=>{img.style.opacity='0';const fallback=document.createElement('div');fallback.className='image-no-preview';fallback.innerHTML='<span>YAZMIN<br><small>Ver proyecto ↗</small></span>';frame.appendChild(fallback)};frame.appendChild(img)}else{const fall=document.createElement('div');fall.className='image-no-preview';fall.innerHTML='<span>YAZMIN<br><small>Ver proyecto ↗</small></span>';frame.appendChild(fall)}if(item.type==='video'){let play=document.createElement('span');play.className='play-hint';play.textContent='▶';play.setAttribute('aria-hidden','true');frame.appendChild(play)}
 const caption=document.createElement('div');caption.className='project-caption';const title=document.createElement('strong');title.textContent=item.title;const sub=document.createElement('span');sub.textContent=item.kind;caption.append(title,sub);btn.append(frame,caption);btn.addEventListener('click',()=>{if(item.externalUrl&&activeCategory==='copywriter'&&window.openCopywriterArticle){window.openCopywriterArticle(item,btn);return}if(item.externalUrl){window.open(item.externalUrl,'_blank','noopener,noreferrer');return}openProject(id,btn)});article.appendChild(btn);return article}
+let masonryResizeObserver=null;
+function layoutCuratedMasonry(){
+ document.querySelectorAll('.curated-video-masonry').forEach(wall=>{
+  const cards=[...wall.querySelectorAll('.project-card')];if(!cards.length)return;
+  const width=wall.clientWidth;if(!width)return;
+  const gap=width<=740?12:20,minWidth=width<=740?145:235;
+  const count=Math.max(1,Math.floor((width+gap)/(minWidth+gap)));
+  const colWidth=(width-(count-1)*gap)/count;
+  if(wall.dataset.columns===String(count)&&wall.dataset.width===String(width))return;
+  wall.dataset.columns=String(count);wall.dataset.width=String(width);
+  wall.style.display='grid';wall.style.gridTemplateColumns='repeat('+count+', minmax(0, 1fr))';wall.style.gap=gap+'px';
+  const cols=Array.from({length:count},()=>{const col=document.createElement('div');col.className='masonry-stack';col.style.display='flex';col.style.flexDirection='column';col.style.gap=gap+'px';return col});
+  const heights=Array(count).fill(0);
+  cards.forEach(card=>{
+   const ratio=getComputedStyle(card.querySelector('.project-image')).getPropertyValue('--ratio').trim()||'4/5';
+   const parts=ratio.split('/').map(Number);const imageHeight=parts.length===2&&parts[0]>0&&parts[1]>0?colWidth*parts[1]/parts[0]:colWidth*1.25;
+   const caption=card.querySelector('.project-caption');const label=(caption?.textContent||'').length;
+   const estimatedHeight=imageHeight+52+Math.max(0,Math.ceil(label/38)-1)*17+gap;
+   const idx=heights.indexOf(Math.min(...heights));cols[idx].appendChild(card);heights[idx]+=estimatedHeight;
+  });
+  wall.replaceChildren(...cols);
+ });
+}
+function watchCuratedMasonry(){
+ if(masonryResizeObserver)masonryResizeObserver.disconnect();
+ layoutCuratedMasonry();
+ if('ResizeObserver' in window){masonryResizeObserver=new ResizeObserver(()=>layoutCuratedMasonry());document.querySelectorAll('.curated-video-masonry').forEach(w=>masonryResizeObserver.observe(w));}
+}
 let observer=null;
 function renderGrid(){const ids=visibleIDs(),el=$('work-grid');el.replaceChildren();el.classList.toggle('video-curated-grid',activeCategory==='video'&&activeFilter==='all');activeItems=ids;if(observer)observer.disconnect();if(!ids.length){el.textContent='No hay piezas en este filtro.';return}if(activeCategory==='video'&&activeFilter==='all'){
  const featured=['benito-mexico','benito-ia','zaru','smarketing'];
@@ -944,6 +972,7 @@ function renderGrid(){const ids=visibleIDs(),el=$('work-grid');el.replaceChildre
  addSection('Proyectos audiovisuales',curated);
  addSection('Otras muestras · créditos por completar',ids.filter(id=>pending.includes(id)));
 }else ids.forEach(id=>el.appendChild(makeCard(id)));
+if(activeCategory==='video'&&activeFilter==='all')watchCuratedMasonry();else if(masonryResizeObserver)masonryResizeObserver.disconnect();
 const cards=el.querySelectorAll('.project-card');if(reduce.matches||!('IntersectionObserver' in window)){cards.forEach(e=>e.classList.add('is-visible'))}else{observer=new IntersectionObserver(entries=>{entries.forEach(x=>{if(x.isIntersecting){x.target.classList.add('is-visible');observer.unobserve(x.target)}})},{root:workMain,rootMargin:'120px 0px',threshold:.02});cards.forEach(e=>observer.observe(e));setTimeout(()=>cards.forEach(e=>{if(e.getBoundingClientRect().top<innerHeight+200)e.classList.add('is-visible')}),250)}}
 function ytEmbed(id){if(!/^[A-Za-z0-9_-]{11}$/.test(id))return null;let f=document.createElement('iframe');f.src=`https://www.youtube-nocookie.com/embed/${id}?rel=0&playsinline=1`;f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title='Reproductor de YouTube';f.referrerPolicy='strict-origin-when-cross-origin';f.loading='eager';return f}
 function driveEmbed(id){if(!/^[A-Za-z0-9_-]{15,}$/.test(id))return null;let f=document.createElement('iframe');f.src=`https://drive.google.com/file/d/${id}/preview`;f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.title='Visor de Google Drive';return f}
