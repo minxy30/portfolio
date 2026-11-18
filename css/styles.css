@@ -1152,3 +1152,9 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .curated-video-masonry .project-image{height:auto}
 @media(max-width:600px){.curated-video-masonry{columns:2 145px;column-gap:12px}.curated-video-masonry .project-card{margin-bottom:16px}.curated-video-section .gallery-section-title{margin:20px 0 14px}}
 @media(max-width:340px){.curated-video-masonry{columns:1}}
+
+/* Aportaciones concisas y herramienta identificable en fichas de proyecto */
+.viewer-contribution-list{margin:0;padding-left:1.2rem;list-style:disc;display:grid;gap:.55rem}
+.viewer-contribution-list li{padding-left:.15rem;line-height:1.55}
+.viewer-software-chip{display:inline-flex;align-items:center;gap:.65rem;padding:.5rem .8rem;border:1px solid rgba(150,160,190,.25);border-radius:12px;font-weight:600;max-width:100%}
+.viewer-software-chip img{width:28px;height:28px;display:block;filter:invert(66%) sepia(24%) saturate(1556%) hue-rotate(196deg) brightness(104%)}
