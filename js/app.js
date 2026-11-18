@@ -934,8 +934,8 @@ function layoutCuratedMasonry(){
   const cards=[...wall.querySelectorAll('.project-card')];if(!cards.length)return;
   const main=wall.closest('.work-main');
   const available=main?main.clientWidth-parseFloat(getComputedStyle(main).paddingLeft)-parseFloat(getComputedStyle(main).paddingRight):wall.clientWidth;
-  const width=Math.max(wall.clientWidth,Math.floor(available));if(!width)return;
-  wall.style.width='100%';wall.style.maxWidth='none';
+  const width=Math.max(0,Math.floor(Math.min(window.innerWidth,main?.clientWidth||window.innerWidth)-(main?parseFloat(getComputedStyle(main).paddingLeft)+parseFloat(getComputedStyle(main).paddingRight):64)));if(!width)return;
+  wall.style.setProperty('width',width+'px','important');wall.style.setProperty('max-width','none','important');
   const gap=width<=740?12:18,minWidth=width<=740?145:190;
   const count=Math.max(1,Math.floor((width+gap)/(minWidth+gap)));
   const colWidth=(width-(count-1)*gap)/count;
