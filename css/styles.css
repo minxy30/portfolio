@@ -1165,3 +1165,8 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .video-curated-grid .curated-video-masonry .project-card{display:inline-block;width:100%;max-width:100%;margin-bottom:clamp(14px,1.8vw,24px);break-inside:avoid-column}
 @media(max-width:740px){.video-curated-grid .curated-video-masonry{column-width:clamp(145px,40vw,205px);column-gap:12px}}
 @media(max-width:360px){.video-curated-grid .curated-video-masonry{column-count:1}}
+
+/* Explicit width-filling masonry stacks: override legacy CSS multicolumn rules. */
+.video-curated-grid .curated-video-masonry{display:grid!important;columns:unset!important;column-count:unset!important;column-width:auto!important;column-gap:unset!important;align-items:start;width:100%;max-width:100%;box-sizing:border-box}
+.video-curated-grid .curated-video-masonry .masonry-stack{min-width:0;width:100%}
+.video-curated-grid .curated-video-masonry .project-card{display:block!important;width:100%!important;margin:0!important;min-width:0;max-width:100%}
