@@ -1124,3 +1124,14 @@ body[data-theme="dark"] .rail-icon img{filter:invert(1)}
 .copy-article-footer{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid #dde2e1;font:12px/1.4 sans-serif;background:#f8f9f8}
 .copy-article-external{color:#145f75;text-decoration:underline;font-weight:700}
 @media(max-width:740px){.copy-article-dialog{inset:1.5vh 2vw;width:96vw;height:97dvh;max-height:97dvh;border-radius:12px}.copy-article-toolbar{padding:10px}.copy-article-footer span{display:none}.copy-live-preview .copy-preview-frame{transform:scale(.19)}}
+
+/* Dedicated editorial fallback: no unrelated design images. */
+.copy-live-preview .copy-article-cover{position:absolute;inset:0;z-index:0;background:#fff;color:#181818;display:flex;flex-direction:column;overflow:hidden;font-family:Arial,sans-serif}
+.copy-cover-browser{height:12%;min-height:30px;background:#171717;color:#aaa;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 12px;font-size:10px}
+.copy-cover-browser span:first-child{color:#ef8a22;letter-spacing:4px}
+.copy-cover-content{padding:12% 10% 9%;display:flex;flex-direction:column;align-items:flex-start;gap:14px;flex:1}
+.copy-cover-brand{font-size:15px;font-weight:800;letter-spacing:-.6px}
+.copy-cover-brand span{color:#ef8a22}
+.copy-cover-kicker{font-size:10px;font-weight:800;letter-spacing:.13em;color:#c66a00}
+.copy-cover-content strong{font-size:clamp(21px,2.4vw,37px);line-height:1.08;letter-spacing:-.05em;overflow-wrap:anywhere}
+.copy-cover-content small{margin-top:auto;font-size:11px;color:#555}
