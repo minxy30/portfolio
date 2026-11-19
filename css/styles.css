@@ -1525,3 +1525,6 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-bottom button:hover:not(:disabled){opacity:1}
 .viewer-media>.media-box,.viewer-media>.gallery-stage{width:80%;margin-inline:auto}
 @media (max-width:740px){.viewer-media>.media-box,.viewer-media>.gallery-stage{width:100%}}
+.viewer-panel{width:min(80vw,1450px)!important;height:min(80vh,900px)!important}
+.viewer-bottom{width:100%;padding:0 12px}
+.viewer-media>.media-box,.viewer-media>.gallery-stage{width:100%}
