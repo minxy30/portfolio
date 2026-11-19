@@ -1167,9 +1167,9 @@ function categorizeTools(){
   return [name,node];
  }));
  const groups=[
- ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
+ ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut','Remotion']],
  ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
- ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
+ ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok','VEED','ElevenLabs']],
  ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP']]
  ];
  const fragment=document.createDocumentFragment(),sections=[],buttons=[];
