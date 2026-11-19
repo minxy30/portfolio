@@ -651,13 +651,16 @@ function enterPortfolio(){
  if(hasEntered)return;
  hasEntered=true;
  // The music starts at exactly 10% on every visit, regardless of past changes.
- musicLevel=.10;volumeInput.value='10';volumeValue.textContent='10%';
- updateMusicVolumes();
- // These audio operations run inside a real click to satisfy browser autoplay policies.
- // User activation unlocks the music and the magical transition in one click.
- requestMusic();
- fantasyEntranceSfx();
- fadeIntroMusic();
+ // Sound must never prevent visitors from entering the portfolio.
+ try{
+  musicLevel=.10;
+  if(volumeInput)volumeInput.value='10';
+  if(volumeValue)volumeValue.textContent='10%';
+  updateMusicVolumes();
+  requestMusic();
+  fantasyEntranceSfx();
+  fadeIntroMusic();
+ }catch(error){console.warn('Audio de entrada no disponible:',error)}
  entryButton.disabled=true;
  entryGate.classList.add('is-opening');
  document.body.classList.remove('pre-entry');
