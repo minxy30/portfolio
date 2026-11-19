@@ -1037,6 +1037,9 @@ body[data-theme="dark"] .scene-tools .tool-filters button.is-active,body[data-th
 }
 @media(min-width:741px){.mobile-back-top{display:grid;place-items:center}}
 .mobile-back-top{border:1px solid #FFDF8F!important;background:#0B1A1F!important;color:#FFDF8F!important;transition:transform .25s ease,background .25s ease,color .25s ease}.mobile-back-top:hover,.mobile-back-top:focus-visible{transform:translateY(-4px);background:#D97757!important;color:#FFFFFF!important}
+.scene-contact .contact-options a,.scene-contact .contact-options .contact-card{background:#FFFFFF!important;color:#0B1A1F!important}
+.scene-contact .contact-options a:hover,.scene-contact .contact-options a:focus-visible,.scene-contact .contact-options .contact-card:hover,.scene-contact .contact-options .contact-card:focus-within{background:#FFDF8F!important;color:#0B1A1F!important}
+.mobile-back-top{z-index:999!important;right:24px!important;bottom:24px!important}
 @media(prefers-reduced-motion:reduce){.mobile-back-top{scroll-behavior:auto}}
 
 
