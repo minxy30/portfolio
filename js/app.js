@@ -878,7 +878,7 @@ window.addEventListener('wheel',e=>{
  const toolsScroll=stage===1?$('scene-tools'):null;
  if(toolsScroll){const atEnd=toolsScroll.scrollTop+toolsScroll.clientHeight>=toolsScroll.scrollHeight-5;
   const atStart=toolsScroll.scrollTop<=5;
-  if((delta>0&&!atEnd)||(delta<0&&!atStart)){wheelBuffer=0;return;}}
+  if((delta>0&&!atEnd)||(delta<0&&!atStart)){toolsScroll.scrollTop+=delta;wheelBuffer=0;return;}}
  e.preventDefault();
  const now=performance.now();
  if(locked||now-scrollLock<680){wheelBuffer=0;return}
