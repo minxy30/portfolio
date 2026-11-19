@@ -947,6 +947,9 @@ body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F
 .scene-contact .contact-options .contact-label{color:#0B1A1F}.scene-contact .contact-options .contact-arrow{color:#D97757}.scene-contact .contact-options small{color:#36525a}
 .scene-contact .contact-credit{color:#0B1A1F;margin-top:clamp(28px,5vh,64px)}
 .scene-tools{--tool-card-bg:#0B1A1F;--tool-card-ink:#FFFFFF;--tool-card-edge:#FFDF8F}
+.tool-chip[data-symbol="C"] .tool-mark img{content:url('../assets/logos/canva.png')}
+.tool-chip[data-symbol="Cc"] .tool-mark img{content:url('../assets/logos/capcut.png')}
+.tool-chip[data-symbol="Wa"] .tool-mark img{content:url('../assets/logos/whatsapp.png')}
 body[data-theme="dark"] .scene-tools .tool-chip{background:#0B1A1F!important;color:#FFFFFF!important;border-color:#FFDF8F99!important;box-shadow:6px 6px 0 #0008!important}
 body[data-theme="dark"] .scene-tools .tool-name{color:#FFFFFF!important}
 body[data-theme="dark"] .scene-tools .tool-category-head h2{color:#FFFFFF!important}

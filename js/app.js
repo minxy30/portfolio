@@ -15,7 +15,7 @@ let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,sta
 document.querySelectorAll('[data-current-year]').forEach(node=>node.textContent=String(new Date().getFullYear()));
 // Use the supplied local brand marks so tool cards remain reliable offline.
 const localToolLogos={Canva:'assets/logos/canva.png',CapCut:'assets/logos/capcut.png',WhatsApp:'assets/logos/whatsapp.png'};
-document.querySelectorAll('.tool-chip').forEach(card=>{const name=card.querySelector('.tool-name')?.textContent?.trim();const src=localToolLogos[name];if(src){const img=card.querySelector('.tool-mark img');if(img){img.src=src;img.removeAttribute('referrerpolicy')}}});
+document.querySelectorAll('.tool-chip').forEach(card=>{const name=card.querySelector('.tool-name')?.textContent?.trim();const src=localToolLogos[name]||({C:'assets/logos/canva.png',Cc:'assets/logos/capcut.png',Wa:'assets/logos/whatsapp.png'}[card.dataset.symbol]);if(src){const img=card.querySelector('.tool-mark img');if(img){img.src=src;img.removeAttribute('referrerpolicy');img.style.opacity='1';img.style.display='block'}}});
 document.querySelectorAll('.gmail-icon').forEach(mark=>{const img=document.createElement('img');img.src='assets/logos/gmail.png';img.alt='';img.className='contact-brand-mark gmail-icon';mark.replaceWith(img)});
 const originalBrand=$('brand-home').innerHTML;const aboutDialog=$('about-viewer');let aboutReturnFocus=null;
 const sound=$('sound-toggle'),music=$('ambient-audio'),viewer=$('project-viewer'),work=$('work-space'),workMain=$('work-main');
