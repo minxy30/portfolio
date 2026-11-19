@@ -1523,3 +1523,5 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-bottom button{width:34px;height:34px;border-color:rgba(243,152,117,.65);background:rgba(8,14,20,.52);opacity:.62;box-shadow:none}
 .viewer-bottom button:first-child::after,.viewer-bottom button:last-child::after{font-size:24px}
 .viewer-bottom button:hover:not(:disabled){opacity:1}
+.viewer-media>.media-box,.viewer-media>.gallery-stage{width:80%;margin-inline:auto}
+@media (max-width:740px){.viewer-media>.media-box,.viewer-media>.gallery-stage{width:100%}}
