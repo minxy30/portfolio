@@ -1538,3 +1538,6 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .project-viewer>.viewer-panel{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;width:80vw!important;height:80vh!important}
 .project-viewer>.viewer-panel{overflow:visible!important}
 .project-viewer>.viewer-panel>.viewer-body{overflow:hidden;border-radius:0 0 15px 15px}
+.viewer-bottom button{border:2px solid var(--accent);background:var(--card);color:var(--ink);opacity:1;box-shadow:0 5px 16px rgba(0,0,0,.25)}
+.viewer-bottom button:first-child::after,.viewer-bottom button:last-child::after{color:var(--ink)}
+.viewer-bottom button:hover:not(:disabled){background:#f4cf73;color:#17242b;border-color:#f4cf73;box-shadow:0 0 0 5px rgba(244,207,115,.24)}
