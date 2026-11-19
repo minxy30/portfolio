@@ -1155,6 +1155,7 @@ function categorizeTools(){
  'Premiere Pro':'assets/logos/premiere.svg','After Effects · básico':'assets/logos/after-effects.svg',
  'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg','Canva':'assets/logos/canva.png','CapCut':'assets/logos/capcut.png','WhatsApp':'assets/logos/whatsapp.png',
  'Google Flow':'assets/logos/flow.png','OpenAI':'assets/logos/openai.png',
+ 'Kling AI':'assets/logos/kling.png','Magnific AI':'assets/logos/magnific.png',
  'Adobe UXP':'assets/logos/uxp.png',
  'Trello':'https://cdn.simpleicons.org/trello','WordPress':'https://cdn.simpleicons.org/wordpress',
  'InDesign':'assets/logos/indesign.svg'
