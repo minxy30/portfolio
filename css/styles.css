@@ -1506,3 +1506,10 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-info h3:has(+ #viewer-results), #viewer-results{display:none!important}
 .viewer-related{margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
 .viewer-related h3{margin-top:0!important}
+.viewer-panel{position:relative}
+.viewer-bottom{position:absolute;inset:50% 0 auto;transform:translateY(-50%);height:0;padding:0 10px;border:0;background:transparent;z-index:6;pointer-events:none}
+.viewer-bottom button{pointer-events:auto;width:42px;height:42px;padding:0;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:rgba(7,10,13,.78);color:#fff;font-size:0;display:grid;place-items:center;box-shadow:0 8px 20px #0005}
+.viewer-bottom button:first-child::after{content:'‹';font-size:29px;line-height:1;font-weight:400}
+.viewer-bottom button:last-child::after{content:'›';font-size:29px;line-height:1;font-weight:400}
+.viewer-bottom button:disabled{opacity:.28}
+.viewer-bottom span{display:none}
