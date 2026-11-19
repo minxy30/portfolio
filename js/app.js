@@ -1150,10 +1150,6 @@ function categorizeTools(){
   const title=document.createElement('span');title.className='tool-name';title.textContent=name;
   mark.append(logo,fallback,dust);node.append(mark,title);tiles.push(node);
  }
- for(const [name,symbol,source,color] of [['Gmail','Gm','assets/logos/gmail.png','#EA4335']]){
-  const node=document.createElement('div');node.className='tool-chip particle-tool';node.dataset.symbol=symbol;node.style.setProperty('--tool',color);
-  const mark=document.createElement('span');mark.className='tool-mark';const logo=document.createElement('img');logo.src=source;logo.alt='';logo.loading='lazy';logo.decoding='async';const fallback=document.createElement('b');fallback.className='tool-fallback';fallback.textContent=symbol;const dust=document.createElement('canvas');dust.className='tool-dust';dust.setAttribute('aria-hidden','true');const title=document.createElement('span');title.className='tool-name';title.textContent=name;mark.append(logo,fallback,dust);node.append(mark,title);tiles.push(node);
- }
  const sources={
  'Premiere Pro':'assets/logos/premiere.svg','After Effects · básico':'assets/logos/after-effects.svg',
  'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg','Canva':'assets/logos/canva.png','CapCut':'assets/logos/capcut.png','WhatsApp':'assets/logos/whatsapp.png',
@@ -1173,7 +1169,7 @@ function categorizeTools(){
  ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
  ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
  ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
- ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP','WhatsApp','Gmail']]
+ ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP','WhatsApp']]
  ];
  const fragment=document.createDocumentFragment(),sections=[],buttons=[];
  let assigned=0;
