@@ -1606,12 +1606,12 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 @media(max-width:740px){.work-space:not([hidden])>.work-rail{bottom:14px!important;width:50vw!important;padding:5px!important;border-radius:24px!important}.work-space:not([hidden])>.work-rail .rail-link{min-height:50px!important;padding:5px 3px!important;border-radius:17px!important}}
 
 /* Keep the tools content scrollable above the fixed rail. */
-.scene-tools{overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
+.scene-tools{height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
 .scene-tools .scene-inner{height:auto!important;max-height:none!important;min-height:max-content!important;transform:none!important;padding-bottom:clamp(110px,16vh,180px)!important}
 .scene-tools .tool-wall{overflow:visible!important;max-height:none!important}
 
 /* Responsive rail: same proportions, never wider than the viewport. */
-.home-scene-rail,.work-space:not([hidden])>.work-rail{width:clamp(320px,50vw,720px)!important;max-width:calc(100vw - 24px)!important}
+.home-scene-rail,.work-space:not([hidden])>.work-rail{width:50vw!important;min-width:0!important;max-width:calc(100vw - 24px)!important}
 .home-scene-rail-item,.work-space:not([hidden])>.work-rail .rail-link{padding-inline:clamp(4px,1vw,10px)!important;gap:clamp(2px,.35vw,5px)!important}
 .home-scene-rail-icon,.work-space:not([hidden])>.work-rail .rail-icon{width:clamp(20px,2vw,24px)!important;height:clamp(20px,2vw,24px)!important}
 .home-scene-rail-item>span:last-child,.work-space:not([hidden])>.work-rail .rail-label{font-size:clamp(9px,1vw,12px)!important}
