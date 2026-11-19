@@ -1248,7 +1248,8 @@ if(item.type==='video'){
 }
 if(!viewer.open)viewer.showModal();syncMobileTop();$('viewer-close').focus();soundEffect('click')}
 function closeProject(){if(!viewer.open)return;$('viewer-media').replaceChildren();viewer.close();activeProject=null;pausedForProjectVideo=false;wasPlaying=false;requestMusic();if(returnFocus?.isConnected)returnFocus.focus()}
-$('viewer-close').addEventListener('click',closeProject);viewer.addEventListener('cancel',e=>{e.preventDefault();closeProject()});viewer.addEventListener('click',e=>{if(e.target===viewer)closeProject()});
+$('viewer-close').addEventListener('click',closeProject);viewer.addEventListener('cancel',e=>{e.preventDefault();closeProject()});viewer.addEventListener('click',e=>{if(e.target===viewer)closeProject()});viewer.addEventListener('close',()=>{$('viewer-bottom').hidden=true});
+new MutationObserver(()=>{$('viewer-bottom').hidden=!viewer.open}).observe(viewer,{attributes:true,attributeFilter:['open']});
 function moveProject(delta){const i=activeItems.indexOf(activeProject),target=activeItems[i+delta];if(target){$('viewer-media').replaceChildren();openProject(target,returnFocus)}}
 $('viewer-prev').addEventListener('click',()=>moveProject(-1));$('viewer-next').addEventListener('click',()=>moveProject(1));
 $('work-return-top').addEventListener('click',()=>{workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});soundEffect('click')});
