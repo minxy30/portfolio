@@ -1619,6 +1619,12 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .home-scene-rail-item>span:last-child,.work-space:not([hidden])>.work-rail .rail-label{font-size:clamp(9px,1vw,12px)!important}
 @media(max-width:360px){.home-scene-rail,.work-space:not([hidden])>.work-rail{max-width:calc(100vw - 12px)!important}.home-scene-rail-item,.work-space:not([hidden])>.work-rail .rail-link{padding-inline:2px!important}.home-scene-rail-item>span:last-child,.work-space:not([hidden])>.work-rail .rail-label{font-size:8px!important}}
 
+/* Tall/portrait monitors: center the complete scene in the available height. */
+@media (orientation:portrait) and (min-height:900px) and (min-width:741px){
+ .scene-tools,.scene-contact{align-content:center!important}
+ .scene-tools .scene-inner,.scene-contact .scene-inner{top:0!important;padding-top:24px!important;padding-bottom:220px!important;margin-block:auto!important}
+}
+
 /* Scroll remains available, but no browser/container scrollbar is painted. */
 body[data-screen="home"],#home-deck{scrollbar-width:none}
 body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{display:none;width:0;height:0}
