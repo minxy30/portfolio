@@ -1518,3 +1518,4 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-bottom{width:62%;right:auto;inset:50% auto auto 0;transform:translateY(-50%);padding:0 16px;justify-content:space-between}
 .viewer-bottom button{border:1px solid var(--accent);background:var(--bg);color:var(--paper);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
 .viewer-bottom button:hover:not(:disabled){background:#f4cf73;color:var(--ink);transform:scale(1.08);box-shadow:0 0 0 5px rgba(239,185,73,.18)}
+.viewer-panel{position:absolute!important;inset:0!important;margin:auto!important;transform:none!important;width:min(1450px,calc(100vw - 58px))!important;height:min(850px,calc(100dvh - 54px))!important}
