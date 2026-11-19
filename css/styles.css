@@ -912,9 +912,14 @@ body[data-theme="dark"] .project-card,body[data-theme="dark"] .project-open{back
 body:not([data-theme="dark"]) .scene-entrance{background:#FFDF8F!important}
 body:not([data-theme="dark"]) .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
 body:not([data-theme="dark"]) .scene-contact{background:#D97757!important;color:#0B1A1F}
-body[data-theme="dark"] .scene-entrance{background:#FFDF8F!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-entrance{background:#0B1A1F!important;color:#FFFFFF}
 body[data-theme="dark"] .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
-body[data-theme="dark"] .scene-contact{background:#D97757!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-contact{background:#11171B!important;color:#FFFFFF}
+body[data-theme="dark"] .scene-entrance .kinetic-word{color:#FFFFFF}
+body[data-theme="dark"] .scene-entrance .kinetic-meta,body[data-theme="dark"] .scene-contact .scene-subtitle{color:#C4D9D7}
+body[data-theme="dark"] .scene-contact .scene-inner h1{color:#FFFFFF}
+body[data-theme="dark"] .scene-contact .scene-inner h1 em{color:#D97757}
+body[data-theme="dark"] .scene-contact .contact-options a,body[data-theme="dark"] .scene-contact .contact-options .contact-card{background:#FFDF8F;color:#0B1A1F;border-color:#FFDF8F;box-shadow:8px 8px 0 #000}
 .home-scene{will-change:opacity,filter,transform;transition:opacity .72s ease,filter .72s ease,transform .72s cubic-bezier(.2,.72,.2,1),visibility .72s}
 .scene-tools .scene-inner h1{font-size:clamp(46px,6.4vw,98px)!important;letter-spacing:-.07em}
 .scene-tools .scene-subtitle{font-size:clamp(14px,1.45vw,18px)!important}
