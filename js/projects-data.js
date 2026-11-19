@@ -13,16 +13,16 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep30": {
-    "title": "Edición vertical · septiembre 2026",
-    "kind": "Video vertical · Muestra complementaria",
-    "deck": "Muestra audiovisual adicional",
-    "description": "Muestra de video incorporada al portafolio. El contexto del encargo y el alcance de la participación aún requieren confirmación.",
-    "role": "Créditos y contribuciones específicas pendientes de documentar.",
+    "title": "The Homes · Video de la llave",
+    "kind": "Video vertical · Publicidad inmobiliaria",
+    "deck": "Storyboard y secuencias generadas para captar atención",
+    "description": "Pieza inmobiliaria desarrollada a partir de materiales, información de la propiedad y una referencia visual proporcionada por la marca. La propuesta se estructuró alrededor de una secuencia inicial con una llave para captar la atención.",
+    "role": ["Elaboración de un storyboard para adaptar la referencia a la propiedad de The Homes","Generación de escenas con Kling AI y montaje de los materiales en Premiere Pro","Organización narrativa conforme a las indicaciones de la marca"],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep30.mp4",
-    "tools": "Herramientas por confirmar",
+    "tools": "Storyboard · Kling AI · Premiere Pro",
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep28-b": {
@@ -39,16 +39,16 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-oct16": {
-    "title": "Edición vertical · octubre 2026",
-    "kind": "Video vertical · Muestra complementaria",
-    "deck": "Muestra audiovisual adicional",
-    "description": "Muestra de video incorporada al portafolio. El contexto del encargo y el alcance de la participación aún requieren confirmación.",
-    "role": "Créditos y contribuciones específicas pendientes de documentar.",
+    "title": "The Homes · Reedición de campaña",
+    "kind": "Video vertical · Reedición publicitaria",
+    "deck": "Reducción de duración y actualización de una pieza existente",
+    "description": "Reedición de una pieza previamente editada por otro profesional para adaptarla a una campaña más breve y dinámica. El trabajo se realizó sobre el material disponible, sin acceso al proyecto original editable.",
+    "role": ["Reestructuración del montaje y eliminación de fragmentos innecesarios en CapCut Pro","Separación de voz y música, búsqueda de música compatible y creación de escenas adicionales con IA","Redacción de nuevas líneas y generación de voz clonada con ElevenLabs a partir de referencias existentes","Mantenimiento del sistema de subtitulado y coherencia visual de la pieza"],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/oct16.mp4",
-    "tools": "Herramientas por confirmar",
+    "tools": "CapCut Pro · ElevenLabs · Kling AI · Google Flow · VEED",
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "zaru": {
@@ -100,7 +100,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "landscape",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/minsis.mp4",
-    "tools": "After Effects · Premiere Pro · ElevenLabs · Magnific",
+    "tools": "Adobe Illustrator · After Effects",
     "results": "Pieza final preparada para comunicación digital."
   },
   "potencial": {
