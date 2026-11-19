@@ -74,7 +74,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/smarketing.mp4",
-    "tools": "ChatGPT · Google Flow · CapCut · Remotion · VEED · ElevenLabs",
+    "tools": "ChatGPT · Google Flow · CapCut · Remotion · VEED",
     "results": "Pieza final preparada para comunicación digital."
   },
   "casita": {
