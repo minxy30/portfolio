@@ -1152,9 +1152,9 @@ function categorizeTools(){
  }
  const sources={
  'Premiere Pro':'assets/logos/premiere.svg','After Effects · básico':'assets/logos/after-effects.svg',
- 'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg',
+ 'Photoshop':'assets/logos/photoshop.svg','Lightroom · básico':'assets/logos/lightroom.svg','Canva':'assets/logos/canva.png','CapCut':'assets/logos/capcut.png','WhatsApp':'assets/logos/whatsapp.png',
  'Google Flow':'assets/logos/flow.png','OpenAI':'assets/logos/openai.png',
- 'Canva':'https://cdn.simpleicons.org/canva/00C4CC','Adobe UXP':'assets/logos/uxp.png',
+ 'Adobe UXP':'assets/logos/uxp.png',
  'Trello':'https://cdn.simpleicons.org/trello','WordPress':'https://cdn.simpleicons.org/wordpress',
  'InDesign':'assets/logos/indesign.svg'
  };
@@ -1169,7 +1169,7 @@ function categorizeTools(){
  ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
  ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
  ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
- ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP']]
+ ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP','WhatsApp']]
  ];
  const fragment=document.createDocumentFragment(),sections=[],buttons=[];
  let assigned=0;
