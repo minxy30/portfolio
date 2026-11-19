@@ -397,6 +397,16 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 }
 @media(prefers-reduced-motion:reduce){.rail-link.is-active .rail-icon{animation:none}}
 
+/* Unified portfolio navigation: same compact 50vw rail on every page. */
+.work-rail{position:fixed;z-index:80;left:50%;bottom:clamp(18px,4vh,42px);width:50vw;height:auto;min-height:0;transform:translateX(-50%);display:flex;flex-direction:row;align-items:stretch;justify-content:space-between;gap:0;padding:8px;background:#1f1f22;border:1px solid #454549;border-radius:28px;box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.work-rail .rail-link{writing-mode:initial;transform:none;flex:1;min-width:0;min-height:58px;padding:8px 10px;border:0;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#fff;letter-spacing:0;text-transform:none}
+.work-rail .rail-link:hover,.work-rail .rail-link:focus-visible{background:#4b4b4f;transform:translateY(-1px)}
+.work-rail .rail-link.is-active{background:#4b4b4f;border:0;box-shadow:none}
+.work-rail .rail-link::before{display:none}
+.work-rail .rail-icon{transform:none;display:inline-flex;width:24px;height:24px;align-items:center;justify-content:center;font-size:18px}
+.work-rail .rail-label{font-size:12px;white-space:nowrap}
+.work-main{padding-bottom:clamp(92px,13vh,140px)}
+
 /* 2026-11: portrait-first polish, lower work footer and gentle content hierarchy. */
 @media(min-width:741px){
  .work-rail{justify-content:flex-start;gap:clamp(8px,1.1vh,17px);padding-top:clamp(18px,3.8vh,54px)}
@@ -439,6 +449,10 @@ body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .wo
 .scene-tools .tool-wall{flex:0 1 auto;max-height:min(49dvh,530px);min-height:0;overflow-y:auto}
 .scene-tools .scene-continue{margin-top:clamp(9px,2vh,25px)}
 @media(max-width:740px){
+ .work-rail{left:50%;bottom:14px;width:50vw;height:auto;min-height:0;padding:5px;border-radius:24px;gap:0;transform:translateX(-50%)}
+ .work-rail .rail-link{min-height:50px;padding:5px 3px;border-radius:17px}
+ .work-rail .rail-icon{width:21px;height:21px}
+ .work-rail .rail-label{font-size:10px}
  .work-rail{justify-content:space-between}
  .work-end{margin-top:32px}
  .work-footer{min-height:clamp(250px,36dvh,500px)}
