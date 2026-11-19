@@ -1537,17 +1537,6 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .project-viewer{display:grid!important;place-items:center!important;overflow:visible!important}
 .project-viewer:not([open]){display:none!important}
 .project-viewer:not([open]) .viewer-bottom{display:none!important;visibility:hidden!important}
-.work-footer-actions{display:grid!important;grid-template-columns:repeat(5,minmax(150px,1fr));gap:14px;margin:28px 0 30px}
-.work-footer-actions>a,.work-footer-actions>button{position:relative;min-height:148px;padding:20px 18px 42px!important;border:1.5px solid var(--ink)!important;border-radius:24px!important;background:var(--paper)!important;color:#17242b!important;box-shadow:9px 9px 0 #07161b!important;display:flex;align-items:flex-start;gap:10px;font:800 22px var(--display)!important;text-align:left;transition:background .2s,transform .2s,box-shadow .2s}
-.work-footer-actions>a:hover,.work-footer-actions>button:hover{background:#f4cf73!important;transform:translate(-3px,-3px)!important;box-shadow:12px 12px 0 #07161b!important}
-.work-footer-actions .contact-brand-mark{width:30px;height:30px;flex:0 0 auto}
-.work-footer-actions>a span{margin-left:auto;color:var(--accent);font-size:22px}
-.work-footer-actions>a::after,.work-footer-actions>button::after{position:absolute;left:18px;bottom:16px;font:600 11px var(--font);color:#53636a}
-.work-footer-actions>a:nth-child(1)::after{content:'Abrir Gmail para escribir'}
-.work-footer-actions>button::after{content:'Copiar dirección'}
-.work-footer-actions>a:nth-child(3)::after{content:'Enviar mensaje'}
-.work-footer-actions>a:nth-child(4)::after{content:'Teléfono'}
-.work-footer-actions>a:nth-child(5)::after{content:'Currículum'}
 .project-viewer[open]{display:grid!important;place-items:center!important}
 .project-viewer>.viewer-panel{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;width:80vw!important;height:80vh!important}
 .project-viewer>.viewer-panel{overflow:visible!important}
@@ -1565,4 +1554,3 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .scene-contact .contact-options small{display:none}
 .scene-contact .contact-options .contact-copy-button{font-size:13px;cursor:pointer}
 @media(max-width:740px){.scene-contact .contact-options{gap:8px}.scene-contact .contact-options a,.scene-contact .contact-options .contact-copy-button{height:46px;padding:0 13px;font-size:12px}}
-@media(max-width:740px){.work-footer-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}.work-footer-actions>a,.work-footer-actions>button{min-height:120px;font-size:17px!important}}
