@@ -4,7 +4,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Video horizontal · Motion graphics",
     "deck": "Comunicación de marca para eventos y networking",
     "description": "Video institucional para presentar a Mercadotecnia Total ante asistentes de eventos de networking, ferias y actividades universitarias. La pieza resume quién es la marca y qué ofrece mediante una combinación de narración, recursos de stock, materiales propios y gráficos animados. Se planteó para comunicar el mensaje con o sin audio y reproducirse en loop.",
-    "role": ["Redacción de locución para voz en off a partir de la información proporcionada por la marca y generación de la narración con ElevenLabs","Composición y animación de recursos de stock y materiales originales en After Effects","Integración de gráficos solicitados y edición de música y efectos en Premiere Pro"],
+    "role": [
+      "Redacción de locución para voz en off a partir de la información proporcionada por la marca y generación de la narración con ElevenLabs",
+      "Composición y animación de recursos de stock y materiales originales en After Effects",
+      "Integración de gráficos solicitados y edición de música y efectos en Premiere Pro"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "landscape",
@@ -17,7 +21,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Video vertical · Publicidad inmobiliaria",
     "deck": "Secuencia inicial planificada y desarrollo visual asistido por IA",
     "description": "Video publicitario para The Homes que presenta una propiedad mediante una entrada visual basada en una llave y una sucesión de escenas inmobiliarias. La propuesta partió de los materiales, la información de la casa y una referencia compartida por la marca; se desarrolló para captar la atención desde los primeros segundos y mostrar el inmueble de forma atractiva.",
-    "role": ["Elaboración del storyboard de la secuencia inicial de la llave con apoyo de ChatGPT para generar imágenes de referencia de forma ágil","Presentación de la propuesta visual a la persona responsable y desarrollo del resto de las ideas sin storyboard formal","Generación de escenas con Kling AI y montaje de los materiales en Premiere Pro conforme a las indicaciones de la marca"],
+    "role": [
+      "Elaboración del storyboard de la secuencia inicial de la llave con apoyo de ChatGPT para generar imágenes de referencia de forma ágil",
+      "Presentación de la propuesta visual a la persona responsable y desarrollo del resto de las ideas sin storyboard formal",
+      "Generación de escenas con Kling AI y montaje de los materiales en Premiere Pro conforme a las indicaciones de la marca"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
@@ -30,7 +38,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Video horizontal · Motion graphics",
     "deck": "Segunda pieza institucional para comunicación de marca",
     "description": "Segunda pieza institucional de Mercadotecnia Total, creada para reforzar la presentación de la marca en eventos, networking y espacios universitarios. La información se convirtió en una composición de motion graphics con recursos visuales modulares, narración y ritmo diseñado para reproducción continua.",
-    "role": ["Adaptación de la información de marca a una narrativa audiovisual breve","Diseño y animación de composiciones en After Effects","Edición de música y efectos sonoros en Premiere Pro"],
+    "role": [
+      "Adaptación de la información de marca a una narrativa audiovisual breve",
+      "Diseño y animación de composiciones en After Effects",
+      "Edición de música y efectos sonoros en Premiere Pro"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "landscape",
@@ -43,7 +55,12 @@ window.PORTFOLIO_DATA = {
     "kind": "Video vertical · Reedición publicitaria",
     "deck": "Reducción de duración y actualización de una pieza existente",
     "description": "Versión abreviada y actualizada de una pieza publicitaria de The Homes para una campaña de comunicación más rápida. El proyecto reorganiza el material disponible, incorpora nuevas escenas y conserva la identidad de la edición original para presentar el mensaje de forma más directa.",
-    "role": ["Reestructuración del montaje y eliminación de fragmentos innecesarios en CapCut Pro","Separación de voz y música, búsqueda de música compatible y creación de escenas adicionales con IA","Redacción de nuevas líneas y generación de voz clonada con ElevenLabs a partir de referencias existentes","Mantenimiento del sistema de subtitulado y coherencia visual de la pieza"],
+    "role": [
+      "Reestructuración del montaje y eliminación de fragmentos innecesarios en CapCut Pro",
+      "Separación de voz y música, búsqueda de música compatible y creación de escenas adicionales con IA",
+      "Redacción de nuevas líneas y generación de voz clonada con ElevenLabs a partir de referencias existentes",
+      "Mantenimiento del sistema de subtitulado y coherencia visual de la pieza"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
@@ -56,7 +73,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Video publicitario · Campaña Zarú",
     "deck": "Fotografías convertidas en una pieza audiovisual",
     "description": "Video publicitario de The Homes que transforma fotografías de una propiedad en una pieza audiovisual de tono sentimental. A partir de la información comercial y del material fotográfico proporcionado, la propuesta construye una conexión humana mediante narración, música y escenas complementarias generadas con IA.",
-    "role": ["Redacción de locución para voz en off y dirección de la narrativa según el tono solicitado","Generación de tomas complementarias con Kling AI y Google Flow/Veo","Integración de imágenes, voz sintética, música y subtítulos en VEED"],
+    "role": [
+      "Redacción de locución para voz en off y dirección de la narrativa según el tono solicitado",
+      "Generación de tomas complementarias con Kling AI y Google Flow/Veo",
+      "Integración de imágenes, voz sintética, música y subtítulos en VEED"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
@@ -69,7 +90,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Video vertical · Contenido digital",
     "deck": "Hacer comprensibles las ideas",
     "description": "Video vertical informativo para presentar las ideas y servicios de Smarketing 360 de manera clara y accesible. La pieza utiliza un personaje generado, una narrativa breve y recursos gráficos animados para facilitar la comprensión del mensaje en formatos digitales y redes sociales.",
-    "role": ["Desarrollo del personaje y de la estructura narrativa con ChatGPT","Generación y extensión de escenas con Google Flow, manteniendo continuidad de persona y voz","Montaje en CapCut, tratamiento motion graphic mediante Remotion, subtitulado en VEED y diseño sonoro"],
+    "role": [
+      "Desarrollo del personaje y de la estructura narrativa con ChatGPT",
+      "Generación y extensión de escenas con Google Flow, manteniendo continuidad de persona y voz",
+      "Montaje en CapCut, tratamiento motion graphic mediante Remotion, subtitulado en VEED y diseño sonoro"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
@@ -82,7 +107,12 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición · Video publicitario",
     "deck": "Montaje de material real",
     "description": "Video vertical informativo para Casita de Sol, elaborado con materiales proporcionados por la marca. La pieza comunica información breve y complementaria sobre sus servicios mediante un montaje directo, subtítulos y un tratamiento visual responsable con la privacidad de los menores.",
-    "role": ["Organización y edición del material en Premiere Pro","Selección de información y construcción de una pieza breve y clara","Aplicación de tratamiento de privacidad para proteger los rostros de menores y subtitulado en VEED","No se atribuye filmación"],
+    "role": [
+      "Organización y edición del material en Premiere Pro",
+      "Selección de información y construcción de una pieza breve y clara",
+      "Aplicación de tratamiento de privacidad para proteger los rostros de menores y subtitulado en VEED",
+      "No se atribuye filmación"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
@@ -95,7 +125,12 @@ window.PORTFOLIO_DATA = {
     "kind": "Ejercicio de animación · After Effects",
     "deck": "Una introducción breve",
     "description": "Animación breve de identidad para Minsis Kids, creada para dar movimiento al logotipo de la marca y presentar una introducción visual sencilla. El proyecto parte del archivo entregado en Adobe Illustrator y lo convierte en una pieza animada para uso digital.",
-    "role": ["Adaptación técnica del archivo para conservar una resolución adecuada","Definición previa de la idea mediante un boceto de referencia","Animación de posiciones y curvas de keyframes en After Effects","No se atribuye el diseño original del logotipo"],
+    "role": [
+      "Adaptación técnica del archivo para conservar una resolución adecuada",
+      "Definición previa de la idea mediante un boceto de referencia",
+      "Animación de posiciones y curvas de keyframes en After Effects",
+      "No se atribuye el diseño original del logotipo"
+    ],
     "type": "video",
     "platform": "file",
     "aspect": "landscape",
@@ -103,80 +138,77 @@ window.PORTFOLIO_DATA = {
     "tools": "Adobe Illustrator · After Effects",
     "results": "Pieza final preparada para comunicación digital."
   },
-  "potencial": {
-    "title": "Potencial de zona",
-    "kind": "Diseño editorial · The Homes",
-    "deck": "Serie informativa de cuatro piezas",
-    "description": "Composición visual de contenido inmobiliario que organiza una idea a lo largo de varias piezas.",
-    "role": ["Diseño de publicaciones dentro de un sistema de marca existente","Se conservan los créditos de fotografías, ilustraciones y recursos de terceros"],
-    "type": "gallery",
-    "images": [
-      "assets/images/thehomes-1.webp",
-      "assets/images/thehomes-2.webp",
-      "assets/images/thehomes-3.webp",
-      "assets/images/thehomes-4.webp"
-    ],
-    "tools": "Canva · Diseño gráfico",
-    "results": "Serie visual preparada para publicación."
-  },
   "omar": {
     "title": "Broker hipotecario",
     "kind": "Diseño editorial · Omar China",
-    "deck": "Tres piezas, un solo sistema",
-    "description": "Comunicación visual con contraste, tipografía informativa y un recorrido editorial sobre decisiones hipotecarias.",
-    "role": "Piezas de diseño dentro de la producción de contenido de marca. Pendiente precisar las contribuciones originales frente a recursos de terceros.",
+    "deck": "Carrusel informativo para Omar China",
+    "description": "Carrusel sobre el papel de un broker hipotecario, creado como parte de la gestión de contenidos de Omar China.",
+    "role": [
+      "Desarrollo de la idea, estructura y propuesta visual desde cero",
+      "Diseño de las diapositivas en Adobe Illustrator y generación de recursos gráficos con ChatGPT",
+      "Elaboración de parrillas de contenido y redacción de copies para las publicaciones de la marca"
+    ],
     "type": "gallery",
     "images": [
       "assets/images/omar-1.webp",
       "assets/images/omar-2.webp",
       "assets/images/omar-3.webp"
     ],
-    "tools": "Canva · Diseño gráfico",
-    "results": "Serie visual preparada para publicación."
+    "tools": "Adobe Illustrator · ChatGPT",
+    "results": "Tres diapositivas localizadas; falta recuperar la cuarta de la serie original."
   },
   "editorial": {
-    "title": "Selección editorial",
+    "title": "México no es un Buyer Persona",
     "kind": "Diseño gráfico · Smarketing 360",
-    "deck": "Composición, tipografía y contenido",
-    "description": "Selección de una publicación sobre segmentación de audiencias y tres piezas visuales de la serie Historia del marketing.",
-    "role": "Adaptación de contenido y diseño editorial para publicaciones digitales en el contexto de una marca existente.",
+    "deck": "Publicación sobre segmentación de audiencias",
+    "description": "Pieza gráfica que explica por qué México no puede tratarse como un único perfil de consumidor.",
+    "role": [
+      "Definición de la idea y dirección de la propuesta visual generada con ChatGPT",
+      "Revisión y aprobación del diseño, seguida de ajustes de composición en Canva",
+      "Redacción del copy para la publicación"
+    ],
     "type": "gallery",
     "images": [
-      "assets/images/smarketing-mexico.webp",
-      "assets/images/smarketing-historia-1.webp",
-      "assets/images/smarketing-historia-2.webp",
-      "assets/images/smarketing-historia-3.webp"
+      "assets/images/smarketing-mexico.webp"
     ],
-    "tools": "Canva · Diseño gráfico",
-    "results": "Serie visual preparada para publicación."
+    "tools": "ChatGPT · Canva",
+    "results": "Publicación individual para Smarketing 360."
   },
   "wbmf": {
     "title": "Marcas y cultura pop",
     "kind": "Diseño editorial · WBMF",
-    "deck": "Tratamiento visual para noticias culturales",
-    "description": "Selección de dos publicaciones editoriales sobre campañas de marca en espacios públicos y cultura popular.",
-    "role": ["Diseño y composición de publicaciones","Las imágenes de campañas y marcas representadas pertenecen a sus titulares correspondientes"],
+    "deck": "Noticias semanales en español e inglés",
+    "description": "Dos ejemplos de publicaciones informativas de WBMF, parte de una producción semanal de noticias en español e inglés, programadas para martes y viernes.",
+    "role": [
+      "Investigación y selección de noticias de actualidad",
+      "Búsqueda de imágenes y elaboración de los diseños en Canva",
+      "Redacción del contenido y de los copies para las publicaciones"
+    ],
     "type": "gallery",
     "images": [
       "assets/images/wbmf-fanta.webp",
       "assets/images/wbmf-london.webp"
     ],
-    "tools": "Canva · Diseño gráfico",
-    "results": "Serie visual preparada para publicación."
+    "tools": "Canva",
+    "results": "Dos publicaciones de una producción editorial semanal."
   },
   "sabias": {
     "title": "¿Sabías que…?",
     "kind": "Carrusel editorial · Smarketing 360",
-    "deck": "Tres aproximaciones visuales a ideas de marketing",
-    "description": "Piezas digitales que combinan fotografía intervenida, color, titulares y recursos gráficos para sintetizar conceptos de comunicación.",
-    "role": ["Diseño de publicaciones y adaptación visual dentro de una marca existente","Se mantienen los créditos de imágenes y recursos ajenos"],
+    "deck": "Concepto y contenido desarrollados desde cero",
+    "description": "Carrusel de divulgación sobre ideas de marketing, desarrollado a partir de una propuesta creativa propia.",
+    "role": [
+      "Conceptualización y redacción de todo el contenido",
+      "Diseño y composición del carrusel en Canva",
+      "Selección de gráficos de internet y recursos generados con ChatGPT y obtenidos en Magnific"
+    ],
     "type": "gallery",
     "images": [
       "assets/images/sabias-1.webp",
       "assets/images/sabias-2.webp",
       "assets/images/sabias-3.webp"
     ],
-    "tools": "Canva · Composición editorial",
+    "tools": "Canva · ChatGPT · Magnific",
     "results": "Serie de tres diseños preparados para comunicación digital."
   },
   "foto-terror": {
@@ -196,28 +228,36 @@ window.PORTFOLIO_DATA = {
     "title": "Parrillas y copies de marca",
     "kind": "Copywriter · Smarketing 360",
     "deck": "Mensajes pensados para distintas publicaciones",
-    "description": "Muestras del trabajo con parrillas de contenido y comunicaciones digitales, vinculando titulares, temas y piezas visuales.",
-    "role": ["Planificación y desarrollo de copies para redes","Cuando un texto se produjo con IA, la contribución personal corresponde a dirección, revisión y adaptación","la atribución por pieza está en revisión"],
+    "description": "Ejemplos de publicaciones para Smarketing 360. La redacción de los copies que acompañan las piezas forma parte de mi trabajo habitual.",
+    "role": [
+      "Redacción de copies para las descripciones de publicaciones",
+      "Elaboración de parrillas de contenido para las marcas asignadas",
+      "Adaptación de mensajes al tema y formato de cada pieza"
+    ],
     "type": "gallery",
     "images": [
       "assets/images/smarketing-mexico.webp",
       "assets/images/sabias-1.webp"
     ],
-    "tools": "Parrillas editoriales · Redacción y revisión · IA asistida",
+    "tools": "Canva · ChatGPT",
     "results": "Materiales editoriales preparados para publicaciones de marca."
   },
   "copy-wbmf": {
     "title": "Enfoque editorial y titulares",
     "kind": "Copywriter · WBMF",
     "deck": "Noticias de marca convertidas en mensajes breves",
-    "description": "Ejemplos de publicaciones que requieren sintetizar información y priorizar un mensaje para redes.",
-    "role": "Trabajo de contenido y preparación de publicaciones; la redacción original de cada texto y la edición asistida están pendientes de atribución individual.",
+    "description": "Noticias semanales en español e inglés para WBMF, acompañadas de textos de publicación.",
+    "role": [
+      "Investigación de noticias y selección de fuentes e imágenes",
+      "Redacción de contenido editorial y copies para redes",
+      "Diseño y preparación de publicaciones en Canva"
+    ],
     "type": "gallery",
     "images": [
       "assets/images/wbmf-fanta.webp",
       "assets/images/wbmf-london.webp"
     ],
-    "tools": "Redacción editorial · Adaptación de mensajes",
+    "tools": "Canva",
     "results": "Publicaciones editoriales adaptadas a formatos de redes."
   },
   "benito-mexico": {
@@ -225,7 +265,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicado en YouTube",
     "description": "Un video sobre México contado desde el humor y la mirada del creador. La edición acompaña su comentario con imágenes, clips, música y efectos que ayudan a darle ritmo a la conversación.",
-    "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
+    "role": [
+      "Investigación y selección de recursos visuales y sonoros",
+      "Montaje narrativo y decisiones creativas de edición",
+      "Postproducción y entrega del video para publicación"
+    ],
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -250,7 +294,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicado en YouTube",
     "description": "Un comentario sobre el impacto de la inteligencia artificial y la forma en que está cambiando lo que hacemos. La edición reúne la explicación del creador con noticias, imágenes y otros recursos para seguir el tema con claridad.",
-    "role": ["Investigación de noticias y redacción de documento de apoyo para la grabación","Búsqueda y selección de recursos visuales y sonoros","Montaje narrativo, ritmo y postproducción audiovisual"],
+    "role": [
+      "Investigación de noticias y redacción de documento de apoyo para la grabación",
+      "Búsqueda y selección de recursos visuales y sonoros",
+      "Montaje narrativo, ritmo y postproducción audiovisual"
+    ],
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -275,7 +323,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicado en YouTube",
     "description": "Un video dedicado a explicar la situación de Bolivia y las noticias que rodean el caso. La edición ordena la información y el comentario del creador para que el contexto se entienda sin perder el ritmo del video.",
-    "role": ["Investigación de noticias y redacción de documento de apoyo para la grabación","Búsqueda y selección de recursos visuales y sonoros","Montaje narrativo, ritmo y postproducción audiovisual"],
+    "role": [
+      "Investigación de noticias y redacción de documento de apoyo para la grabación",
+      "Búsqueda y selección de recursos visuales y sonoros",
+      "Montaje narrativo, ritmo y postproducción audiovisual"
+    ],
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -300,7 +352,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicado en YouTube",
     "description": "Un video sobre un momento que ocurrió en directo y rápidamente se volvió viral. La edición reúne los momentos importantes y el comentario del creador para contar qué pasó y por qué llamó tanto la atención.",
-    "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
+    "role": [
+      "Investigación y selección de recursos visuales y sonoros",
+      "Montaje narrativo y decisiones creativas de edición",
+      "Postproducción y entrega del video para publicación"
+    ],
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -325,7 +381,11 @@ window.PORTFOLIO_DATA = {
     "kind": "Edición audiovisual · Benito Camello",
     "deck": "Edición de video publicado en YouTube",
     "description": "Un ranking de cinco lugares relacionados con el estrecho de Ormuz, contado con el tono satírico del canal. La edición acompaña la narración con información, imágenes y recursos sonoros para mantener el carácter ágil del video.",
-    "role": ["Investigación y selección de recursos visuales y sonoros","Montaje narrativo y decisiones creativas de edición","Postproducción y entrega del video para publicación"],
+    "role": [
+      "Investigación y selección de recursos visuales y sonoros",
+      "Montaje narrativo y decisiones creativas de edición",
+      "Postproducción y entrega del video para publicación"
+    ],
     "type": "video",
     "aspect": "landscape",
     "platform": "youtube",
@@ -396,17 +456,21 @@ window.PORTFOLIO_DATA = {
   "p16": {
     "title": "Películas sobre marketing",
     "kind": "Diseño editorial · Marketing",
-    "deck": "Películas sobre marketing",
-    "description": "Serie de 4 piezas visuales sobre películas sobre marketing.",
-    "role": "Diseño y composición propios.",
+    "deck": "Carrusel de recomendaciones cinematográficas",
+    "description": "Carrusel editorial sobre tres películas relacionadas con el marketing.",
+    "role": [
+      "Redacción del contenido y diseño del carrusel en Adobe Illustrator",
+      "Selección de fotografías y gráficos de internet",
+      "Generación de la imagen de portada con ChatGPT y redacción del copy de publicación"
+    ],
     "type": "gallery",
     "images": [
+      "https://drive.google.com/thumbnail?id=1EvLBJD6770jflb-aaV5Pt0VySOYAB_n&sz=w1200",
       "https://drive.google.com/thumbnail?id=1wTdovnoA37mUJ9KqGLa-mCVyhVFDQdwW&sz=w1200",
       "https://drive.google.com/thumbnail?id=12M_Br1JZUB91_bK8DLs17J1uLEhyO0jp&sz=w1200",
-      "https://drive.google.com/thumbnail?id=15OGBVhxt-OYJGyQh_5-Gyg_JBte0fv8t&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1EvLBJD6770jflb-aaV5Pt0VySOYAB_n&sz=w12004&sz=w1200"
+      "https://drive.google.com/thumbnail?id=15OGBVhxt-OYJGyQh_5-Gyg_JBte0fv8t&sz=w1200"
     ],
-    "tools": "Affinity",
+    "tools": "Adobe Illustrator · ChatGPT",
     "results": "Pieza incluida en la selección de diseño."
   },
   "p17": {
@@ -426,29 +490,36 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p19": {
-    "title": "Marketing 360",
+    "title": "Campaña Smarketing 360",
     "kind": "Diseño promocional · Marketing",
-    "deck": "Marketing 360",
-    "description": "Pieza visual sobre marketing 360.",
-    "role": "Diseño y composición propios.",
+    "deck": "Arte para pauta publicitaria",
+    "description": "Pieza promocional solicitada para una campaña de Smarketing 360, desarrollada a partir de la información y requisitos de la empresa.",
+    "role": [
+      "Interpretación del brief y definición de instrucciones visuales precisas",
+      "Dirección de la composición, textos y distribución de elementos mediante ChatGPT",
+      "Revisión de la imagen generada para su uso publicitario"
+    ],
     "type": "gallery",
     "images": [
       "https://drive.google.com/thumbnail?id=1PToLFnU-1sLi8dA7FBUa4dqhqmjfkSN9&sz=w1200"
     ],
-    "tools": "Canva",
+    "tools": "ChatGPT",
     "results": "Pieza incluida en la selección de diseño."
   },
   "p22": {
     "title": "Masterclass Design Thinking",
     "kind": "Pieza promocional · Masterclass",
-    "deck": "Masterclass Design Thinking",
-    "description": "Pieza visual sobre masterclass design thinking.",
-    "role": "Diseño y composición propios.",
+    "deck": "Arte promocional para evento",
+    "description": "Diseño de difusión de una masterclass de Design Thinking a partir de información e imágenes proporcionadas por la organización.",
+    "role": [
+      "Organización de la información del evento y sus elementos visuales",
+      "Diseño y composición del arte promocional en Canva"
+    ],
     "type": "gallery",
     "images": [
       "https://drive.google.com/thumbnail?id=1rbKLg380L9FFreH9FqLORtcbtok73c31&sz=w1200"
     ],
-    "tools": "Affinity",
+    "tools": "Canva",
     "results": "Pieza incluida en la selección de diseño."
   },
   "p47-post": {
@@ -467,9 +538,13 @@ window.PORTFOLIO_DATA = {
   "p47": {
     "title": "Workflow con IA",
     "kind": "Contenido educativo · Smarketing 360",
-    "deck": "Carrusel independiente sobre workflow con IA.",
-    "description": "Serie de 4 piezas visuales sobre workflow con ia.",
-    "role": "Diseño y composición propios.",
+    "deck": "Carrusel educativo adaptado de una referencia",
+    "description": "Carrusel sobre flujos de trabajo con IA, adaptado de una referencia compartida de Pinterest.",
+    "role": [
+      "Adaptación de la idea de referencia a un tema de valor para redes",
+      "Dirección y generación del carrusel y sus imágenes con ChatGPT",
+      "Incorporación del logotipo de Smarketing 360 en Canva y redacción del copy"
+    ],
     "type": "gallery",
     "images": [
       "https://drive.google.com/thumbnail?id=18jRuZKF9UC-wYeQIUvwmRXCuKXg69lmm&sz=w1200",
@@ -477,7 +552,7 @@ window.PORTFOLIO_DATA = {
       "https://drive.google.com/thumbnail?id=1aS5moeND3X4q5UqrdU9nfOeOsGwAg2uT&sz=w1200",
       "https://drive.google.com/thumbnail?id=1VDwT_LbjSu_luC5jw88ZbLkZ6pZ-CCTx&sz=w1200"
     ],
-    "tools": "Canva",
+    "tools": "ChatGPT · Canva",
     "results": "Pieza incluida en la selección de diseño."
   },
   "p49": {
@@ -499,9 +574,14 @@ window.PORTFOLIO_DATA = {
   "p55": {
     "title": "Venta de vivienda",
     "kind": "Piezas promocionales · Inmobiliario",
-    "deck": "Venta de vivienda",
-    "description": "Conjunto de cuatro piezas visuales sobre venta de vivienda.",
-    "role": "Diseño y composición propios.",
+    "deck": "Artes publicitarios para campañas inmobiliarias",
+    "description": "Piezas promocionales de inmuebles de The Homes destinadas a campañas de Meta Ads, a partir de fotografías e información proporcionadas por el equipo comercial.",
+    "role": [
+      "Definición de composición, jerarquía visual y textos publicitarios",
+      "Selección y organización de fotografías y datos de cada propiedad",
+      "Mejora asistida de fotografías con ChatGPT o Gemini, conservando las características reales del inmueble",
+      "Redacción de copies para publicaciones de la marca"
+    ],
     "type": "gallery",
     "images": [
       "https://drive.google.com/thumbnail?id=1y9TuoNj22SjkiuA19D6vDa0C8VZbx78s&sz=w1200",
@@ -509,7 +589,26 @@ window.PORTFOLIO_DATA = {
       "https://drive.google.com/thumbnail?id=1HdNWZjiO6spYLMG_x6KdIDxR1i4bx8rJ&sz=w1200",
       "https://drive.google.com/thumbnail?id=1vuNtD5zsvMmnXoiUcCYU860dwSx7rjz&sz=w1200Z&sz=w1200"
     ],
-    "tools": "Affinity",
-    "results": "Pieza incluida en la selección de diseño."
+    "tools": "ChatGPT · Gemini",
+    "results": "Cuatro artes publicitarios de propiedades."
+  },
+  "historia-marketing": {
+    "title": "El marketing tiene más de 2,000 años",
+    "kind": "Carrusel editorial · Smarketing 360",
+    "deck": "Historia del marketing",
+    "description": "Carrusel que presenta antecedentes históricos del marketing mediante escenas y recursos visuales.",
+    "role": [
+      "Desarrollo de la idea y estructura del carrusel desde cero",
+      "Dirección de imágenes y escenarios generados con ChatGPT y selección de algunos recursos de internet",
+      "Diseño, composición y redacción de textos en Canva, además del copy de publicación"
+    ],
+    "type": "gallery",
+    "images": [
+      "assets/images/smarketing-historia-1.webp",
+      "assets/images/smarketing-historia-2.webp",
+      "assets/images/smarketing-historia-3.webp"
+    ],
+    "tools": "ChatGPT · Canva",
+    "results": "Tres diapositivas identificadas; pendientes las demás de la serie original."
   }
 };
