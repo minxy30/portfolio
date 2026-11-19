@@ -15,14 +15,14 @@ window.PORTFOLIO_DATA = {
   "nuevo-sep30": {
     "title": "The Homes · Video de la llave",
     "kind": "Video vertical · Publicidad inmobiliaria",
-    "deck": "Storyboard y secuencias generadas para captar atención",
-    "description": "Pieza inmobiliaria desarrollada a partir de materiales, información de la propiedad y una referencia visual proporcionada por la marca. La propuesta se estructuró alrededor de una secuencia inicial con una llave para captar la atención.",
-    "role": ["Elaboración de un storyboard para adaptar la referencia a la propiedad de The Homes","Generación de escenas con Kling AI y montaje de los materiales en Premiere Pro","Organización narrativa conforme a las indicaciones de la marca"],
+    "deck": "Secuencia inicial planificada y desarrollo visual asistido por IA",
+    "description": "Pieza inmobiliaria desarrollada a partir de materiales, información de la propiedad y una referencia visual proporcionada por la marca. El storyboard se utilizó exclusivamente para planificar y presentar la secuencia inicial de la llave; el resto del desarrollo visual se planteó posteriormente con apoyo de ChatGPT.",
+    "role": ["Elaboración de un storyboard específico para la secuencia inicial de la llave y presentación de la propuesta a la persona responsable","Desarrollo del resto de las propuestas visuales con apoyo de ChatGPT y generación de escenas con Kling AI","Montaje de los materiales y organización narrativa en Premiere Pro conforme a las indicaciones de la marca"],
     "type": "video",
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep30.mp4",
-    "tools": "Kling AI · Premiere Pro",
+    "tools": "ChatGPT · Kling AI · Premiere Pro",
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep28-b": {
