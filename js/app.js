@@ -1075,6 +1075,7 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
   function build(identity,platform=item.platform){
    player.replaceChildren();
    if(platform==='file'){
+    if(/^https:\/\/[a-z0-9.-]+\//i.test(identity)){player.appendChild(nativeVideo(identity))}
     else player.textContent='Archivo de video no disponible';
    }else if(platform==='drive'){
     const iframe=driveEmbed(identity);
