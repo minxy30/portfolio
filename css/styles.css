@@ -1513,3 +1513,8 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-bottom button:last-child::after{content:'›';font-size:29px;line-height:1;font-weight:400}
 .viewer-bottom button:disabled{opacity:.28}
 .viewer-bottom span{display:none}
+.project-viewer{padding:0!important}
+.viewer-panel{position:fixed!important;top:50%!important;left:50%!important;inset:auto!important;transform:translate(-50%,-50%)!important;width:min(1450px,calc(100vw - 48px))!important;height:min(900px,calc(100dvh - 48px))!important}
+.viewer-bottom{width:62%;right:auto;inset:50% auto auto 0;transform:translateY(-50%);padding:0 16px;justify-content:space-between}
+.viewer-bottom button{border:1px solid var(--accent);background:var(--bg);color:var(--paper);transition:background .2s,color .2s,transform .2s,box-shadow .2s}
+.viewer-bottom button:hover:not(:disabled){background:#f4cf73;color:var(--ink);transform:scale(1.08);box-shadow:0 0 0 5px rgba(239,185,73,.18)}
