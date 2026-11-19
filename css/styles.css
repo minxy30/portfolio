@@ -1536,3 +1536,5 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .viewer-panel{position:fixed!important;top:50vh!important;left:50vw!important;right:auto!important;bottom:auto!important;inset:auto!important;transform:translate(-50%,-50%)!important;width:80vw!important;height:80vh!important;margin:0!important}
 .project-viewer{display:grid!important;place-items:center!important;overflow:visible!important}
 .project-viewer>.viewer-panel{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;width:80vw!important;height:80vh!important}
+.project-viewer>.viewer-panel{overflow:visible!important}
+.project-viewer>.viewer-panel>.viewer-body{overflow:hidden;border-radius:0 0 15px 15px}
