@@ -1628,3 +1628,26 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 /* Scroll remains available, but no browser/container scrollbar is painted. */
 body[data-screen="home"],#home-deck{scrollbar-width:none}
 body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{display:none;width:0;height:0}
+
+/* Mobile corrections 2026-11-19: full-width navigation and top-aligned scenes. */
+@media (max-width:740px){
+ .home-scene-rail,.work-space:not([hidden])>.work-rail{
+  width:96vw!important;max-width:96vw!important;min-width:0!important;
+  left:50%!important;right:auto!important;transform:translateX(-50%)!important;
+  box-sizing:border-box!important;
+ }
+ .home-scene-rail-item,.work-space:not([hidden])>.work-rail .rail-link{
+  min-width:0!important;flex:1 1 0!important;padding-inline:2px!important;
+ }
+ .home-scene-rail-item>span:last-child,.work-space:not([hidden])>.work-rail .rail-label{
+  font-size:clamp(9px,2.4vw,12px)!important;letter-spacing:-.02em!important;
+ }
+ .scene-tools,.scene-contact{
+  align-content:start!important;place-items:start center!important;
+ }
+ .scene-tools .scene-inner,.scene-contact .scene-inner{
+  top:0!important;margin-top:0!important;transform:none!important;
+  padding-top:clamp(20px,4vh,42px)!important;
+  padding-bottom:calc(115px + env(safe-area-inset-bottom,0px))!important;
+ }
+}
