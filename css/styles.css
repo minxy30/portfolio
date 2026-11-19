@@ -1651,3 +1651,14 @@ body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{displa
   padding-bottom:calc(115px + env(safe-area-inset-bottom,0px))!important;
  }
 }
+
+/* Mobile: keep the back-to-top control clear of the 96vw bottom navigation. */
+@media(max-width:740px){
+ .mobile-back-top:not([hidden]){
+  position:fixed!important;
+  right:calc(2vw + 8px)!important;
+  bottom:calc(104px + env(safe-area-inset-bottom,0px))!important;
+  width:48px!important;height:48px!important;
+  z-index:31!important;
+ }
+}
