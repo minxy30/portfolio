@@ -1608,7 +1608,7 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 /* Keep the tools content scrollable above the fixed rail. */
 .scene-tools,.scene-contact{height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;scrollbar-width:none}
 .scene-tools::-webkit-scrollbar,.scene-contact::-webkit-scrollbar{display:none;width:0;height:0}
-.scene-tools .scene-inner,.scene-contact .scene-inner{height:auto!important;max-height:none!important;min-height:max-content!important;transform:none!important;justify-content:flex-start!important;margin-top:clamp(24px,6vh,72px)!important;padding-bottom:clamp(190px,28vh,280px)!important}
+.scene-tools .scene-inner,.scene-contact .scene-inner{height:auto!important;max-height:none!important;min-height:max-content!important;transform:none!important;justify-content:flex-start!important;margin-top:0!important;padding-top:clamp(24px,6vh,72px)!important;padding-bottom:clamp(220px,32vh,320px)!important;box-sizing:border-box!important}
 .scene-tools .tool-wall{overflow:visible!important;max-height:none!important}
 .home-scene-rail{position:absolute!important}
 
