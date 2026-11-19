@@ -1502,3 +1502,5 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .site-header{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 @media(max-width:740px){.entry-content{width:min(94vw,560px);padding:28px 20px;border-radius:22px}.entry-content h1{font-size:clamp(48px,15vw,76px)}.entry-fields{font-size:12px;line-height:1.45}.entry-launch{min-height:62px}}
 @media(prefers-reduced-motion:reduce){.entry-collage{transform:none!important;transition:none}.entry-gate::after{opacity:.55}}
+/* El portafolio prioriza proyecto, participación y herramientas; no muestra un resultado genérico. */
+.viewer-info h3:has(+ #viewer-results), #viewer-results{display:none!important}
