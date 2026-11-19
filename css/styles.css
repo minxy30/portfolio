@@ -970,6 +970,7 @@ body[data-theme="dark"] .scene-contact .contact-options a:hover{background:#fff!
 body[data-theme="dark"] .work-footer-actions>a,body[data-theme="dark"] .work-footer-actions>button{box-shadow:9px 9px 0 #D97757!important}
 body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .work-footer-actions>button:hover{box-shadow:12px 12px 0 #D97757!important}
 .scene-contact .contact-copy-only .email-contact-link{border:0!important;box-shadow:none!important;background:transparent!important;border-radius:0!important}
+.scene-contact .contact-copy-only{border:2px solid #0B1A1F!important;border-radius:24px!important}
 body:not([data-theme="dark"]) .scene-contact .contact-options a,body:not([data-theme="dark"]) .scene-contact .contact-options .contact-card{box-shadow:8px 8px 0 #0B1A1F!important}
 body[data-theme="dark"] .scene-contact .contact-options a,body[data-theme="dark"] .scene-contact .contact-options .contact-card{box-shadow:8px 8px 0 #D97757!important}
 body:not([data-theme="dark"]) .work-footer-actions>a,body:not([data-theme="dark"]) .work-footer-actions>button{box-shadow:9px 9px 0 #0B1A1F!important}
