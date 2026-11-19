@@ -1221,7 +1221,11 @@ decorateToolDust();
 function renderRelated(currentId){
  const target=$('viewer-related-grid');if(!target)return;
  target.replaceChildren();
- const ids=activeItems.filter(id=>id!==currentId);
+ const current=DATA[currentId]||{};
+ const tokens=(value='')=>value.toLowerCase().split(/[^a-záéíóúñ0-9]+/i).filter(token=>token.length>3);
+ const baseTokens=new Set(tokens(`${current.kind} ${current.tools} ${current.title}`));
+ const scored=activeItems.filter(id=>id!==currentId).map(id=>{const item=DATA[id]||{};const candidate=tokens(`${item.kind} ${item.tools} ${item.title}`);const score=candidate.reduce((sum,token)=>sum+(baseTokens.has(token)?1:0),0);return {id,score}}).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id));
+ const ids=scored.slice(0,3).map(entry=>entry.id);
  ids.forEach(id=>{
   const item=DATA[id];if(!item)return;
   const button=document.createElement('button');button.type='button';button.className='viewer-related-card';

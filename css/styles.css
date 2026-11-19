@@ -1504,3 +1504,5 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 @media(prefers-reduced-motion:reduce){.entry-collage{transform:none!important;transition:none}.entry-gate::after{opacity:.55}}
 /* El portafolio prioriza proyecto, participación y herramientas; no muestra un resultado genérico. */
 .viewer-info h3:has(+ #viewer-results), #viewer-results{display:none!important}
+.viewer-related{margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+.viewer-related h3{margin-top:0!important}
