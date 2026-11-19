@@ -866,7 +866,7 @@ function initKineticMenu(){
  reduce.addEventListener?.('change',syncMotionPreference);finePointer.addEventListener?.('change',syncMotionPreference);
 }
 initKineticMenu();
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');$('home-rail')?.classList.toggle('is-visible',stage>0);if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0,lastWheelAt=0;
@@ -937,7 +937,8 @@ const railIconFiles={
  copywriter:'assets/icons/rail-copywriter.svg'
 };
 function renderRail(){
- const el=$('work-rail');el.replaceChildren();
+ const targets=[$('work-rail'),$('home-rail')].filter(Boolean);
+ for(const el of targets){el.replaceChildren();
  const home=document.createElement('button');
  home.type='button';home.className='rail-link rail-home';
  home.setAttribute('aria-label','Volver al inicio');home.setAttribute('title','Inicio');
@@ -957,6 +958,7 @@ function renderRail(){
   const label=document.createElement('span');label.className='rail-label';label.textContent=c.label;
   b.append(icon,label);
   b.addEventListener('click',()=>route(c.id,b));el.appendChild(b);
+ }
  }
 }
 function selectCategory(id){const c=catById[id];if(!c)return;activeCategory=id;$('brand-home').innerHTML=`${c.title} <span class="brand-divider">|</span> <span class="brand-suffix">Yazmin Moreno</span>`;$('header-home-icon').hidden=false;activeFilter='all';renderRail();$('work-heading').innerHTML=`${c.title} <span>| Yazmin Moreno</span>`;$('work-intro-title').textContent=c.intro;$('work-caption').textContent='TRABAJOS SELECCIONADOS / '+c.title.toUpperCase();$('work-intro-detail').textContent=c.desc;const tabs=$('work-tabs');tabs.replaceChildren();
