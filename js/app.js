@@ -866,7 +866,8 @@ function initKineticMenu(){
  reduce.addEventListener?.('change',syncMotionPreference);finePointer.addEventListener?.('change',syncMotionPreference);
 }
 initKineticMenu();
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;toolsBoundaryReady=false;wheelBuffer=0;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');const sceneScroll=scenes[stage];if(sceneScroll)sceneScroll.scrollTop=0;if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
+let sceneEnteredAt=0;
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;toolsBoundaryReady=false;wheelBuffer=0;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');sceneEnteredAt=performance.now();const sceneScroll=scenes[stage];if(sceneScroll){sceneScroll.scrollTop=0;requestAnimationFrame(()=>{sceneScroll.scrollTop=0})}if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0,lastWheelAt=0,toolsBoundaryReady=false;
@@ -875,6 +876,7 @@ window.addEventListener('wheel',e=>{
  if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;
  const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
  if(Math.abs(delta)<1)return;
+ if(performance.now()-sceneEnteredAt<850){e.preventDefault();return}
  const sceneScroll=(stage===1||stage===2)?scenes[stage]:null;
  if(sceneScroll){const atEnd=sceneScroll.scrollTop+sceneScroll.clientHeight>=sceneScroll.scrollHeight-5;
   const atStart=sceneScroll.scrollTop<=5;
