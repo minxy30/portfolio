@@ -1035,7 +1035,8 @@ body[data-theme="dark"] .scene-tools .tool-filters button.is-active,body[data-th
  .contact-card small,.contact-tile small{overflow-wrap:anywhere}
  .mobile-back-top{display:grid;place-items:center}
 }
-@media(min-width:741px){.mobile-back-top{display:none}}
+@media(min-width:741px){.mobile-back-top{display:grid;place-items:center}}
+.mobile-back-top{border:1px solid #FFDF8F!important;background:#0B1A1F!important;color:#FFDF8F!important;transition:transform .25s ease,background .25s ease,color .25s ease}.mobile-back-top:hover,.mobile-back-top:focus-visible{transform:translateY(-4px);background:#D97757!important;color:#FFFFFF!important}
 @media(prefers-reduced-motion:reduce){.mobile-back-top{scroll-behavior:auto}}
 
 
