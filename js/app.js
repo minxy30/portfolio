@@ -1274,6 +1274,24 @@ if(mobileTop)mobileTop.addEventListener('click',()=>{
  else workMain.scrollTo({top:0,behavior:reduce.matches?'instant':'smooth'});
 });
 
+// Ensure every project tool chip receives its local brand mark, including tools
+// that are not part of the visible tools-wall grouping.
+const projectToolLogos={
+ 'Kling AI':'assets/logos/kling.png','Google Flow':'assets/logos/flow.png','VEED':'assets/logos/veed.png',
+ 'ElevenLabs':'assets/logos/elevenlabs.png','Remotion':'assets/logos/remotion.png','Magnific AI':'assets/logos/magnific.png',
+ 'OpenAI':'assets/logos/openai.png','ChatGPT':'assets/logos/openai.png','Adobe Illustrator':'assets/logos/illustrator.svg',
+ 'Illustrator':'assets/logos/illustrator.svg','CapCut':'assets/logos/capcut.png','CapCut Pro':'assets/logos/capcut.png',
+ 'Premiere Pro':'assets/logos/premiere.svg','After Effects':'assets/logos/after-effects.svg'
+};
+const projectToolsObserver=new MutationObserver(()=>{
+ const root=$('viewer-tools'); if(!root)return;
+ root.querySelectorAll('.viewer-software-chip').forEach(chip=>{
+  const label=chip.querySelector('span:last-child')?.textContent?.trim(); const src=projectToolLogos[label];
+  if(src&&!chip.querySelector('img')){const img=document.createElement('img');img.src=src;img.alt='';img.loading='lazy';img.decoding='async';chip.prepend(img)}
+ });
+});
+projectToolsObserver.observe(document.body,{subtree:true,childList:true});
+
 // Preserves natural browser navigation; direct #video/#diseno URLs work on Pages.
 routeByHash();syncMobileTop();
 })();
