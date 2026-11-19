@@ -1609,6 +1609,8 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .scene-tools{height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
 .scene-tools .scene-inner{height:auto!important;max-height:none!important;min-height:max-content!important;transform:none!important;padding-bottom:clamp(110px,16vh,180px)!important}
 .scene-tools .tool-wall{overflow:visible!important;max-height:none!important}
+.scene-contact{overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
+.scene-contact .scene-inner{padding-bottom:clamp(150px,22vh,240px)!important}
 
 /* Responsive rail: same proportions, never wider than the viewport. */
 .home-scene-rail,.work-space:not([hidden])>.work-rail{width:50vw!important;min-width:0!important;max-width:calc(100vw - 24px)!important}
