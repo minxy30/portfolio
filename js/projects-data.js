@@ -61,7 +61,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/zaru.mp4",
-    "tools": "Premiere Pro · Edición",
+    "tools": "Kling AI · Google Flow · VEED · Guion · Voz IA",
     "results": "Pieza final preparada para comunicación digital."
   },
   "smarketing": {
@@ -74,7 +74,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/smarketing.mp4",
-    "tools": "Premiere Pro · Edición",
+    "tools": "ChatGPT · Google Flow · CapCut · Remotion · VEED · ElevenLabs",
     "results": "Pieza final preparada para comunicación digital."
   },
   "casita": {
@@ -87,7 +87,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/casita.mp4",
-    "tools": "Premiere Pro · Edición",
+    "tools": "Premiere Pro · VEED · Edición y subtitulado",
     "results": "Pieza final preparada para comunicación digital."
   },
   "minsis": {
@@ -100,7 +100,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "landscape",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/minsis.mp4",
-    "tools": "Premiere Pro · Edición",
+    "tools": "After Effects · Premiere Pro · ElevenLabs · Magnific",
     "results": "Pieza final preparada para comunicación digital."
   },
   "potencial": {
