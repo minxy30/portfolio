@@ -407,6 +407,19 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 .work-footer-actions a:hover,.work-footer-actions button:hover{transform:translateY(-3px);
  box-shadow:0 7px 22px color-mix(in srgb,var(--ink) 10%,transparent)}
 .work-footer-actions .contact-brand-mark{height:21px;width:21px;flex:0 0 21px}
+.work-footer-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:28px 0 30px}
+.work-footer-actions>a,.work-footer-actions>button{position:relative;min-height:148px;padding:20px 18px 42px;border:1.5px solid var(--ink);border-radius:24px;background:var(--paper);color:var(--ink);box-shadow:9px 9px 0 var(--ink);display:flex;align-items:flex-start;gap:10px;font:800 22px var(--display);text-align:left;transition:background .2s,transform .2s,box-shadow .2s}
+.work-footer-actions>a:hover,.work-footer-actions>button:hover{background:var(--accent);color:var(--bg);transform:translate(-3px,-3px);box-shadow:12px 12px 0 var(--ink)}
+.work-footer-actions .contact-brand-mark{width:30px;height:30px;flex:0 0 auto}
+.work-footer-actions>a span{margin-left:auto;color:var(--accent);font-size:22px}
+.work-footer-actions>a::after,.work-footer-actions>button::after{position:absolute;left:18px;bottom:16px;font:600 11px var(--font);color:var(--muted)}
+.work-footer-actions>a:nth-child(1)::after{content:'Abrir Gmail para escribir'}
+.work-footer-actions>button::after{content:'Copiar dirección'}
+.work-footer-actions>a:nth-child(3)::after{content:'Enviar mensaje'}
+.work-footer-actions>a:nth-child(4)::after{content:'Teléfono'}
+.work-footer-actions>a:nth-child(5)::after{content:'Currículum'}
+body[data-theme="dark"] .work-footer-actions>a,body[data-theme="dark"] .work-footer-actions>button{background:var(--card);box-shadow:9px 9px 0 #02070a}
+body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .work-footer-actions>button:hover{background:var(--accent);color:#17242b;box-shadow:12px 12px 0 #02070a}
 .work-email{margin:6px 0 28px;color:var(--muted);font:600 12px var(--font);overflow-wrap:anywhere}
 .scene-tools .scene-inner{height:auto;max-height:calc(100dvh - var(--hdr) - 55px);
  width:min(1000px,calc(100vw - 92px));display:flex;flex-direction:column;
@@ -419,6 +432,8 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
  .work-footer{min-height:clamp(250px,36dvh,500px)}
  .scene-tools .scene-inner{width:calc(100vw - 45px);max-height:calc(100dvh - var(--hdr) - 22px)}
  .scene-tools .tool-wall{max-height:57dvh}
+ .work-footer-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .work-footer-actions>a,.work-footer-actions>button{min-height:120px;padding:16px 14px 38px;font-size:17px}
 }
 /* Gmail is a full multi-color envelope; email remains copyable without a mail app. */
 .contact-options .contact-card{position:relative;min-width:0;background:var(--card);border:1px solid var(--line);
