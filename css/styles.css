@@ -924,6 +924,17 @@ body:not([data-theme="dark"]) .scene-tools .tool-chip{background:#fff8e7;border-
 body:not([data-theme="dark"]) .scene-contact .contact-options a{background:#fff8e7;color:#0B1A1F}
 body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F}
 @media(max-width:740px){.scene-tools .scene-inner h1{font-size:clamp(40px,11vw,64px)!important}.scene-tools .tool-category-grid .tool-chip,.scene-tools .tool-wall .tool-chip{min-height:62px!important;padding:9px!important;font-size:12px!important}.scene-tools .tool-mark{width:35px!important;height:35px!important;flex-basis:35px!important}.scene-tools .tool-mark img{width:29px!important;height:29px!important}}
+.scene-contact .scene-inner{width:min(1180px,calc(100vw - 120px));padding-block:clamp(22px,5vh,70px)}
+.scene-contact .eyebrow{color:#FFDF8F;letter-spacing:.24em}
+.scene-contact .scene-inner h1{font-size:clamp(72px,10.5vw,168px);line-height:.82;margin:clamp(20px,3vh,38px) 0;color:#0B1A1F;max-width:900px}
+.scene-contact .scene-inner h1 em{color:#FFFFFF}
+.scene-contact .scene-subtitle{max-width:650px;color:#0B1A1F;font-size:clamp(16px,1.8vw,24px);line-height:1.35}
+.scene-contact .contact-options{gap:16px;max-width:1100px;margin-top:clamp(24px,4vh,52px)}
+.scene-contact .contact-options a,.scene-contact .contact-options .contact-card{background:#FFDF8F;color:#0B1A1F;border:2px solid #0B1A1F;min-height:142px;border-radius:24px;box-shadow:8px 8px 0 #0B1A1F;transition:transform .3s ease,box-shadow .3s ease,background .3s ease}
+.scene-contact .contact-options a:hover,.scene-contact .contact-options .contact-card:hover{transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F;background:#FFFFFF}
+.scene-contact .contact-options .contact-label{color:#0B1A1F}.scene-contact .contact-options .contact-arrow{color:#D97757}.scene-contact .contact-options small{color:#36525a}
+.scene-contact .contact-credit{color:#0B1A1F;margin-top:clamp(28px,5vh,64px)}
+@media(max-width:740px){.scene-contact .scene-inner{width:calc(100vw - 40px)}.scene-contact .scene-inner h1{font-size:clamp(56px,15vw,92px)}.scene-contact .contact-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.scene-contact .contact-options a,.scene-contact .contact-options .contact-card{min-height:112px;border-radius:16px;box-shadow:5px 5px 0 #0B1A1F;padding:15px 12px}.scene-contact .contact-options a:hover,.scene-contact .contact-options .contact-card:hover{box-shadow:7px 8px 0 #0B1A1F}}
 
 /* Final override: no white wash and no container around the lobby copy. */
 .entry-gate{background:#0B1A1F!important}
