@@ -866,7 +866,7 @@ function initKineticMenu(){
  reduce.addEventListener?.('change',syncMotionPreference);finePointer.addEventListener?.('change',syncMotionPreference);
 }
 initKineticMenu();
-function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
+function showStage(n){if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio')||aboutDialog?.open)return;n=Math.max(0,Math.min(2,n));if(n===stage||locked)return;locked=true;soundEffect('reveal');scenes[stage].classList.remove('is-active');scenes[stage].inert=true;stage=n;scenes[stage].inert=false;scenes[stage].classList.add('is-active');const sceneScroll=scenes[stage];if(sceneScroll)sceneScroll.scrollTop=0;if(stage===1)requestAnimationFrame(()=>{queueToolFit();animateToolSelection()});document.querySelectorAll('.stage-dot').forEach((dot,i)=>{dot.classList.toggle('is-active',i===stage);if(i===stage)dot.setAttribute('aria-current','step');else dot.removeAttribute('aria-current')});if(reduce.matches)locked=false;else setTimeout(()=>{locked=false},600);syncMobileTop()}
 for(const dot of document.querySelectorAll('[data-stage]'))dot.addEventListener('click',()=>{wheelBuffer=0;showStage(+dot.dataset.stage)});
 for(const b of document.querySelectorAll('[data-next]'))b.addEventListener('click',()=>showStage(+b.dataset.next));
 let wheelBuffer=0,lastWheelAt=0,toolsBoundaryReady=false;
@@ -875,10 +875,10 @@ window.addEventListener('wheel',e=>{
  if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;
  const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
  if(Math.abs(delta)<1)return;
- const toolsScroll=stage===1?$('scene-tools'):null;
- if(toolsScroll){const atEnd=toolsScroll.scrollTop+toolsScroll.clientHeight>=toolsScroll.scrollHeight-5;
-  const atStart=toolsScroll.scrollTop<=5;
-  if((delta>0&&!atEnd)||(delta<0&&!atStart)){toolsScroll.scrollTop+=delta;toolsBoundaryReady=false;wheelBuffer=0;return;}
+ const sceneScroll=(stage===1||stage===2)?scenes[stage]:null;
+ if(sceneScroll){const atEnd=sceneScroll.scrollTop+sceneScroll.clientHeight>=sceneScroll.scrollHeight-5;
+  const atStart=sceneScroll.scrollTop<=5;
+  if((delta>0&&!atEnd)||(delta<0&&!atStart)){sceneScroll.scrollTop+=delta;toolsBoundaryReady=false;wheelBuffer=0;return;}
   if(delta<0&&atStart&&!toolsBoundaryReady){toolsBoundaryReady=true;wheelBuffer=0;return;}}
  e.preventDefault();
  const now=performance.now();
@@ -892,7 +892,7 @@ window.addEventListener('wheel',e=>{
 },{passive:false});
 let touchY=null;
 $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??null},{passive:true});
-$('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72){const tools=stage===1?$('scene-tools'):null;const atEnd=tools&&tools.scrollTop+tools.clientHeight>=tools.scrollHeight-5;const atStart=tools&&tools.scrollTop<=5;if(!tools||(d>0&&atEnd)||(d<0&&atStart))showStage(stage+(d>0?1:-1))}},{passive:true});
+ $('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72){const sceneScroll=(stage===1||stage===2)?scenes[stage]:null;const atEnd=sceneScroll&&sceneScroll.scrollTop+sceneScroll.clientHeight>=sceneScroll.scrollHeight-5;const atStart=sceneScroll&&sceneScroll.scrollTop<=5;if(!sceneScroll||(d>0&&atEnd)||(d<0&&atStart))showStage(stage+(d>0?1:-1))}},{passive:true});
 window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');light.dataset.destination=element?.dataset.destination||'';soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},470)},520)}
 const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / MÉXICO</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
