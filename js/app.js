@@ -17,6 +17,7 @@ document.querySelectorAll('[data-current-year]').forEach(node=>node.textContent=
 const localToolLogos={Canva:'assets/logos/canva.png',CapCut:'assets/logos/capcut.png',WhatsApp:'assets/logos/whatsapp.png'};
 document.querySelectorAll('.tool-chip').forEach(card=>{const name=card.querySelector('.tool-name')?.textContent?.trim();const src=localToolLogos[name]||({C:'assets/logos/canva.png',Cc:'assets/logos/capcut.png',Wa:'assets/logos/whatsapp.png'}[card.dataset.symbol]);if(src){const img=card.querySelector('.tool-mark img');if(img){img.src=src;img.removeAttribute('referrerpolicy');img.style.opacity='1';img.style.display='block'}}});
 document.querySelectorAll('.gmail-icon').forEach(mark=>{const img=document.createElement('img');img.src='assets/logos/gmail.png';img.alt='';img.className='contact-brand-mark gmail-icon';mark.replaceWith(img)});
+document.querySelectorAll('a[href^="https://wa.me/"] .contact-brand-mark').forEach(mark=>{const img=document.createElement('img');img.src='assets/logos/whatsapp.png';img.alt='';img.className='contact-brand-mark whatsapp-icon';mark.replaceWith(img)});
 const applyLocalToolLogos=()=>document.querySelectorAll('.tool-chip').forEach(card=>{const src=localToolLogos[card.querySelector('.tool-name')?.textContent?.trim()]||({C:'assets/logos/canva.png',Cc:'assets/logos/capcut.png',Wa:'assets/logos/whatsapp.png'}[card.dataset.symbol]);const img=card.querySelector('.tool-mark img');if(src&&img){img.src=src;img.style.opacity='1';img.style.display='block'}});
 new MutationObserver(applyLocalToolLogos).observe($('tool-wall')||document.body,{subtree:true,childList:true});
 const originalBrand=$('brand-home').innerHTML;const aboutDialog=$('about-viewer');let aboutReturnFocus=null;
@@ -1169,7 +1170,7 @@ function categorizeTools(){
  ['video','Video y motion','Edición y animación',['Premiere Pro','After Effects · básico','CapCut']],
  ['diseno','Diseño e imagen','Fotografía y diseño gráfico',['Photoshop','Illustrator','InDesign','Lightroom · básico','Affinity','Canva']],
  ['ia','IA creativa','Apoyo creativo y producción',['Google Flow','Kling AI','Magnific AI','OpenAI','Claude','Grok']],
- ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP','WhatsApp']]
+ ['gestion','Gestión y publicación','Planificación y herramientas técnicas',['Trello','Metricool','WordPress','Adobe UXP']]
  ];
  const fragment=document.createDocumentFragment(),sections=[],buttons=[];
  let assigned=0;
