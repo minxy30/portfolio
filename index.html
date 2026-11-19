@@ -17,7 +17,28 @@
 
 <script defer src="js/drive-previews.js?v=official-sabias-6"></script>
 <script defer src="js/copywriter-links.js?v=article-cover-fix-2"></script>
-<script defer src="js/app.js?v=tools-scroll-20261119-3"></script>
+<script defer src="js/app.js?v=entry-repair-136dcd9-2"></script>
+<script>
+/* Independent mobile-safe entry fallback: works even if the main application fails to initialize. */
+document.addEventListener('DOMContentLoaded',function(){
+ var button=document.getElementById('enter-portfolio');
+ if(!button)return;
+ button.addEventListener('click',function(){
+  window.setTimeout(function(){
+   var gate=document.getElementById('entry-gate');
+   if(!gate||gate.hidden)return;
+   gate.hidden=true;
+   gate.style.display='none';
+   document.body.classList.remove('pre-entry','entering-portfolio');
+   document.body.dataset.screen='home';
+   var main=document.getElementById('site-main'),header=document.querySelector('.site-header');
+   if(main)main.inert=false;
+   if(header)header.inert=false;
+   button.disabled=false;
+  },120);
+ },true);
+});
+</script>
 </head>
 <body data-theme="dark" data-screen="home" class="pre-entry">
 <a class="skip" href="#work-space" data-destination="video">Ir directamente a los trabajos</a>
