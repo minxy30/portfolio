@@ -961,7 +961,7 @@ body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F
 .scene-contact .scene-inner h1 em{color:#FFFFFF}
 .scene-contact .scene-subtitle{max-width:650px;color:#0B1A1F;font-size:clamp(16px,1.8vw,24px);line-height:1.35}
 .scene-contact .contact-options{gap:16px;max-width:1100px;margin-top:clamp(24px,4vh,52px);grid-template-columns:repeat(4,minmax(0,1fr))}
-.scene-contact .contact-options>.contact-copy-button{display:none}
+.scene-contact .contact-options>.contact-copy-button{display:none!important}
 .scene-contact .contact-options a{background:#fff!important;color:#0B1A1F!important;border:2px solid #0B1A1F!important;min-height:142px;border-radius:24px!important;box-shadow:8px 8px 0 #0B1A1F!important}
 .scene-contact .contact-options a:hover{background:#fff!important;transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F!important}
 body[data-theme="dark"] .scene-contact .contact-options a{background:#FFDF8F!important;color:#0B1A1F!important;border-color:#0B1A1F!important;box-shadow:8px 8px 0 #000!important}
