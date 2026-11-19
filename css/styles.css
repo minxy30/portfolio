@@ -890,6 +890,9 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .kinetic-links{z-index:5!important}
 .kinetic-preview-panel{opacity:0!important;filter:none!important;box-shadow:0 24px 64px rgba(0,0,0,.34)!important}
 .kinetic-preview-panel.is-active{opacity:1!important}
+.kinetic-preview-panel.is-active{opacity:.38!important}
+.kinetic-link,.kinetic-word,.kinetic-meta{position:relative;z-index:8!important}
+.kinetic-word{text-shadow:0 3px 16px rgba(0,0,0,.22)}
 .kinetic-preview-panel::after{display:none!important}
 .kinetic-link::before{z-index:-1!important}
 
