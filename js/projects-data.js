@@ -1,6 +1,6 @@
 window.PORTFOLIO_DATA = {
   "nuevo-sep28-a": {
-    "title": "Mercadotecnia Total · Presentación de marca",
+    "title": "Mercadotecnia Total · Presentación institucional para eventos",
     "kind": "Video horizontal · Motion graphics",
     "deck": "Comunicación de marca para eventos y networking",
     "description": "Video institucional para presentar a Mercadotecnia Total ante asistentes de eventos de networking, ferias y actividades universitarias. La pieza resume quién es la marca y qué ofrece mediante una combinación de narración, recursos de stock, materiales propios y gráficos animados. Se planteó para comunicar el mensaje con o sin audio y reproducirse en loop.",
@@ -13,7 +13,7 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep30": {
-    "title": "The Homes · La llave",
+    "title": "The Homes · Recorrido inmobiliario con escenas generadas por IA",
     "kind": "Video vertical · Publicidad inmobiliaria",
     "deck": "Secuencia inicial planificada y desarrollo visual asistido por IA",
     "description": "Video publicitario para The Homes que presenta una propiedad mediante una entrada visual basada en una llave y una sucesión de escenas inmobiliarias. La propuesta partió de los materiales, la información de la casa y una referencia compartida por la marca; se desarrolló para captar la atención desde los primeros segundos y mostrar el inmueble de forma atractiva.",
@@ -26,7 +26,7 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep28-b": {
-    "title": "Mercadotecnia Total · En movimiento",
+    "title": "Mercadotecnia Total · Comunicación de marca en loop",
     "kind": "Video horizontal · Motion graphics",
     "deck": "Segunda pieza institucional para comunicación de marca",
     "description": "Segunda pieza institucional de Mercadotecnia Total, creada para reforzar la presentación de la marca en eventos, networking y espacios universitarios. La información se convirtió en una composición de motion graphics con recursos visuales modulares, narración y ritmo diseñado para reproducción continua.",
@@ -39,7 +39,7 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-oct16": {
-    "title": "The Homes · Campaña inmobiliaria",
+    "title": "The Homes · Reedición breve para campaña inmobiliaria",
     "kind": "Video vertical · Reedición publicitaria",
     "deck": "Reducción de duración y actualización de una pieza existente",
     "description": "Versión abreviada y actualizada de una pieza publicitaria de The Homes para una campaña de comunicación más rápida. El proyecto reorganiza el material disponible, incorpora nuevas escenas y conserva la identidad de la edición original para presentar el mensaje de forma más directa.",
@@ -52,7 +52,7 @@ window.PORTFOLIO_DATA = {
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "zaru": {
-    "title": "The Homes · Una casa para sentir",
+    "title": "The Homes · Historia emocional de una propiedad",
     "kind": "Video publicitario · Campaña Zarú",
     "deck": "Fotografías convertidas en una pieza audiovisual",
     "description": "Video publicitario de The Homes que transforma fotografías de una propiedad en una pieza audiovisual de tono sentimental. A partir de la información comercial y del material fotográfico proporcionado, la propuesta construye una conexión humana mediante narración, música y escenas complementarias generadas con IA.",
@@ -65,7 +65,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza final preparada para comunicación digital."
   },
   "smarketing": {
-    "title": "Smarketing 360 · Ideas claras",
+    "title": "Smarketing 360 · Servicios explicados con personaje generado por IA",
     "kind": "Video vertical · Contenido digital",
     "deck": "Hacer comprensibles las ideas",
     "description": "Video vertical informativo para presentar las ideas y servicios de Smarketing 360 de manera clara y accesible. La pieza utiliza un personaje generado, una narrativa breve y recursos gráficos animados para facilitar la comprensión del mensaje en formatos digitales y redes sociales.",
@@ -78,7 +78,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza final preparada para comunicación digital."
   },
   "casita": {
-    "title": "Casita de Sol · Estimulación temprana",
+    "title": "Casita de Sol · Estimulación temprana y desarrollo infantil",
     "kind": "Edición · Video publicitario",
     "deck": "Montaje de material real",
     "description": "Video vertical informativo para Casita de Sol, elaborado con materiales proporcionados por la marca. La pieza comunica información breve y complementaria sobre sus servicios mediante un montaje directo, subtítulos y un tratamiento visual responsable con la privacidad de los menores.",
@@ -91,7 +91,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza final preparada para comunicación digital."
   },
   "minsis": {
-    "title": "Minsis Kids · Logo animado",
+    "title": "Minsis Kids · Animación de logotipo de marca",
     "kind": "Ejercicio de animación · After Effects",
     "deck": "Una introducción breve",
     "description": "Animación breve de identidad para Minsis Kids, creada para dar movimiento al logotipo de la marca y presentar una introducción visual sencilla. El proyecto parte del archivo entregado en Adobe Illustrator y lo convierte en una pieza animada para uso digital.",
