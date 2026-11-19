@@ -359,7 +359,7 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 .contact-options .contact-arrow{color:var(--accent);margin-left:auto}
 .work-rail{width:104px;flex-basis:104px;padding:13px 7px;gap:8px;background:color-mix(in srgb,var(--card) 79%,var(--bg));border-right:1px solid var(--line)}
 .home-scene-rail{position:fixed;z-index:25;left:50%;bottom:clamp(18px,4vh,42px);width:min(45vw,620px);transform:translate(-50%,18px);display:flex;gap:8px;padding:8px;background:color-mix(in srgb,var(--card) 88%,var(--bg));border:1px solid var(--line);border-radius:28px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,transform .3s ease,visibility .3s ease}
-.scene-tools.is-active~.home-scene-rail,.scene-contact.is-active~.home-scene-rail{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.home-deck:has(.scene-tools.is-active) .home-scene-rail,.home-deck:has(.scene-contact.is-active) .home-scene-rail{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
 .home-scene-rail-item{flex:1;min-width:0;min-height:58px;padding:8px 10px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--ink);font:800 12px var(--display);text-decoration:none}
 .home-scene-rail-item:hover{background:rgba(125,134,136,.17);transform:translateY(-1px)}
 .home-scene-rail-icon{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center}
