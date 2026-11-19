@@ -875,7 +875,7 @@ window.addEventListener('wheel',e=>{
  if(document.body.classList.contains('pre-entry')||document.body.classList.contains('entering-portfolio'))return;
  const delta=e.deltaMode===1?e.deltaY*16:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
  if(Math.abs(delta)<1)return;
- const toolsScroll=stage===1&&matchMedia('(max-width: 740px)').matches?$('scene-tools'):null;
+ const toolsScroll=stage===1?$('scene-tools'):null;
  if(toolsScroll){const atEnd=toolsScroll.scrollTop+toolsScroll.clientHeight>=toolsScroll.scrollHeight-5;
   const atStart=toolsScroll.scrollTop<=5;
   if((delta>0&&!atEnd)||(delta<0&&!atStart)){wheelBuffer=0;return;}}
