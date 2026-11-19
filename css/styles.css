@@ -913,8 +913,11 @@ body:not([data-theme="dark"]) .scene-entrance{background:#FFDF8F!important}
 body:not([data-theme="dark"]) .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
 body:not([data-theme="dark"]) .scene-contact{background:#D97757!important;color:#0B1A1F}
 body[data-theme="dark"] .scene-entrance{background:#0B1A1F!important;color:#FFFFFF}
-body[data-theme="dark"] .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-tools{background:#D97757!important;color:#0B1A1F}
 body[data-theme="dark"] .scene-contact{background:#11171B!important;color:#FFFFFF}
+body[data-theme="dark"] .scene-tools .scene-subtitle,body[data-theme="dark"] .scene-tools .tool-category-head small{color:#0B1A1Fcc}
+body[data-theme="dark"] .scene-tools .tool-chip{background:#FFDF8F!important;color:#0B1A1F!important;border-color:#0B1A1F55;box-shadow:6px 6px 0 #0B1A1F55}
+body[data-theme="dark"] .scene-tools .filter-chip.active{background:#0B1A1F;color:#FFFFFF;border-color:#0B1A1F}
 body[data-theme="dark"] .scene-entrance .kinetic-word{color:#FFFFFF}
 body[data-theme="dark"] .scene-entrance .kinetic-meta,body[data-theme="dark"] .scene-contact .scene-subtitle{color:#C4D9D7}
 body[data-theme="dark"] .scene-contact .scene-inner h1{color:#FFFFFF}
