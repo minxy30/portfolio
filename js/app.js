@@ -938,6 +938,13 @@ const railIconFiles={
 };
 function renderRail(){
  const el=$('work-rail');el.replaceChildren();
+ const home=document.createElement('button');
+ home.type='button';home.className='rail-link rail-home';
+ home.setAttribute('aria-label','Volver al inicio');home.setAttribute('title','Inicio');
+ const homeIcon=document.createElement('span');homeIcon.className='rail-icon';homeIcon.setAttribute('aria-hidden','true');
+ homeIcon.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>';
+ const homeLabel=document.createElement('span');homeLabel.className='rail-label';homeLabel.textContent='Inicio';
+ home.append(homeIcon,homeLabel);home.addEventListener('click',()=>route('home',home));el.appendChild(home);
  for(const c of CATS){
   const b=document.createElement('button');
   b.type='button';b.className='rail-link'+(activeCategory===c.id?' is-active':'');
