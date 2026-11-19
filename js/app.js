@@ -942,7 +942,7 @@ function renderRail(){
  home.type='button';home.className='rail-link rail-home';
  home.setAttribute('aria-label','Volver al inicio');home.setAttribute('title','Inicio');
  const homeIcon=document.createElement('span');homeIcon.className='rail-icon';homeIcon.setAttribute('aria-hidden','true');
- homeIcon.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>';
+ homeIcon.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg>';
  const homeLabel=document.createElement('span');homeLabel.className='rail-label';homeLabel.textContent='Inicio';
  home.append(homeIcon,homeLabel);home.addEventListener('click',()=>route('home',home));el.appendChild(home);
  for(const c of CATS){
