@@ -908,6 +908,23 @@ body[data-theme="dark"]{--surface-strong:#10252b;--surface-soft:#0d1d22;--text-s
 body[data-theme="dark"] .project-card,body[data-theme="dark"] .project-open{background:var(--surface-soft)}
 @media(max-width:740px){.project-card,.project-open{border-radius:12px}.work-topline{gap:12px}.filter-chip{min-height:36px;padding-inline:13px}}
 
+/* Scrolltelling scenes: each chapter owns one palette surface. */
+body:not([data-theme="dark"]) .scene-entrance{background:#FFDF8F!important}
+body:not([data-theme="dark"]) .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
+body:not([data-theme="dark"]) .scene-contact{background:#D97757!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-entrance{background:#FFDF8F!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-tools{background:#FFFFFF!important;color:#0B1A1F}
+body[data-theme="dark"] .scene-contact{background:#D97757!important;color:#0B1A1F}
+.home-scene{will-change:opacity,filter,transform;transition:opacity .72s ease,filter .72s ease,transform .72s cubic-bezier(.2,.72,.2,1),visibility .72s}
+.scene-tools .scene-inner h1{font-size:clamp(46px,6.4vw,98px)!important;letter-spacing:-.07em}
+.scene-tools .scene-subtitle{font-size:clamp(14px,1.45vw,18px)!important}
+.scene-tools .tool-category-grid .tool-chip,.scene-tools .tool-wall .tool-chip{min-height:68px!important;padding:12px 13px!important;font-size:clamp(12px,1vw,15px)!important}
+.scene-tools .tool-mark{width:42px!important;height:42px!important;flex-basis:42px!important}.scene-tools .tool-mark img{width:34px!important;height:34px!important}
+body:not([data-theme="dark"]) .scene-tools .tool-chip{background:#fff8e7;border-color:#0B1A1F2b;color:#0B1A1F}
+body:not([data-theme="dark"]) .scene-contact .contact-options a{background:#fff8e7;color:#0B1A1F}
+body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F}
+@media(max-width:740px){.scene-tools .scene-inner h1{font-size:clamp(40px,11vw,64px)!important}.scene-tools .tool-category-grid .tool-chip,.scene-tools .tool-wall .tool-chip{min-height:62px!important;padding:9px!important;font-size:12px!important}.scene-tools .tool-mark{width:35px!important;height:35px!important;flex-basis:35px!important}.scene-tools .tool-mark img{width:29px!important;height:29px!important}}
+
 /* Final override: no white wash and no container around the lobby copy. */
 .entry-gate{background:#0B1A1F!important}
 .entry-veil,.entry-flare{display:none!important}
