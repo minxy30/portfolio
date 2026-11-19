@@ -139,7 +139,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza final preparada para comunicación digital."
   },
   "omar": {
-    "title": "Broker hipotecario",
+    "title": "¿Para qué sirve un broker hipotecario?",
     "kind": "Diseño editorial · Omar China",
     "deck": "Carrusel informativo para Omar China",
     "description": "Carrusel sobre el papel de un broker hipotecario, creado como parte de la gestión de contenidos de Omar China.",
@@ -150,15 +150,16 @@ window.PORTFOLIO_DATA = {
     ],
     "type": "gallery",
     "images": [
-      "assets/images/omar-1.webp",
-      "assets/images/omar-2.webp",
-      "assets/images/omar-3.webp"
+      "https://drive.google.com/thumbnail?id=1jJX59hNNiecH3U4hqFb9AWeXae7GtWiu&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1JpCrm2TaCOdIGZmwjiL8ZLu30L-ZtSfw&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1o-efTEv6BHpF1FiPXa4iJpqLvLrua02H&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1MzHRmFXmDxInT8dE6GV8nLDQT1sz3khN&sz=w1200"
     ],
     "tools": "Adobe Illustrator · ChatGPT",
-    "results": "Tres diapositivas localizadas; falta recuperar la cuarta de la serie original."
+    "results": "Cuatro diapositivas originales recuperadas de Drive."
   },
   "editorial": {
-    "title": "México no es un Buyer Persona",
+    "title": "México no es un solo Buyer Persona",
     "kind": "Diseño gráfico · Smarketing 360",
     "deck": "Publicación sobre segmentación de audiencias",
     "description": "Pieza gráfica que explica por qué México no puede tratarse como un único perfil de consumidor.",
@@ -175,7 +176,7 @@ window.PORTFOLIO_DATA = {
     "results": "Publicación individual para Smarketing 360."
   },
   "wbmf": {
-    "title": "Marcas y cultura pop",
+    "title": "Marcas que hacen noticia",
     "kind": "Diseño editorial · WBMF",
     "deck": "Noticias semanales en español e inglés",
     "description": "Dos ejemplos de publicaciones informativas de WBMF, parte de una producción semanal de noticias en español e inglés, programadas para martes y viernes.",
@@ -193,7 +194,7 @@ window.PORTFOLIO_DATA = {
     "results": "Dos publicaciones de una producción editorial semanal."
   },
   "sabias": {
-    "title": "¿Sabías que…?",
+    "title": "¿Sabías que…? Ideas que sorprenden",
     "kind": "Carrusel editorial · Smarketing 360",
     "deck": "Concepto y contenido desarrollados desde cero",
     "description": "Carrusel de divulgación sobre ideas de marketing, desarrollado a partir de una propuesta creativa propia.",
@@ -454,7 +455,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p16": {
-    "title": "Películas sobre marketing",
+    "title": "3 películas para entender el marketing",
     "kind": "Diseño editorial · Marketing",
     "deck": "Carrusel de recomendaciones cinematográficas",
     "description": "Carrusel editorial sobre tres películas relacionadas con el marketing.",
@@ -490,7 +491,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p19": {
-    "title": "Campaña Smarketing 360",
+    "title": "Marketing 360: una idea, múltiples soluciones",
     "kind": "Diseño promocional · Marketing",
     "deck": "Arte para pauta publicitaria",
     "description": "Pieza promocional solicitada para una campaña de Smarketing 360, desarrollada a partir de la información y requisitos de la empresa.",
@@ -507,7 +508,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p22": {
-    "title": "Masterclass Design Thinking",
+    "title": "Design Thinking: una masterclass para crear soluciones",
     "kind": "Pieza promocional · Masterclass",
     "deck": "Arte promocional para evento",
     "description": "Diseño de difusión de una masterclass de Design Thinking a partir de información e imágenes proporcionadas por la organización.",
@@ -536,7 +537,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p47": {
-    "title": "Workflow con IA",
+    "title": "Así se construye un workflow con IA",
     "kind": "Contenido educativo · Smarketing 360",
     "deck": "Carrusel educativo adaptado de una referencia",
     "description": "Carrusel sobre flujos de trabajo con IA, adaptado de una referencia compartida de Pinterest.",
@@ -572,15 +573,15 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p55": {
-    "title": "Venta de vivienda",
+    "title": "Anuncios inmobiliarios que destacan cada propiedad",
     "kind": "Piezas promocionales · Inmobiliario",
     "deck": "Artes publicitarios para campañas inmobiliarias",
-    "description": "Piezas promocionales de inmuebles de The Homes destinadas a campañas de Meta Ads, a partir de fotografías e información proporcionadas por el equipo comercial.",
+    "description": "Anuncios inmobiliarios para Meta Ads diseñados íntegramente en Affinity a partir de fotografías e información proporcionadas por The Homes. ChatGPT y Gemini se emplearon únicamente para mejorar ocasionalmente algunas fotos.",
     "role": [
-      "Definición de composición, jerarquía visual y textos publicitarios",
-      "Selección y organización de fotografías y datos de cada propiedad",
-      "Mejora asistida de fotografías con ChatGPT o Gemini, conservando las características reales del inmueble",
-      "Redacción de copies para publicaciones de la marca"
+      "Conceptualización y diseño de todos los anuncios en Affinity, incluidos composición, jerarquía visual y textos",
+      "Selección y organización de fotografías e información de cada propiedad proporcionadas por el cliente",
+      "Mejora ocasional de algunas fotografías con ChatGPT o Gemini, sin alterar las características reales de los inmuebles",
+      "Redacción de copies para las publicaciones de la marca"
     ],
     "type": "gallery",
     "images": [
@@ -589,11 +590,11 @@ window.PORTFOLIO_DATA = {
       "https://drive.google.com/thumbnail?id=1HdNWZjiO6spYLMG_x6KdIDxR1i4bx8rJ&sz=w1200",
       "https://drive.google.com/thumbnail?id=1vuNtD5zsvMmnXoiUcCYU860dwSx7rjz&sz=w1200Z&sz=w1200"
     ],
-    "tools": "ChatGPT · Gemini",
+    "tools": "Affinity · ChatGPT · Gemini",
     "results": "Cuatro artes publicitarios de propiedades."
   },
   "historia-marketing": {
-    "title": "El marketing tiene más de 2,000 años",
+    "title": "El marketing existía antes de internet",
     "kind": "Carrusel editorial · Smarketing 360",
     "deck": "Historia del marketing",
     "description": "Carrusel que presenta antecedentes históricos del marketing mediante escenas y recursos visuales.",
@@ -604,11 +605,15 @@ window.PORTFOLIO_DATA = {
     ],
     "type": "gallery",
     "images": [
-      "assets/images/smarketing-historia-1.webp",
-      "assets/images/smarketing-historia-2.webp",
-      "assets/images/smarketing-historia-3.webp"
+      "https://drive.google.com/thumbnail?id=1eg_xDKHDli0lV1dQXj6PGcnTHZ2VJQ9i&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1wgMCUVEbHatxv6riPKEzcrWoTui2lywf&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1cr9940cUn4XRGk2c7LyNml55KJNb1ORT&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1saiWUpiBNwc7YIZy_c-p9bDv_wr_p7xf&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1G2N13kaT-uYjnGP-lY288N1EMW_cyzhL&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1b_DNCQkn8smDOYABtN__lcTMqxMe8EyR&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1JExy5Ip9yLxfTusXDsbRm1zrkLC32U0f&sz=w1200"
     ],
     "tools": "ChatGPT · Canva",
-    "results": "Tres diapositivas identificadas; pendientes las demás de la serie original."
+    "results": "Siete imágenes originales recuperadas de Drive; la diapositiva numerada 6 no aparece en la carpeta."
   }
 };
