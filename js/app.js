@@ -1065,36 +1065,28 @@ function nativeVideo(src){
  mute.addEventListener('click',()=>{video.muted=!video.muted;sync()});
  full.addEventListener('click',()=>{if(document.fullscreenElement)document.exitFullscreen?.();else if(wrap.requestFullscreen)wrap.requestFullscreen();else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen()});
  ['loadedmetadata','timeupdate','play','pause','ended','volumechange'].forEach(name=>video.addEventListener(name,sync));
- video.addEventListener('error',()=>{const note=document.createElement('p');note.className='native-video-error';note.textContent='No se pudo cargar el video. Intenta abrir el archivo desde su enlace de origen.';wrap.appendChild(note)});
+ video.addEventListener('error',()=>{const note=document.createElement('p');note.className='native-video-error';note.textContent='No se pudo cargar el video.';wrap.appendChild(note)});
  bar.append(play,seek,clock,mute,full);wrap.append(video,bar);return wrap;
 }
 function makeMedia(item){const media=$('viewer-media');media.replaceChildren();const box=document.createElement('div');box.className='media-box'+(item.aspect==='portrait'?' portrait':'');media.appendChild(box);
  if(item.type==='video'){
   const controls=document.createElement('div');controls.className='portfolio-video-controls';
   const player=document.createElement('div');player.className='portfolio-video-player';
-  const actions=document.createElement('div');actions.className='portfolio-video-actions';
-  const external=document.createElement('a');external.className='portfolio-video-external';external.target='_blank';external.rel='noopener noreferrer';external.textContent='Abrir en Drive ↗';
   function build(identity,platform=item.platform){
    player.replaceChildren();
-   external.hidden=platform!=='drive';
    if(platform==='file'){
-    if(/^https:\/\/[a-z0-9.-]+\//i.test(identity)){player.appendChild(nativeVideo(identity));external.href=identity;external.textContent='Abrir archivo ↗';external.hidden=false}
     else player.textContent='Archivo de video no disponible';
    }else if(platform==='drive'){
     const iframe=driveEmbed(identity);
     if(iframe){iframe.loading='eager';const viewport=document.createElement('div');viewport.className='drive-embed-viewport';viewport.appendChild(iframe);player.appendChild(viewport)}
     else player.textContent='Video no disponible';
-    external.href='https://drive.google.com/file/d/'+encodeURIComponent(identity)+'/view';
-    external.setAttribute('aria-label','Abrir video en Google Drive en otra pestaña');
    }else{
     const iframe=ytEmbed(identity);if(iframe)player.appendChild(iframe);
-    external.hidden=true;
    }
   }
 
   build(item.clips?.length?item.clips[0].id:item.id,item.clips?.length?(item.clips[0].platform||item.platform):item.platform);
-  actions.appendChild(external);
-  box.append(controls,player,actions);
+  box.append(controls,player);
  }else if(item.images?.length){const stage=document.createElement('div');stage.className='gallery-stage';const pic=document.createElement('img');pic.alt=item.title;let index=0;pic.src=item.images[index];stage.appendChild(pic);const ctl=document.createElement('div');ctl.className='gallery-controls';const prev=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');prev.textContent='←';next.textContent='→';const update=()=>{pic.src=item.images[index];count.textContent=`${index+1} / ${item.images.length}`};prev.addEventListener('click',()=>{index=(index-1+item.images.length)%item.images.length;update();soundEffect()});next.addEventListener('click',()=>{index=(index+1)%item.images.length;update();soundEffect()});update();ctl.append(prev,count,next);if(item.images.length>1)stage.appendChild(ctl);
    let touchX=null;stage.addEventListener('touchstart',e=>{touchX=e.touches[0]?.clientX??null},{passive:true});stage.addEventListener('touchend',e=>{if(touchX==null)return;const dx=(e.changedTouches[0]?.clientX??touchX)-touchX;touchX=null;if(Math.abs(dx)>55){index=(index+(dx<0?1:-1)+item.images.length)%item.images.length;update();soundEffect('click')}},{passive:true});
    box.appendChild(stage)}
