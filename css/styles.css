@@ -407,7 +407,7 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 .work-footer-actions a:hover,.work-footer-actions button:hover{transform:translateY(-3px);
  box-shadow:0 7px 22px color-mix(in srgb,var(--ink) 10%,transparent)}
 .work-footer-actions .contact-brand-mark{height:21px;width:21px;flex:0 0 21px}
-.work-footer-actions{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:28px 0 30px}
+.work-footer-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:28px 0 30px}
 .work-footer-actions>a,.work-footer-actions>button{position:relative;min-height:148px;padding:20px 18px 42px;border:1.5px solid var(--ink);border-radius:24px;background:var(--paper);color:var(--ink);box-shadow:9px 9px 0 var(--ink);display:flex;align-items:flex-start;gap:10px;font:800 22px var(--display);text-align:left;transition:background .2s,transform .2s,box-shadow .2s}
 .work-footer-actions>a:hover,.work-footer-actions>button:hover{background:var(--accent);color:var(--bg);transform:translate(-3px,-3px);box-shadow:12px 12px 0 var(--ink)}
 .work-footer-actions .contact-brand-mark{width:30px;height:30px;flex:0 0 auto}
@@ -420,6 +420,7 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 .work-footer-actions>a:nth-child(5)::after{content:'Currículum'}
 body[data-theme="dark"] .work-footer-actions>a,body[data-theme="dark"] .work-footer-actions>button{background:var(--card);box-shadow:9px 9px 0 #02070a}
 body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .work-footer-actions>button:hover{background:var(--accent);color:#17242b;box-shadow:12px 12px 0 #02070a}
+.work-footer-actions>.footer-copy-email{display:none}
 .work-email{margin:6px 0 28px;color:var(--muted);font:600 12px var(--font);overflow-wrap:anywhere}
 .scene-tools .scene-inner{height:auto;max-height:calc(100dvh - var(--hdr) - 55px);
  width:min(1000px,calc(100vw - 92px));display:flex;flex-direction:column;
@@ -959,7 +960,12 @@ body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F
 .scene-contact .scene-inner h1{font-size:clamp(72px,10.5vw,168px);line-height:.82;margin:clamp(20px,3vh,38px) 0;color:#0B1A1F;max-width:900px}
 .scene-contact .scene-inner h1 em{color:#FFFFFF}
 .scene-contact .scene-subtitle{max-width:650px;color:#0B1A1F;font-size:clamp(16px,1.8vw,24px);line-height:1.35}
-.scene-contact .contact-options{gap:16px;max-width:1100px;margin-top:clamp(24px,4vh,52px)}
+.scene-contact .contact-options{gap:16px;max-width:1100px;margin-top:clamp(24px,4vh,52px);grid-template-columns:repeat(4,minmax(0,1fr))}
+.scene-contact .contact-options>.contact-copy-button{display:none}
+.scene-contact .contact-options a{background:#fff!important;color:#0B1A1F!important;border:2px solid #0B1A1F!important;min-height:142px;border-radius:24px!important;box-shadow:8px 8px 0 #0B1A1F!important}
+.scene-contact .contact-options a:hover{background:#fff!important;transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F!important}
+body[data-theme="dark"] .scene-contact .contact-options a{background:#FFDF8F!important;color:#0B1A1F!important;border-color:#0B1A1F!important;box-shadow:8px 8px 0 #000!important}
+body[data-theme="dark"] .scene-contact .contact-options a:hover{background:#fff!important;box-shadow:12px 14px 0 #000!important}
 .scene-contact .contact-options a,.scene-contact .contact-options .contact-card{background:#FFDF8F;color:#0B1A1F;border:2px solid #0B1A1F;min-height:142px;border-radius:24px;box-shadow:8px 8px 0 #0B1A1F;transition:transform .3s ease,box-shadow .3s ease,background .3s ease}
 .scene-contact .contact-options a:hover,.scene-contact .contact-options .contact-card:hover{transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F;background:#FFFFFF}
 .scene-contact .contact-options .contact-label{color:#0B1A1F}.scene-contact .contact-options .contact-arrow{color:#D97757}.scene-contact .contact-options small{color:#36525a}
