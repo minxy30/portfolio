@@ -418,8 +418,8 @@ body[data-theme="light"] .atmo-vignette{opacity:.055}
 .work-footer-actions>a:nth-child(3)::after{content:'Enviar mensaje'}
 .work-footer-actions>a:nth-child(4)::after{content:'Teléfono'}
 .work-footer-actions>a:nth-child(5)::after{content:'Currículum'}
-body[data-theme="dark"] .work-footer-actions>a,body[data-theme="dark"] .work-footer-actions>button{background:var(--card);box-shadow:9px 9px 0 #02070a}
-body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .work-footer-actions>button:hover{background:var(--accent);color:#17242b;box-shadow:12px 12px 0 #02070a}
+body[data-theme="dark"] .work-footer-actions>a,body[data-theme="dark"] .work-footer-actions>button{background:var(--card);box-shadow:9px 9px 0 #D97757}
+body[data-theme="dark"] .work-footer-actions>a:hover,body[data-theme="dark"] .work-footer-actions>button:hover{background:var(--accent);color:#17242b;box-shadow:12px 12px 0 #D97757}
 .work-footer-actions>.footer-copy-email{display:none}
 .work-email{margin:6px 0 28px;color:var(--muted);font:600 12px var(--font);overflow-wrap:anywhere}
 .scene-tools .scene-inner{height:auto;max-height:calc(100dvh - var(--hdr) - 55px);
@@ -964,8 +964,8 @@ body[data-theme="dark"] .scene-tools .tool-chip{background:#f7f8f4;color:#0B1A1F
 .scene-contact .contact-options>.contact-copy-button{display:none!important}
 .scene-contact .contact-options a{background:#fff!important;color:#0B1A1F!important;border:2px solid #0B1A1F!important;min-height:142px;border-radius:24px!important;box-shadow:8px 8px 0 #0B1A1F!important}
 .scene-contact .contact-options a:hover{background:#fff!important;transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F!important}
-body[data-theme="dark"] .scene-contact .contact-options a{background:#FFDF8F!important;color:#0B1A1F!important;border-color:#0B1A1F!important;box-shadow:8px 8px 0 #000!important}
-body[data-theme="dark"] .scene-contact .contact-options a:hover{background:#fff!important;box-shadow:12px 14px 0 #000!important}
+body[data-theme="dark"] .scene-contact .contact-options a{background:#FFDF8F!important;color:#0B1A1F!important;border-color:#0B1A1F!important;box-shadow:8px 8px 0 #D97757!important}
+body[data-theme="dark"] .scene-contact .contact-options a:hover{background:#fff!important;box-shadow:12px 14px 0 #D97757!important}
 .scene-contact .contact-options a,.scene-contact .contact-options .contact-card{background:#FFDF8F;color:#0B1A1F;border:2px solid #0B1A1F;min-height:142px;border-radius:24px;box-shadow:8px 8px 0 #0B1A1F;transition:transform .3s ease,box-shadow .3s ease,background .3s ease}
 .scene-contact .contact-options a:hover,.scene-contact .contact-options .contact-card:hover{transform:translate(-3px,-7px);box-shadow:12px 14px 0 #0B1A1F;background:#FFFFFF}
 .scene-contact .contact-options .contact-label{color:#0B1A1F}.scene-contact .contact-options .contact-arrow{color:#D97757}.scene-contact .contact-options small{color:#36525a}
