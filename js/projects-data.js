@@ -22,7 +22,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/otros/sep30.mp4",
-    "tools": "Storyboard · Kling AI · Premiere Pro",
+    "tools": "Kling AI · Premiere Pro",
     "results": "Archivo audiovisual disponible para reproducción."
   },
   "nuevo-sep28-b": {
@@ -61,7 +61,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/zaru.mp4",
-    "tools": "Kling AI · Google Flow · VEED · Guion · Voz IA",
+    "tools": "Kling AI · Google Flow · VEED",
     "results": "Pieza final preparada para comunicación digital."
   },
   "smarketing": {
@@ -87,7 +87,7 @@ window.PORTFOLIO_DATA = {
     "platform": "file",
     "aspect": "portrait",
     "id": "https://yazminmoreno374-alt.github.io/portfolio-videos/videos/marcas/casita.mp4",
-    "tools": "Premiere Pro · VEED · Edición y subtitulado",
+    "tools": "Premiere Pro · VEED",
     "results": "Pieza final preparada para comunicación digital."
   },
   "minsis": {
