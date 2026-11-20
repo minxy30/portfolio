@@ -1595,3 +1595,23 @@ body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{displa
 @media(prefers-reduced-motion:reduce){
  .viewer-body>.viewer-media,.viewer-body>.viewer-text{opacity:1!important;filter:none!important;transform:none!important;transition:none!important;will-change:auto}
 }
+
+
+/* Editorial articles use the same split project viewer as video and design.
+   The website scrolls inside its own iframe; project details stay on the right. */
+.viewer-media.is-article-media{padding:0;background:#fff;color:#1c242a}
+.viewer-media.is-article-media>.media-box{height:100%;width:100%;min-height:0;min-width:0;display:block;overflow:hidden}
+.copy-embedded-article{height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+.copy-embedded-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 16px;background:#f0f2f1;color:#304049;border-bottom:1px solid #cfd8d9;font:700 10px/1.4 var(--display);letter-spacing:.045em}
+.copy-embedded-toolbar span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-embedded-toolbar a{flex:none;color:#155773;text-decoration:underline;text-underline-offset:2px;font-size:11px;letter-spacing:normal}
+.copy-embedded-toolbar a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.viewer-media.is-article-media .media-box .copy-embedded-frame{display:block;flex:1 1 auto;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;border:0;background:#fff}
+.copy-frame-note{display:block;margin-top:6px;line-height:1.6;color:var(--muted)}
+@media(max-width:740px){
+ .viewer-media.is-article-media{height:70dvh;min-height:400px;max-height:70dvh;flex:0 0 auto;padding:0}
+ .viewer-media.is-article-media .media-box{height:100%;min-height:0}
+ .copy-embedded-toolbar{padding:9px 12px;font-size:9px}
+ .copy-embedded-toolbar a{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){.copy-embedded-article{transition:none}}
