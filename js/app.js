@@ -882,7 +882,7 @@ aboutDialog?.querySelectorAll('.about-dock [data-about-route]').forEach(button=>
  button.addEventListener('click',()=>{
   const destination=button.dataset.aboutRoute;
   closeAbout();
-  route(destination,button);
+  route(destination,null);
  });
 });
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
