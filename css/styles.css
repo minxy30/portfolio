@@ -2015,3 +2015,49 @@ body[data-theme="light"] .about-dock button img{filter:brightness(0)}
  .scene-entrance .kinetic-link{min-height:0;}
  .scene-entrance .kinetic-hint{padding:8px 8px 0;}
 }
+
+
+/* Full-height entrance: distribute the five navigation items over the viewport. */
+#home-deck .home-scene.scene-entrance{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:stretch!important;
+  padding:clamp(62px,9dvh,94px) clamp(14px,3vw,48px) clamp(66px,10dvh,98px)!important;
+  box-sizing:border-box!important;
+}
+#home-deck .scene-entrance .kinetic-menu{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  width:100%!important;
+  max-width:1460px!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0 auto!important;
+}
+#home-deck .scene-entrance .kinetic-links{
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 auto!important;
+  height:auto!important;
+  min-height:0!important;
+}
+#home-deck .scene-entrance .kinetic-link{
+  flex:1 1 0!important;
+  min-height:0!important;
+}
+#home-deck .scene-entrance .kinetic-hint{
+  flex:0 0 auto!important;
+  padding-top:clamp(8px,1.4dvh,16px)!important;
+}
+@media(max-width:740px){
+ #home-deck .home-scene.scene-entrance{
+   padding:clamp(36px,6dvh,56px) 3vw clamp(56px,9dvh,78px)!important;
+ }
+ #home-deck .scene-entrance .kinetic-link{min-height:0!important;}
+}
+@media(max-height:530px){
+ #home-deck .home-scene.scene-entrance{padding-top:34px!important;padding-bottom:40px!important;}
+ #home-deck .scene-entrance .kinetic-word{font-size:clamp(2rem,8dvh,5rem)!important;}
+}
