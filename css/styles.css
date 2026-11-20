@@ -1662,3 +1662,20 @@ body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{displa
   z-index:31!important;
  }
 }
+
+/* Project changes use the same soft fade, blur and scale language as the
+   opening scenes. These states never alter either pane's scroll behavior. */
+.viewer-body{--project-exit-y:-14px;--project-enter-y:14px}
+.viewer-body[data-project-direction="previous"]{--project-exit-y:14px;--project-enter-y:-14px}
+.viewer-body>.viewer-media,.viewer-body>.viewer-text{
+ transition:opacity .2s ease,filter .26s ease,transform .3s cubic-bezier(.2,.72,.2,1)
+}
+.viewer-body.is-project-leaving>.viewer-media,.viewer-body.is-project-leaving>.viewer-text{
+ opacity:0;filter:blur(10px);transform:translate3d(0,var(--project-exit-y),0) scale(.985);pointer-events:none;will-change:opacity,filter,transform
+}
+.viewer-body.is-project-entering>.viewer-media,.viewer-body.is-project-entering>.viewer-text{
+ opacity:0;filter:blur(10px);transform:translate3d(0,var(--project-enter-y),0) scale(.985);transition:none;pointer-events:none;will-change:opacity,filter,transform
+}
+@media(prefers-reduced-motion:reduce){
+ .viewer-body>.viewer-media,.viewer-body>.viewer-text{opacity:1!important;filter:none!important;transform:none!important;transition:none!important;will-change:auto}
+}
