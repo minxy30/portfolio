@@ -2006,3 +2006,12 @@ body[data-theme="dark"] .about-viewer .about-dock button:is(:hover,:focus-visibl
 .about-dock button img{width:23px;height:23px;object-fit:contain;filter:brightness(0) invert(1)}
 body[data-theme="light"] .about-dock button img{filter:brightness(0)}
 .about-dock button svg{width:23px;height:23px;stroke:currentColor}
+
+/* Mobile homepage: let the five navigation rows fill the available screen. */
+@media (max-width:740px){
+ .home-scene.scene-entrance{display:block;padding:0 3vw 48px!important;}
+ .scene-entrance .kinetic-menu{width:100%;height:calc(100% - 20px);min-height:0;margin:12px auto 0;grid-template-rows:minmax(0,1fr) auto;}
+ .scene-entrance .kinetic-links{height:100%;grid-template-rows:repeat(5,minmax(0,1fr));}
+ .scene-entrance .kinetic-link{min-height:0;}
+ .scene-entrance .kinetic-hint{padding:8px 8px 0;}
+}
