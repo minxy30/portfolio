@@ -1919,3 +1919,32 @@ body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{displa
  .about-viewer .about-dock button{min-height:49px!important;font-size:clamp(7px,2.05vw,9px)!important;padding:6px 1px!important}
  .about-viewer .about-dock svg,.about-viewer .about-dock img{width:19px!important;height:19px!important}
 }
+
+
+/* Contact: email has the same single interactive card as WhatsApp and Call. */
+#home-deck .scene-contact .contact-options > a.contact-email{
+ display:flex!important;flex-direction:column!important;
+ justify-content:space-between!important;align-items:stretch!important;
+ position:relative!important;min-width:0!important;overflow:visible!important;
+}
+#home-deck .scene-contact .contact-options > a.contact-email .contact-brand-mark{
+ display:block;width:31px!important;height:31px!important;object-fit:contain;
+}
+#home-deck .scene-contact .contact-options > a.contact-email small{
+ position:static!important;margin-top:auto;line-height:1.35!important;
+}
+/* About-me icons follow text contrast on hover and keyboard focus. */
+.about-viewer .about-dock button:is(:hover,:focus-visible){
+ background:var(--ink)!important;color:var(--bg)!important;
+}
+.about-viewer .about-dock button:is(:hover,:focus-visible) svg{
+ color:inherit!important;stroke:currentColor!important;
+}
+body:not([data-theme="dark"]) .about-viewer .about-dock button:is(:hover,:focus-visible) img{
+ filter:brightness(0) invert(1)!important;
+}
+body[data-theme="dark"] .about-viewer .about-dock button:is(:hover,:focus-visible) img{
+ filter:brightness(0)!important;
+}
+.about-viewer .about-dock img{transition:filter .16s ease}
+@media(prefers-reduced-motion:reduce){.about-viewer .about-dock img{transition:none!important}}
