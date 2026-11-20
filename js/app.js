@@ -1182,6 +1182,58 @@ function categorizeTools(){
 categorizeTools();
 queueToolFit();
 
+// Optional tool-to-project explorer: uses only the software explicitly listed
+// in each published project's metadata. No inferred credits or duplicate pages.
+(function enableToolProjectExplorer(){
+ const wall=$('tool-wall');
+ if(!wall)return;
+ const panel=document.createElement('section');
+ panel.id='tool-project-explorer';
+ panel.setAttribute('aria-live','polite');
+ panel.style.cssText='display:none;margin:18px 0 24px;padding:18px;border:1px solid currentColor;border-radius:18px;background:var(--surface,#0b1a1f);color:var(--text,#fff);';
+ wall.insertAdjacentElement('afterend',panel);
+ const normalize=name=>String(name||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/^adobe /,'').replace(/ · basico$/,'').trim();
+ const aliases={'openai':['chatgpt','openai'],'magnific ai':['magnific','magnific ai'],'after effects':['after effects'],'google flow':['google flow'],'illustrator':['illustrator'],'photoshop':['photoshop'],'premiere pro':['premiere pro'],'kling ai':['kling ai']};
+ const projectEntries=CATS.flatMap(cat=>cat.items.map(([id])=>({id,category:cat.id})));
+ const uniqueEntries=[...new Map(projectEntries.map(entry=>[entry.id,entry])).values()];
+ function matches(tool,metadata){
+  const names=String(metadata||'').split(' · ').map(normalize);
+  const canonical=normalize(tool);
+  return (aliases[canonical]||[canonical]).some(name=>names.includes(name));
+ }
+ function openTool(tool){
+  const projects=uniqueEntries.filter(({id})=>DATA[id]&&matches(tool,DATA[id].tools));
+  panel.replaceChildren();
+  const heading=document.createElement('h3');heading.textContent='Proyectos con '+tool;heading.style.cssText='font-size:1.2rem;margin:0 0 12px';
+  const close=document.createElement('button');close.type='button';close.textContent='Cerrar ×';close.setAttribute('aria-label','Cerrar proyectos de '+tool);close.style.cssText='float:right;padding:5px 10px;border:1px solid currentColor;border-radius:12px;background:transparent;color:inherit;cursor:pointer';
+  close.addEventListener('click',()=>{panel.style.display='none';panel.replaceChildren()});
+  panel.append(close,heading);
+  if(!projects.length){
+   const empty=document.createElement('p');empty.textContent='Todavía no hay proyectos vinculados a esta herramienta.';panel.appendChild(empty);
+  }else{
+   const list=document.createElement('div');list.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px';
+   projects.forEach(({id,category})=>{
+    const button=document.createElement('button');button.type='button';button.textContent=DATA[id].title+' ↗';
+    button.style.cssText='text-align:left;padding:12px;border:1px solid currentColor;border-radius:12px;background:transparent;color:inherit;cursor:pointer;font:inherit';
+    button.addEventListener('click',()=>{route(category,null,true);openProject(id,button)});
+    list.appendChild(button);
+   });
+   panel.appendChild(list);
+  }
+  panel.style.display='block';
+  panel.scrollIntoView({behavior:reduce.matches?'auto':'smooth',block:'nearest'});
+ }
+ wall.querySelectorAll('.tool-chip').forEach(tile=>{
+  const tool=tile.querySelector('.tool-name')?.textContent?.trim();
+  if(!tool)return;
+  tile.setAttribute('role','button');tile.tabIndex=0;
+  tile.setAttribute('aria-label','Ver proyectos realizados con '+tool);
+  tile.style.cursor='pointer';
+  tile.addEventListener('click',()=>openTool(tool));
+  tile.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openTool(tool)}});
+ });
+})();
+
 function decorateToolDust(){
  document.querySelectorAll('.particle-tool').forEach(tile=>{
   const canvas=tile.querySelector('canvas.tool-dust'),img=tile.querySelector('img');if(!canvas||!img)return;
