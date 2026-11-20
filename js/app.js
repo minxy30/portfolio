@@ -1192,7 +1192,7 @@ queueToolFit();
  panel.setAttribute('aria-live','polite');
  panel.style.cssText='display:none;margin:18px 0 24px;padding:18px;border:1px solid currentColor;border-radius:18px;background:var(--surface,#0b1a1f);color:var(--text,#fff);';
  wall.insertAdjacentElement('afterend',panel);
- const normalize=name=>String(name||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/^adobe /,'').replace(/ · basico$/,'').trim();
+ const normalize=name=>String(name||'').toLocaleLowerCase('es').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/^adobe /,'').replace(/ · basico$/,'').trim();
  const aliases={'openai':['chatgpt','openai'],'magnific ai':['magnific','magnific ai'],'after effects':['after effects'],'google flow':['google flow'],'illustrator':['illustrator'],'photoshop':['photoshop'],'premiere pro':['premiere pro'],'kling ai':['kling ai']};
  const projectEntries=CATS.flatMap(cat=>cat.items.map(([id])=>({id,category:cat.id})));
  const uniqueEntries=[...new Map(projectEntries.map(entry=>[entry.id,entry])).values()];
