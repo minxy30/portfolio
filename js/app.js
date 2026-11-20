@@ -1362,14 +1362,19 @@ $('viewer-media').addEventListener('wheel',e=>{
 let viewerTouchStart=null;
 $('viewer-body').addEventListener('touchstart',e=>{
  const t=e.touches[0];if(!t)return;
- viewerTouchStart={x:t.clientX,y:t.clientY,interactive:!!e.target.closest('video,iframe,button,a,input,[role="slider"],.media-box')};
+ viewerTouchStart={x:t.clientX,y:t.clientY,atTop:$('viewer-body').scrollTop<=3,atBottom:$('viewer-body').scrollTop+$('viewer-body').clientHeight>=$('viewer-body').scrollHeight-3,interactive:!!e.target.closest('video,iframe,button,a,input,[role="slider"],.media-box')};
 },{passive:true});
 $('viewer-body').addEventListener('touchend',e=>{
  if(!viewerTouchStart||viewerTouchStart.interactive){viewerTouchStart=null;return}
  const t=e.changedTouches[0];if(!t)return;
  const dx=t.clientX-viewerTouchStart.x,dy=t.clientY-viewerTouchStart.y;
- viewerTouchStart=null;
- if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4)moveProject(dx<0?1:-1);
+ const start=viewerTouchStart;viewerTouchStart=null;
+ if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.4){moveProject(dx<0?1:-1);return}
+ // Only navigate on a deliberate vertical swipe begun at a scroll boundary.
+ if(Math.abs(dy)>95&&Math.abs(dy)>Math.abs(dx)*1.5){
+  if(dy<0&&start.atBottom&&$('viewer-body').scrollTop+$('viewer-body').clientHeight>=$('viewer-body').scrollHeight-3)moveProject(1);
+  else if(dy>0&&start.atTop&&$('viewer-body').scrollTop<=3)moveProject(-1);
+ }
 },{passive:true});
 viewer.addEventListener('keydown',e=>{
  if(e.target.closest('video,input,textarea,[role="slider"]'))return;
