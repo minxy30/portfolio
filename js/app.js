@@ -493,6 +493,10 @@ let lobbyFadeFrame=0,lobbyShouldPlay=true,lobbyAudioBlocked=false;
 for(const track of lobbyPlayers){track.preload='auto';track.loop=false;track.volume=0}
 
 function lobbyIsPlaying(){return !lobbyActiveTrack.paused||!!(lobbyTransition&&!lobbyTransition.to.paused)}
+function lobbyIsActive(){
+ const gate=$('entry-gate');
+ return document.body.classList.contains('pre-entry')&&Boolean(gate&&!gate.hidden);
+}
 function lobbyProgress(){
  if(!lobbyTransition)return 0;
  return Math.max(0,Math.min(1,(lobbyTransition.from.currentTime-lobbyTransition.start)/lobbyTransition.duration));
@@ -553,6 +557,10 @@ function lobbyFeedback(){
 }
 function requestLobbyMusic(){
  if(!lobbyShouldPlay)return Promise.resolve();
+ if(!lobbyIsActive()){
+  parkLobbyAudio();
+  return Promise.resolve();
+ }
  updateLobbyVolumes();
  const targets=lobbyTransition?[lobbyTransition.from,lobbyTransition.to]:[lobbyActiveTrack];
  const paused=targets.filter(track=>track.paused);
@@ -600,11 +608,12 @@ function parkLobbyAudio(){
  lobbyPlayers.forEach(track=>{track.pause();try{track.currentTime=0}catch(e){}track.volume=0});
 }
 function startIntroMusic(){
+ if(!lobbyIsActive()){
+  parkLobbyAudio();
+  return Promise.resolve();
+ }
  lobbyShouldPlay=true;
  return requestLobbyMusic();
-}
-function fadeIntroMusic(){
- fadeLobby(0,1600,parkLobbyAudio);
 }
 lobbyActivate.addEventListener('click',e=>{
  e.stopPropagation();
@@ -620,17 +629,13 @@ lobbyActivate.addEventListener('click',e=>{
 // to the lobby, without introducing a large "Activar música" call to action.
 function unlockLobbyOnGesture(e){
  if(e.target?.closest?.('#lobby-audio-enable'))return;
- if(!lobbyShouldPlay||lobbyUserMuted||lobbyIsPlaying()||
-    !document.body.classList.contains('pre-entry'))return;
+ if(!lobbyShouldPlay||lobbyUserMuted||lobbyIsPlaying()||!lobbyIsActive())return;
  requestLobbyMusic();
 }
 document.addEventListener('pointerdown',unlockLobbyOnGesture,{capture:true});
 document.addEventListener('keydown',unlockLobbyOnGesture,{capture:true});
 
 lobbyFeedback();
-// Request lobby music right away; if sound autoplay is blocked, expose the
-// dedicated "Activar música del lobby" gesture without leaving the screen.
-startIntroMusic();
 
 // A single game-like start action intentionally unlocks music under autoplay rules.
 const entryGate=$('entry-gate'),entryButton=$('enter-portfolio'),siteMain=$('site-main'),siteHeader=document.querySelector('.site-header');
@@ -731,8 +736,6 @@ function returnToLobby(){
  }
  if(aboutDialog?.open)closeAbout();
  soundEffect('reveal');
- lobbyShouldPlay=true;lobbyMix=0;updateLobbyVolumes();
- startIntroMusic();fadeLobby(1,1450);
  const oldMix=entryMix,fadeStart=performance.now();
  function mainExit(now){
   const u=Math.min(1,(now-fadeStart)/950);
@@ -752,6 +755,7 @@ function returnToLobby(){
  hasEntered=false;
  document.body.classList.remove('entering-portfolio');
  document.body.classList.add('pre-entry');
+ lobbyMix=0;updateLobbyVolumes();startIntroMusic();fadeLobby(1,1450);
  siteMain.inert=true;siteHeader.inert=true;
  goHome(0);
  try{history.replaceState({screen:'inicio'},'',location.pathname+location.search)}catch(e){}
