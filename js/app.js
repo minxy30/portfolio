@@ -1,4 +1,4 @@
-function trustedExternalUrl(raw){try{const u=new URL(raw,location.href);if(u.protocol!=='https:')return null;const hosts=['youtube.com','youtu.be','www.youtube.com','drive.google.com','docs.google.com','github.com','www.google.com','medium.com'];return hosts.some(host=>u.hostname===host||u.hostname.endsWith('.'+host))?u.href:null}catch{return null}}
+function trustedExternalUrl(raw){try{const u=new URL(raw,location.href);if(u.protocol!=='https:')return null;const hosts=['youtube.com','youtu.be','www.youtube.com','drive.google.com','docs.google.com','github.com','www.google.com','medium.com','blog.smarketing360.lat'];return hosts.some(host=>u.hostname===host||u.hostname.endsWith('.'+host))?u.href:null}catch{return null}}
 (() => {
 'use strict';
 const $=id=>document.getElementById(id);
@@ -876,12 +876,15 @@ for(const type of ['wheel','touchmove']){
  },{capture:true,passive:false});
 }
 $('about-close')?.addEventListener('click',closeAbout);
-$('about-contact')?.addEventListener('click',()=>{
- closeAbout();
- route('contact',null);
+// Route every About-me dock control through the existing category navigation.
+// Close the modal first so focus/inert state is restored before changing scenes.
+aboutDialog?.querySelectorAll('.about-dock [data-about-route]').forEach(button=>{
+ button.addEventListener('click',()=>{
+  const destination=button.dataset.aboutRoute;
+  closeAbout();
+  route(destination,button);
+ });
 });
-$('about-dock-contact')?.addEventListener('click',()=>{closeAbout();route('contact',null)});
-document.querySelector('.about-dock-home')?.addEventListener('click',closeAbout);
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
 aboutDialog?.addEventListener('click',e=>{if(e.target===aboutDialog)closeAbout()});
 $('header-home-icon')?.addEventListener('click',e=>route('home',e.currentTarget));
