@@ -67,14 +67,14 @@ document.addEventListener('pointerover',e=>{
  lastHoverAt=now;soundEffect('hover');
 },{passive:true});
 
-const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel');
+const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel'),musicPauseToggle=$('music-pause-toggle');
 // The soundtrack ALWAYS starts at 10% on each new page visit.
 let musicLevel=.10,entryMix=0;
 const crossfadeSeconds=5;
 const musicA=music,musicB=new Audio();
 const musicUrl=CFG.ambientAudioSrc||'';
 let activeTrack=musicA,standbyTrack=musicB,transition=null,crossfadeFrame=0;
-let audioNeedsGesture=false,unlockRunning=false,pausedForProjectVideo=false,crossfadePending=false;
+let audioNeedsGesture=false,unlockRunning=false,pausedForProjectVideo=false,musicUserPaused=false,crossfadePending=false;
 [musicA,musicB].forEach(track=>{track.src=musicUrl;track.loop=false;track.preload='auto';track.volume=0});
 volumeInput.value=String(Math.round(musicLevel*100));
 volumeValue.textContent=String(Math.round(musicLevel*100))+'%';
@@ -161,18 +161,36 @@ function pauseMusicForVideo(){
  cancelAnimationFrame(crossfadeFrame);
  musicA.pause();musicB.pause();
 }
+function syncMusicPauseToggle(){
+ if(!musicPauseToggle)return;
+ musicPauseToggle.setAttribute('aria-pressed',String(musicUserPaused));
+ musicPauseToggle.textContent=musicUserPaused?'Reanudar música':'Pausar música';
+}
+function pausePortfolioMusic(){
+ musicUserPaused=true;
+ cancelAnimationFrame(crossfadeFrame);
+ musicA.pause();musicB.pause();
+ syncMusicPauseToggle();
+ syncMusicButton();
+}
+function resumePortfolioMusic(){
+ musicUserPaused=false;
+ syncMusicPauseToggle();
+ return requestMusic();
+}
 function syncMusicButton(){
  sound.classList.toggle('sound-needs-gesture',audioNeedsGesture);
- sound.dataset.muted=String(musicLevel===0);
- sound.title=audioNeedsGesture?'Ajustar volumen · tocar para iniciar la música':'Ajustar volumen de música';
+ sound.dataset.muted=String(musicLevel===0||musicUserPaused);
+ sound.title=audioNeedsGesture?'Ajustar volumen · tocar para iniciar la música':musicUserPaused?'Música pausada · ajustar volumen':'Ajustar volumen de música';
  sound.setAttribute('aria-label',sound.title);
 }
 function requestMusic(){
- if(pausedForProjectVideo||(viewer.open&&activeProject&&DATA[activeProject]?.type==='video'))return Promise.resolve();
+ if(musicUserPaused||pausedForProjectVideo||(viewer.open&&activeProject&&DATA[activeProject]?.type==='video'))return Promise.resolve();
  const targets=transition?[transition.from,transition.to]:[activeTrack];
  const promises=targets.filter(track=>track.paused).map(track=>track.play());
  if(!promises.length)return Promise.resolve();
  return Promise.all(promises).then(()=>{
+  if(musicUserPaused){targets.forEach(track=>track.pause());return}
   audioNeedsGesture=false;syncMusicButton();
   updateMusicVolumes();
   if(transition){cancelAnimationFrame(crossfadeFrame);crossfadeFrame=requestAnimationFrame(animateCrossfade)}
@@ -182,13 +200,18 @@ function requestMusic(){
    console.warn('No se pudo iniciar la música ambiental.',err);
  });
 }
-// The speaker has no pause button: it only opens the volume slider.
+// The speaker opens the controls; playback itself remains available in the panel.
 volumeTrigger.addEventListener('click',()=>{
  const show=volumePanel.hidden;
  volumePanel.hidden=!show;
  volumeTrigger.setAttribute('aria-expanded',String(show));
  if(show)volumeInput.focus();
  requestMusic();soundEffect('toggle');
+});
+musicPauseToggle.addEventListener('click',()=>{
+ if(musicUserPaused)resumePortfolioMusic();
+ else pausePortfolioMusic();
+ soundEffect('toggle');
 });
 volumeInput.addEventListener('input',()=>{
  musicLevel=Math.max(0,Math.min(1,Number(volumeInput.value)/100));
@@ -201,7 +224,7 @@ document.addEventListener('pointerdown',e=>{
  if(!volumePanel.hidden&&!e.target.closest?.('.audio-group')){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
- if(!pausedForProjectVideo&&!musicIsPlaying()&&!unlockRunning){
+ if(!musicUserPaused&&!pausedForProjectVideo&&!musicIsPlaying()&&!unlockRunning){
   unlockRunning=true;requestMusic().finally(()=>unlockRunning=false);
  }
 },{capture:true,passive:true});
@@ -210,9 +233,10 @@ document.addEventListener('keydown',e=>{
  if(e.key==='Escape'&&!volumePanel.hidden){
   volumePanel.hidden=true;volumeTrigger.setAttribute('aria-expanded','false');
  }
- if((e.key==='Enter'||e.key===' ')&&!musicIsPlaying())requestMusic();
+ if((e.key==='Enter'||e.key===' ')&&!musicUserPaused&&!musicIsPlaying())requestMusic();
 });
 syncMusicButton();
+syncMusicPauseToggle();
 // The visitor activates audio with the Enter button, avoiding blocked autoplay.
 
 
@@ -570,8 +594,10 @@ function fadeLobby(target,duration=1300,done){
  lobbyFadeFrame=requestAnimationFrame(frame);
 }
 function parkLobbyAudio(){
- lobbyShouldPlay=false;cancelAnimationFrame(lobbyFrame);
- lobbyPlayers.forEach(track=>track.pause());
+ lobbyShouldPlay=false;
+ cancelAnimationFrame(lobbyFrame);cancelAnimationFrame(lobbyFadeFrame);
+ lobbyTransition=null;lobbyPending=false;lobbyMix=0;
+ lobbyPlayers.forEach(track=>{track.pause();try{track.currentTime=0}catch(e){}track.volume=0});
 }
 function startIntroMusic(){
  lobbyShouldPlay=true;
@@ -655,12 +681,15 @@ function enterPortfolio(){
  // Sound must never prevent visitors from entering the portfolio.
  try{
   musicLevel=.10;
+  musicUserPaused=false;
   if(volumeInput)volumeInput.value='10';
   if(volumeValue)volumeValue.textContent='10%';
+  syncMusicPauseToggle();
+  // Do not overlap the lobby track with portfolio music once the visitor enters.
+  parkLobbyAudio();
   updateMusicVolumes();
   requestMusic();
   fantasyEntranceSfx();
-  fadeIntroMusic();
  }catch(error){console.warn('Audio de entrada no disponible:',error)}
  entryButton.disabled=true;
  entryGate.classList.add('is-opening');
