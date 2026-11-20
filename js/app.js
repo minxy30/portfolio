@@ -804,102 +804,6 @@ document.addEventListener('click',async event=>{
  soundEffect('click');
 });
 
-// PDF preview is fitted to the available screen; separate pages use arrows instead
-// of requiring a visitor to scroll the PDF. "Ver en grande" always remains available.
-const cvDialog=$('cv-dialog'),cvOpen=$('lobby-view-cv'),cvClose=$('cv-close');
-const cvCanvas=$('cv-page-canvas'),cvFallback=$('cv-pdf-fallback');
-const cvArea=$('cv-page-area'),cvLoading=$('cv-loading'),cvPagination=$('cv-pagination');
-const cvPrev=$('cv-prev'),cvNext=$('cv-next'),cvCount=$('cv-page-count');
-const cvZoomIn=$('cv-zoom-in'),cvZoomOut=$('cv-zoom-out'),cvZoomValue=$('cv-zoom-value');
-let cvDocument=null,cvPage=1,cvZoom=1,cvLibPromise=null,cvRenderTask=null,cvRevision=0,cvResizeTimer=0,cvReturnFocus=null;
-function ensureCvLibrary(){
- if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
- if(cvLibPromise)return cvLibPromise;
- cvLibPromise=new Promise((resolve,reject)=>{
-  const script=document.createElement('script');
-  script.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-  script.async=true;script.crossOrigin='anonymous';
-  script.onload=()=>window.pdfjsLib?resolve(window.pdfjsLib):reject(new Error('PDF.js no disponible'));
-  script.onerror=()=>reject(new Error('No se pudo descargar el visor'));
-  document.head.appendChild(script);
- });
- return cvLibPromise;
-}
-function cvFallbackView(){
- cvLoading.hidden=true;cvCanvas.hidden=true;cvPagination.hidden=true;
- cvFallback.hidden=false;
- if(cvFallback.src==='about:blank')cvFallback.src='assets/docs/CV-Yazmin-Moreno.pdf#page=1&view=Fit&toolbar=0&navpanes=0';
-}
-async function renderCvPage(pageNumber){
- if(!cvDialog?.open)return;
- const seq=++cvRevision;
- try{
-  const library=await ensureCvLibrary();
-  if(!cvDocument){
-   library.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-   cvDocument=await library.getDocument('assets/docs/CV-Yazmin-Moreno.pdf').promise;
-  }
-  if(!cvDialog.open||seq!==cvRevision)return;
-  cvPage=Math.max(1,Math.min(cvDocument.numPages,pageNumber));
-  const page=await cvDocument.getPage(cvPage);
-  if(!cvDialog.open||seq!==cvRevision)return;
-  if(cvRenderTask){try{cvRenderTask.cancel();await cvRenderTask.promise}catch(e){}cvRenderTask=null}
-  const rect=cvArea.getBoundingClientRect(),unscaled=page.getViewport({scale:1});
-  const scale=Math.min(Math.max(1,rect.width-28)/unscaled.width,Math.max(1,rect.height-24)/unscaled.height)*cvZoom;
-  const viewport=page.getViewport({scale});
-  const dpi=Math.min(window.devicePixelRatio||1,2);
-  cvCanvas.width=Math.max(1,Math.ceil(viewport.width*dpi));
-  cvCanvas.height=Math.max(1,Math.ceil(viewport.height*dpi));
-  cvCanvas.style.width=viewport.width+'px';cvCanvas.style.height=viewport.height+'px';
-  cvLoading.hidden=true;cvCanvas.hidden=false;cvFallback.hidden=true;
-  cvRenderTask=page.render({canvasContext:cvCanvas.getContext('2d'),viewport,
-   transform:[dpi,0,0,dpi,0,0]});
-  await cvRenderTask.promise;
-  if(seq!==cvRevision)return;
-  cvPagination.hidden=cvDocument.numPages<=1;
-  cvCount.textContent=cvPage+' / '+cvDocument.numPages;
-  cvPrev.disabled=cvPage<=1;cvNext.disabled=cvPage>=cvDocument.numPages;
- }catch(error){
-  if(!cvDialog.open)return;
-  console.warn('Visor PDF: se usará el visor nativo',error);
-  cvFallbackView();
- }
-}
-function openCvDialog(){
- if(!cvDialog||cvDialog.open)return;
- cvReturnFocus=document.activeElement;
- cvDialog.classList.toggle('cv-over-about',Boolean(aboutDialog?.open));
- cvDialog.showModal();cvLoading.hidden=false;cvFallback.hidden=true;
- cvCanvas.hidden=true;cvPage=1;cvZoom=1;syncCvZoom();cvClose.focus({preventScroll:true});
- requestAnimationFrame(()=>renderCvPage(1));
- soundEffect('click');
-}
-function syncCvZoom(){
- if(cvZoomValue)cvZoomValue.textContent=Math.round(cvZoom*100)+'%';
- if(cvZoomOut)cvZoomOut.disabled=cvZoom<=.75;
- if(cvZoomIn)cvZoomIn.disabled=cvZoom>=1.75;
-}
-document.querySelectorAll('[data-open-cv],a[href="assets/docs/CV-Yazmin-Moreno.pdf"]').forEach(node=>node.addEventListener('click',event=>{
- event.preventDefault();openCvDialog();
-}));
-cvClose?.addEventListener('click',()=>cvDialog.close());
-cvDialog?.addEventListener('click',e=>{if(e.target===cvDialog)cvDialog.close()});
-cvDialog?.addEventListener('close',()=>{
- cvDialog.classList.remove('cv-over-about');
- cvRevision++;
- if(cvRenderTask){try{cvRenderTask.cancel()}catch(e){}cvRenderTask=null}
- if(cvReturnFocus?.isConnected)cvReturnFocus.focus({preventScroll:true});
-});
-cvPrev?.addEventListener('click',()=>renderCvPage(cvPage-1));
-cvNext?.addEventListener('click',()=>renderCvPage(cvPage+1));
-cvZoomOut?.addEventListener('click',()=>{cvZoom=Math.max(.75,cvZoom-.25);syncCvZoom();renderCvPage(cvPage)});
-cvZoomIn?.addEventListener('click',()=>{cvZoom=Math.min(1.75,cvZoom+.25);syncCvZoom();renderCvPage(cvPage)});
-window.addEventListener('resize',()=>{
- if(!cvDialog?.open||!cvDocument)return;
- window.clearTimeout(cvResizeTimer);
- cvResizeTimer=window.setTimeout(()=>renderCvPage(cvPage),160);
-},{passive:true});
-
 // The background video only supplements the particle field and has no soundtrack.
 if(CFG.backgroundVideoSrc){const v=$('background-video');v.src=CFG.backgroundVideoSrc;v.classList.add('has-source');v.play().catch(()=>{})}
 // Home: exactly three scenes in one fixed plane. Wheel/touch replace panels instead of scrolling a document.
@@ -956,7 +860,7 @@ $('home-deck').addEventListener('touchstart',e=>{touchY=e.touches[0]?.clientY??n
  $('home-deck').addEventListener('touchend',e=>{if(aboutDialog?.open||touchY==null||document.body.dataset.screen!=='home')return;const d=touchY-(e.changedTouches[0]?.clientY??touchY);touchY=null;if(Math.abs(d)>72){const sceneScroll=(stage===1||stage===2)?scenes[stage]:null;const atEnd=sceneScroll&&sceneScroll.scrollTop+sceneScroll.clientHeight>=sceneScroll.scrollHeight-5;const atStart=sceneScroll&&sceneScroll.scrollTop<=5;if(!sceneScroll||(d>0&&atEnd)||(d<0&&atStart))showStage(stage+(d>0?1:-1))}},{passive:true});
 window.addEventListener('keydown',e=>{if(aboutDialog?.open||viewer.open||document.body.dataset.screen!=='home')return;if(['ArrowDown','PageDown'].includes(e.key)){e.preventDefault();showStage(stage+1)}else if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showStage(stage-1)}});
 function revealChange(callback,element){if(locked)return;locked=true;const pos=element?.getBoundingClientRect?.();const x=pos?pos.left+pos.width/2:innerWidth/2,y=pos?pos.top+pos.height/2:innerHeight/2;const light=$('light-reveal');light.style.setProperty('--cx',x+'px');light.style.setProperty('--cy',y+'px');light.dataset.destination=element?.dataset.destination||'';soundEffect('reveal');if(reduce.matches){callback();locked=false;return}light.classList.remove('entering','leaving');void light.offsetWidth;light.classList.add('entering');setTimeout(()=>{callback();light.classList.remove('entering');light.classList.add('leaving');setTimeout(()=>{light.classList.remove('leaving');locked=false},470)},520)}
-const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / MÉXICO</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div><a class="about-cv" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener">Ver CV completo ↗</a></div>`;
+const aboutHTML=`<div class="about-editorial"><p class="eyebrow">PERFIL CREATIVO / MÉXICO</p><h2>Editar también es <em>contar historias.</em></h2><p class="about-lead">Soy Yazmin Moreno. Mi trabajo se mueve entre la edición audiovisual, el diseño gráfico y la creación de contenido para creadores y marcas.</p><p>Estudio Ingeniería en Comunicación Multimedia y busco desarrollar mi carrera en equipos de entretenimiento, música, cultura y producción audiovisual. La tecnología es una herramienta para mejorar lo que comunico, no el centro de mi perfil.</p><div class="about-cols"><div><h3>Lo que hago</h3><p>Edición narrativa · Montaje · Tratamiento sonoro · Composición visual · Contenido digital · Adaptación de formatos</p></div><div><h3>Herramientas</h3><p>Premiere Pro · CapCut · After Effects · Canva · Remotion · Herramientas creativas de IA</p></div></div></div>`;
 function openAbout(){
   if(!aboutDialog)return;aboutReturnFocus=document.activeElement;
   if(!aboutDialog.open)aboutDialog.showModal();document.body.classList.add('about-is-open');siteMain.inert=true;siteHeader.inert=true;
@@ -967,7 +871,6 @@ function closeAbout(){if(!aboutDialog?.open)return;aboutDialog.close();document.
 for(const type of ['wheel','touchmove']){
  document.addEventListener(type,e=>{
   if(!aboutDialog?.open)return;
-  if(cvDialog?.open&&cvDialog.contains(e.target))return;
   const inside=e.target instanceof Element?e.target.closest('.about-description,.about-modal-body'):null;
   if(!inside)e.preventDefault();
  },{capture:true,passive:false});
