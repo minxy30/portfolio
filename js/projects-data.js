@@ -201,7 +201,7 @@ window.PORTFOLIO_DATA = {
     "role": [
       "Conceptualización y redacción de todo el contenido",
       "Diseño y composición del carrusel en Canva",
-      "Selección de gráficos de internet y recursos generados con ChatGPT y obtenidos en Magnific"
+      "Selección de gráficos de internet y recursos generados con ChatGPT"
     ],
     "type": "gallery",
     "images": [
@@ -209,8 +209,8 @@ window.PORTFOLIO_DATA = {
       "assets/images/sabias-2.webp",
       "assets/images/sabias-3.webp"
     ],
-    "tools": "Canva · ChatGPT · Magnific",
-    "results": "Serie de tres diseños preparados para comunicación digital."
+    "tools": "Canva · ChatGPT",
+    "results": "Carrusel completo de seis diapositivas preparado para comunicación digital."
   },
   "foto-terror": {
     "title": "Retrato conceptual",
@@ -594,7 +594,7 @@ window.PORTFOLIO_DATA = {
     "results": "Cuatro artes publicitarios de propiedades."
   },
   "historia-marketing": {
-    "title": "El marketing existía antes de internet",
+    "title": "El marketing tiene más de 2,000 años",
     "kind": "Carrusel editorial · Smarketing 360",
     "deck": "Historia del marketing",
     "description": "Carrusel que presenta antecedentes históricos del marketing mediante escenas y recursos visuales.",
@@ -605,13 +605,13 @@ window.PORTFOLIO_DATA = {
     ],
     "type": "gallery",
     "images": [
-      "https://drive.google.com/thumbnail?id=1eg_xDKHDli0lV1dQXj6PGcnTHZ2VJQ9i&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1wgMCUVEbHatxv6riPKEzcrWoTui2lywf&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1cr9940cUn4XRGk2c7LyNml55KJNb1ORT&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1saiWUpiBNwc7YIZy_c-p9bDv_wr_p7xf&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1G2N13kaT-uYjnGP-lY288N1EMW_cyzhL&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1b_DNCQkn8smDOYABtN__lcTMqxMe8EyR&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1JExy5Ip9yLxfTusXDsbRm1zrkLC32U0f&sz=w1200"
+      "https://drive.google.com/thumbnail?id=1mvZjgtTmaW8s24gdV-9o2n2HJGhnIUaG&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1PPHPB0TvMcV95mFlEfmLeRr4Skdy8MPK&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1VeGfR0AdeshLaulDPDc-aj1cVTi0ub0O&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1vO_wtfVhm0xCZz7xks0uBR6Xd1px9JxQ&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1WOo778jVncjEough1KXZcjF9bk8nkeV2&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1XLbKQDbhNGCgorH5rqkUDcJORsvMImAW&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1degrvX5kNKMx1EHRJE8eIaTw5YAb5GMT&sz=w1200"
     ],
     "tools": "ChatGPT · Canva",
     "results": "Siete imágenes originales recuperadas de Drive; la diapositiva numerada 6 no aparece en la carpeta."
