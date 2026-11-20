@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded',function(){
    var gate=document.getElementById('entry-gate');
    if(!gate||gate.hidden)return;
    gate.hidden=true;
-   gate.style.display='none';
    document.body.classList.remove('pre-entry','entering-portfolio');
    document.body.dataset.screen='home';
    var main=document.getElementById('site-main'),header=document.querySelector('.site-header');

@@ -750,7 +750,7 @@ function returnToLobby(){
   }
  }
  requestAnimationFrame(mainExit);
- entryGate.hidden=false;entryGate.classList.remove('is-opening');
+ entryGate.hidden=false;entryGate.style.removeProperty('display');entryGate.classList.remove('is-opening');
  entryButton.disabled=false;
  hasEntered=false;
  document.body.classList.remove('entering-portfolio');
