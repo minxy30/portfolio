@@ -639,9 +639,11 @@ lobbyFeedback();
 
 // A single game-like start action intentionally unlocks music under autoplay rules.
 const entryGate=$('entry-gate'),entryButton=$('enter-portfolio'),siteMain=$('site-main'),siteHeader=document.querySelector('.site-header');
-let hasEntered=true;
-siteMain.inert=false;
-siteHeader.inert=false;
+let hasEntered=false;
+siteMain.inert=true;
+siteHeader.inert=true;
+// The site opens in the lobby; only this visible state may start its soundtrack.
+startIntroMusic();
 function fantasyEntranceSfx(){
  if(CFG.enableClickSounds===false)return;
  const ac=context();
