@@ -1937,3 +1937,67 @@ body[data-theme="dark"] .about-viewer .about-dock button:is(:hover,:focus-visibl
 }
 .about-viewer .about-dock img{transition:filter .16s ease}
 @media(prefers-reduced-motion:reduce){.about-viewer .about-dock img{transition:none!important}}
+
+
+/* CONTACT CARD RHYTHM — labels and supporting text never overlap.
+   All three cards share the same internal layout at every viewport width. */
+#home-deck .scene-contact .contact-options > a{
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  min-height:clamp(158px,18dvh,180px)!important;
+  padding:clamp(14px,1.8dvh,19px) clamp(15px,1.6vw,22px)!important;
+}
+#home-deck .scene-contact .contact-options > a > .contact-label{
+  display:flex!important;
+  flex:0 0 auto!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:clamp(7px,1.1dvh,11px)!important;
+  margin:0!important;
+  font-size:clamp(19px,1.7vw,25px)!important;
+  line-height:1.15!important;
+  white-space:normal!important;
+}
+#home-deck .scene-contact .contact-options > a > .contact-label .contact-brand-mark{
+  display:block;
+  width:clamp(27px,3.7dvh,33px)!important;
+  height:clamp(27px,3.7dvh,33px)!important;
+}
+#home-deck .scene-contact .contact-options > a > .contact-arrow{
+  position:absolute!important;
+  top:clamp(15px,1.8dvh,20px)!important;
+  right:clamp(15px,1.6vw,22px)!important;
+  left:auto!important;bottom:auto!important;
+  margin:0!important;
+  line-height:1!important;
+}
+#home-deck .scene-contact .contact-options > a > small{
+  display:block!important;
+  position:static!important;
+  inset:auto!important;
+  align-self:flex-start!important;
+  margin:auto 0 0!important;
+  padding:clamp(12px,1.7dvh,18px) 0 0!important;
+  font-size:clamp(11px,.88vw,13px)!important;
+  line-height:1.4!important;
+  letter-spacing:0!important;
+  white-space:normal!important;
+}
+@media(max-width:740px){
+  #home-deck .scene-contact .contact-options > a{
+    min-height:148px!important;
+    padding:14px 16px!important;
+  }
+  #home-deck .scene-contact .contact-options > a > .contact-label{
+    font-size:clamp(18px,4.3vw,23px)!important;
+  }
+  #home-deck .scene-contact .contact-options > a > small{
+    font-size:12px!important;
+    padding-top:12px!important;
+  }
+}
