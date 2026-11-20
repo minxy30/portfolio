@@ -610,10 +610,11 @@ window.PORTFOLIO_DATA = {
       "https://drive.google.com/thumbnail?id=1VeGfR0AdeshLaulDPDc-aj1cVTi0ub0O&sz=w1200",
       "https://drive.google.com/thumbnail?id=1vO_wtfVhm0xCZz7xks0uBR6Xd1px9JxQ&sz=w1200",
       "https://drive.google.com/thumbnail?id=1WOo778jVncjEough1KXZcjF9bk8nkeV2&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1MqxoNt2vsijdtDKpPTmgIt0AmuwZqQgP&sz=w1200",
       "https://drive.google.com/thumbnail?id=1XLbKQDbhNGCgorH5rqkUDcJORsvMImAW&sz=w1200",
       "https://drive.google.com/thumbnail?id=1degrvX5kNKMx1EHRJE8eIaTw5YAb5GMT&sz=w1200"
     ],
     "tools": "ChatGPT · Canva",
-    "results": "Siete imágenes originales recuperadas de Drive; la diapositiva numerada 6 no aparece en la carpeta."
+    "results": "Carrusel completo de ocho diapositivas originales recuperadas de Drive."
   }
 };
