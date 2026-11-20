@@ -8,7 +8,7 @@ const CATS=[
  {id:'video',label:'Video',title:'Edición audiovisual',intro:'',desc:'Proyectos organizados por especialidad profesional y tipo de producción.',icon:'▷',filters:[['all','Todos'],['edicion','Edición audiovisual'],['motion','Motion graphics y animación'],['ia','IA generativa aplicada']],items:[['benito-mexico','edicion'],['benito-ia','edicion'],['benito-bolivia','edicion'],['benito-viral','edicion'],['benito-ormuz','edicion'],['casita','edicion'],['nuevo-sep30','edicion'],['nuevo-oct16','edicion'],['nuevo-sep28-a','motion'],['nuevo-sep28-b','motion'],['minsis','motion'],['smarketing','ia'],['zaru','ia']]},
  {id:'diseno',label:'Diseño',title:'Diseño gráfico',intro:'',desc:'Selección de series editoriales, comunicación de marca y piezas promocionales. Abre cada proyecto para recorrer sus diseños.',icon:'✎',filters:[['all','Todos'],['editorial','Editorial y contenido'],['promocional','Campañas y promoción']],items:[['wbmf','editorial'],['sabias','editorial'],['omar','editorial'],['editorial','editorial'],['historia-marketing','editorial'],['p55','promocional'],['p47','editorial'],['p16','editorial'],['p19','promocional'],['p22','promocional']]},
  {id:'fotografia',label:'Fotografía',title:'Fotografía',intro:'',desc:'Retratos y exploraciones de fotografía conceptual.',icon:'◎',filters:[['all','Todos']],items:[['foto-halloween','all'],['foto-terror','all']]},
- {id:'copywriter',label:'Redacción',title:'Redacción y contenido',intro:'',desc:'Artículos publicados y ejemplos de contenido editorial para marcas. La autoría específica se indica en cada ficha.',icon:'≡',filters:[['all','Todos'],['web','Artículos web'],['redes','Contenido para redes']],items:[['article-geo','web'],['article-tendencias','web'],['article-audiencias','web'],['article-borrador','web'],['copy-sm','redes'],['copy-wbmf','redes']]}
+ {id:'copywriter',label:'Redacción',title:'Redacción y contenido',intro:'',desc:'Artículos publicados, parrillas aprobadas y contenido editorial desarrollado para marcas.',icon:'≡',filters:[['all','Todos'],['web','Artículos web'],['redes','Contenido para redes']],items:[['article-geo','web'],['article-tendencias','web'],['article-audiencias','web'],['article-borrador','web'],['content-grid-the-homes','redes'],['content-grid-wbmf','redes']]}
 ];
 const catById=Object.fromEntries(CATS.map(c=>[c.id,c]));
 let activeCategory=null,activeFilter='all',activeItems=[],activeProject=null,stage=0,locked=false,visitorSound=true,wasPlaying=false,audioCtx=null,toastTimer=0,scrollLock=0,returnFocus=null;
@@ -37,7 +37,7 @@ function soundEffect(type='click'){
  if(CFG.enableClickSounds===false)return;
  const ac=context();if(!ac)return;
  const now=ac.currentTime;
- const hover=type==='hover',reveal=type==='reveal';
+ const hover=type==='hover',reveal=type==='reveal',rail=type==='rail',contact=type==='contact';
  const duration=reveal?.38:hover?.075:.14;
  const buffer=ac.createBuffer(1,Math.max(1,Math.round(ac.sampleRate*duration)),ac.sampleRate);
  const ch=buffer.getChannelData(0);
@@ -54,7 +54,11 @@ function soundEffect(type='click'){
   osc.type=wave;osc.frequency.setValueAtTime(from,at);osc.frequency.exponentialRampToValueAtTime(to,at+length);
   env.gain.setValueAtTime(.0001,at);env.gain.linearRampToValueAtTime(level,at+.004);
   env.gain.exponentialRampToValueAtTime(.0001,at+length);osc.connect(env);env.connect(ac.destination);osc.start(at);osc.stop(at+length+.01)};
- if(hover){
+ if(rail){
+  pulse(now,520,780,.032,.045,'square');pulse(now+.05,700,980,.023,.04,'square');
+ }else if(contact){
+  pulse(now,660,440,.03,.07,'sine');pulse(now+.075,880,660,.022,.065,'sine');
+ }else if(hover){
   pulse(now,920,620,.026,.035,'square');pulse(now+.034,710,500,.016,.03,'square');
  }else if(reveal){
   pulse(now,220,660,.032,.19,'sine');pulse(now+.12,440,880,.02,.16,'sine');
@@ -69,7 +73,9 @@ document.addEventListener('pointerover',e=>{
  const target=e.target.closest?.('button,a[href],[role="button"]');
  if(!target||target.disabled||target.contains(e.relatedTarget))return;
  const now=performance.now();if(now-lastHoverAt<125)return;
- lastHoverAt=now;soundEffect('hover');
+ lastHoverAt=now;
+ const cue=target.closest('.work-rail,.home-scene-rail,.about-dock')?'rail':target.closest('.contact-options,.work-footer-actions,.contact-link')?'contact':'hover';
+ soundEffect(cue);
 },{passive:true});
 
 const volumeInput=$('ambient-volume'),volumeValue=$('volume-value'),volumeTrigger=$('sound-toggle'),volumePanel=$('volume-panel'),musicPauseToggle=$('music-pause-toggle');
@@ -804,7 +810,8 @@ const cvDialog=$('cv-dialog'),cvOpen=$('lobby-view-cv'),cvClose=$('cv-close');
 const cvCanvas=$('cv-page-canvas'),cvFallback=$('cv-pdf-fallback');
 const cvArea=$('cv-page-area'),cvLoading=$('cv-loading'),cvPagination=$('cv-pagination');
 const cvPrev=$('cv-prev'),cvNext=$('cv-next'),cvCount=$('cv-page-count');
-let cvDocument=null,cvPage=1,cvLibPromise=null,cvRenderTask=null,cvRevision=0,cvResizeTimer=0,cvReturnFocus=null;
+const cvZoomIn=$('cv-zoom-in'),cvZoomOut=$('cv-zoom-out'),cvZoomValue=$('cv-zoom-value');
+let cvDocument=null,cvPage=1,cvZoom=1,cvLibPromise=null,cvRenderTask=null,cvRevision=0,cvResizeTimer=0,cvReturnFocus=null;
 function ensureCvLibrary(){
  if(window.pdfjsLib)return Promise.resolve(window.pdfjsLib);
  if(cvLibPromise)return cvLibPromise;
@@ -838,7 +845,7 @@ async function renderCvPage(pageNumber){
   if(!cvDialog.open||seq!==cvRevision)return;
   if(cvRenderTask){try{cvRenderTask.cancel();await cvRenderTask.promise}catch(e){}cvRenderTask=null}
   const rect=cvArea.getBoundingClientRect(),unscaled=page.getViewport({scale:1});
-  const scale=Math.min(Math.max(1,rect.width-28)/unscaled.width,Math.max(1,rect.height-24)/unscaled.height);
+  const scale=Math.min(Math.max(1,rect.width-28)/unscaled.width,Math.max(1,rect.height-24)/unscaled.height)*cvZoom;
   const viewport=page.getViewport({scale});
   const dpi=Math.min(window.devicePixelRatio||1,2);
   cvCanvas.width=Math.max(1,Math.ceil(viewport.width*dpi));
@@ -863,12 +870,18 @@ function openCvDialog(){
  cvReturnFocus=document.activeElement;
  cvDialog.classList.toggle('cv-over-about',Boolean(aboutDialog?.open));
  cvDialog.showModal();cvLoading.hidden=false;cvFallback.hidden=true;
- cvCanvas.hidden=true;cvPage=1;cvClose.focus({preventScroll:true});
+ cvCanvas.hidden=true;cvPage=1;cvZoom=1;syncCvZoom();cvClose.focus({preventScroll:true});
  requestAnimationFrame(()=>renderCvPage(1));
  soundEffect('click');
 }
-cvOpen?.addEventListener('click',openCvDialog);
-$('about-view-cv')?.addEventListener('click',openCvDialog);
+function syncCvZoom(){
+ if(cvZoomValue)cvZoomValue.textContent=Math.round(cvZoom*100)+'%';
+ if(cvZoomOut)cvZoomOut.disabled=cvZoom<=.75;
+ if(cvZoomIn)cvZoomIn.disabled=cvZoom>=1.75;
+}
+document.querySelectorAll('[data-open-cv],a[href="assets/docs/CV-Yazmin-Moreno.pdf"]').forEach(node=>node.addEventListener('click',event=>{
+ event.preventDefault();openCvDialog();
+}));
 cvClose?.addEventListener('click',()=>cvDialog.close());
 cvDialog?.addEventListener('click',e=>{if(e.target===cvDialog)cvDialog.close()});
 cvDialog?.addEventListener('close',()=>{
@@ -879,6 +892,8 @@ cvDialog?.addEventListener('close',()=>{
 });
 cvPrev?.addEventListener('click',()=>renderCvPage(cvPage-1));
 cvNext?.addEventListener('click',()=>renderCvPage(cvPage+1));
+cvZoomOut?.addEventListener('click',()=>{cvZoom=Math.max(.75,cvZoom-.25);syncCvZoom();renderCvPage(cvPage)});
+cvZoomIn?.addEventListener('click',()=>{cvZoom=Math.min(1.75,cvZoom+.25);syncCvZoom();renderCvPage(cvPage)});
 window.addEventListener('resize',()=>{
  if(!cvDialog?.open||!cvDocument)return;
  window.clearTimeout(cvResizeTimer);
@@ -962,6 +977,8 @@ $('about-contact')?.addEventListener('click',()=>{
  closeAbout();
  route('contact',null);
 });
+$('about-dock-contact')?.addEventListener('click',()=>{closeAbout();route('contact',null)});
+document.querySelector('.about-dock-home')?.addEventListener('click',closeAbout);
 aboutDialog?.addEventListener('cancel',e=>{e.preventDefault();closeAbout()});
 aboutDialog?.addEventListener('click',e=>{if(e.target===aboutDialog)closeAbout()});
 $('header-home-icon')?.addEventListener('click',e=>route('home',e.currentTarget));
@@ -1132,6 +1149,7 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
 
   build(item.clips?.length?item.clips[0].id:item.id,item.clips?.length?(item.clips[0].platform||item.platform):item.platform);
   box.append(controls,player);
+ }else if(item.type==='document'&&item.documentUrl){const frame=document.createElement('iframe');frame.className='copy-document-frame';frame.src=item.documentUrl;frame.title=item.title;frame.loading='eager';box.appendChild(frame);
  }else if(item.images?.length){const stage=document.createElement('div');stage.className='gallery-stage';const pic=document.createElement('img');pic.alt=item.title;let index=0;pic.src=item.images[index];stage.appendChild(pic);const ctl=document.createElement('div');ctl.className='gallery-controls';const prev=document.createElement('button'),next=document.createElement('button'),count=document.createElement('span');prev.textContent='←';next.textContent='→';const update=()=>{pic.src=item.images[index];count.textContent=`${index+1} / ${item.images.length}`};prev.addEventListener('click',()=>{index=(index-1+item.images.length)%item.images.length;update();soundEffect()});next.addEventListener('click',()=>{index=(index+1)%item.images.length;update();soundEffect()});update();ctl.append(prev,count,next);if(item.images.length>1)stage.appendChild(ctl);
    let touchX=null;stage.addEventListener('touchstart',e=>{touchX=e.touches[0]?.clientX??null},{passive:true});stage.addEventListener('touchend',e=>{if(touchX==null)return;const dx=(e.changedTouches[0]?.clientX??touchX)-touchX;touchX=null;if(Math.abs(dx)>55){index=(index+(dx<0?1:-1)+item.images.length)%item.images.length;update();soundEffect('click')}},{passive:true});
    box.appendChild(stage)}

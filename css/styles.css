@@ -1605,6 +1605,13 @@ body[data-theme="dark"]{--lobby-surface:#0B1A1F;--lobby-text:#FFFFFF;--lobby-mut
 .work-space:not([hidden])>.work-rail .rail-link.is-active,.work-space:not([hidden])>.work-rail .rail-link:hover{background:#4b4b4f!important}
 .work-space:not([hidden])>.work-rail .rail-icon img{filter:brightness(0) invert(1)!important}
 @media(max-width:740px){.work-space:not([hidden])>.work-rail{bottom:14px!important;width:50vw!important;padding:5px!important;border-radius:24px!important}.work-space:not([hidden])>.work-rail .rail-link{min-height:50px!important;padding:5px 3px!important;border-radius:17px!important}}
+/* CV: render locally at high DPI and let visitors inspect it without leaving. */
+.cv-close{background:#c83d3d!important;border-color:#9e2424!important;color:#fff!important}.cv-close:hover,.cv-close:focus-visible{background:#991f1f!important}
+.cv-page-area{overflow:auto!important;place-items:start center!important;scrollbar-color:#b8c4c2 transparent}
+.cv-page-area canvas{max-width:none!important;max-height:none!important;margin:auto}
+.cv-zoom-controls{display:flex;align-items:center;gap:5px;margin-right:auto}.cv-zoom-controls button{width:30px;height:30px;border:1px solid #b8c7c8;border-radius:7px;background:#fff;color:#10202a;font:800 18px/1 var(--font)}.cv-zoom-controls output{min-width:42px;text-align:center;font:800 11px var(--font);color:#3b5055}
+.about-modal-panel{padding-bottom:66px}.about-dock{position:absolute;bottom:13px;right:18px;display:flex;gap:7px;padding:5px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--bg) 92%,transparent);box-shadow:0 8px 22px rgba(0,0,0,.16)}.about-dock button{display:flex;align-items:center;gap:5px;border:0;border-radius:10px;background:transparent;color:var(--ink);padding:7px 9px;font:800 10px var(--display)}.about-dock button:hover,.about-dock button:focus-visible{background:var(--ink);color:var(--bg)}.about-dock svg{width:17px;height:17px}@media(max-width:740px){.about-modal-panel{padding-bottom:62px}.about-dock{left:12px;right:12px;bottom:8px;justify-content:space-around}.about-dock button{padding:7px 11px}}
+.copy-document-frame{width:100%;height:100%;min-height:620px;border:0;background:#fff}.media-box:has(.copy-document-frame){height:100%;min-height:620px}
 
 /* Keep the tools content scrollable above the fixed rail. */
 .scene-tools,.scene-contact{height:100%!important;display:grid!important;place-items:start center!important;align-content:start!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;scrollbar-width:none}

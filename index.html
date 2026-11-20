@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <span>Los efectos de navegación tienen volumen independiente.</span>
     </div>
     </div>
-    <a class="cv-link header-cv-link" href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer" aria-label="Ver currículum vitae">CV <span aria-hidden="true">↗</span></a>
+    <button class="cv-link header-cv-link" type="button" data-open-cv aria-haspopup="dialog" aria-controls="cv-dialog" aria-label="Ver currículum vitae">CV <span aria-hidden="true">↗</span></button>
     <button class="contact-link" id="header-contact" type="button">Hablemos <span aria-hidden="true">↗</span></button>
   </div>
 </header>
@@ -253,6 +253,7 @@ document.addEventListener('DOMContentLoaded',function(){
    <div class="about-photo-side"><img src="assets/images/yazmin-retrato.jpg" alt="Retrato de Yazmin Moreno"><div class="about-photo-overlay"><h2>Yazmin<br>Moreno<span>.</span></h2></div><p>INGENIERÍA EN COMUNICACIÓN MULTIMEDIA</p></div>
    <div class="about-description"><p class="eyebrow">SOBRE MÍ / PERFIL CREATIVO</p><h2 id="about-dialog-title">Aprender. Crear. <em>Seguir creciendo.</em></h2><p>Soy <strong class="about-highlight">creadora de contenido multimedia</strong>, con experiencia en <strong class="about-highlight">conceptualización, redacción, diseño y edición</strong> para pymes y creadores digitales.</p><p>Me interesa entender qué busca comunicar cada proyecto y transformarlo en contenido que responda a su identidad, público y objetivos. Disfruto proponer ideas y explorar distintas formas de transmitir un mensaje.</p><p>Mi experiencia también incluye la documentación de procesos, el desarrollo de herramientas para facilitar tareas y el <strong class="about-highlight">acompañamiento creativo de otros colaboradores</strong>. Me gusta <strong class="about-highlight">identificar oportunidades de mejora y encontrar soluciones prácticas</strong>.</p><p>Busco participar en proyectos donde pueda aportar mis habilidades, ampliar mis conocimientos, fortalecer mi criterio creativo y asumir nuevas responsabilidades.</p><div class="about-modal-actions"><button type="button" id="about-view-cv" aria-haspopup="dialog" aria-controls="cv-dialog">Ver CV ↗</button><button type="button" id="about-contact">Hablemos ↗</button></div></div>
   </div>
+  <nav class="about-dock" aria-label="Acciones de Sobre mí"><button type="button" class="about-dock-home" aria-label="Cerrar Sobre mí"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-7H9v7H3z"/></svg><span>Inicio</span></button><button type="button" data-open-cv aria-haspopup="dialog" aria-controls="cv-dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M13 2H6a2 2 0 0 0 2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 13h8M8 17h6"/></svg><span>CV</span></button><button type="button" id="about-dock-contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.9v3a2.1 2.1 0 0 1-2.3 2.1 19.4 19.4 0 0 1-8.3-3 19 19 0 0 1-6-6A19.4 19.4 0 0 1 2.4 4.6 2.1 2.1 0 0 1 4.5 2h3a2.1 2.1 0 0 1 2.1 1.8l.5 3a2.1 2.1 0 0 1-.6 1.8L7.7 10a16 16 0 0 0 6.3 6.3l1.4-1.8a2.1 2.1 0 0 1 1.8-.6l3 .5A2.1 2.1 0 0 1 22 16.9z"/></svg><span>Contacto</span></button></nav>
  </div>
 </dialog>
 <dialog id="project-viewer" class="project-viewer" aria-labelledby="viewer-title">
@@ -283,7 +284,7 @@ document.addEventListener('DOMContentLoaded',function(){
         <span id="cv-page-count">1 / 1</span>
         <button type="button" id="cv-next" aria-label="Página siguiente">→</button>
       </div>
-      <a href="assets/docs/CV-Yazmin-Moreno.pdf" target="_blank" rel="noopener noreferrer">Ver en grande ↗</a>
+      <div class="cv-zoom-controls" aria-label="Zoom del currículum"><button type="button" id="cv-zoom-out" aria-label="Alejar">−</button><output id="cv-zoom-value" for="cv-zoom-out cv-zoom-in">100%</output><button type="button" id="cv-zoom-in" aria-label="Acercar">+</button></div>
       <a href="assets/docs/CV-Yazmin-Moreno.pdf" download="CV-Yazmin-Moreno.pdf">Guardar PDF <span aria-hidden="true">↓</span></a>
     </div>
   </div>
