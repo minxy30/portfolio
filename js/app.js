@@ -31,33 +31,38 @@ function setTheme(val){document.body.dataset.theme=val;setPref('ym-theme',val);$
 setTheme(localPref('ym-theme')||'light');
 $('theme-toggle').addEventListener('click',()=>{setTheme(document.body.dataset.theme==='dark'?'light':'dark');soundEffect('toggle')});
 function context(){if(!audioCtx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;audioCtx=new C()}if(audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});return audioCtx}
-// Navigation SFX are independent of background music and never muted by the music button.
+// Navigation SFX are original arcade-style UI cues, independent of background music.
 let lastHoverAt=0;
 function soundEffect(type='click'){
  if(CFG.enableClickSounds===false)return;
  const ac=context();if(!ac)return;
  const now=ac.currentTime;
  const hover=type==='hover',reveal=type==='reveal';
- const duration=reveal?.43:hover?.057:.11;
+ const duration=reveal?.38:hover?.075:.14;
  const buffer=ac.createBuffer(1,Math.max(1,Math.round(ac.sampleRate*duration)),ac.sampleRate);
  const ch=buffer.getChannelData(0);
- for(let i=0;i<ch.length;i++)ch[i]=(Math.random()*2-1);
+ for(let i=0;i<ch.length;i++)ch[i]=(Math.random()*2-1)*(1-i/ch.length);
  const noise=ac.createBufferSource();noise.buffer=buffer;
  const filter=ac.createBiquadFilter();filter.type=reveal?'bandpass':'lowpass';
- filter.frequency.setValueAtTime(reveal?350:hover?1750:1050,now);filter.Q.value=reveal?.4:.7;
- if(reveal)filter.frequency.exponentialRampToValueAtTime(1500,now+duration*.7);
+ filter.frequency.setValueAtTime(reveal?340:hover?2600:1350,now);filter.Q.value=reveal?.5:1.1;
+ if(reveal)filter.frequency.exponentialRampToValueAtTime(1850,now+duration*.72);
  const gain=ac.createGain();gain.gain.setValueAtTime(.0001,now);
- gain.gain.linearRampToValueAtTime(reveal?.11:hover?.062:.085,now+(reveal?.12:hover?.005:.006));
+ gain.gain.linearRampToValueAtTime(reveal?.085:hover?.035:.06,now+(reveal?.11:hover?.004:.006));
  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
  noise.connect(filter);filter.connect(gain);gain.connect(ac.destination);noise.start(now);noise.stop(now+duration);
- if(!reveal){const tap=ac.createOscillator(),env=ac.createGain();tap.type='triangle';
-  tap.frequency.setValueAtTime(hover?240:185,now);
-  tap.frequency.exponentialRampToValueAtTime(hover?150:105,now+(hover?.042:.068));
-  env.gain.setValueAtTime(hover?.025:.034,now);
-  env.gain.exponentialRampToValueAtTime(.0001,now+(hover?.05:.078));
-  tap.connect(env);env.connect(ac.destination);tap.start(now);tap.stop(now+(hover?.053:.08))}
+ const pulse=(at,from,to,level,length,wave='triangle')=>{const osc=ac.createOscillator(),env=ac.createGain();
+  osc.type=wave;osc.frequency.setValueAtTime(from,at);osc.frequency.exponentialRampToValueAtTime(to,at+length);
+  env.gain.setValueAtTime(.0001,at);env.gain.linearRampToValueAtTime(level,at+.004);
+  env.gain.exponentialRampToValueAtTime(.0001,at+length);osc.connect(env);env.connect(ac.destination);osc.start(at);osc.stop(at+length+.01)};
+ if(hover){
+  pulse(now,920,620,.026,.035,'square');pulse(now+.034,710,500,.016,.03,'square');
+ }else if(reveal){
+  pulse(now,220,660,.032,.19,'sine');pulse(now+.12,440,880,.02,.16,'sine');
+ }else{
+  pulse(now,380,185,.05,.075);pulse(now+.058,760,470,.025,.06,'square');
+ }
 }
-// Desktop hover has one soft plastic tap, rate-limited to avoid a cascade of clicks.
+// Desktop hover has a short two-pulse selection cue, rate-limited to avoid a cascade.
 document.addEventListener('pointerover',e=>{
  if(document.body.classList.contains('pre-entry'))return;
  if(e.pointerType!=='mouse'&&e.pointerType!=='pen')return;
