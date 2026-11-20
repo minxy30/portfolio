@@ -1883,3 +1883,39 @@ body[data-screen="home"]::-webkit-scrollbar,#home-deck::-webkit-scrollbar{displa
   margin-top:13px!important;
  }
 }
+
+
+/* About me — six destination dock, always within modal width.
+   Footer has its own space so the last paragraph remains reachable. */
+.about-viewer .about-modal-panel{padding-bottom:clamp(72px,11dvh,102px)!important}
+.about-viewer .about-dock{
+ position:absolute!important;left:50%!important;right:auto!important;
+ transform:translateX(-50%)!important;bottom:clamp(9px,1.5dvh,18px)!important;
+ width:min(690px,calc(100% - 30px))!important;max-width:calc(100% - 30px)!important;
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;
+ align-items:stretch!important;gap:clamp(1px,.6vw,7px)!important;
+ padding:clamp(4px,.55vw,7px)!important;
+ box-sizing:border-box!important;border-radius:19px!important;
+ z-index:4!important;
+}
+.about-viewer .about-dock button{
+ display:flex!important;flex-direction:column!important;align-items:center!important;
+ justify-content:center!important;gap:4px!important;text-align:center!important;
+ min-width:0!important;min-height:50px!important;padding:6px 2px!important;
+ font-size:clamp(8px,.75vw,10px)!important;line-height:1.15!important;
+ overflow-wrap:anywhere;white-space:normal;
+}
+.about-viewer .about-dock svg,.about-viewer .about-dock img{
+ display:block;width:clamp(18px,1.6vw,22px)!important;height:clamp(18px,1.6vw,22px)!important;
+ flex:none;object-fit:contain;
+}
+.about-viewer .about-dock img{filter:none}
+.about-viewer .about-dock button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.about-viewer .about-description{justify-content:flex-start!important}
+.about-viewer .about-description>.eyebrow{font-weight:800;letter-spacing:.12em}
+@media(max-width:740px){
+ .about-viewer .about-modal-panel{padding-bottom:76px!important}
+ .about-viewer .about-dock{width:calc(100% - 16px)!important;max-width:calc(100% - 16px)!important;bottom:8px!important;gap:2px!important}
+ .about-viewer .about-dock button{min-height:49px!important;font-size:clamp(7px,2.05vw,9px)!important;padding:6px 1px!important}
+ .about-viewer .about-dock svg,.about-viewer .about-dock img{width:19px!important;height:19px!important}
+}
