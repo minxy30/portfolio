@@ -1071,19 +1071,15 @@ function makeMedia(item){const media=$('viewer-media');media.replaceChildren();c
 // Hover-only particle assembly reveals the actual brand logo after a soft dust burst.
 
 
-// The full tool library stays centered and FIXED within a single scene.
-// On smaller screens, scale the content uniformly instead of creating an
-// internal scrollbar; filters and scene navigation remain available.
+// Layout responds to every viewport resize without shrinking text to tiny
+// unreadable sizes. CSS centers the scene; overflow remains scrollable.
 let toolFitFrame=0;
 function fitToolScene(){
  const scene=$('scene-tools'),inner=scene?.querySelector('.scene-inner');
  if(!scene||!inner)return;
- inner.style.setProperty('--tools-fit','1');
- if(matchMedia('(max-width: 740px)').matches)return;
- const available=Math.max(150,scene.clientHeight-44);
- const needed=Math.max(inner.scrollHeight,inner.offsetHeight);
- const scale=Math.max(.24,Math.min(1,available/Math.max(needed,1)));
- inner.style.setProperty('--tools-fit',String(scale));
+ inner.style.removeProperty('--tools-fit');
+ scene.classList.toggle('tools-compact',scene.clientHeight<740);
+ scene.classList.toggle('tools-tight',scene.clientHeight<560);
 }
 function queueToolFit(){
  cancelAnimationFrame(toolFitFrame);
