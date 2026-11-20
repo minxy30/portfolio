@@ -139,7 +139,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza final preparada para comunicación digital."
   },
   "omar": {
-    "title": "¿Para qué sirve un broker hipotecario?",
+    "title": "¿Buscas casa? Esto hace un broker hipotecario",
     "kind": "Diseño editorial · Omar China",
     "deck": "Carrusel informativo para Omar China",
     "description": "Carrusel sobre el papel de un broker hipotecario, creado como parte de la gestión de contenidos de Omar China.",
@@ -194,7 +194,7 @@ window.PORTFOLIO_DATA = {
     "results": "Dos publicaciones de una producción editorial semanal."
   },
   "sabias": {
-    "title": "¿Sabías que…? Ideas que sorprenden",
+    "title": "¿Sabías que…? El marketing está lleno de historias sorprendentes",
     "kind": "Carrusel editorial · Smarketing 360",
     "deck": "Concepto y contenido desarrollados desde cero",
     "description": "Carrusel de divulgación sobre ideas de marketing, desarrollado a partir de una propuesta creativa propia.",
@@ -455,7 +455,7 @@ window.PORTFOLIO_DATA = {
     "results": "Pieza incluida en la selección de diseño."
   },
   "p16": {
-    "title": "3 películas para entender el marketing",
+    "title": "3 películas que te enseñan marketing sin parecer una clase",
     "kind": "Diseño editorial · Marketing",
     "deck": "Carrusel de recomendaciones cinematográficas",
     "description": "Carrusel editorial sobre tres películas relacionadas con el marketing.",
