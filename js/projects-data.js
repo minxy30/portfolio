@@ -1,4 +1,22 @@
 window.PORTFOLIO_DATA = {
+  "thehomes-navidad": {
+    "title": "The Homes · Campaña inmobiliaria navideña",
+    "kind": "Diseño gráfico · Campaña inmobiliaria",
+    "deck": "Dos artes promocionales con una misma temática navideña",
+    "description": "Serie de dos piezas publicitarias para propiedades en Zaqueía y Zarú, Querétaro. La propuesta integra fotografías de interiores, información inmobiliaria y recursos gráficos navideños para comunicar cada inmueble.",
+    "role": [
+      "Diseño base, composición y decisiones visuales de ambas piezas en Canva",
+      "Organización de títulos, precios, características y elementos gráficos de temporada",
+      "Integración de fotografías de los inmuebles mejoradas con ChatGPT"
+    ],
+    "type": "gallery",
+    "images": [
+      "https://drive.google.com/thumbnail?id=1zMFf2wBVE2aoDB6_ve21Q4pjozqRdTsc&sz=w1200",
+      "https://drive.google.com/thumbnail?id=1c0FijB5ukQWat_0YX-3f33BgXkwc_IMV&sz=w1200"
+    ],
+    "tools": "Canva · ChatGPT",
+    "results": "Dos artes de campaña; no se atribuyen resultados comerciales."
+  },
   "nuevo-sep28-a": {
     "title": "Mercadotecnia Total · Presentación institucional para eventos",
     "kind": "Video horizontal · Motion graphics",
